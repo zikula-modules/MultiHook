@@ -22,6 +22,11 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // =======================================================================
 
+/**
+ * startsession
+ * starts a new session with pixelnet.de and sets the cart counter to 0
+ *
+ */
 function pixelnet_userapi_startsession($args)
 {
     extract($args);

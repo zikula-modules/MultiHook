@@ -1,0 +1,10 @@
+Anleitung
+---------
+
+pixelnet nach modules kopieren, installieren, aktivieren.
+
+Inhalt von pixelnet/photoshare/templates nach modules/photoshare/templates 
+kopieren. Jetzt gibts in Photoshare einen Galerietyp pixelnet.
+
+Die Bilder _müssen_ zur Zeit im Filesystem gespeichert sei, Bilder in der 
+Datenbank werden noch nicht unterstützt!

@@ -22,13 +22,24 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // =======================================================================
 
-
+/**
+ * startsession
+ * stub function for pixelnet_userapi_startsession
+ *
+ */
 function pixelnet_user_startsession()
 {
-    pnModAPILoad('pixelnet', 'user');
+    if(!pnModAPILoad('pixelnet', 'user')) {
+        return "kann pixelnext userapi nicht laden";
+    }
     return pnModAPIFunc('pixelnet', 'user', 'startsession');
 }
 
+/**
+ * sessionstarted
+ * called from pixelnet.de when session has been started
+ *
+ */
 function pixelnet_user_sessionstarted()
 {
     list($sid,
@@ -47,6 +58,11 @@ function pixelnet_user_sessionstarted()
     return true;
 }
 
+/**
+ * gotoshop
+ * guess what the unction does...
+ *
+ */
 function pixelnet_user_gotoshop()
 {
     $shopURL = "http://www.pixelnet.de/upload/";
@@ -60,6 +76,12 @@ function pixelnet_user_gotoshop()
     return true;
 }
 
+/**
+ * addimage
+ * adds an image to the art by sneding it to pixelnet.de
+ *
+ *@params $pid int photoshare image id
+ */
 function pixelnet_user_addimage()
 {
     $pid = pnVarCleanFromInput('pid');
@@ -86,6 +108,10 @@ function pixelnet_user_addimage()
     return true;
 }
 
+/**
+ * imageadded
+ * gets called fom pixelnet.de after adding an image
+ */
 function pixelnet_user_imageadded()
 {
     $fid = pnSessionGetVar('pixelnet_fid');
@@ -95,4 +121,5 @@ function pixelnet_user_imageadded()
     pnRedirect($redirect);
     return true;
 }
+
 ?>

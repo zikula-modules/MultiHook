@@ -22,6 +22,10 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // =======================================================================
 
+/**
+ * main
+ *
+ */
 function pixelnet_admin_main()
 {
     $pnr =& new pnRender('pixelnet');
@@ -30,6 +34,13 @@ function pixelnet_admin_main()
     return $pnr->fetch('pixelnet_admin_main.html');
 }
 
+/**
+ * update
+ * update settings
+ *
+ *@params $vcode string the pixelnet.de vcode, only need for commercial image galleries
+ *
+ */
 function pixelnet_admin_update()
 {
     $vcode = pnVarCleanFromInput('vcode');
