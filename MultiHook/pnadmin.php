@@ -311,11 +311,6 @@ function MultiHook_admin_view()
                                 'filter'   => $filter,
                                 'numitems' => pnModGetVar('MultiHook',
                                                           'itemsperpage')));
-    if (empty($abacs)) {
-        pnSessionSetVar('statusmsg', _MH_NOITEMS);
-        pnRedirect(pnModURL('MultiHook','admin','main'));
-        return true;
-    }
     // set permission flags
     for($cnt=0; $cnt<count($abacs); $cnt++ ) {
         $abacs[$cnt]['edit'] = false;

@@ -2,8 +2,8 @@ $Id$
 
 Copy the MultiHook folder to your Postnuke's modules folder, regenerate the 
 modules list in the admin panel, initialize and activate it. Do not forget to
-activate the MultiHook for the modules you want to use it with, like phpBB_14
-or pnForum.
+activate the MultiHook for the modules you want to use it with, like phpBB_14,
+pnForum or Pagesetter.
 
 If present, the links stored in AutoLinks will be copied to the MultiHook
 tables.
@@ -15,7 +15,7 @@ Internet Explorer special trick:
 --------------------------------
 
 IE cannot (sigh...) handle the abbr tag correctly (or better said: it cannot
-handle it at all). We need a special css trick to make this
+handle it correctly at all). We need a special css trick to make this
 possible. Add this
 
 abbr, acronym, span.abbr
@@ -26,7 +26,7 @@ abbr, acronym, span.abbr
 
 to your stylesheet files.
 
-The abbr tag created with look like this:
+The abbr tag created will look like this:
 
 <abbr title="longlonglong"><span class="abbr" title="longlonglong">short</span></abbr>
 

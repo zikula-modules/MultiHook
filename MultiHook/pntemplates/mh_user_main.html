@@ -31,7 +31,11 @@
             <!--[ $abac.long ]-->
         </td>
         <td style="text-align: center; font-size: 12px;">
-            <!--[ $abac.title ]-->
+            <!--[ if $abac.type eq 2 ]-->
+                <a title="<!--[ $abac.title ]-->" href="<!--[ $abac.title ]-->"><!--[ $abac.title ]--></a>
+            <!--[ else ]-->
+                <!--[ $abac.title ]-->
+            <!--[ /if ]-->
         </td>
     </tr>
     <!--[ foreachelse ]-->

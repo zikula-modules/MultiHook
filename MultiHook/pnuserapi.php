@@ -260,12 +260,15 @@ function MultiHook_userapitransform($text)
         $text = preg_replace('/(' . preg_quote($matches[1][$i], '/') . ')/', " MULTIHOOKTAGREPLACEMENT{$i} ", $text, 1);
     }
 
+/* not used atm 
+
     // Step 3 - move all dashes out of the text and replace them with placeholders
     preg_match_all('/(\-*)/', $text, $dashes);
     $dashnum = count($dashes[1]);
     for ($i = 0; $i <$dashnum; $i++) {
         $text = preg_replace('/(' . preg_quote($dashes[1][$i], '/') . ')/', " MULTIHOOKDASHREPLACEMENT{$i} ", $text, 1);
     }
+*/
 
     // Step 4 - the main replacements
     if($onlyonce==true) {
@@ -277,10 +280,12 @@ function MultiHook_userapitransform($text)
     // Step 5 - replace the spaces we munged in preparation of step 4
     $text = preg_replace('/MULTIHOOKTEMPORARY/', '', $text);
 
+/* not used atm
     // Step 6 - replace the dashes that we removed in step 3
     for ($i = 0; $i <$dashnum; $i++) {
         $text = preg_replace("/ MULTIHOOKDASHREPLACEMENT{$i} /", $dashes[1][$i], $text, 1);
     }
+*/
 
     // Step 7 - replace the HTML tags that we removed in step 2
     for ($i = 0; $i <$matchnum; $i++) {
