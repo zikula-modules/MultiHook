@@ -243,11 +243,15 @@ function MultiHook_userapitransform($text)
     // Step 5 - move all bbcode with [code][/code] out of the way
     //          if MultiHook is configured accordingly
     if($mhincodetags==false) {
-        $codecount1 = preg_match_all("#\[code(.*)\](.*)\[\/code\]#si", $text, $codes1);
+        // if we are faster than pn_bbcode, we will have to remove the code tags
+        $codecount1 = preg_match_all("/\[code(.*)\](.*)\[\/code\]/si", $text, $codes1);
         for($i=0; $i < $codecount1; $i++) {
-            $text = preg_replace('/(' . preg_quote($codes1[2][$i], '/') . ')/', " MULTIHOOKCODE1REPLACEMENT{$i} ", $text, 1);
+            $text = preg_replace('/(' . preg_quote($codes1[0][$i], '/') . ')/', " MULTIHOOKCODE1REPLACEMENT{$i} ", $text, 1);
         }
-        $codecount2 = preg_match_all("#<!--code-->(.*)<!--/code-->#si", $text, $codes2);
+        // but pn_bbode may have been faster than uwe are,. To avoid any problems its embraces the
+        // replaced code tags with <!--code--> and <!--/code--> 
+        // there is what we are taking care of now
+        $codecount2 = preg_match_all("/<!--code-->(.*)<!--\/code-->/si", $text, $codes2);
         for($i=0; $i < $codecount2; $i++) {
             $text = preg_replace('/(' . preg_quote($codes2[0][$i], '/') . ')/', " MULTIHOOKCODE2REPLACEMENT{$i} ", $text, 1);
         }
@@ -297,7 +301,7 @@ function MultiHook_userapitransform($text)
             $text = preg_replace("/ MULTIHOOKCODE2REPLACEMENT{$i} /", $codes2[0][$i], $text, 1);
         }
         for ($i = 0; $i < $codecount1; $i++) {
-            $text = preg_replace("/ MULTIHOOKCODE1REPLACEMENT{$i} /", $codes1[2][$i], $text, 1);
+            $text = preg_replace("/ MULTIHOOKCODE1REPLACEMENT{$i} /", $codes1[0][$i], $text, 1);
         }
     }
     for ($i = 0; $i < $linkcount; $i++) {
