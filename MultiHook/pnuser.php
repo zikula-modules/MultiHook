@@ -66,6 +66,7 @@ function MultiHook_user_main()
 
     // Create output object
     $pnr =& new pnRender('MultiHook');
+    $pnr->caching = false;
     $pnr->assign('abacs', $abacs);
     $pnr->assign('title', $titles[$filter]);
     $pnr->assign('filter', $filter);
