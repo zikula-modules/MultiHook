@@ -8,3 +8,20 @@ kopieren. Jetzt gibts in Photoshare einen Galerietyp pixelnet.
 
 Die Bilder _müssen_ zur Zeit im Filesystem gespeichert sei, Bilder in der 
 Datenbank werden noch nicht unterstützt!
+
+Druckbare Bilder
+----------------
+
+Photoshare speichert Bilder als imgxxx und tmbxxx für Image und Thumbnail mit
+xxx als fortlaufender Nummer.
+
+Da diese Bilder zur einfacheren Übertragung meistens herunterskaliert wurden,
+unterstützt das Pixelnet Modul zusätzlich noch imgxxx_hires.jpg Bilder (zur Zeit
+nur jpg mit exakt diesen Dateinamen!), die, sofern sie vorhanden sind, zum 
+Ausdruck nach pixelnet.de gesendet werden.
+
+Volle 5,1 Megapixel (2944*1940) sehen halt besser aus als 800*600, sind dafür
+aber halt auch 6-7 so groß.
+
+Die hochauflösenden Bilder müssen per ftp ins gleiche Verzeichnis kopiert
+werden wir die imgxxx ud tmbxxx Dateien.
