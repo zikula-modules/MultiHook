@@ -1,0 +1,61 @@
+$Id$
+
+Copy the MultiHook folder to your Postnuke's modules folder, regenerate the 
+modules list in the admin panel, initialize and activate it. Do not forget to
+activate the MultiHook for the modules you want to use it with, like phpBB_14
+or pnForum.
+
+If present, the links stored in AutoLinks will be copied to the MultiHook
+tables.
+
+You can now add links, acronyms and abbreviations in the admin panel.
+
+
+Internet Explorer special trick:
+--------------------------------
+
+IE cannot (sigh...) handle the abbr tag correctly (or better said: it cannot
+handle it at all). We need a special css trick to make this
+possible. Add this
+
+abbr, acronym, span.abbr
+{
+    cursor: help;
+    border-bottom: 1px dashed #000;
+}
+
+to your stylesheet files.
+
+The abbr tag created with look like this:
+
+<abbr title="longlonglong"><span class="abbr" title="longlonglong">short</span></abbr>
+
+So it will work on IE and not break Mozilla or other Gecko based browsers.
+
+External Links
+--------------
+MultiHook can add special markup for external links. For this feature you can (and
+should) specify a css class in the configuration, e.g. externallink.
+
+The css declaration in your style.css / styleNN.css can look like:
+
+a.externallink {
+padding-left:  14px;
+font-size: 11px;
+background-image: url('../../../modules/MultiHook/pnimages/extlink.gif');
+background-position: left;
+background-repeat: no-repeat;
+}
+a:hover.externallink {
+padding-left:  14px;
+font-size: 11px;
+background-image: url('../../../modules/MultiHook/pnimages/extlink.gif');
+background-position: left;
+background-repeat: no-repeat;
+}
+
+This adds the image extlink.gif to the left of the created link. Please note that
+the path to the image file is relative to the place of the css file used. Without
+the a:hover the image would disappear in IE when the mouse is over the link 
+(sigh, again IE..).
+

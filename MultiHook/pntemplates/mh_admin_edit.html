@@ -1,0 +1,63 @@
+<!--[* $Id$ *]-->
+
+<!--[ include file=mh_admin_header.html ]-->
+
+<div style="text-align: center;"<!--[ pnml name='_MH_ADD' ]--></div>
+
+<form action="<!--[ $abbrstorelink|pnvarprepfordisplay ]-->" method="post">
+<input type="hidden" name="authid" value="<!--[ pnsecgenauthkey ]-->">
+<input type="hidden" name="abbr_aid" value="<!--[ $abac.aid ]-->">
+
+<div>
+    <div style="width: 50%; text-align: left; float: left;">
+        <!--[ pnml name='_MH_SHORT' ]-->
+    </div>
+    <div style="width: 50%; text-align: left; float: right;">
+        <input type="text" name="abbr_short" id="abbr_short" value="<!--[ $abac.short ]-->" size="20" maxlength="20">
+    </div>
+</div>
+
+<div style="clear: both; padding-top: 10px;">
+    <div style="width: 30%; text-align: left; float: left;">
+        <!--[ pnml name='_MH_LONG' ]-->&nbsp;<!--[ pnml name='_MH_LONGHINT' ]-->
+    </div>
+    <div style="width: 50%; text-align: left; float: right;">
+        <input type="text" name="abbr_long" id="abbr_long" value="<!--[ $abac.long ]-->" size="40" maxlength="100">
+    </div>
+</div>
+
+<div style="clear: both; padding-top: 10px;">
+    <div style="width: 30%; text-align: left; float: left;">
+        <!--[ pnml name='_MH_TITLE' ]-->&nbsp;<!--[ pnml name='_MH_TITLEHINT' ]-->
+    </div>
+    <div style="width: 50%; text-align: left; float: right;">
+        <input type="text" name="abbr_title" id="abbr_title" value="<!--[ $abac.title ]-->" size="40" maxlength="100">
+    </div>
+</div>
+
+<div style="clear: both; padding-top: 10px;">
+    <div style="width: 30%; text-align: left; float: left;">
+        <!--[ pnml name='_MH_TYPE' ]-->
+    </div>
+    <div style="width: 50%; text-align: left; float: right;">
+        <select id="abbr_type" name="abbr_type">
+        <!--[ html_options options=$types selected=$abac.type ]-->
+        </select>
+    </div>
+</div>
+
+<div style="clear: both; padding-top: 10px;">
+    <div style="width: 30%; text-align: left; float: left;">
+        <!--[ pnml name='_MH_LANGUAGE' ]-->
+    </div>
+    <div style="width: 50%; text-align: left; float: right;">
+        <!--[ languagelist name=abbr_language selected=$abac.language ]-->
+    </div>
+</div>
+
+<br /><br />
+<input type="submit" name="submit" id="submit" value="<!--[ pnml name='_MH_CREATE' ]-->">
+</form>
+<br />
+
+<!--[ include file=mh_admin_footer.html ]-->

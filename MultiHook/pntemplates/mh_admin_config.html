@@ -1,0 +1,56 @@
+<!--[* $Id$ *]-->
+
+<!--[ include file=mh_admin_header.html ]-->
+
+<!--[ pngetstatusmsg ]--><br />
+<div style="text-align: center;"><!--[ pnml name='_MH_MODIFYCONFIG' ]--></div>
+<br />
+
+<form action="<!--[ pnmodurl modname=MultiHook type=admin func=updateconfig ]-->" method="post">
+<input type="hidden" name="authid" value="<!--[ pnsecgenauthkey ]-->">
+
+<div style="clear: both;">
+    <div style="width: 50%; text-align: left; float: left;">
+        <!--[ pnml name='_MH_ABACFIRST' ]-->
+    </div>
+
+    <div style="width: 50%; text-align: left; float: right;">
+        <input type="checkbox" name="abacfirst" value="1" <!--[ if $abacfirst==1 ]-->checked="checked"<!--[ /if ]--> >
+    </div>
+</div>
+
+<div style="clear: both;">
+    <div style="width: 50%; text-align: left; float: left;">
+        <!--[ pnml name='_MH_INVISIBLELINKS' ]-->
+    </div>
+
+    <div style="width: 50%; text-align: left; float: right;">
+        <input type="checkbox" name="invisiblelinks" value="1" <!--[ if $invisiblelinks==1 ]-->checked="checked"<!--[ /if ]--> >
+    </div>
+</div>
+
+<div style="clear: both;">
+    <div style="width: 50%; text-align: left; float: left;">
+        <!--[ pnml name='_MH_EXTERNALLINKCLASS' ]-->
+    </div>
+
+    <div style="width: 50%; text-align: left; float: right;">
+        <input type="text" size="20" maxlength="40" name="externallinkclass" value="<!--[ $externallinkclass ]-->" >
+    </div>
+</div>
+    
+<div style="clear: both;">
+    <div style="width: 50%; text-align: left; float: left;">
+        <!--[ pnml name='_MH_ITEMSPERPAGE' ]-->
+    </div>
+
+    <div style="width: 50%; text-align: left; float: right;">
+        <input type="text" size="4" maxlength="4" name="itemsperpage" value="<!--[ $itemsperpage ]-->" >
+    </div>
+</div>
+
+<br /><br />
+<input type="submit" name="submit" value="<!--[ pnml name='_MH_UPDATECONFIG' ]-->">
+</form>
+
+<!--[ include file=mh_admin_footer.html ]-->

@@ -1,0 +1,5 @@
+$Id$
+
+MultiHook written by Frank Schummertz (frank.schummertz@landseer-stuttgart.de) and
+is basing on AutoLinks by Jim McDonald.
+

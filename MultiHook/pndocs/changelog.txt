@@ -1,0 +1,4 @@
+$Id$
+
+Version 1.0  7 October 2004
+   - initial version
