@@ -24,6 +24,7 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
+define('_MH_MHINCODETAGS', 'Use MultiHook inside [code][/code]');
 define('_MH_EXTERNALLINKCLASS', 'CSS-Classdefinition for external links');
 
 define('_MH_CREATED','entry created');

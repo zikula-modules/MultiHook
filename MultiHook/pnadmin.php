@@ -350,6 +350,7 @@ function MultiHook_admin_modifyconfig()
     $pnr =& new pnRender('MultiHook');
     $pnr->caching = false;
     $pnr->assign('abacfirst', pnModGetVar('MultiHook', 'abacfirst'));
+    $pnr->assign('mhincodetags', pnModGetVar('MultiHook', 'mhincodetags'));
     $pnr->assign('itemsperpage', pnModGetVar('MultiHook', 'itemsperpage'));
     $pnr->assign('externallinkclass', pnModGetVar('MultiHook', 'externallinkclass'));
     return $pnr->fetch('mh_admin_config.html');
@@ -361,8 +362,10 @@ function MultiHook_admin_modifyconfig()
 function MultiHook_admin_updateconfig()
 {
     list($abacfirst,
+         $mhincodetags,
          $externallinkclass,
          $itemsperpage)= pnVarCleanFromInput('abacfirst',
+                                             'mhincodetags',
                                              'externallinkclass',
                                              'itemsperpage');
 
@@ -380,6 +383,8 @@ function MultiHook_admin_updateconfig()
     if (!isset($itemsperpage)) {
         $itemsperpage = 20;
     }
+
+    pnModSetVar('MultiHook', 'mhincodetags', $mhincodetags);
     pnModSetVar('MultiHook', 'itemsperpage', $itemsperpage);
     pnModSetVar('MultiHook', 'externallinkclass', $externallinkclass);
 

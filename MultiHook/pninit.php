@@ -54,6 +54,7 @@ function MultiHook_init()
     pnModSetVar('MultiHook', 'itemsperpage', 20);
     pnModSetVar('MultiHook', 'abacfirst', 1);
     pnModSetVar('MultiHook', 'invisiblelinks', 1);
+    pnModSetVar('MultiHook', 'mhincodetags', 0); 	
 
     // Set up module hooks
     if (!pnModRegisterHook('item',
@@ -110,13 +111,12 @@ function MultiHook_init()
  */
 function MultiHook_upgrade($oldversion)
 {
-/*
     // Upgrade dependent on old version number
     switch($oldversion) { 
-        case '0.01':   	
+        case '1.0':
+            pnModSetVar('MultiHook', 'mhincodetags', 0); 	
     	break;
     }
-*/
     return true;
 }
 
@@ -151,6 +151,7 @@ function MultiHook_delete()
     pnModDelVar('MultiHook', 'abacfirst');
     pnModDelVar('MultiHook', 'invisiblelink');
     pnModDelVar('MultiHook', 'itemsperpage');
+    pnModDelVar('MultiHook', 'mhincodetags'); 	
 
     // Deletion successful
     return true;
