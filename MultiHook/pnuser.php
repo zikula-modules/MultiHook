@@ -57,7 +57,7 @@ function MultiHook_user_main()
         $abacscount = pnModAPIFunc('MultiHook', 'user', 'countitems', array('filter' => $filter));
     } else {
         $abacs = array();
-        $abascount = 0;
+        $abacscount = 0;
         $filter = -1;
     }
     $titles = array( _MH_VIEWABBR,
