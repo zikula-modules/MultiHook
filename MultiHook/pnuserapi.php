@@ -217,14 +217,14 @@ function MultiHook_userapitransform($text)
     $mhincodetags = (pnModGetVar('MultiHook', 'mhincodetags')==1) ? true : false;
 
     // Step 1 - move all links out of the text and replace them with placeholders
-    $tagscount = preg_match_all('/<a(.*)>(.*)<\/a>/si', $text, $tags);
-    for ($i = 0; $i <$tagscount; $i++) {
-        $text = preg_replace('/(' . preg_quote($tags[0][$i], '/') . ')/', " MULTIHOOKLINKREPLACEMENT{$i} ", $text, 1);
+    $tagcount = preg_match_all('/<a(.*)>(.*)<\/a>/si', $text, $tags);
+    for ($i = 0; $i < $tagcount; $i++) {
+        $text = preg_replace('/(' . preg_quote($tags[0][$i], '/') . ')/', " MULTIHOOKTAGREPLACEMENT{$i} ", $text, 1);
     }
 
     // Step 2 - move all urls in img tags out of the way
     $imgcount = preg_match_all('/<img(.*)>/si', $text, $imgs);
-    for ($i = 0; $i <$imgcount; $i++) {
+    for ($i = 0; $i < $imgcount; $i++) {
         $text = preg_replace('/(' . preg_quote($imgs[1][$i], '/') . ')/', " MULTIHOOKIMGSRCREPLACEMENT{$i} ", $text, 1);
     }
     
@@ -234,7 +234,13 @@ function MultiHook_userapitransform($text)
         $text = preg_replace('/(' . preg_quote($urls[0][$i], '/') . ')/', " MULTIHOOKURLREPLACEMENT{$i} ", $text, 1);
     }
 
-    // Step 4 - move all bbcode with [code][/code] out of the way
+    // Step 4 - move all urls starting with http:// etc. out of the way
+    $linkcount = preg_match_all("/(http|https|ftp|ftps|news)\:\/\/([a-zA-Z0-9\-\._]+[\.]{1}[a-zA-Z]{2,6})(\/[a-zA-Z0-9\-\.\?\,\'\/\\\+&%\$#_=~]+)?/si", $text, $links);
+    for($i=0; $i < $linkcount; $i++) {
+        $text = preg_replace('/(' . preg_quote($links[0][$i], '/') . ')/', " MULTIHOOKLINKREPLACEMENT{$i} ", $text, 1);
+    }
+
+    // Step 5 - move all bbcode with [code][/code] out of the way
     //          if MultiHook is configured accordingly
     if($mhincodetags==false) {
         $codecount1 = preg_match_all("#\[code(.*)\](.*)\[\/code\]#si", $text, $codes1);
@@ -275,17 +281,17 @@ function MultiHook_userapitransform($text)
         }
     }
 
-    // Step 5 - the main replacements
+    // Step 6 - the main replacements
     if($onlyonce==true) {
         $text = preg_replace($search, $replace, $text, 1);
     } else {
         $text = preg_replace($search, $replace, $text);
     }
 
-    // Step 6 - replace the spaces we munged in preparation of step 3
+    // Step 7 - replace the spaces we munged in preparation of step 3
     $text = preg_replace('/MULTIHOOKTEMPORARY/', '', $text);
 
-    // Step 7-10 - replace the tags that we removed before
+    // Step 8-11 - replace the tags that we removed before
     if($mhincodetags==false) {
         for ($i = 0; $i < $codecount2; $i++) {
             $text = preg_replace("/ MULTIHOOKCODE2REPLACEMENT{$i} /", $codes2[0][$i], $text, 1);
@@ -294,14 +300,17 @@ function MultiHook_userapitransform($text)
             $text = preg_replace("/ MULTIHOOKCODE1REPLACEMENT{$i} /", $codes1[2][$i], $text, 1);
         }
     }
+    for ($i = 0; $i < $linkcount; $i++) {
+        $text = preg_replace("/ MULTIHOOKLINKREPLACEMENT{$i} /", $links[0][$i], $text, 1);
+    }
     for ($i = 0; $i < $urlcount; $i++) {
         $text = preg_replace("/ MULTIHOOKURLREPLACEMENT{$i} /", $urls[0][$i], $text, 1);
     }
     for ($i = 0; $i < $imgcount; $i++) {
         $text = preg_replace("/ MULTIHOOKIMGSRCREPLACEMENT{$i} /", $imgs[1][$i], $text, 1);
     }
-    for ($i = 0; $i < $tagscount; $i++) {
-        $text = preg_replace("/ MULTIHOOKLINKREPLACEMENT{$i} /", $tags[0][$i], $text, 1);
+    for ($i = 0; $i < $tagcount; $i++) {
+        $text = preg_replace("/ MULTIHOOKTAGREPLACEMENT{$i} /", $tags[0][$i], $text, 1);
     }
 
     return $text;
