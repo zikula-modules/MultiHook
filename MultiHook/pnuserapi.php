@@ -215,31 +215,6 @@ function MultiHook_userapitransform($text)
     $onlyonce = (pnModGetVar('MultiHook', 'abacfirst')==1) ? true : false;
     $externallinkclass =pnModGetVar('MultiHook', 'externallinkclass');
 
-    if (empty($gotabbreviations)) {
-        $gotabbreviations = 1;
-        $thislang = pnUserGetLang();
-        pnModAPILoad('MultiHook', 'user');
-        $tmps = pnModAPIFunc('MultiHook', 'user', 'getall', array('filter' => -99));
-        // Create search/replace array from abbreviations/links information
-        foreach ($tmps as $tmp) {
-            if($tmp['language']==$thislang || $tmp['language']=="") {
-                $search[] = '/(?<![\w@\.:-])(' . preg_quote($tmp['short'], '/'). ')(?![\w@:-])(?!\.\w)/i';
-                $extclass = (preg_match("/(^http:\/\/)/", $tmp['long'])==1) ? "class=\"$externallinkclass\"" : "";
-                $tmp['long']  = preg_replace('/(\b)/', '\\1MULTIHOOKTEMPORARY', $tmp['long']);
-                $tmp['title'] = preg_replace('/(\b)/', '\\1MULTIHOOKTEMPORARY', $tmp['title']);
-                if($tmp['type']==0) {
-                    // 0 = Abbreviation 
-                    $replace[] = '<abbr title="' . htmlspecialchars($tmp['long']) . '"><span class="abbr" title="'. htmlspecialchars($tmp['long']) .'">' . htmlspecialchars($tmp['short']) . '</span></abbr>';
-                } else if($tmp['type']==1) { 
-                    // 1 = Acronym
-                    $replace[] = '<acronym title="' . htmlspecialchars($tmp['long']) . '">' . htmlspecialchars($tmp['short']) . '</acronym>';
-                } else if($tmp['type']==2) { 
-                    // 2 = Link
-                    $replace[] = '<a '.$extclass.' href="' . htmlspecialchars($tmp['long']) . '" title="' . htmlspecialchars($tmp['title']) . '">' . htmlspecialchars($tmp['short']) . '</a>';
-                }
-            }
-        }
-    }
     // Step 1 - move all URLs out of the text and replace them with placeholders
     // thanks to www.regexlib.com for the regular expression
     preg_match_all("/((mailto\:|(news|(ht|f)tp(s?))\:\/\/){1}\S+)/i", $text, $urls);
@@ -255,39 +230,51 @@ function MultiHook_userapitransform($text)
         $text = preg_replace('/(' . preg_quote($matches[1][$i], '/') . ')/', " MULTIHOOKTAGREPLACEMENT{$i} ", $text, 1);
     }
 
-/* not used atm 
-
-    // Step 3 - move all dashes out of the text and replace them with placeholders
-    preg_match_all('/(\-*)/', $text, $dashes);
-    $dashnum = count($dashes[1]);
-    for ($i = 0; $i <$dashnum; $i++) {
-        $text = preg_replace('/(' . preg_quote($dashes[1][$i], '/') . ')/', " MULTIHOOKDASHREPLACEMENT{$i} ", $text, 1);
+    if (empty($gotabbreviations)) {
+        $gotabbreviations = 1;
+        $thislang = pnUserGetLang();
+        pnModAPILoad('MultiHook', 'user');
+        $tmps = pnModAPIFunc('MultiHook', 'user', 'getall', array('filter' => -99));
+        // Create search/replace array from abbreviations/links information
+        foreach ($tmps as $tmp) {
+            if($tmp['language']==$thislang || $tmp['language']=="") {
+//                $search[] = '/(?<![\w@\.:-])(' . preg_quote($tmp['short'], '/'). ')(?![\w@:-])(?!\.\w)/i';
+                $extclass = (preg_match("/(^http:\/\/)/", $tmp['long'])==1) ? "class=\"$externallinkclass\"" : "";
+                $tmp['long']  = preg_replace('/(\b)/', '\\1MULTIHOOKTEMPORARY', $tmp['long']);
+                $tmp['title'] = preg_replace('/(\b)/', '\\1MULTIHOOKTEMPORARY', $tmp['title']);
+                if($tmp['type']==0) {
+                    // 0 = Abbreviation 
+                    $search[] = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:])(?!\.\w)/i';
+                    $replace[] = '<abbr title="' . htmlspecialchars($tmp['long']) . '"><span class="abbr" title="'. htmlspecialchars($tmp['long']) .'">' . htmlspecialchars($tmp['short']) . '</span></abbr>';
+                } else if($tmp['type']==1) { 
+                    // 1 = Acronym
+                    $search[] = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:])(?!\.\w)/i';
+                    $replace[] = '<acronym title="' . htmlspecialchars($tmp['long']) . '">' . htmlspecialchars($tmp['short']) . '</acronym>';
+                } else if($tmp['type']==2) { 
+                    // 2 = Link
+                    $search[] = '/(?<![\/\w@\.:-])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:-])(?!\.\w)/i';
+                    $replace[] = '<a '.$extclass.' href="' . htmlspecialchars($tmp['long']) . '" title="' . htmlspecialchars($tmp['title']) . '">' . htmlspecialchars($tmp['short']) . '</a>';
+                }
+            }
+        }
     }
-*/
 
-    // Step 4 - the main replacements
+    // Step 3 - the main replacements
     if($onlyonce==true) {
         $text = preg_replace($search, $replace, $text, 1);
     } else {
         $text = preg_replace($search, $replace, $text);
     }
 
-    // Step 5 - replace the spaces we munged in preparation of step 4
+    // Step 4 - replace the spaces we munged in preparation of step 3
     $text = preg_replace('/MULTIHOOKTEMPORARY/', '', $text);
 
-/* not used atm
-    // Step 6 - replace the dashes that we removed in step 3
-    for ($i = 0; $i <$dashnum; $i++) {
-        $text = preg_replace("/ MULTIHOOKDASHREPLACEMENT{$i} /", $dashes[1][$i], $text, 1);
-    }
-*/
-
-    // Step 7 - replace the HTML tags that we removed in step 2
+    // Step 5 - replace the HTML tags that we removed in step 2
     for ($i = 0; $i <$matchnum; $i++) {
         $text = preg_replace("/ MULTIHOOKTAGREPLACEMENT{$i} /", $matches[1][$i], $text, 1);
     }
 
-    // Step 8 - replace the URLs that we removed in step 1
+    // Step 6 - replace the URLs that we removed in step 1
     for ($i = 0; $i <$urlnum; $i++) {
         $text = preg_replace("/ MULTIHOOKURLREPLACEMENT{$i} /", $urls[1][$i], $text, 1);
     }
