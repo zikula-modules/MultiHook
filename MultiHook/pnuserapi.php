@@ -208,6 +208,7 @@ function MultiHook_userapi_transform($args)
 
 function MultiHook_userapitransform($text)
 {
+//$time_start = microtime_float();
     static $search = array();
     static $replace = array();
     static $gotabbreviations = 0;
@@ -216,38 +217,7 @@ function MultiHook_userapitransform($text)
     $externallinkclass =pnModGetVar('MultiHook', 'externallinkclass');
     $mhincodetags = (pnModGetVar('MultiHook', 'mhincodetags')==1) ? true : false;
 
-    // Step 1 - move all links out of the text and replace them with placeholders
-    $tagcount = preg_match_all('/<a(.*)>(.*)<\/a>/i', $text, $tags);
-    for ($i = 0; $i < $tagcount; $i++) {
-        $text = preg_replace('/(' . preg_quote($tags[0][$i], '/') . ')/', " MULTIHOOKTAGREPLACEMENT{$i} ", $text, 1);
-    }
-/*
-
-    // Step 2 - move all urls in img tags out of the way
-    $imgcount = preg_match_all('/<img(.*)>/si', $text, $imgs);
-    for ($i = 0; $i < $imgcount; $i++) {
-        $text = preg_replace('/(' . preg_quote($imgs[1][$i], '/') . ')/', " MULTIHOOKIMGSRCREPLACEMENT{$i} ", $text, 1);
-    }
-*/
-    // Step 1 - remove all html tags, we do not want to change them!!
-    $htmlcount = preg_match_all("/<(?:[^\"\']+?|.+?(?:\"|\').*?(?:\"|\')?.*?)*?>/i", $text, $html);
-    for ($i=0; $i < $htmlcount; $i++) {
-        $text = preg_replace('/(' . preg_quote($html[0][$i], '/') . ')/', " MULTIHOOKHTMLREPLACEMENT{$i} ", $text, 1);
-    }
-  
-    // Step 2 - move all bbcode with [url][/url] out of the way
-    $urlcount = preg_match_all("#\[url(.*)\](.*)\[\/url\]#si", $text, $urls);
-    for($i=0; $i < $urlcount; $i++) {
-        $text = preg_replace('/(' . preg_quote($urls[0][$i], '/') . ')/', " MULTIHOOKURLREPLACEMENT{$i} ", $text, 1);
-    }
-
-    // Step 3 - move all urls starting with http:// etc. out of the way
-    $linkcount = preg_match_all("/(http|https|ftp|ftps|news)\:\/\/([a-zA-Z0-9\-\._]+[\.]{1}[a-zA-Z]{2,6})(\/[a-zA-Z0-9\-\.\?\,\'\/\\\+&%\$#_=~]+)?/si", $text, $links);
-    for($i=0; $i < $linkcount; $i++) {
-        $text = preg_replace('/(' . preg_quote($links[0][$i], '/') . ')/', " MULTIHOOKLINKREPLACEMENT{$i} ", $text, 1);
-    }
-
-    // Step 4 - move all bbcode with [code][/code] out of the way
+    // Step 0 - move all bbcode with [code][/code] out of the way
     //          if MultiHook is configured accordingly
     if($mhincodetags==false) {
         // if we are faster than pn_bbcode, we will have to remove the code tags
@@ -257,11 +227,35 @@ function MultiHook_userapitransform($text)
         }
         // but pn_bbode may have been faster than we are,. To avoid any problems its embraces the
         // replaced code tags with <!--code--> and <!--/code--> 
-        // there is what we are taking care of now
+        // this is what we are taking care of now
         $codecount2 = preg_match_all("/<!--code-->(.*)<!--\/code-->/si", $text, $codes2);
         for($i=0; $i < $codecount2; $i++) {
             $text = preg_replace('/(' . preg_quote($codes2[0][$i], '/') . ')/', " MULTIHOOKCODE2REPLACEMENT{$i} ", $text, 1);
         }
+    }
+
+    // Step 1 - move all links out of the text and replace them with placeholders
+    $tagcount = preg_match_all('/<a(.*)>(.*)<\/a>/i', $text, $tags);
+    for ($i = 0; $i < $tagcount; $i++) {
+        $text = preg_replace('/(' . preg_quote($tags[0][$i], '/') . ')/', " MULTIHOOKTAGREPLACEMENT{$i} ", $text, 1);
+    }
+  
+    // Step 2 - remove all html tags, we do not want to change them!!
+    $htmlcount = preg_match_all("/<(?:[^\"\']+?|.+?(?:\"|\').*?(?:\"|\')?.*?)*?>/i", $text, $html);
+    for ($i=0; $i < $htmlcount; $i++) {
+        $text = preg_replace('/(' . preg_quote($html[0][$i], '/') . ')/', " MULTIHOOKHTMLREPLACEMENT{$i} ", $text, 1);
+    }
+
+    // Step 3 - move all bbcode with [url][/url] out of the way
+    $urlcount = preg_match_all("#\[url(.*)\](.*)\[\/url\]#si", $text, $urls);
+    for($i=0; $i < $urlcount; $i++) {
+        $text = preg_replace('/(' . preg_quote($urls[0][$i], '/') . ')/', " MULTIHOOKURLREPLACEMENT{$i} ", $text, 1);
+    }
+
+    // Step 4 - move all urls starting with http:// etc. out of the way
+    $linkcount = preg_match_all("/(http|https|ftp|ftps|news)\:\/\/([a-zA-Z0-9\-\._]+[\.]{1}[a-zA-Z]{2,6})(\/[a-zA-Z0-9\-\.\?\,\'\/\\\+&%\$#_=~]+)?/si", $text, $links);
+    for($i=0; $i < $linkcount; $i++) {
+        $text = preg_replace('/(' . preg_quote($links[0][$i], '/') . ')/', " MULTIHOOKLINKREPLACEMENT{$i} ", $text, 1);
     }
 
     // Step 5 - move hilite hook additions out of the text
@@ -311,14 +305,6 @@ function MultiHook_userapitransform($text)
         $text = preg_replace("/ MULTIHOOKHILITEREPLACEMENT{$i} /", $hilite[0][$i], $text, 1);
     }
 
-    if($mhincodetags==false) {
-        for ($i = 0; $i < $codecount2; $i++) {
-            $text = preg_replace("/ MULTIHOOKCODE2REPLACEMENT{$i} /", $codes2[0][$i], $text, 1);
-        }
-        for ($i = 0; $i < $codecount1; $i++) {
-            $text = preg_replace("/ MULTIHOOKCODE1REPLACEMENT{$i} /", $codes1[0][$i], $text, 1);
-        }
-    }
     for ($i = 0; $i < $linkcount; $i++) {
         $text = preg_replace("/ MULTIHOOKLINKREPLACEMENT{$i} /", $links[0][$i], $text, 1);
     }
@@ -328,14 +314,23 @@ function MultiHook_userapitransform($text)
     for ($i = 0; $i < $htmlcount; $i++) {
         $text = preg_replace("/ MULTIHOOKHTMLREPLACEMENT{$i} /", $html[0][$i], $text, 1);
     }
-/*
-    for ($i = 0; $i < $imgcount; $i++) {
-        $text = preg_replace("/ MULTIHOOKIMGSRCREPLACEMENT{$i} /", $imgs[1][$i], $text, 1);
-    }
-*/
+
     for ($i = 0; $i < $tagcount; $i++) {
         $text = preg_replace("/ MULTIHOOKTAGREPLACEMENT{$i} /", $tags[0][$i], $text, 1);
     }
+
+    if($mhincodetags==false) {
+        for ($i = 0; $i < $codecount2; $i++) {
+            $text = preg_replace("/ MULTIHOOKCODE2REPLACEMENT{$i} /", $codes2[0][$i], $text, 1);
+        }
+        for ($i = 0; $i < $codecount1; $i++) {
+            $text = preg_replace("/ MULTIHOOKCODE1REPLACEMENT{$i} /", $codes1[0][$i], $text, 1);
+        }
+    }
+//$time_end = microtime_float();
+//$time = $time_end - $time_start;
+//include_once('modules/pnForum/common.php');
+//pnfdebug('time for multihook', $time);
     return $text;
 }
 
@@ -387,4 +382,13 @@ function get_xhtml_language($lang)
     }
     return "";
 }
+
+if(!function_exists("microtime_float")) {
+function microtime_float()
+{
+    list($usec, $sec) = explode(" ", microtime());
+    return ((float)$usec + (float)$sec);
+}
+}
+
 ?>
