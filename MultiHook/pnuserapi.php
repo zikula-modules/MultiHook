@@ -215,12 +215,13 @@ function MultiHook_userapitransform($text)
     $onlyonce = (pnModGetVar('MultiHook', 'abacfirst')==1) ? true : false;
     $externallinkclass =pnModGetVar('MultiHook', 'externallinkclass');
     $mhincodetags = (pnModGetVar('MultiHook', 'mhincodetags')==1) ? true : false;
-/*
+
     // Step 1 - move all links out of the text and replace them with placeholders
     $tagcount = preg_match_all('/<a(.*)>(.*)<\/a>/i', $text, $tags);
     for ($i = 0; $i < $tagcount; $i++) {
         $text = preg_replace('/(' . preg_quote($tags[0][$i], '/') . ')/', " MULTIHOOKTAGREPLACEMENT{$i} ", $text, 1);
     }
+/*
 
     // Step 2 - move all urls in img tags out of the way
     $imgcount = preg_match_all('/<img(.*)>/si', $text, $imgs);
@@ -331,10 +332,10 @@ function MultiHook_userapitransform($text)
     for ($i = 0; $i < $imgcount; $i++) {
         $text = preg_replace("/ MULTIHOOKIMGSRCREPLACEMENT{$i} /", $imgs[1][$i], $text, 1);
     }
+*/
     for ($i = 0; $i < $tagcount; $i++) {
         $text = preg_replace("/ MULTIHOOKTAGREPLACEMENT{$i} /", $tags[0][$i], $text, 1);
     }
-*/
     return $text;
 }
 
