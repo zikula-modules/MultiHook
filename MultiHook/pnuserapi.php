@@ -211,13 +211,8 @@ function MultiHook_userapitransform($text)
     static $search = array();
     static $replace = array();
     static $gotabbreviations = 0;
+
     $onlyonce = (pnModGetVar('MultiHook', 'abacfirst')==1) ? true : false;
-    // Check if we want invisible links
-    if (pnModGetVar('MultiHook', 'invisiblelinks')) {
-        $style = 'style="text-decoration: none" ';
-    } else {
-        $style = '';
-    }
     $externallinkclass =pnModGetVar('MultiHook', 'externallinkclass');
 
     if (empty($gotabbreviations)) {
@@ -240,7 +235,7 @@ function MultiHook_userapitransform($text)
                     $replace[] = '<acronym title="' . htmlspecialchars($tmp['long']) . '">' . htmlspecialchars($tmp['short']) . '</acronym>';
                 } else if($tmp['type']==2) { 
                     // 2 = Link
-                    $replace[] = '<a '.$extclass.' '.$style.' href="' . htmlspecialchars($tmp['long']) . '" title="' . htmlspecialchars($tmp['title']) . '">' . htmlspecialchars($tmp['short']) . '</a>';
+                    $replace[] = '<a '.$extclass.' href="' . htmlspecialchars($tmp['long']) . '" title="' . htmlspecialchars($tmp['title']) . '">' . htmlspecialchars($tmp['short']) . '</a>';
                 }
             }
         }

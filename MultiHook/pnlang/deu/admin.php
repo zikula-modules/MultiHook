@@ -23,7 +23,6 @@
 // Purpose of file:  Language defines for pnadmin.php
 // ----------------------------------------------------------------------
 
-define('_MH_INVISIBLELINKS', 'Keine Auszeichnung für Links');
 define('_MH_EXTERNALLINKCLASS', 'CSS-Klasse für externe Links');
 
 define('_MH_CREATED', 'Eintrag erstellt');
