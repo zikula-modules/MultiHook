@@ -3,7 +3,7 @@ $Id$
 Version 1.1  25 December 2004
    - minor fixes
    - better compatibility with pn_* hooks
-   - language field now used for language definition in lang="en" xml:lang="en"
+   - language field now used for language definition, e.g. as lang="en" xml:lang="en"
   
 Version 1.0  7 October 2004
    - initial version
