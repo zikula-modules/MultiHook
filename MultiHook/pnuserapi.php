@@ -380,6 +380,7 @@ function get_xhtml_language($lang)
                            "tur" => "tk",
                            "ukr" => "uk",
                            "yid" => "yi");
+    $lang = (empty($lang)) ? pnUserGetLang() : $lang;
     $shortlang = $alllanguages[$lang];
     if(!empty($shortlang)) {
         return "lang=\"$shortlang\" xml:lang=\"$shortlang\"";
