@@ -282,15 +282,15 @@ function MultiHook_userapitransform($text)
             if($tmp['type']==0) {
                 // 0 = Abbreviation 
                 $search[] = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:])(?!\.\w)/i';
-                $replace[] = '<abbr '.$xhtmllang.' title="' . htmlspecialchars($tmp['long']) . '"><span class="abbr" title="'. htmlspecialchars($tmp['long']) .'">' . htmlspecialchars($tmp['short']) . '</span></abbr>';
+                $replace[] = '<abbr '.$xhtmllang.' title="' . pnVarPrepForDisplay($tmp['long']) . '"><span class="abbr" title="'. pnVarPrepForDisplay($tmp['long']) .'">' . pnVarPrepForDisplay($tmp['short']) . '</span></abbr>';
             } else if($tmp['type']==1) { 
                 // 1 = Acronym
                 $search[] = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:])(?!\.\w)/i';
-                $replace[] = '<acronym '.$xhtmllang.' title="' . htmlspecialchars($tmp['long']) . '">' . htmlspecialchars($tmp['short']) . '</acronym>';
+                $replace[] = '<acronym '.$xhtmllang.' title="' . pnVarPrepForDisplay($tmp['long']) . '">' . pnVarPrepForDisplay($tmp['short']) . '</acronym>';
             } else if($tmp['type']==2) { 
                 // 2 = Link
                 $search[] = '/(?<![\/\w@\.:-])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:-])(?!\.\w)/i';
-                $replace[] = '<a '.$extclass.' href="' . htmlspecialchars($tmp['long']) . '" title="' . htmlspecialchars($tmp['title']) . '">' . htmlspecialchars($tmp['short']) . '</a>';
+                $replace[] = '<a '.$extclass.' href="' . pnVarPrepForDisplay($tmp['long']) . '" title="' . pnVarPrepForDisplay($tmp['title']) . '">' . pnVarPrepForDisplay($tmp['short']) . '</a>';
             }
         }
     }
@@ -324,7 +324,7 @@ function MultiHook_userapitransform($text)
     for ($i = 0; $i < $urlcount; $i++) {
         $text = preg_replace("/ MULTIHOOKURLREPLACEMENT{$i} /", $urls[0][$i], $text, 1);
     }
-    for ($i=0; $i< $htmlcount; $i++) {
+    for ($i = 0; $i < $htmlcount; $i++) {
         $text = preg_replace("/ MULTIHOOKHTMLREPLACEMENT{$i} /", $html[0][$i], $text, 1);
     }
 /*
