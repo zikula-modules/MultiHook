@@ -52,19 +52,19 @@ function MultiHook_admin_edit($args)
                        'long'  => '',
                        'title' => '',
                        'type'  => 0,
-                       'language' => pnUserGetLang() ); 
+                       'language' => pnUserGetLang() );
     } else {
         if (!pnModAPILoad('MultiHook', 'user')) {
             pnSessionGetVar('errormsg', _LOADFAILED );
             pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
             return true;
         }
-    
+
         $abac = pnModAPIFunc('MultiHook',
                              'user',
                              'get',
                              array('aid' => $aid));
-    
+
         if ($abac == false) {
             pnSessionSetVar('errormsg', _MH_NOSUCHITEM);
             pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
@@ -166,13 +166,13 @@ function MultiHook_admin_store($args)
                                   'title' => $title,
                                   'type' => $type,
                                   'language' => $language));
-        
+
         if ($aid != false) {
             // Success
             pnSessionSetVar('statusmsg', _MH_CREATED);
         } else {
             pnSessionSetVar('errormsg', _MH_CREATEDFAILED);
-        }            
+        }
     } else {
         if(pnModAPIFunc('MultiHook',
                         'admin',
@@ -211,7 +211,7 @@ function MultiHook_admin_delete($args)
 
      if (!empty($obid)) {
          $aid = $obid;
-     }                     
+     }
 
     // Load API
     if (!pnModAPILoad('MultiHook', 'user')) {
@@ -239,7 +239,7 @@ function MultiHook_admin_delete($args)
         return true;
     }
 
-    // Check for confirmation. 
+    // Check for confirmation.
     if (empty($confirmation)) {
         // No confirmation yet
 
@@ -315,7 +315,7 @@ function MultiHook_admin_view()
     for($cnt=0; $cnt<count($abacs); $cnt++ ) {
         $abacs[$cnt]['edit'] = false;
         $abacs[$cnt]['delete'] = false;
-        
+
         if (pnSecAuthAction(0, 'MultiHook::', "$abacs[$cnt][short]::$abacs[$cnt][aid]", ACCESS_EDIT)) {
             $abacs[$cnt]['edit'] = true;
             if (pnSecAuthAction(0, 'MultiHook::', "$abacs[$cnt][short]::$abacs[$cnt][aid]", ACCESS_DELETE)) {
@@ -351,6 +351,7 @@ function MultiHook_admin_modifyconfig()
     $pnr->caching = false;
     $pnr->assign('abacfirst', pnModGetVar('MultiHook', 'abacfirst'));
     $pnr->assign('mhincodetags', pnModGetVar('MultiHook', 'mhincodetags'));
+    $pnr->assign('mhlinktitle', pnModGetVar('MultiHook', 'mhlinktitle'));
     $pnr->assign('itemsperpage', pnModGetVar('MultiHook', 'itemsperpage'));
     $pnr->assign('externallinkclass', pnModGetVar('MultiHook', 'externallinkclass'));
     return $pnr->fetch('mh_admin_config.html');
@@ -363,9 +364,11 @@ function MultiHook_admin_updateconfig()
 {
     list($abacfirst,
          $mhincodetags,
+         $mhlinktitle,
          $externallinkclass,
          $itemsperpage)= pnVarCleanFromInput('abacfirst',
                                              'mhincodetags',
+                                             'mhlinktitle',
                                              'externallinkclass',
                                              'itemsperpage');
 
@@ -385,6 +388,7 @@ function MultiHook_admin_updateconfig()
     }
 
     pnModSetVar('MultiHook', 'mhincodetags', $mhincodetags);
+    pnModSetVar('MultiHook', 'mhlinktitle', $mhlinktitle);
     pnModSetVar('MultiHook', 'itemsperpage', $itemsperpage);
     pnModSetVar('MultiHook', 'externallinkclass', $externallinkclass);
 

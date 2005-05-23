@@ -151,11 +151,11 @@ function MultiHook_userapi_countitems($args)
 {
     extract($args);
     unset($args);
-    
+
     if(!isset($filter)) {
         return false;
     }
-    
+
     $dbconn =& pnDBGetConn(true);
     $pntable =& pnDBGetTables();
 
@@ -216,6 +216,7 @@ function MultiHook_userapitransform($text)
     $onlyonce = (pnModGetVar('MultiHook', 'abacfirst')==1) ? true : false;
     $externallinkclass =pnModGetVar('MultiHook', 'externallinkclass');
     $mhincodetags = (pnModGetVar('MultiHook', 'mhincodetags')==1) ? true : false;
+    $mhlinktitle = (pnModGetVar('MultiHook', 'mhlinktitle')==1) ? true : false;
 
     // Step 0 - move all bbcode with [code][/code] out of the way
     //          if MultiHook is configured accordingly
@@ -226,7 +227,7 @@ function MultiHook_userapitransform($text)
             $text = preg_replace('/(' . preg_quote($codes1[0][$i], '/') . ')/', " MULTIHOOKCODE1REPLACEMENT{$i} ", $text, 1);
         }
         // but pn_bbode may have been faster than we are,. To avoid any problems its embraces the
-        // replaced code tags with <!--code--> and <!--/code--> 
+        // replaced code tags with <!--code--> and <!--/code-->
         // this is what we are taking care of now
         $codecount2 = preg_match_all("/<!--code-->(.*)<!--\/code-->/si", $text, $codes2);
         for($i=0; $i < $codecount2; $i++) {
@@ -239,7 +240,7 @@ function MultiHook_userapitransform($text)
     for ($i = 0; $i < $tagcount; $i++) {
         $text = preg_replace('/(' . preg_quote($tags[0][$i], '/') . ')/', " MULTIHOOKTAGREPLACEMENT{$i} ", $text, 1);
     }
-  
+
     // Step 2 - remove all html tags, we do not want to change them!!
     $htmlcount = preg_match_all("/<(?:[^\"\']+?|.+?(?:\"|\').*?(?:\"|\')?.*?)*?>/i", $text, $html);
     for ($i=0; $i < $htmlcount; $i++) {
@@ -275,17 +276,21 @@ function MultiHook_userapitransform($text)
             $tmp['title'] = preg_replace('/(\b)/', '\\1MULTIHOOKTEMPORARY', $tmp['title']);
             $xhtmllang = get_xhtml_language($tmp['language']);
             if($tmp['type']==0) {
-                // 0 = Abbreviation 
+                // 0 = Abbreviation
                 $search[] = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:])(?!\.\w)/i';
                 $replace[] = '<abbr '.$xhtmllang.' title="' . pnVarPrepForDisplay($tmp['long']) . '"><span class="abbr" title="'. pnVarPrepForDisplay($tmp['long']) .'">' . pnVarPrepForDisplay($tmp['short']) . '</span></abbr>';
-            } else if($tmp['type']==1) { 
+            } else if($tmp['type']==1) {
                 // 1 = Acronym
                 $search[] = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:])(?!\.\w)/i';
                 $replace[] = '<acronym '.$xhtmllang.' title="' . pnVarPrepForDisplay($tmp['long']) . '">' . pnVarPrepForDisplay($tmp['short']) . '</acronym>';
-            } else if($tmp['type']==2) { 
+            } else if($tmp['type']==2) {
                 // 2 = Link
                 $search[] = '/(?<![\/\w@\.:-])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:-])(?!\.\w)/i';
-                $replace[] = '<a '.$extclass.' href="' . pnVarPrepForDisplay($tmp['long']) . '" title="' . pnVarPrepForDisplay($tmp['title']) . '">' . pnVarPrepForDisplay($tmp['short']) . '</a>';
+                if($mhlinktitle==false) {
+                    $replace[] = '<a '.$extclass.' href="' . pnVarPrepForDisplay($tmp['long']) . '" title="' . pnVarPrepForDisplay($tmp['title']) . '">' . pnVarPrepForDisplay($tmp['short']) . '</a>';
+                } else {
+                    $replace[] = '<a '.$extclass.' href="' . pnVarPrepForDisplay($tmp['long']) . '" title="' . pnVarPrepForDisplay($tmp['title']) . '">' . pnVarPrepForDisplay($tmp['title']) . '</a>';
+                }
             }
         }
     }
@@ -335,7 +340,7 @@ function MultiHook_userapitransform($text)
 }
 
 function get_xhtml_language($lang)
-{ 
+{
     $alllanguages = array( "ara" => "ar",
                            "bul" => "bg",
                            "zho" => "zh",
