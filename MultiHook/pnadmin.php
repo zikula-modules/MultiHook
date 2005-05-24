@@ -352,6 +352,7 @@ function MultiHook_admin_modifyconfig()
     $pnr->assign('abacfirst', pnModGetVar('MultiHook', 'abacfirst'));
     $pnr->assign('mhincodetags', pnModGetVar('MultiHook', 'mhincodetags'));
     $pnr->assign('mhlinktitle', pnModGetVar('MultiHook', 'mhlinktitle'));
+    $pnr->assign('mhreplaceabbr', pnModGetVar('MultiHook', 'mhreplaceabbr'));
     $pnr->assign('itemsperpage', pnModGetVar('MultiHook', 'itemsperpage'));
     $pnr->assign('externallinkclass', pnModGetVar('MultiHook', 'externallinkclass'));
     return $pnr->fetch('mh_admin_config.html');
@@ -365,10 +366,12 @@ function MultiHook_admin_updateconfig()
     list($abacfirst,
          $mhincodetags,
          $mhlinktitle,
+         $mhreplaceabbr,
          $externallinkclass,
          $itemsperpage)= pnVarCleanFromInput('abacfirst',
                                              'mhincodetags',
                                              'mhlinktitle',
+                                             'mhreplaceabbr',
                                              'externallinkclass',
                                              'itemsperpage');
 
@@ -389,6 +392,7 @@ function MultiHook_admin_updateconfig()
 
     pnModSetVar('MultiHook', 'mhincodetags', $mhincodetags);
     pnModSetVar('MultiHook', 'mhlinktitle', $mhlinktitle);
+    pnModSetVar('MultiHook', 'mhreplaceabbr', $mhreplaceabbr);
     pnModSetVar('MultiHook', 'itemsperpage', $itemsperpage);
     pnModSetVar('MultiHook', 'externallinkclass', $externallinkclass);
 

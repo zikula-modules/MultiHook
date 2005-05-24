@@ -217,6 +217,7 @@ function MultiHook_userapitransform($text)
     $externallinkclass =pnModGetVar('MultiHook', 'externallinkclass');
     $mhincodetags = (pnModGetVar('MultiHook', 'mhincodetags')==1) ? true : false;
     $mhlinktitle = (pnModGetVar('MultiHook', 'mhlinktitle')==1) ? true : false;
+    $mhreplaceabbr = (pnModGetVar('MultiHook', 'mhreplaceabbr')==1) ? true : false;
 
     // Step 0 - move all bbcode with [code][/code] out of the way
     //          if MultiHook is configured accordingly
@@ -278,7 +279,11 @@ function MultiHook_userapitransform($text)
             if($tmp['type']==0) {
                 // 0 = Abbreviation
                 $search[] = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:])(?!\.\w)/i';
-                $replace[] = '<abbr '.$xhtmllang.' title="' . pnVarPrepForDisplay($tmp['long']) . '"><span class="abbr" title="'. pnVarPrepForDisplay($tmp['long']) .'">' . pnVarPrepForDisplay($tmp['short']) . '</span></abbr>';
+                if($mhreplaceabbr==false) {
+                    $replace[] = '<abbr '.$xhtmllang.' title="' . pnVarPrepForDisplay($tmp['long']) . '"><span class="abbr" title="'. pnVarPrepForDisplay($tmp['long']) .'">' . pnVarPrepForDisplay($tmp['short']) . '</span></abbr>';
+                } else {
+                    $replace[] = pnVarPrepForDisplay($tmp['long']);
+                }
             } else if($tmp['type']==1) {
                 // 1 = Acronym
                 $search[] = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:])(?!\.\w)/i';
