@@ -208,7 +208,21 @@ function MultiHook_userapi_transform($args)
 
 function MultiHook_userapitransform($text)
 {
-//$time_start = microtime_float();
+    // check the user agent - if it is a bot, return immediately
+    $robotslist = array ( "ia_archiver",
+                          "googlebot",
+                          "mediapartners-google",
+                          "yahoo!",
+                          "msnbot",
+                          "jeeves",
+                          "lycos");
+    $useragent = pnServerGetVar('HTTP_USER_AGENT');
+    for($cnt=0; $cnt < count($robotslist); $cnt++) {
+        if(strpos(strtolower($useragent), $robotslist[$cnt]) !== false) {
+            return $text;
+        }
+    }
+
     static $search = array();
     static $replace = array();
     static $gotabbreviations = 0;
@@ -337,10 +351,7 @@ function MultiHook_userapitransform($text)
             $text = preg_replace("/ MULTIHOOKCODE1REPLACEMENT{$i} /", $codes1[0][$i], $text, 1);
         }
     }
-//$time_end = microtime_float();
-//$time = $time_end - $time_start;
-//include_once('modules/pnForum/common.php');
-//pnfdebug('time for multihook', $time);
+
     return $text;
 }
 
@@ -393,12 +404,5 @@ function get_xhtml_language($lang)
     return "";
 }
 
-if(!function_exists("microtime_float")) {
-function microtime_float()
-{
-    list($usec, $sec) = explode(" ", microtime());
-    return ((float)$usec + (float)$sec);
-}
-}
 
 ?>
