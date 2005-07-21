@@ -33,7 +33,7 @@ function MultiHook_user_main()
 {
     // Get parameters from whatever input we need
     $startnum = (int)pnVarCleanFromInput('startnum');
-    $filter   = pnVarCleanFromInput('filter');
+    $filter   = (int)pnVarCleanFromInput('filter');
 
     if (!pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_READ)) {
         return _MH_NOAUTH;
@@ -45,8 +45,7 @@ function MultiHook_user_main()
         pnRedirect("index.php");
         return true;
     }
-
-    if(is_numeric($filter) && $filter>=0 && $filter<=2) {
+    if($filter>=0 && $filter<=2) {
         $abacs = pnModAPIFunc('MultiHook',
                               'user',
                               'getall',
