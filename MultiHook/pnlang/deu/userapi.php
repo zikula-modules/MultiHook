@@ -24,6 +24,9 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
+define('_MH_ABBREVIATION', 'Abkürzung');
+define('_MH_ACRONYM', 'Akronym');
+
 define('_MH_SELECTFAILED','MultiHook: Select auf die Datenbank fehlgeschlagen - bitte Admin verständigen');
 
 ?>

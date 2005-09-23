@@ -39,12 +39,6 @@ function MultiHook_user_main()
         return _MH_NOAUTH;
     }
 
-    // Load API
-    if (!pnModAPILoad('MultiHook', 'user')) {
-        pnSessionSetVar('errormsg', _LOADFAILED);
-        pnRedirect("index.php");
-        return true;
-    }
     if($filter>=0 && $filter<=2) {
         $abacs = pnModAPIFunc('MultiHook',
                               'user',

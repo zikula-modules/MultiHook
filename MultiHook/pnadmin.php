@@ -54,12 +54,6 @@ function MultiHook_admin_edit($args)
                        'type'  => 0,
                        'language' => pnUserGetLang() );
     } else {
-        if (!pnModAPILoad('MultiHook', 'user')) {
-            pnSessionGetVar('errormsg', _LOADFAILED );
-            pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
-            return true;
-        }
-
         $abac = pnModAPIFunc('MultiHook',
                              'user',
                              'get',
@@ -149,13 +143,6 @@ function MultiHook_admin_store($args)
         return true;
     }
 
-    // Load API
-    if (!pnModAPILoad('MultiHook', 'admin')) {
-        pnSessionSetVar('errormsg', _LOADFAILED);
-        pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
-        return true;
-    }
-
     // The API function is called
     if( $aid == -1 ) {
         $aid = pnModAPIFunc('MultiHook',
@@ -213,13 +200,6 @@ function MultiHook_admin_delete($args)
          $aid = $obid;
      }
 
-    // Load API
-    if (!pnModAPILoad('MultiHook', 'user')) {
-        pnSessionSetVar('errormsg', _LOADFAILED);
-        pnRedirect(pnModURL('MultiHook','admin','main'));
-        return true;
-    }
-
     // The user API function is called
     $abac = pnModAPIFunc('MultiHook',
                          'user',
@@ -259,13 +239,6 @@ function MultiHook_admin_delete($args)
         return true;
     }
 
-    // Load API
-    if (!pnModAPILoad('MultiHook', 'admin')) {
-        pnSessionSetVar('errormsg', _LOADFAILED);
-        pnRedirect(pnModURL('MultiHook','admin','main'));
-        return true;
-    }
-
     // The API function is called
     if (pnModAPIFunc('MultiHook',
                      'admin',
@@ -294,13 +267,6 @@ function MultiHook_admin_view()
 
     if (!pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_EDIT)) {
         return _MH_NOAUTH;
-    }
-
-    // Load API
-    if (!pnModAPILoad('MultiHook', 'user')) {
-        pnSessionSetVar('errormsg', _LOADFAILED);
-        pnRedirect(pnModURL('MultiHook','admin','main'));
-        return true;
     }
 
     // The user API function is called

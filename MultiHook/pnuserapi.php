@@ -232,6 +232,7 @@ function MultiHook_userapitransform($text)
     $mhincodetags = (pnModGetVar('MultiHook', 'mhincodetags')==1) ? true : false;
     $mhlinktitle = (pnModGetVar('MultiHook', 'mhlinktitle')==1) ? true : false;
     $mhreplaceabbr = (pnModGetVar('MultiHook', 'mhreplaceabbr')==1) ? true : false;
+    $haveoverlib = pnModAvailable('overlib');
 
     // Step 0 - move all bbcode with [code][/code] out of the way
     //          if MultiHook is configured accordingly
@@ -280,9 +281,19 @@ function MultiHook_userapitransform($text)
         $text = preg_replace('/(' . preg_quote($hilite[0][$i], '/') . ')/', " MULTIHOOKHILITEREPLACEMENT{$i} ", $text, 1);
     }
 
+    $overlib_border = 1;
+    $overlib_font   = 'arial';
+    $overlib_cpfont   = 'arial';
+    $overlib_fontsize = '10px';
+    $overlib_cpfontsize = '10px';
+    $overlib_fontcolor = '#ffffff';
+    $overlib_cpfontcolor = '#000000';
+    $overlib_fgcolor = '#000000';
+    $overlib_bgcolor = '#ffffff';
+    $overlib_parameters = "TEXTFONT, '$overlib_font', CAPTIONFONT, '$overlib_cpfont', TEXTSIZE, '$overlib_fontsize', CAPTIONSIZE, '$overlib_cpfontsize', BORDER, $overlib_border, TEXTCOLOR, '$overlib_fontcolor', CAPCOLOR, '$overlib_cpfontcolor', BGCOLOR, '$overlib_bgcolor', FGCOLOR, '$overlib_fgcolor'";
+
     if (empty($gotabbreviations)) {
         $gotabbreviations = 1;
-        pnModAPILoad('MultiHook', 'user');
         $tmps = pnModAPIFunc('MultiHook', 'user', 'getall', array('filter' => -99));
         // Create search/replace array from abbreviations/links information
         foreach ($tmps as $tmp) {
@@ -294,21 +305,46 @@ function MultiHook_userapitransform($text)
                 // 0 = Abbreviation
                 $search[] = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:])(?!\.\w)/i';
                 if($mhreplaceabbr==false) {
-                    $replace[] = '<abbr '.$xhtmllang.' title="' . pnVarPrepForDisplay($tmp['long']) . '"><span class="abbr" title="'. pnVarPrepForDisplay($tmp['long']) .'">' . pnVarPrepForDisplay($tmp['short']) . '</span></abbr>';
+                    if($haveoverlib) {
+                        $replace[] = '<abbr '.$xhtmllang.' onmouseover="return overlib(\'' . pnVarPrepForDisplay($tmp['long']) . '\', CAPTION, \'' . pnVarPrepForDisplay(_MH_ABBREVIATION) . ': '. pnVarPrepForDisplay($tmp['short']) .'\', ' . $overlib_parameters . ')" onmouseout="return nd();"><span class="abbr" onmouseover="return overlib(\'' . pnVarPrepForDisplay($tmp['long']) . '\', CAPTION, \'' . pnVarPrepForDisplay(_MH_ABBREVIATION) . ': '. pnVarPrepForDisplay($tmp['short']) .'\')" onmouseout="return nd();">' . pnVarPrepForDisplay($tmp['short']) . '</span></abbr>';
+                    } else {
+                        $replace[] = '<abbr '.$xhtmllang.' title="' . pnVarPrepForDisplay($tmp['long']) . '"><span class="abbr" title="'. pnVarPrepForDisplay($tmp['long']) .'">' . pnVarPrepForDisplay($tmp['short']) . '</span></abbr>';
+                    }
+
                 } else {
                     $replace[] = pnVarPrepForDisplay($tmp['long']);
                 }
             } else if($tmp['type']==1) {
                 // 1 = Acronym
                 $search[] = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:])(?!\.\w)/i';
-                $replace[] = '<acronym '.$xhtmllang.' title="' . pnVarPrepForDisplay($tmp['long']) . '">' . pnVarPrepForDisplay($tmp['short']) . '</acronym>';
+//                $replace[] = '<acronym '.$xhtmllang.' title="' . pnVarPrepForDisplay($tmp['long']) . '">' . pnVarPrepForDisplay($tmp['short']) . '</acronym>';
+                if($haveoverlib) {
+                    $replace[] = '<acronym '.$xhtmllang.' onmouseover="return overlib(\'' . pnVarPrepForDisplay($tmp['long']) . '\', CAPTION, \'' . pnVarPrepForDisplay(_MH_ACRONYM) . ': '. pnVarPrepForDisplay($tmp['short']) .'\', ' . $overlib_parameters . ')" onmouseout="return nd();">' . pnVarPrepForDisplay($tmp['short']) . '</acronym>';
+                } else {
+                    $replace[] = '<acronym '.$xhtmllang.' title="' . pnVarPrepForDisplay($tmp['long']) . '">' . pnVarPrepForDisplay($tmp['short']) . '</acronym>';
+                }
             } else if($tmp['type']==2) {
                 // 2 = Link
-                $search[] = '/(?<![\/\w@\.:-])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:-])(?!\.\w)/i';
-                if($mhlinktitle==false) {
-                    $replace[] = '<a '.$extclass.' href="' . pnVarPrepForDisplay($tmp['long']) . '" title="' . pnVarPrepForDisplay($tmp['title']) . '">' . pnVarPrepForDisplay($tmp['short']) . '</a>';
+                // if short beginns with a single ' we need another regexp to not check for \w
+                // this enables autolinks for german deppenapostrophs :-)
+                if($tmp['short'][0] == '\'') {
+                    $search[] = '/(?<![\/@\.:-])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:-])(?!\.\w)/i';
                 } else {
-                    $replace[] = '<a '.$extclass.' href="' . pnVarPrepForDisplay($tmp['long']) . '" title="' . pnVarPrepForDisplay($tmp['title']) . '">' . pnVarPrepForDisplay($tmp['title']) . '</a>';
+                    $search[] = '/(?<![\/\w@\.:-])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:-])(?!\.\w)/i';
+                }
+                if($mhlinktitle==false) {
+                    if($haveoverlib) {
+                        $replace[] = '<a '.$extclass.' href="' . pnVarPrepForDisplay($tmp['long']) . '" title="" onmouseover="return overlib(\'' . pnVarPrepForDisplay($tmp['long']) . '\', CAPTION, \''. pnVarPrepForDisplay($tmp['title']) .'\', ' . $overlib_parameters . ')" onmouseout="return nd();">' . pnVarPrepForDisplay($tmp['short']) . '</a>';
+                    } else {
+                        $replace[] = '<a '.$extclass.' href="' . pnVarPrepForDisplay($tmp['long']) . '" title="' . pnVarPrepForDisplay($tmp['title']) . '">' . pnVarPrepForDisplay($tmp['short']) . '</a>';
+                    }
+                } else {
+                    if($haveoverlib) {
+                        $replace[] = '<a '.$extclass.' href="' . pnVarPrepForDisplay($tmp['long']) . '" title="" onmouseover="return overlib(\'' . pnVarPrepForDisplay($tmp['long']) . '\', CAPTION, \''. pnVarPrepForDisplay($tmp['title']) .'\', ' . $overlib_parameters . ')" onmouseout="return nd();">' . pnVarPrepForDisplay($tmp['title']) . '</a>';
+                    } else {
+                        $replace[] = '<a '.$extclass.' href="' . pnVarPrepForDisplay($tmp['long']) . '" title="' . pnVarPrepForDisplay($tmp['title']) . '">' . pnVarPrepForDisplay($tmp['short']) . '</a>';
+                    }
+//                    $replace[] = '<a '.$extclass.' href="' . pnVarPrepForDisplay($tmp['long']) . '" title="' . pnVarPrepForDisplay($tmp['title']) . '">' . pnVarPrepForDisplay($tmp['title']) . '</a>';
                 }
             }
         }

@@ -115,12 +115,6 @@ function MultiHook_adminapi_delete($args)
         return false;
     }
 
-    // Load API
-    if (!pnModAPILoad('MultiHook', 'user')) {
-        $output->Text(_LOADFAILED);
-        return $output->GetOutput();
-    }
-
     // The user API function is called
     $abac = pnModAPIFunc('MultiHook',
                          'user',
@@ -184,12 +178,6 @@ function MultiHook_adminapi_update($args)
         (!isset($language))) {
         pnSessionSetVar('errormsg', _MODARGSERROR);
         return false;
-    }
-
-    // Load API
-    if (!pnModAPILoad('MultiHook', 'user')) {
-        $output->Text(_LOADFAILED);
-        return $output->GetOutput();
     }
 
     // The user API function is called
