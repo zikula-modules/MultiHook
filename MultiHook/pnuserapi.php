@@ -298,8 +298,8 @@ function MultiHook_userapitransform($text)
         // Create search/replace array from abbreviations/links information
         foreach ($tmps as $tmp) {
             $extclass = (preg_match("/(^http:\/\/)/", $tmp['long'])==1) ? "class=\"$externallinkclass\"" : "";
-            $tmp['long']  = preg_replace('/(\b)/', '\\1MULTIHOOKTEMPORARY', $tmp['long']);
-            $tmp['title'] = preg_replace('/(\b)/', '\\1MULTIHOOKTEMPORARY', $tmp['title']);
+//            $tmp['long']  = preg_replace('/(\b)/', '\\1MULTIHOOKTEMPORARY', $tmp['long']);
+//            $tmp['title'] = preg_replace('/(\b)/', '\\1MULTIHOOKTEMPORARY', $tmp['title']);
             $xhtmllang = get_xhtml_language($tmp['language']);
             if($tmp['type']==0) {
                 // 0 = Abbreviation
@@ -358,7 +358,7 @@ function MultiHook_userapitransform($text)
     }
 
     // Step 7 - replace the spaces we munged in preparation of step 6
-    $text = preg_replace('/MULTIHOOKTEMPORARY/', '', $text);
+//    $text = str_replace('MULTIHOOKTEMPORARY', '', $text);
 
     // Step 8-12 - replace the tags that we removed before
     for ($i = 0; $i < $hilitecount; $i++) {
