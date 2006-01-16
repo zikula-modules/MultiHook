@@ -5,37 +5,31 @@
 <!--[ pngetstatusmsg ]--><br />
 <div style="text-align: center;"><!--[ $title ]--></div>
 <br />
-<!--[ pager rowcount=$abacscount limit=$itemsperpage posvar=startnum no_first=true forwardvars="filter" filter=$filter]-->
+<!--[ pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars="filter" filter=$filter]-->
 <table style="width: 100%;" cellpadding="0">
     <tr style="width: 100%;">
         <th style="background: #eeeeee; text-align: center; font-size: 12px;"><!--[ pnml name='_MH_SHORT' ]--></th>
         <th style="background: #eeeeee; text-align: center; font-size: 12px;"><!--[ pnml name='_MH_LONG' ]--></th>
         <th style="background: #eeeeee; text-align: center; font-size: 12px;"><!--[ pnml name='_MH_TITLE' ]--></th>
         <th style="background: #eeeeee; text-align: center; font-size: 12px;"><!--[ pnml name='_MH_LANGUAGE' ]--></th>
-        <th style="background: #eeeeee; text-align: center; font-size: 12px;"><!--[ pnml name='_MH_OPTIONS' ]--></th>
     <tr>
     <!--[ foreach item=abac from=$abacs ]-->
     <tr style="width: 100%;">
         <td style="text-align: center;">
+            <!--[ if $abac.edit == true ]-->
+            <a title="<!--[ pnml name='_EDIT' ]-->" href="<!--[ pnmodurl modname=MultiHook type=admin func=edit aid=$abac.aid ]-->"><!--[ $abac.short ]--></a>
+            <!--[ else ]-->
             <!--[ $abac.short ]-->
+            <!--[ /if ]-->
         </td>
         <td style="text-align: center;">
-            <!--[ $abac.long ]-->
+            <!--[ $abac.long|truncate:30 ]-->
         </td>
         <td style="text-align: center;">
-            <!--[ $abac.title ]-->
+            <!--[ $abac.title|truncate:30 ]-->
         </td>
         <td style="text-align: center;">
             <!--[ $abac.language ]-->
-        </td>
-        <td style="text-align: center;">
-            <!--[ if $abac.edit == true ]-->
-            <a href="<!--[ pnmodurl modname=MultiHook type=admin func=edit aid=$abac.aid ]-->"><!--[ pnml name='_EDIT' ]--></a>
-            <!--[ /if ]-->&nbsp;&nbsp;
-            <!--[ if $abac.delete == true ]-->
-            <a href="<!--[ pnmodurl modname=MultiHook type=admin func=delete aid=$abac.aid ]-->"><!--[ pnml name='_DELETE' ]--></a>
-            <!--[ /if ]-->
-            
         </td>
     </tr>
     <!--[ foreachelse ]-->
@@ -47,6 +41,6 @@
     <!--[ /foreach ]-->
 </table>
 <br />
-<!--[ pager rowcount=$abacscount limit=$itemsperpage posvar=startnum no_first=true forwardvars="filter" filter=$filter]-->
+<!--[ pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars="filter" filter=$filter]-->
 
 <!--[ include file=mh_admin_footer.html ]-->

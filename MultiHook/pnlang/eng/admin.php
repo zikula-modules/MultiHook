@@ -24,6 +24,7 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
+define('_MH_SHOWEDITLINK', 'Show edit link');
 define('_MH_REPLACEABBREVIATIONS', 'Replace abbreviations with long text');
 define('_MH_REPLACELINKWITHTITLE', 'Replace links with title');
 define('_MH_MHINCODETAGS', 'Use MultiHook inside [code][/code]');

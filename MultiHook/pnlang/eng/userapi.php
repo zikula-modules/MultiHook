@@ -26,6 +26,7 @@
 
 define('_MH_ABBREVIATION', 'Abbreviation');
 define('_MH_ACRONYM', 'Acronym');
+define('_MH_LINK', 'Link');
 
 define('_MH_SELECTFAILED','MultiHook: Select failed, please contact the webmaster');
 ?>

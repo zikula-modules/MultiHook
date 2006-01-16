@@ -40,23 +40,23 @@ function MultiHook_init()
             $multihookcolumn[short] VARCHAR(100) NOT NULL default '',
             $multihookcolumn[long] VARCHAR(200) NOT NULL default '',
             $multihookcolumn[title] VARCHAR(100) NOT NULL default '',
-            $multihookcolumn[type] TINYINT(1) NOT NULL default '',
+            $multihookcolumn[type] TINYINT(1) NOT NULL,
             $multihookcolumn[language] VARCHAR(30) NOT NULL default '',
             PRIMARY KEY (pn_aid))";
     $dbconn->Execute($sql);
 
     if ($dbconn->ErrorNo() != 0) {
-        pnSessionSetVar('errormsg', _DBCREATETABLEERROR);
+        pnSessionSetVar('errormsg', _MH_DBCREATETABLEERROR);
         return false;
     }
 
     // Set up module variables
     pnModSetVar('MultiHook', 'itemsperpage', 20);
     pnModSetVar('MultiHook', 'abacfirst', 1);
-    pnModSetVar('MultiHook', 'invisiblelinks', 1);
     pnModSetVar('MultiHook', 'mhincodetags', 0);
     pnModSetVar('MultiHook', 'mhlinktitle', 0);
     pnModSetVar('MultiHook', 'mhreplaceabbr', 0);
+    pnModSetVar('MultiHook', 'mhshoweditlink', 1);
 
     // Set up module hooks
     if (!pnModRegisterHook('item',
@@ -70,7 +70,7 @@ function MultiHook_init()
     }
 
     // silently import autolinks
-    if(pnModAPILoad('Autolinks', 'user')) {
+    if(pnModAvailable('Autolinks')) {
         $als = pnModAPIFunc('Autolinks', 'user', 'getall');
         if(is_array($als)) {
             if(pnModAPILoad('MultiHook', 'admin', true) && pnModAPILoad('MultiHook', 'user', true) ) {
@@ -120,7 +120,9 @@ function MultiHook_upgrade($oldversion)
     	case '1.1':
     	    pnModSetVar('MultiHook', 'mhlinktitle', 0);
             pnModSetVar('MultiHook', 'mhreplaceabbr', 0);
-    	break;
+    	case '1.3':
+    	    pnModSetVar('MultiHook', 'mhshoweditlink', 1);
+    	    break;
     }
     return true;
 }
@@ -153,12 +155,7 @@ function MultiHook_delete()
     }
 
     // Remove module variables
-    pnModDelVar('MultiHook', 'abacfirst');
-    pnModDelVar('MultiHook', 'invisiblelink');
-    pnModDelVar('MultiHook', 'itemsperpage');
-    pnModDelVar('MultiHook', 'mhincodetags');
-    pnModDelVar('MultiHook', 'mhlinktitle');
-    pnModDelVar('MultiHook', 'mhreplaceabbr');
+    pnModDelVar('MultiHook');
 
     // Deletion successful
     return true;

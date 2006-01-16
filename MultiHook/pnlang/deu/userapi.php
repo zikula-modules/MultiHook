@@ -26,6 +26,7 @@
 
 define('_MH_ABBREVIATION', 'Abkürzung');
 define('_MH_ACRONYM', 'Akronym');
+define('_MH_LINK', 'Link');
 
 define('_MH_SELECTFAILED','MultiHook: Select auf die Datenbank fehlgeschlagen - bitte Admin verständigen');
 

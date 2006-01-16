@@ -1,5 +1,17 @@
 $Id$
 
+Version 1.4
+*** This version needs PostNuke .760 or later! ***
+   - minor layout changes in admin panel
+   - fixed problem with MySQL 5 table creation
+   - added link to edit abbreviations, acronyms and links (needs admin permissions) next to the
+     abbr, acronym or link created
+   - all internal urls are now created as absolute urls
+
+Version 1.3
+   - minor fixes and updates 
+   - basic support for overlib (needs the overlib module being installed)
+   
 Version 1.2  20 July 2005
    - minor fixes
    - returning immediatey when useragent is a known bot

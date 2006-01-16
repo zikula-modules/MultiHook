@@ -6,7 +6,7 @@
 <div style="text-align: center;"><!--[ pnml name='_MH_MODIFYCONFIG' ]--></div>
 <br />
 
-<form action="<!--[ pnmodurl modname=MultiHook type=admin func=updateconfig ]-->" method="post">
+<form action="<!--[ pnmodurl modname=MultiHook type=admin func=modifyconfig ]-->" method="post">
 <input type="hidden" name="authid" value="<!--[ pnsecgenauthkey ]-->">
 
 <div style="clear: both;">
@@ -15,7 +15,7 @@
     </div>
 
     <div style="width: 50%; text-align: left; float: right;">
-        <input type="checkbox" name="abacfirst" value="1" <!--[ if $abacfirst==1 ]-->checked="checked"<!--[ /if ]--> >
+        <input type="checkbox" name="abacfirst" value="1" <!--[ if $pncore.MultiHook.abacfirst==1 ]-->checked="checked"<!--[ /if ]--> >
     </div>
 </div>
 
@@ -25,7 +25,7 @@
     </div>
 
     <div style="width: 50%; text-align: left; float: right;">
-        <input type="text" size="20" maxlength="40" name="externallinkclass" value="<!--[ $externallinkclass ]-->" >
+        <input type="text" size="20" maxlength="40" name="externallinkclass" value="<!--[ $pncore.MultiHook.externallinkclass ]-->" >
     </div>
 </div>
 
@@ -35,7 +35,7 @@
     </div>
 
     <div style="width: 50%; text-align: left; float: right;">
-        <input type="text" size="4" maxlength="4" name="itemsperpage" value="<!--[ $itemsperpage ]-->" >
+        <input type="text" size="4" maxlength="4" name="itemsperpage" value="<!--[ $pncore.MultiHook.itemsperpage ]-->" >
     </div>
 </div>
 
@@ -45,7 +45,7 @@
     </div>
 
     <div style="width: 50%; text-align: left; float: right;">
-        <input type="checkbox" name="mhincodetags" value="1" <!--[ if $mhincodetags==1 ]-->checked="checked"<!--[ /if ]--> >
+        <input type="checkbox" name="mhincodetags" value="1" <!--[ if $pncore.MultiHook.mhincodetags==1 ]-->checked="checked"<!--[ /if ]--> >
     </div>
 </div>
 
@@ -55,7 +55,7 @@
     </div>
 
     <div style="width: 50%; text-align: left; float: right;">
-        <input type="checkbox" name="mhlinktitle" value="1" <!--[ if $mhlinktitle==1 ]-->checked="checked"<!--[ /if ]--> >
+        <input type="checkbox" name="mhlinktitle" value="1" <!--[ if $pncore.MultiHook.mhlinktitle==1 ]-->checked="checked"<!--[ /if ]--> >
     </div>
 </div>
 
@@ -65,7 +65,17 @@
     </div>
 
     <div style="width: 50%; text-align: left; float: right;">
-        <input type="checkbox" name="mhreplaceabbr" value="1" <!--[ if $mhreplaceabbr==1 ]-->checked="checked"<!--[ /if ]--> >
+        <input type="checkbox" name="mhreplaceabbr" value="1" <!--[ if $pncore.MultiHook.mhreplaceabbr==1 ]-->checked="checked"<!--[ /if ]--> >
+    </div>
+</div>
+
+<div style="clear: both;">
+    <div style="width: 50%; text-align: left; float: left;">
+        <!--[ pnml name='_MH_SHOWEDITLINK' ]-->
+    </div>
+
+    <div style="width: 50%; text-align: left; float: right;">
+        <input type="checkbox" name="mhshoweditlink" value="1" <!--[ if $pncore.MultiHook.mhshoweditlink==1 ]-->checked="checked"<!--[ /if ]--> >
     </div>
 </div>
 

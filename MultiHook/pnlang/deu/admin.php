@@ -23,6 +23,7 @@
 // Purpose of file:  Language defines for pnadmin.php
 // ----------------------------------------------------------------------
 
+define('_MH_SHOWEDITLINK', 'Link zum Editieren anzeigen');
 define('_MH_REPLACEABBREVIATIONS', 'Abkürzungen duch Langtext ersetzen');
 define('_MH_REPLACELINKWITHTITLE', 'Links durch Titel ersetzen');
 define('_MH_MHINCODETAGS', 'MultiHook innerhalb [code][/code] benutzen');

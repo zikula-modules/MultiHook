@@ -23,7 +23,7 @@
 // ----------------------------------------------------------------------
 
 $modversion['name'] = 'MultiHook';
-$modversion['version'] = '1.3';
+$modversion['version'] = '1.4';
 $modversion['description'] = 'Creates xhtml tags for abbreviations and acronyms, creates autolinks';
 $modversion['credits'] = 'pndocs/credits.txt';
 $modversion['help'] = 'pndocs/help.txt';

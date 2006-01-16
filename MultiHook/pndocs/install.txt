@@ -40,18 +40,14 @@ should) specify a css class in the configuration, e.g. externallink.
 The css declaration in your style.css / styleNN.css can look like:
 
 a.externallink {
-padding-left:  14px;
-font-size: 11px;
-background-image: url('../../../modules/MultiHook/pnimages/extlink.gif');
-background-position: left;
-background-repeat: no-repeat;
+    padding-left:  14px;
+    font-size: 11px;
+    background: url('../../../modules/MultiHook/pnimages/extlink.gif') no-repeat bottom left;
 }
 a:hover.externallink {
-padding-left:  14px;
-font-size: 11px;
-background-image: url('../../../modules/MultiHook/pnimages/extlink.gif');
-background-position: left;
-background-repeat: no-repeat;
+    padding-left:  14px;
+    font-size: 11px;
+    background: url('../../../modules/MultiHook/pnimages/extlink.gif') np-repeat bottom left;
 }
 
 This adds the image extlink.gif to the left of the created link. Please note that

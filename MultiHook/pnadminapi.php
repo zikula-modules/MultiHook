@@ -51,12 +51,12 @@ function MultiHook_adminapi_create($args)
     }
 
     // Security check
-    if (!pnSecAuthAction(0, 'MultiHook::', "$short::", ACCESS_ADD)) {
+    if (!pnSecAuthAction(0, 'MultiHook::', "::", ACCESS_ADD)) {
         pnSessionSetVar('errormsg', _MH_NOAUTH);
         return false;
     }
 
-    // Get datbase setup
+    // Get database setup
     $dbconn =& pnDBGetConn(true);
     $pntable =& pnDBGetTables();
 
@@ -131,7 +131,7 @@ function MultiHook_adminapi_delete($args)
         return false;
     }
 
-    // Get datbase setup
+    // Get database setup
     $dbconn =& pnDBGetConn(true);
     $pntable =& pnDBGetTables();
 

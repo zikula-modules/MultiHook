@@ -61,14 +61,26 @@ function MultiHook_admin_edit($args)
 
         if ($abac == false) {
             pnSessionSetVar('errormsg', _MH_NOSUCHITEM);
-            pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
-            return true;
+            return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
         }
+        // set permission flags
+            $abac['edit'] = false;
+            $abac['delete'] = false;
+        
+            if (pnSecAuthAction(0, 'MultiHook::', "$abac[short]::$abac[aid]", ACCESS_EDIT)) {
+                $abac['edit'] = true;
+                if (pnSecAuthAction(0, 'MultiHook::', "$abac[short]::$abac[aid]", ACCESS_DELETE)) {
+                    $abac['delete'] = true;
+                }
+            } else {
+                pnSessionSetVar('errormsg', _MH_NOAUTH);
+                return pnRedirect(pnModURL('MultiHook','admin','main'));
+            }
+
     }
     $pnr =& new pnRender("MultiHook");
     $pnr->caching = false;
     $pnr->assign('abac', $abac);
-    $pnr->assign('abbrstorelink', pnModURL('MultiHook', 'admin', 'store'));
     $pnr->assign('types', array( _MH_TYPEABBREVIATION,
                                  _MH_TYPEACRONYM,
                                  _MH_TYPELINK ));
@@ -93,54 +105,82 @@ function MultiHook_admin_store($args)
          $long,
          $title,
          $type,
-         $language) = pnVarCleanFromInput('abbr_aid',
-                                          'abbr_short',
-                                          'abbr_long',
-                                          'abbr_title',
-                                          'abbr_type',
-                                          'abbr_language');
+         $language,
+         $mh_delete) = pnVarCleanFromInput('abbr_aid',
+                                           'abbr_short',
+                                           'abbr_long',
+                                           'abbr_title',
+                                           'abbr_type',
+                                           'abbr_language',
+                                           'mh_delete');
     extract($args);
 
     // Confirm authorisation code.
 
     if (!pnSecConfirmAuthKey()) {
         pnSessionSetVar('errormsg', _BADAUTHKEY);
-        pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
-        return true;
+        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
     }
 
     // Check arguments
+    
+    
     if( (isset($aid)) && (!is_numeric($aid)) ) {
         pnSessionSetVar( 'errormsg', _MODARGSERROR );
-        pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
-        return true;
+        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
     }
 
+    if(!empty($mh_delete) && ($mh_delete=="1") ) {
+        $abac = pnModAPIFunc('MultiHook',
+                             'user',
+                             'get',
+                             array('aid' => $aid));
+    
+        if ($abac == false) {
+            pnSessionSetVar('errormsg', _MH_NOSUCHITEM);
+            return pnRedirect(pnModURL('MultiHook','admin','main'));
+        }
+    
+        // Security check
+        if (!pnSecAuthAction(0, 'MultiHook::Item', "$abac[short]::$aid", ACCESS_DELETE)) {
+            pnSessionSetVar('errormsg', _MH_NOAUTH);
+            return pnRedirect(pnModURL('MultiHook','admin','main'));
+        }
+    
+        // The API function is called
+        if (pnModAPIFunc('MultiHook',
+                         'admin',
+                         'delete',
+                         array('aid' => $aid))) {
+            // Success
+            pnSessionSetVar('statusmsg', _MH_DELETED);
+        } else {
+            pnSessionSetVar('errormsg', _MH_DELETEFAILED);
+        }
+        return pnRedirect(pnModURL('MultiHook', 'admin', 'view', array('filter' => $abac['type'])));
+    }
+
+    // no deletion, further checks needed
     if (!isset($short)) {
         pnSessionSetVar( 'errormsg', _MH_SHORTEMPTY );
-        pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
-        return true;
+        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
     }
     if (!isset($long)) {
         pnSessionSetVar( 'errormsg', _MH_LONGEMPTY );
-        pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
-        return true;
+        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
     }
     if (!isset($type)) {
         pnSessionSetVar( 'errormsg', _MH_TYPEEMPTY );
-        pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
-        return true;
+        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
     }
     if ($type==2 && !isset($title)) {
         pnSessionSetVar( 'errormsg', _MH_TITLEEMPTY );
-        pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
-        return true;
+        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
     }
 
     if (!isset($language)) {
         pnSessionSetVar( 'errormsg', _MH_LANGUAGEEMPTY );
-        pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
-        return true;
+        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
     }
 
     // The API function is called
@@ -177,81 +217,7 @@ function MultiHook_admin_store($args)
         }
     }
 
-    pnRedirect(pnModURL('MultiHook', 'admin', 'view', array('filter'=>$type)));
-    return true;
-}
-
-/**
- * delete item
- * @param 'aid' the id of the item to be deleted
- * @param 'confirmation' confirmation that this item can be deleted
- */
-function MultiHook_admin_delete($args)
-{
-    // Get parameters from whatever input we need
-    list($aid,
-         $obid,
-         $confirmation) = pnVarCleanFromInput('aid',
-                                              'obid',
-                                              'confirmation');
-    extract($args);
-
-     if (!empty($obid)) {
-         $aid = $obid;
-     }
-
-    // The user API function is called
-    $abac = pnModAPIFunc('MultiHook',
-                         'user',
-                         'get',
-                         array('aid' => $aid));
-
-    if ($abac == false) {
-        pnSessionSetVar('errormsg', _MH_NOSUCHITEM);
-        pnRedirect(pnModURL('MultiHook','admin','main'));
-        return true;
-    }
-
-    // Security check
-    if (!pnSecAuthAction(0, 'MultiHook::Item', "$abac[short]::$aid", ACCESS_DELETE)) {
-        pnSessionSetVar('errormsg', _MH_NOAUTH);
-        pnRedirect(pnModURL('MultiHook','admin','main'));
-        return true;
-    }
-
-    // Check for confirmation.
-    if (empty($confirmation)) {
-        // No confirmation yet
-
-        // Create output object
-        $pnr =& new pnRender('MultiHook');
-        $pnr->caching = false;
-        $pnr->assign('abac', $abac);
-        return $pnr->fetch('mh_admin_delete.html');
-    }
-
-    // If we get here it means that the user has confirmed the action
-
-    // Confirm authorisation code
-    if (!pnSecConfirmAuthKey()) {
-        pnSessionSetVar('errormsg', _BADAUTHKEY);
-        pnRedirect(pnModURL('MultiHook', 'admin', 'view', array('filter'=>$abac['type'])));
-        return true;
-    }
-
-    // The API function is called
-    if (pnModAPIFunc('MultiHook',
-                     'admin',
-                     'delete',
-                     array('aid' => $aid))) {
-        // Success
-        pnSessionSetVar('statusmsg', _MH_DELETED);
-    } else {
-        pnSessionSetVar('errormsg', _MH_DELETEFAILED);
-    }
-
-    pnRedirect(pnModURL('MultiHook', 'admin', 'view', array('filter'=>$abac['type'])));
-    return true;
+    return pnRedirect(pnModURL('MultiHook', 'admin', 'view', array('filter'=>$type)));
 }
 
 /**
@@ -296,11 +262,11 @@ function MultiHook_admin_view()
     // Create output object
     $pnr =& new pnRender('MultiHook');
     $pnr->caching = false;
+    $pnr->add_core_data();
     $pnr->assign('abacs', $abacs);
     $pnr->assign('title', $titles[$filter]);
     $pnr->assign('filter', $filter);
     $pnr->assign('abacscount', pnModAPIFunc('MultiHook', 'user', 'countitems', array('filter' => $filter)));
-    $pnr->assign('itemsperpage', pnModGetVar('MultiHook', 'itemsperpage'));
     return $pnr->fetch('mh_admin_view.html');
 }
 
@@ -313,59 +279,57 @@ function MultiHook_admin_modifyconfig()
     if (!pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADMIN)) {
         return _MH_NOAUTH;
     }
-    $pnr =& new pnRender('MultiHook');
-    $pnr->caching = false;
-    $pnr->assign('abacfirst', pnModGetVar('MultiHook', 'abacfirst'));
-    $pnr->assign('mhincodetags', pnModGetVar('MultiHook', 'mhincodetags'));
-    $pnr->assign('mhlinktitle', pnModGetVar('MultiHook', 'mhlinktitle'));
-    $pnr->assign('mhreplaceabbr', pnModGetVar('MultiHook', 'mhreplaceabbr'));
-    $pnr->assign('itemsperpage', pnModGetVar('MultiHook', 'itemsperpage'));
-    $pnr->assign('externallinkclass', pnModGetVar('MultiHook', 'externallinkclass'));
-    return $pnr->fetch('mh_admin_config.html');
+    
+    $submit = pnVarCleanFromInput('submit');
+    
+    if(!$submit) {
+    
+        $pnr =& new pnRender('MultiHook');
+        $pnr->caching = false;
+        $pnr->add_core_data();
+        return $pnr->fetch('mh_admin_config.html');
+
+    } else {  // submit is set
+    
+        if (!pnSecConfirmAuthKey()) {
+            pnSessionSetVar('errormsg', _BADAUTHKEY);
+            return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
+        }
+
+        list($abacfirst,
+             $mhincodetags,
+             $mhlinktitle,
+             $mhreplaceabbr,
+             $mhshoweditlink,
+             $externallinkclass,
+             $itemsperpage)= pnVarCleanFromInput('abacfirst',
+                                                 'mhincodetags',
+                                                 'mhlinktitle',
+                                                 'mhreplaceabbr',
+                                                 'mhshoweditlink',
+                                                 'externallinkclass',
+                                                 'itemsperpage');
+        
+        
+        if (empty($abacfirst)) {
+            $abacfirst = 0;
+        }
+        pnModSetVar('MultiHook', 'abacfirst', $abacfirst);
+        
+        if (empty($itemsperpage)) {
+            $itemsperpage = 20;
+        }
+        
+        pnModSetVar('MultiHook', 'mhincodetags', $mhincodetags);
+        pnModSetVar('MultiHook', 'mhlinktitle', $mhlinktitle);
+        pnModSetVar('MultiHook', 'mhreplaceabbr', $mhreplaceabbr);
+        pnModSetVar('MultiHook', 'mhshoweditlink', $mhshoweditlink);
+        pnModSetVar('MultiHook', 'itemsperpage', $itemsperpage);
+        pnModSetVar('MultiHook', 'externallinkclass', $externallinkclass);
+        
+        pnSessionSetVar('statusmsg', _MH_UPDATEDCONFIG);
+    }
+    return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
 }
-
-/**
- * update configuration
- */
-function MultiHook_admin_updateconfig()
-{
-    list($abacfirst,
-         $mhincodetags,
-         $mhlinktitle,
-         $mhreplaceabbr,
-         $externallinkclass,
-         $itemsperpage)= pnVarCleanFromInput('abacfirst',
-                                             'mhincodetags',
-                                             'mhlinktitle',
-                                             'mhreplaceabbr',
-                                             'externallinkclass',
-                                             'itemsperpage');
-
-    if (!pnSecConfirmAuthKey()) {
-        pnSessionSetVar('errormsg', _BADAUTHKEY);
-        pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
-        return true;
-    }
-
-    if (!isset($abacfirst)) {
-        $abacfirst = 0;
-    }
-    pnModSetVar('MultiHook', 'abacfirst', $abacfirst);
-
-    if (!isset($itemsperpage)) {
-        $itemsperpage = 20;
-    }
-
-    pnModSetVar('MultiHook', 'mhincodetags', $mhincodetags);
-    pnModSetVar('MultiHook', 'mhlinktitle', $mhlinktitle);
-    pnModSetVar('MultiHook', 'mhreplaceabbr', $mhreplaceabbr);
-    pnModSetVar('MultiHook', 'itemsperpage', $itemsperpage);
-    pnModSetVar('MultiHook', 'externallinkclass', $externallinkclass);
-
-    pnSessionSetVar('statusmsg', _MH_UPDATEDCONFIG);
-    pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
-    return true;
-}
-
 
 ?>
