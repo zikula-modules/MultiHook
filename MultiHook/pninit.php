@@ -124,6 +124,13 @@ function MultiHook_upgrade($oldversion)
     	    pnModSetVar('MultiHook', 'mhshoweditlink', 1);
     	    break;
     }
+   	$smarty =& new Smarty;
+   	$smarty->compile_dir = pnConfigGetVar('temp') . '/pnRender_compiled';
+   	$smarty->cache_dir = pnConfigGetVar('temp') . '/pnRender_cache';
+   	$smarty->use_sub_dirs = false;
+   	$smarty->clear_compiled_tpl();
+
+
     return true;
 }
 
