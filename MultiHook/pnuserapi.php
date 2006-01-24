@@ -354,7 +354,7 @@ function MultiHook_userapitransform($text)
                     $replace_temp = pnVarPrepForDisplay($tmp['long']);
                 }
                 if($mhadmin == true && $mhshoweditlink==true) {
-                    $replace_temp .= '<a title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $tmp['short'] . ' (' . pnVarPrepForDisplay(_MH_ABBREVIATION) . ')" href="' . pnModURL('MultiHook', 'admin', 'edit',array('aid' => $tmp['aid'])) . '">+</a>';
+                    $replace_temp .= '<a title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $tmp['short'] . ' (' . pnVarPrepForDisplay(_MH_ABBREVIATION) . ')" href="' . pnVarPrepForDisplay(pnModURL('MultiHook', 'admin', 'edit',array('aid' => $tmp['aid']))) . '">+</a>';
                 }
                 $finalreplace[] = $replace_temp;
                 unset($search_temp);
@@ -371,7 +371,7 @@ function MultiHook_userapitransform($text)
                     $replace_temp = '<acronym '.$xhtmllang.' title="' . pnVarPrepForDisplay($tmp['long']) . '">' . pnVarPrepForDisplay($tmp['short']) . '</acronym>';
                 }
                 if($mhadmin == true && $mhshoweditlink==true) {
-                    $replace_temp .= '<a title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $tmp['short'] . ' (' . pnVarPrepForDisplay(_MH_ACRONYM) . ')" href="' . pnModURL('MultiHook', 'admin', 'edit',array('aid' => $tmp['aid'])) . '">+</a>';
+                    $replace_temp .= '<a title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $tmp['short'] . ' (' . pnVarPrepForDisplay(_MH_ACRONYM) . ')" href="' . pnVarPrepForDisplay(pnModURL('MultiHook', 'admin', 'edit',array('aid' => $tmp['aid']))) . '">+</a>';
                 }
                 $finalreplace[] = $replace_temp;
                 unset($search_temp);
@@ -405,7 +405,7 @@ function MultiHook_userapitransform($text)
                     }
                 }
                 if($mhadmin == true && $mhshoweditlink==true) {
-                    $replace_temp .= '<a title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $tmp['short'] . ' (' . pnVarPrepForDisplay(_MH_LINK) . ')" href="' . pnModURL('MultiHook', 'admin', 'edit',array('aid' => $tmp['aid'])) . '">+</a>';
+                    $replace_temp .= '<a title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $tmp['short'] . ' (' . pnVarPrepForDisplay(_MH_LINK) . ')" href="' . pnVarPrepForDisplay(pnModURL('MultiHook', 'admin', 'edit',array('aid' => $tmp['aid']))) . '">+</a>';
                 }
                 $finalreplace[] = $replace_temp;
                 unset($search_temp);
