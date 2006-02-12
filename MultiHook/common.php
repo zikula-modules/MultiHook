@@ -105,7 +105,7 @@ function create_link($aid, $short, $long, $title, $language, $mhadmin=false, $mh
         if($haveoverlib) {
             $replace_temp = '<a '.$extclass.' href="' . $long . '" title="" onmouseover="return overlib(\'' . $long . '\', CAPTION, \''. $title .'\', ' . overlib_params() . ')" onmouseout="return nd();">' . $title . '</a>';
         } else {
-            $replace_temp = '<span><a '.$extclass.' href="' . $long . '" title="' . $title . '">' . $short . '</a>' . $editlink . '</span>';
+            $replace_temp = '<span><a '.$extclass.' href="' . $long . '" title="' . $title . '">' . $title . '</a>' . $editlink . '</span>';
         }
     }
     return $replace_temp;
