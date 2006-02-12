@@ -55,3 +55,53 @@ the path to the image file is relative to the place of the css file used. Withou
 the a:hover the image would disappear in IE when the mouse is over the link 
 (sigh, again IE..).
 
+Ajax support
+------------
+Since version 2.0 MultiHook uses Ajax for easier adding and manipulating of entries. 
+If you want to use this feature, your PostNuke theme as to be prepared for
+this and you have to enable javascript in your browser. 
+Copy modules/MultiHook/pntemplates/plugins/function.multihookhelper.php to your 
+modules/Xanthia/plugins folder and change your theme templates:
+
+<... some code ...>
+</head>
+<body>
+<!--[ multihookhelper ]-->
+<... more code ...>
+
+The multihookhelper plugin adds the necessary javascript and hidden divs if the users has min.
+ACCESS_ADD permissions for MultiHook.
+
+If you do not want to use Ajax you can still use the normal admin panel for adding and changing
+the data.
+
+Common problems with Ajax
+-------------------------
+Beginning with .762 PostNuke offers the filtering of HTML output using SafeHTML. This will remove all
+onclick handlers from the MultiHook links for editing entries which makes them useless.
+
+You can either
+* deactivate SafeHTML (not recommended)
+* or patch pnAPI.php to not use SafeHTML if the user has admin permissions for MultiHook
+
+Both solution are not really good, but the second one should be preferred.
+
+Change line pnAPI.php ,line 655ff to
+
+    foreach (func_get_args() as $var) {
+        if( (pnConfigGetVar('safehtml') == '1') && !pnSecAuthAction(0, 'MultiHook::', '.*', ACCESS_ADMIN)){
+            $safehtml->clear();       
+            $var = $safehtml->parse($var);
+        }
+        // Preparse var to mark the HTML that we want
+        if (!empty($allowedtags))
+            $var = preg_replace($allowedtags, "\022\\1\024", $var);
+
+        if (pnConfigGetVar('safehtml') != '1' || pnSecAuthAction(0, 'MultiHook::', '.*', ACCESS_ADMIN)) {
+            // Prepare var
+            $var = htmlspecialchars($var);
+        }
+
+You are doing this at your own risk - do not blame me for any security problems that
+my arise.
+

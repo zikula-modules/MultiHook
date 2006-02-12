@@ -209,7 +209,7 @@ function MultiHook_admin_store($args)
                               'title' => $title,
                               'long' => $long,
                               'type' => $type,
-                              'language' => $language))) {
+                              'language' => $language))<>false) {
             // Success
             pnSessionSetVar('statusmsg', _MH_UPDATED);
         } else {

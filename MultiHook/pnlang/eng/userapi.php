@@ -24,6 +24,8 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
+define('_MH_ERRORREADINGDATA', 'Error reading data');
+
 define('_MH_ABBREVIATION', 'Abbreviation');
 define('_MH_ACRONYM', 'Acronym');
 define('_MH_LINK', 'Link');

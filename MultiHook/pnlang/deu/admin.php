@@ -23,6 +23,14 @@
 // Purpose of file:  Language defines for pnadmin.php
 // ----------------------------------------------------------------------
 
+define('_MH_LOADINGDATA', 'lade Daten...');
+define('_MH_SAVINGDATA', 'speichere Daten...');
+
+define('_MH_WRONGPARAMETER_SHORT', 'Kurzbegriff nicht gewählt');
+define('_MH_WRONGPARAMETER_LONG', 'Keine Langversion oder (im Falle eines Links) keine URL angegeben');
+define('_MH_WRONGPARAMETER_TITLE', 'keine Titel angegeben');
+define('_MH_WRONGPARAMETER_TYPE', 'ungültiger Typ');
+
 define('_MH_SHOWEDITLINK', 'Link zum Editieren anzeigen');
 define('_MH_REPLACEABBREVIATIONS', 'Abkürzungen duch Langtext ersetzen');
 define('_MH_REPLACELINKWITHTITLE', 'Links durch Titel ersetzen');

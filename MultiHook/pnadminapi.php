@@ -222,7 +222,7 @@ function MultiHook_adminapi_update($args)
     }
 
     // Let the calling process know that we have finished successfully
-    return true;
+    return $aid;
 }
 
 ?>

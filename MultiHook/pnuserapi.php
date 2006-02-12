@@ -23,6 +23,8 @@
 // Purpose of file:  MultiHook user API
 // ----------------------------------------------------------------------
 
+include_once('modules/MultiHook/common.php');
+
 /**
  * get all entries
  * @params $args['filter'] int 0=abbr, 1=acronyms, 2=links
@@ -98,7 +100,8 @@ function MultiHook_userapi_getall($args)
 
 /**
  * get a specific entry
- * @poaram $args['aid'] id of item to get
+ * @param $args['aid'] id of item to get
+ * @param $args['short'] short string to get
  * @returns array
  * @return abac array, or false on failure
  */
@@ -106,16 +109,22 @@ function MultiHook_userapi_get($args)
 {
     extract($args);
 
-    if (!isset($aid) || !is_numeric($aid)) {
-        pnSessionSetVar('errormsg', _MODARGSERROR);
-        return false;
-    }
-
     $dbconn =& pnDBGetConn(true);
     $pntable =& pnDBGetTables();
 
     $multihooktable = $pntable['multihook'];
     $multihookcolumn = $pntable['multihook_column'];
+
+    if (!isset($aid) || !is_numeric($aid)) {
+        if (!isset($short) || empty($short)) {
+            pnSessionSetVar('errormsg', _MODARGSERROR);
+            return false;
+        } else {
+            $where = "WHERE $multihookcolumn[short] = '" . pnVarPrepForStore($short) . "'";
+        }
+    } else {
+        $where = "WHERE $multihookcolumn[aid] = '" . (int)pnVarPrepForStore($aid) . "'";
+    }
 
     $sql = "SELECT $multihookcolumn[aid],
                    $multihookcolumn[short],
@@ -124,7 +133,7 @@ function MultiHook_userapi_get($args)
                    $multihookcolumn[type],
                    $multihookcolumn[language]
             FROM $multihooktable
-            WHERE $multihookcolumn[aid] = '".(int)pnVarPrepForStore($aid)."'";
+            $where";
     $result =& $dbconn->Execute($sql);
 
     if ($dbconn->ErrorNo() != 0) {
@@ -239,19 +248,31 @@ function MultiHook_userapitransform($text)
     static $finalsearch = array();
     static $finalreplace = array();
     static $gotabbreviations = 0;
-    static $mhadmin = false;
-    static $mhshoweditlink = false;
-    static $schemes = array('http', 'https', 'ftp', 'gopher', 'ed2k', 'news', 'mailto', 'telnet');
-    static $imageinfo;
 
-    $onlyonce = (pnModGetVar('MultiHook', 'abacfirst')==1) ? true : false;
-    $externallinkclass =pnModGetVar('MultiHook', 'externallinkclass');
-    $mhincodetags = (pnModGetVar('MultiHook', 'mhincodetags')==1) ? true : false;
-    $mhlinktitle = (pnModGetVar('MultiHook', 'mhlinktitle')==1) ? true : false;
-    $mhreplaceabbr = (pnModGetVar('MultiHook', 'mhreplaceabbr')==1) ? true : false;
-    $haveoverlib = pnModAvailable('overlib');
-    $mhadmin = pnSecAuthAction(0, 'MultiHook::', '.*', ACCESS_ADMIN);
-    $mhshoweditlink = (pnModGetVar('MultiHook', 'mhshoweditlink')==1) ? true : false;
+    static $mhadmin;
+    if(!isset($mhadmin)) {
+        $mhadmin = pnSecAuthAction(0, 'MultiHook::', '.*', ACCESS_ADMIN);
+    }
+
+    static $mhincodetags;
+    if(!isset($mhincodetags)) {
+        $mhincodetags = (pnModGetVar('MultiHook', 'mhincodetags')==1) ? true : false;
+    }
+    
+    static $mhshoweditlink;
+    if(!isset($mhshoweditlink)) {
+        $mhshoweditlink = (pnModGetVar('MultiHook', 'mhshoweditlink')==1) ? true : false;
+    }
+
+    static $onlyonce;
+    if(!isset($onlyonce)) {
+        $onlyonce = (pnModGetVar('MultiHook', 'abacfirst')==1) ? true : false;
+    }
+
+    static $haveoverlib;
+    if(!isset($haveoverlib)) {
+        $haveoverlib = pnModAvailable('overlib');
+    }
 
     // Step 0 - move all bbcode with [code][/code] out of the way
     //          if MultiHook is configured accordingly
@@ -300,42 +321,19 @@ function MultiHook_userapitransform($text)
         $text = preg_replace('/(' . preg_quote($hilite[0][$i], '/') . ')/', " MULTIHOOKHILITEREPLACEMENT{$i} ", $text, 1);
     }
 
-    $overlib_border = 1;
-    $overlib_font   = 'arial';
-    $overlib_cpfont   = 'arial';
-    $overlib_fontsize = '10px';
-    $overlib_cpfontsize = '10px';
-    $overlib_fontcolor = '#ffffff';
-    $overlib_cpfontcolor = '#000000';
-    $overlib_fgcolor = '#000000';
-    $overlib_bgcolor = '#ffffff';
-    $overlib_parameters = "TEXTFONT, '$overlib_font', CAPTIONFONT, '$overlib_cpfont', TEXTSIZE, '$overlib_fontsize', CAPTIONSIZE, '$overlib_cpfontsize', BORDER, $overlib_border, TEXTCOLOR, '$overlib_fontcolor', CAPCOLOR, '$overlib_cpfontcolor', BGCOLOR, '$overlib_bgcolor', FGCOLOR, '$overlib_fgcolor'";
-
     if (empty($gotabbreviations)) {
         $gotabbreviations = 1;
         $tmps = pnModAPIFunc('MultiHook', 'user', 'getall', array('sortbylength' => true));
         // Create search/replace array from abbreviations/links information
+        
         foreach ($tmps as $tmp) {
-            $extclass = (preg_match("/(^http:\/\/)/", $tmp['long'])==1) ? "class=\"$externallinkclass\"" : "";
             // check if the current tmp is a link
             if($tmp['type']==2) {
-                // make sure that relative urls get converted to absolute urls (safehtml needs this)
-                $exploded_url = explode(':', $tmp['long']);
-                if(!in_array($exploded_url[0], $schemes)) {
-                    // url does not start with one of the schemes defined above - we consider it
-                    // being a relative path now
-                    // next check for leading / in  relative url
-                    if($tmp['long'][0] == '/') {
-                        // and remove it
-                        $tmp['long'] = substr($tmp['long'], 1);
-                    }
-                    $tmp['long'] = pnGetBaseURL() . $tmp['long'];
-                }
+                $tmp['long'] = absolute_url($tmp['long']);
             }
-            
+
             $tmp['long']  = preg_replace('/(\b)/', '\\1MULTIHOOKTEMPORARY', $tmp['long']);
             $tmp['title'] = preg_replace('/(\b)/', '\\1MULTIHOOKTEMPORARY', $tmp['title']);
-            $xhtmllang = get_xhtml_language($tmp['language']);
 
             if($tmp['type']==0) {
                 // 0 = Abbreviation
@@ -343,39 +341,16 @@ function MultiHook_userapitransform($text)
                 $search[]      = $search_temp;
                 $replace[]     = md5($search_temp);
                 $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                if($mhreplaceabbr==false) {
-                    if($haveoverlib) {
-                        $replace_temp = '<abbr '.$xhtmllang.' onmouseover="return overlib(\'' . pnVarPrepForDisplay($tmp['long']) . '\', CAPTION, \'' . pnVarPrepForDisplay(_MH_ABBREVIATION) . ': '. pnVarPrepForDisplay($tmp['short']) .'\', ' . $overlib_parameters . ')" onmouseout="return nd();"><span class="abbr" onmouseover="return overlib(\'' . pnVarPrepForDisplay($tmp['long']) . '\', CAPTION, \'' . pnVarPrepForDisplay(_MH_ABBREVIATION) . ': '. pnVarPrepForDisplay($tmp['short']) .'\')" onmouseout="return nd();">' . pnVarPrepForDisplay($tmp['short']) . '</span></abbr>';
-                    } else {
-                        $replace_temp = '<abbr '.$xhtmllang.' title="' . pnVarPrepForDisplay($tmp['long']) . '"><span class="abbr" title="'. pnVarPrepForDisplay($tmp['long']) .'">' . pnVarPrepForDisplay($tmp['short']) . '</span></abbr>';
-                    }
-
-                } else {
-                    $replace_temp = pnVarPrepForDisplay($tmp['long']);
-                }
-                if($mhadmin == true && $mhshoweditlink==true) {
-                    $replace_temp .= '<a title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $tmp['short'] . ' (' . pnVarPrepForDisplay(_MH_ABBREVIATION) . ')" href="' . pnVarPrepForDisplay(pnModURL('MultiHook', 'admin', 'edit',array('aid' => $tmp['aid']))) . '">+</a>';
-                }
-                $finalreplace[] = $replace_temp;
+                $finalreplace[] = create_abbr($tmp['aid'], $tmp['short'], $tmp['long'], $tmp['language'], $mhadmin, $mhshoweditlink, $haveoverlib);
                 unset($search_temp);
-                unset($replace_temp);
             } else if($tmp['type']==1) {
                 // 1 = Acronym
                 $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:])(?!\.\w)/i';
                 $search[]      = $search_temp;
                 $replace[]     = md5($search_temp);
                 $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                if($haveoverlib) {
-                    $replace_temp = '<acronym '.$xhtmllang.' onmouseover="return overlib(\'' . pnVarPrepForDisplay($tmp['long']) . '\', CAPTION, \'' . pnVarPrepForDisplay(_MH_ACRONYM) . ': '. pnVarPrepForDisplay($tmp['short']) .'\', ' . $overlib_parameters . ')" onmouseout="return nd();">' . pnVarPrepForDisplay($tmp['short']) . '</acronym>';
-                } else {
-                    $replace_temp = '<acronym '.$xhtmllang.' title="' . pnVarPrepForDisplay($tmp['long']) . '">' . pnVarPrepForDisplay($tmp['short']) . '</acronym>';
-                }
-                if($mhadmin == true && $mhshoweditlink==true) {
-                    $replace_temp .= '<a title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $tmp['short'] . ' (' . pnVarPrepForDisplay(_MH_ACRONYM) . ')" href="' . pnVarPrepForDisplay(pnModURL('MultiHook', 'admin', 'edit',array('aid' => $tmp['aid']))) . '">+</a>';
-                }
-                $finalreplace[] = $replace_temp;
+                $finalreplace[] = create_acronym($tmp['aid'], $tmp['short'], $tmp['long'], $tmp['language'], $mhadmin, $mhshoweditlink, $haveoverlib);
                 unset($search_temp);
-                unset($replace_temp);
             } else if($tmp['type']==2) {
                 // 2 = Link
                 // if short beginns with a single ' we need another regexp to not check for \w
@@ -388,28 +363,8 @@ function MultiHook_userapitransform($text)
                 $search[]      = $search_temp;
                 $replace[]     = md5($search_temp);
                 $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                // prepare url
-                $absurl = pnVarPrepForDisplay($tmp['long']);
-
-                if($mhlinktitle==false) {
-                    if($haveoverlib) {
-                        $replace_temp = '<a '.$extclass.' href="' . $absurl . '" title="" onmouseover="return overlib(\'' . $absurl . '\', CAPTION, \''. pnVarPrepForDisplay($tmp['title']) .'\', ' . $overlib_parameters . ')" onmouseout="return nd();">' . pnVarPrepForDisplay($tmp['short']) . '</a>';
-                    } else {
-                        $replace_temp = '<a '.$extclass.' href="' . $absurl . '" title="' . pnVarPrepForDisplay($tmp['title']) . '">' . pnVarPrepForDisplay($tmp['short']) . '</a>';
-                    }
-                } else {
-                    if($haveoverlib) {
-                        $replace_temp = '<a '.$extclass.' href="' . $absurl . '" title="" onmouseover="return overlib(\'' . $absurl . '\', CAPTION, \''. pnVarPrepForDisplay($tmp['title']) .'\', ' . $overlib_parameters . ')" onmouseout="return nd();">' . pnVarPrepForDisplay($tmp['title']) . '</a>';
-                    } else {
-                        $replace_temp = '<a '.$extclass.' href="' . $absurl . '" title="' . pnVarPrepForDisplay($tmp['title']) . '">' . pnVarPrepForDisplay($tmp['short']) . '</a>';
-                    }
-                }
-                if($mhadmin == true && $mhshoweditlink==true) {
-                    $replace_temp .= '<a title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $tmp['short'] . ' (' . pnVarPrepForDisplay(_MH_LINK) . ')" href="' . pnVarPrepForDisplay(pnModURL('MultiHook', 'admin', 'edit',array('aid' => $tmp['aid']))) . '">+</a>';
-                }
-                $finalreplace[] = $replace_temp;
+                $finalreplace[] = create_link($tmp['aid'], $tmp['short'], $tmp['long'], $tmp['title'], $tmp['language'], $mhadmin, $mhshoweditlink, $haveoverlib);
                 unset($search_temp);
-                unset($replace_temp);
             }
             
         }
@@ -457,55 +412,5 @@ function MultiHook_userapitransform($text)
 
     return $text;
 }
-
-function get_xhtml_language($lang)
-{
-    $alllanguages = array( "ara" => "ar",
-                           "bul" => "bg",
-                           "zho" => "zh",
-                           "cat" => "ca",
-                           "ces" => "cs",
-                           "hrv" => "hr",
-                           "cro" => "hr",
-                           "dan" => "da",
-                           "nld" => "nl",
-                           "eng" => "en",
-                           "epo" => "eo",
-                           "est" => "et",
-                           "fin" => "fi",
-                           "fra" => "fr",
-                           "deu" => "de",
-                           "ell" => "el",
-                           "heb" => "he",
-                           "hun" => "hu",
-                           "isl" => "is",
-                           "ind" => "id",
-                           "ita" => "it",
-                           "jpn" => "ja",
-                           "kor" => "ko",
-                           "lav" => "lv",
-                           "lit" => "lt",
-                           "mas" => "ml",
-                           "mkd" => "mk",
-                           "nor" => "no",
-                           "pol" => "pl",
-                           "por" => "pt",
-                           "ron" => "ro",
-                           "rus" => "ru",
-                           "slv" => "sl",
-                           "spa" => "es",
-                           "swe" => "sv",
-                           "tha" => "th",
-                           "tur" => "tk",
-                           "ukr" => "uk",
-                           "yid" => "yi");
-    $lang = (empty($lang)) ? pnUserGetLang() : $lang;
-    $shortlang = $alllanguages[$lang];
-    if(!empty($shortlang)) {
-        return 'lang="' . $shortlang . '" xml:lang="' . $shortlang . '"';
-    }
-    return '';
-}
-
 
 ?>

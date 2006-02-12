@@ -1,5 +1,10 @@
 $Id$
 
+Version 2.0
+   - added Ajax support for adding and manipulating entries, uses prototype.js
+     (http://prototype.conio.net/, docs at http://www.sergiopereira.com/articles/prototype.js.html)
+     Refer to the install.txt for more information and necessary change to your theme!
+     
 Version 1.4
 *** This version needs PostNuke .760 or later! ***
    - minor layout changes in admin panel

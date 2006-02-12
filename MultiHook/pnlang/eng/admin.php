@@ -24,6 +24,14 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
+define('_MH_LOADINGDATA', 'loading data...');
+define('_MH_SAVINGDATA', 'saving data...');
+
+define('_MH_WRONGPARAMETER_SHORT', 'no short text');
+define('_MH_WRONGPARAMETER_LONG', 'no long text or (in case of a link) no url');
+define('_MH_WRONGPARAMETER_TITLE', 'no title');
+define('_MH_WRONGPARAMETER_TYPE', 'no type');
+
 define('_MH_SHOWEDITLINK', 'Show edit link');
 define('_MH_REPLACEABBREVIATIONS', 'Replace abbreviations with long text');
 define('_MH_REPLACELINKWITHTITLE', 'Replace links with title');
