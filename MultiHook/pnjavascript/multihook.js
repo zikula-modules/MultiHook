@@ -3,7 +3,7 @@ function starteditmultihook(aid, parent)
 {
     parent.id = 'mh_update_content';
 
-    showInfo(loadingText, objMouseXY.xpos, objMouseXY.ypos);
+    showInfo(loadingText, objMouseXY.xpos, objMouseXY.ypos, false);
     objMouseXY.lastxpos = objMouseXY.xpos;
     objMouseXY.lastypos = objMouseXY.ypos;
         
@@ -46,7 +46,7 @@ function editmultihook(originalRequest)
 function submiteditmultihook()
 {
     hideElement('multihookedit');
-    showInfo(savingText, objMouseXY.lastxpos, objMouseXY.lastypos);
+    showInfo(savingText, objMouseXY.lastxpos, objMouseXY.lastypos, false);
 
     var pars = "module=MultiHook&type=ajax&func=store" + 
                "&mh_aid=" + $F('mhedit_aid') + 
@@ -82,7 +82,7 @@ function submiteditmultihook_response(originalRequest)
 function submitmultihook()
 {
     hideElement('multihook');
-    showInfo(savingText, objMouseXY.lastxpos, objMouseXY.lastypos);
+    showInfo(savingText, objMouseXY.lastxpos, objMouseXY.lastypos, false);
 
     if((objMHSelection.parentObj != 'undefined') && (objMHSelection.parentObj != null)) {
         var newtext = "<span id='mh_new_content'>" + $('mh_short').value + "</span>";
@@ -133,10 +133,14 @@ function cancelmultihook()
     $('multihookedit').style.visibility='hidden';
 }
 
-function showInfo(text, xpos, ypos)
+function showInfo(text, xpos, ypos, showclose)
 {
     var infoObj = $('multihookinformation');
-    $('multihookinformationclose').style.visibility = 'hidden';
+    if(showclose == true) {
+        $('multihookinformationclose').style.visibility = 'visible';
+    } else {
+        $('multihookinformationclose').style.visibility = 'hidden';
+    }
     $('multihookinformationcontent').innerHTML = text;
     infoObj.style.left = xpos + 'px';
     infoObj.style.top  = ypos + 'px';
@@ -145,12 +149,17 @@ function showInfo(text, xpos, ypos)
 
 function hideInfo()
 {
+    $('multihookinformationclose').style.visibility = 'hidden';
     $('multihookinformation').style.visibility = "hidden";
 }
 
 function showajaxerror(ajaxRequest)
 {
     // no success
+    showInfo(ajaxRequest.responseText, objMouseXY.lastxpos, objMouseXY.lastypos, true);
+    
+    
+    /*
     var objToolTip = $( "multihookinformation" );
     $('multihookinformationclose').style.visibility = 'visible';
     objToolTip.style.width = "auto";
@@ -163,6 +172,7 @@ function showajaxerror(ajaxRequest)
         objToolTip.style.top = objMHSelection.top - objToolTip.offsetHeight - 2 + 'px';
     objToolTip.style.left = objMHSelection.left + 'px';
     showElement( "multihookinformation" );
+    */
 }
 
 // update mouse coords on mousedown event to get selection start

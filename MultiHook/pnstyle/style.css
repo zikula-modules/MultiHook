@@ -1,0 +1,65 @@
+/*
+ $Id$
+*/
+
+#multihook, #multihookedit {
+    width: 230px; 
+    font-size: 10px; 
+    z-index:999; 
+    visibility: hidden;
+    border: 1px solid #333333; 
+    background: #ffffe5; 
+    padding: 5px; 
+    position: absolute; 
+    left: 0; 
+    top: 0;
+}
+
+.multihookheader {
+    background: #ffffc9; 
+    padding: 2px; 
+    border-bottom: 1px solid #333333; 
+    margin-bottom: 5px;
+}
+
+.multihookbuttonarea {
+    margin: 10px;
+}
+
+.multihooksubmitbutton {
+    float: left; 
+    left: 10px; 
+    border:none;
+}
+
+.multihookcancelbutton {
+    float: right; 
+    right: 10px; 
+    border:none;
+}
+
+#multihookinformation {
+    width: 230px;
+    z-index:999; 
+    visibility: hidden; 
+    font-size: 11px; 
+    border: 1px solid #333333; 
+    background: #ffffe5; 
+    position: absolute; 
+    left: 0; 
+    top: 0;
+}
+
+#multihookinformationcontent {
+    padding: 3px;
+}
+
+#multihookinformationclose {
+    border: none;
+    visibility: hidden; 
+    text-align: right; 
+    padding: 2px; 
+    font-size: 9px;
+    margin-top: 1px;
+    float: right;
+}
