@@ -64,6 +64,7 @@ Copy modules/MultiHook/pntemplates/plugins/function.multihookhelper.php to your
 modules/Xanthia/plugins folder and change your theme templates:
 
 <... some code ...>
+<link rel="stylesheet" type="text/css" href="modules/MultiHook/pnstyle/style.css" />
 </head>
 <body>
 <!--[ multihookhelper ]-->
