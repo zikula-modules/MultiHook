@@ -60,11 +60,11 @@ function MultiHook_user_main()
     // Create output object
     $pnr =& new pnRender('MultiHook');
     $pnr->caching = false;
+    $pnr->add_core_data();
     $pnr->assign('abacs', $abacs);
     $pnr->assign('title', $titles[$filter]);
     $pnr->assign('filter', $filter);
     $pnr->assign('abacscount', $abacscount );
-    $pnr->assign('itemsperpage', pnModGetVar('MultiHook', 'itemsperpage'));
     return $pnr->fetch('mh_user_main.html');
 }
 
