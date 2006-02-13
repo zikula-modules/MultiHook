@@ -34,21 +34,20 @@ function create_abbr($aid, $short, $long, $language, $mhadmin=false, $mhshowedit
     
     list($long, $short) = pnVarPrepForDisplay($long, $short);
 
-    $editlink = '';
-    if($mhadmin == true && $mhshoweditlink==true) {
-        $editlink = '<a onclick="javascript:starteditmultihook(' . $aid . ', this.parentNode);" href="javascript:void(0);" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_ABBREVIATION) . ')" href="javascript:void(0);">+</a>';
-    }
-    
     $replace_temp = '';
     if($mhreplaceabbr==false) {
         if($haveoverlib) {
             $replace_temp = '<abbr '.$xhtmllang.' onmouseover="return overlib(\'' . $long . '\', CAPTION, \'' . pnVarPrepForDisplay(_MH_ABBREVIATION) . ': '. $short .'\', ' . overlib_params() . ')" onmouseout="return nd();"><span class="abbr" onmouseover="return overlib(\'' . $long . '\', CAPTION, \'' . pnVarPrepForDisplay(_MH_ABBREVIATION) . ': '. $short .'\')" onmouseout="return nd();">' . $short . '</span></abbr>';
         } else {
-            $replace_temp = '<span><abbr '.$xhtmllang.' title="' . $long . '"><span class="abbr" title="'. $long .'">' . $short . '</span></abbr>' . $editlink . '</span>';
+            $replace_temp = '<abbr '.$xhtmllang.' title="' . $long . '"><span class="abbr" title="'. $long .'">' . $short . '</span></abbr>';
         }
 
     } else {
         $replace_temp = $long;
+    }
+    
+    if($mhadmin == true && $mhshoweditlink==true) {
+        $replace_temp = '<span>' . $replace_temp . '<a onclick="javascript:starteditmultihook(' . $aid . ', this.parentNode);" href="javascript:void(0);" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_ABBREVIATION) . ')" href="javascript:void(0);">+</a>' . '</span>';
     }
     
     return $replace_temp;
@@ -61,15 +60,16 @@ function create_acronym($aid, $short, $long, $language, $mhadmin=false, $mhshowe
 
     $xhtmllang = get_xhtml_language($language);
 
-    $editlink = '';
-    if($mhadmin == true && $mhshoweditlink==true) {
-        $editlink = '<a onclick="javascript:starteditmultihook(' . $aid . ', this.parentNode);" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_ACRONYM) . ')" href="javascript:void(0);">+</a>';
-    }
     if($haveoverlib) {
         $replace_temp = '<acronym '.$xhtmllang.' onmouseover="return overlib(\'' . $long . '\', CAPTION, \'' . pnVarPrepForDisplay(_MH_ACRONYM) . ': '. $short .'\', ' . overlib_params() . ')" onmouseout="return nd();">' . $short . '</acronym>';
     } else {
-        $replace_temp = '<span><acronym '.$xhtmllang.' title="' . $long . '">' . $short . '</acronym>' . $editlink . '</span>';
+        $replace_temp = '<acronym '.$xhtmllang.' title="' . $long . '">' . $short . '</acronym>';
     }
+
+    if($mhadmin == true && $mhshoweditlink==true) {
+        $replace_temp = '<span>' . $replace_temp . '<a onclick="javascript:starteditmultihook(' . $aid . ', this.parentNode);" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_ACRONYM) . ')" href="javascript:void(0);">+</a>' . '</span>';
+    }
+
     return $replace_temp;
 }
 
@@ -90,23 +90,21 @@ function create_link($aid, $short, $long, $title, $language, $mhadmin=false, $mh
     // prepare url
     list($long, $short, $title) = pnVarPrepForDisplay($long, $short, $title);
 
-    $editlink = '';
-    if($mhadmin == true && $mhshoweditlink==true) {
-        $editlink = '<a onclick="javascript:starteditmultihook(' . $aid . ', this.parentNode);" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_LINK) . ')" href="javascript:void(0);">+</a>';
-    }
-    
     if($mhlinktitle==false) {
         if($haveoverlib) {
             $replace_temp = '<a '.$extclass.' href="' . $long . '" title="" onmouseover="return overlib(\'' . $long . '\', CAPTION, \''. $title .'\', ' . overlib_params() . ')" onmouseout="return nd();">' . $short . '</a>';
         } else {
-            $replace_temp = '<span><a '.$extclass.' href="' . $long . '" title="' . $title . '">' . $short . '</a>' . $editlink . '</span>';
+            $replace_temp = '<a '.$extclass.' href="' . $long . '" title="' . $title . '">' . $short . '</a>';
         }
     } else {
         if($haveoverlib) {
             $replace_temp = '<a '.$extclass.' href="' . $long . '" title="" onmouseover="return overlib(\'' . $long . '\', CAPTION, \''. $title .'\', ' . overlib_params() . ')" onmouseout="return nd();">' . $title . '</a>';
         } else {
-            $replace_temp = '<span><a '.$extclass.' href="' . $long . '" title="' . $title . '">' . $title . '</a>' . $editlink . '</span>';
+            $replace_temp = '<a '.$extclass.' href="' . $long . '" title="' . $title . '">' . $title . '</a>';
         }
+    }
+    if($mhadmin == true && $mhshoweditlink==true) {
+        $replace_temp = '<span>' . $replace_temp . '<a onclick="javascript:starteditmultihook(' . $aid . ', this.parentNode);" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_LINK) . ')" href="javascript:void(0);">+</a>' . '</span>';
     }
     return $replace_temp;
 }
