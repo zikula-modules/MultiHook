@@ -16,6 +16,7 @@
 }
 
 .multihookheader {
+    clear: both;
     background: #ffffc9; 
     padding: 2px; 
     border-bottom: 1px solid #333333; 
@@ -23,18 +24,19 @@
 }
 
 .multihookbuttonarea {
-    margin: 10px;
+    border-top: 1px solid #333333; 
+    clear: both;
+    padding: 3px;
+    margin-top: 2px;
 }
 
 .multihooksubmitbutton {
     float: left; 
-    left: 10px; 
     border:none;
 }
 
 .multihookcancelbutton {
     float: right; 
-    right: 10px; 
     border:none;
 }
 
@@ -62,4 +64,17 @@
     font-size: 9px;
     margin-top: 1px;
     float: right;
+}
+
+.multihookrow {
+    clear: both;
+    padding: 3px 0 3px 0;
+}
+
+.multihookleftcell {
+    float: left;
+}
+
+.multihookrightcell {
+    float: right; 
 }

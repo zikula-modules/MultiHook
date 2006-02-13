@@ -1,14 +1,6 @@
 <?php
 // $Id$
 // ----------------------------------------------------------------------
-// POST-NUKE Content Management System
-// Copyright (C) 2001 by the Post-Nuke Development Team.
-// http://www.postnuke.com/
-// ----------------------------------------------------------------------
-// Based on:
-// PHP-NUKE Web Portal System - http://phpnuke.org/
-// Thatware - http://thatware.org/
-// ----------------------------------------------------------------------
 // LICENSE
 //
 // This program is free software; you can redistribute it and/or
@@ -24,12 +16,6 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-define('_MH_ERRORREADINGDATA', 'Fehler beim Einlesen');
-
-define('_MH_ABBREVIATION', 'Abkürzung');
-define('_MH_ACRONYM', 'Akronym');
-define('_MH_LINK', 'Link');
-
-define('_MH_SELECTFAILED','MultiHook: Select auf die Datenbank fehlgeschlagen - bitte Admin verständigen');
+include_once('modules/MultiHook/pnlang/deu/global.php');
 
 ?>

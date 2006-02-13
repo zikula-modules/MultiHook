@@ -41,22 +41,36 @@ function MultiHook_ajax_store()
                                           'mh_delete',
                                           'mh_language');
 
+    $short    = trim($short); 
+    $long     = trim($long); 
+    $title    = trim($title); 
+    $language = trim($language);
+
     // check if aid exists 
     $abac = pnModAPIFunc('MultiHook', 'user', 'get', 
                          array('aid' => $aid));
     $mode = '';
+    if(!is_array($abac) && pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADD)) {
+        $mode = 'create';
+    }
     if(is_array($abac) && pnSecAuthAction(0, 'MultiHook::', $abac['short'] . '::' . $abac['aid'], ACCESS_EDIT)) {
         $mode = 'update';
         if(!empty($delete)&& ($delete=='1')) {
             $mode = 'delete';
+            if(pnModAPIFunc('MultiHook', 'admin', 'delete',
+                             array('aid'      => $aid))) {
+                $return = $abac['short'];
+            } else {
+                $error = _MH_DELETEFAILED;
+            }
         }
     }
-    if(!is_array($abac) && pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADD)) {
-        $mode = 'create';
+    if(empty($mode)) {
+        $error = _MH_NOAUTH;
     }
-    if(!empty($mode)) {
+
+    if(!empty($mode) && ($mode<>'delete') ) {
     
-        pnModLangLoad('MultiHook', 'admin');
         
         if(empty($short)) {
             $error = _MH_WRONGPARAMETER_SHORT . '<br />';
@@ -120,15 +134,12 @@ function MultiHook_ajax_store()
                 case 'update':
                     $error = _MH_UPDATEFAILED;
                     break;
-                case 'delete':
-                    $return = $abac['short'];
-                    break;
                 default:
                     $error = 'internal error: invalid mode parameter';
             }
         }
-    } else {
-        $error = _MH_NOAUTH;
+//    } else {
+//        $error = _MH_NOAUTH;
     }
     
     mh_ajaxerror($error);

@@ -1,14 +1,6 @@
 <?php
 // $Id$
 // ----------------------------------------------------------------------
-// PostNuke Content Management System
-// Copyright (C) 2001 by the PostNuke Development Team.
-// http://www.postnuke.com/
-// ----------------------------------------------------------------------
-// Based on:
-// PHP-NUKE Web Portal System - http://phpnuke.org/
-// Thatware - http://thatware.org/
-// ----------------------------------------------------------------------
 // LICENSE
 //
 // This program is free software; you can redistribute it and/or
@@ -24,17 +16,6 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-define('_MH_NOAUTH', 'No permissions for the MultiHook-module');
-define('_MH_GLOSSARY', 'Glossary');
-define('_MH_VIEWABBR','View abbreviations');
-define('_MH_VIEWACRONYMS','View acronyms');
-define('_MH_VIEWLINKS','View links');
-define('_MH_SHOWME','Show');
-define('_MH_SELECT','Select');
-
-define('_MH_SHORT','Short version');
-define('_MH_LONG','Long version');
-define('_MH_TITLE','Title');
-define('_MH_NOITEMS','No entries present');
+include_once('modules/MultiHook/pnlang/eng/global.php');
 
 ?>
