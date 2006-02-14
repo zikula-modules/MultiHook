@@ -278,45 +278,45 @@ function MultiHook_userapitransform($text)
     //          if MultiHook is configured accordingly
     if($mhincodetags==false) {
         // if we are faster than pn_bbcode, we will have to remove the code tags
-        $codecount1 = preg_match_all("/\[code(.*)\](.*)\[\/code\]/si", $text, $codes1);
+        $codecount1 = preg_match_all("/\[code(.*)\](.*)\[\/code\]/siU", $text, $codes1);
         for($i=0; $i < $codecount1; $i++) {
             $text = preg_replace('/(' . preg_quote($codes1[0][$i], '/') . ')/', " MULTIHOOKCODE1REPLACEMENT{$i} ", $text, 1);
         }
         // but pn_bbode may have been faster than we are,. To avoid any problems its embraces the
         // replaced code tags with <!--code--> and <!--/code-->
         // this is what we are taking care of now
-        $codecount2 = preg_match_all("/<!--code-->(.*)<!--\/code-->/si", $text, $codes2);
+        $codecount2 = preg_match_all("/<!--code-->(.*)<!--\/code-->/siU", $text, $codes2);
         for($i=0; $i < $codecount2; $i++) {
             $text = preg_replace('/(' . preg_quote($codes2[0][$i], '/') . ')/', " MULTIHOOKCODE2REPLACEMENT{$i} ", $text, 1);
         }
     }
 
     // Step 1 - move all links out of the text and replace them with placeholders
-    $tagcount = preg_match_all('/<a(.*)>(.*)<\/a>/si', $text, $tags);
+    $tagcount = preg_match_all('/<a(.*)>(.*)<\/a>/siU', $text, $tags);
     for ($i = 0; $i < $tagcount; $i++) {
         $text = preg_replace('/(' . preg_quote($tags[0][$i], '/') . ')/', " MULTIHOOKTAGREPLACEMENT{$i} ", $text, 1);
     }
 
     // Step 2 - remove all html tags, we do not want to change them!!
-    $htmlcount = preg_match_all("/<(?:[^\"\']+?|.+?(?:\"|\').*?(?:\"|\')?.*?)*?>/si", $text, $html);
+    $htmlcount = preg_match_all("/<(?:[^\"\']+?|.+?(?:\"|\').*?(?:\"|\')?.*?)*?>/siU", $text, $html);
     for ($i=0; $i < $htmlcount; $i++) {
         $text = preg_replace('/(' . preg_quote($html[0][$i], '/') . ')/', " MULTIHOOKHTMLREPLACEMENT{$i} ", $text, 1);
     }
 
     // Step 3 - move all bbcode with [url][/url] out of the way
-    $urlcount = preg_match_all("#\[url(.*)\](.*)\[\/url\]#si", $text, $urls);
+    $urlcount = preg_match_all("#\[url(.*)\](.*)\[\/url\]#siU", $text, $urls);
     for($i=0; $i < $urlcount; $i++) {
         $text = preg_replace('/(' . preg_quote($urls[0][$i], '/') . ')/', " MULTIHOOKURLREPLACEMENT{$i} ", $text, 1);
     }
 
     // Step 4 - move all urls starting with http:// etc. out of the way
-    $linkcount = preg_match_all("/(http|https|ftp|ftps|news)\:\/\/([a-zA-Z0-9\-\._]+[\.]{1}[a-zA-Z]{2,6})(\/[a-zA-Z0-9\-\.\?\,\'\/\\\+&%\$#_=~]+)?/si", $text, $links);
+    $linkcount = preg_match_all("/(http|https|ftp|ftps|news)\:\/\/([a-zA-Z0-9\-\._]+[\.]{1}[a-zA-Z]{2,6})(\/[a-zA-Z0-9\-\.\?\,\'\/\\\+&%\$#_=~]+)?/siU", $text, $links);
     for($i=0; $i < $linkcount; $i++) {
         $text = preg_replace('/(' . preg_quote($links[0][$i], '/') . ')/', " MULTIHOOKLINKREPLACEMENT{$i} ", $text, 1);
     }
 
     // Step 5 - move hilite hook additions out of the text
-    $hilitecount = preg_match_all("/<!--hilite-->(.*)<!--\/hilite-->/si", $text, $hilite);
+    $hilitecount = preg_match_all("/<!--hilite-->(.*)<!--\/hilite-->/siU", $text, $hilite);
     for($i=0; $i < $hilitecount; $i++) {
         $text = preg_replace('/(' . preg_quote($hilite[0][$i], '/') . ')/', " MULTIHOOKHILITEREPLACEMENT{$i} ", $text, 1);
     }
@@ -325,7 +325,7 @@ function MultiHook_userapitransform($text)
         $gotabbreviations = 1;
         $tmps = pnModAPIFunc('MultiHook', 'user', 'getall', array('sortbylength' => true));
         // Create search/replace array from abbreviations/links information
-        
+
         foreach ($tmps as $tmp) {
             // check if the current tmp is a link
             if($tmp['type']==2) {
@@ -409,7 +409,6 @@ function MultiHook_userapitransform($text)
             $text = preg_replace("/ MULTIHOOKCODE1REPLACEMENT{$i} /", $codes1[0][$i], $text, 1);
         }
     }
-
     return $text;
 }
 
