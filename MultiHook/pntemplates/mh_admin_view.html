@@ -7,12 +7,15 @@
 <br />
 <!--[ pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars="filter" filter=$filter]-->
 <table style="width: 100%;" cellpadding="0">
+    <thead>
     <tr style="width: 100%;">
         <th style="background: #eeeeee; text-align: center; font-size: 12px;"><!--[ pnml name='_MH_SHORT' ]--></th>
         <th style="background: #eeeeee; text-align: center; font-size: 12px;"><!--[ pnml name='_MH_LONG' ]--></th>
         <th style="background: #eeeeee; text-align: center; font-size: 12px;"><!--[ pnml name='_MH_TITLE' ]--></th>
         <th style="background: #eeeeee; text-align: center; font-size: 12px;"><!--[ pnml name='_MH_LANGUAGE' ]--></th>
-    <tr>
+    </tr>
+    </thead>
+    <tbody>
     <!--[ foreach item=abac from=$abacs ]-->
     <tr style="width: 100%;">
         <td style="text-align: center;">
@@ -39,6 +42,7 @@
         </td>
     </tr>
     <!--[ /foreach ]-->
+    </tbody>
 </table>
 <br />
 <!--[ pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars="filter" filter=$filter]-->

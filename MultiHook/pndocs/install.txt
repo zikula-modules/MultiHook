@@ -73,6 +73,13 @@ modules/Xanthia/plugins folder and change your theme templates:
 The multihookhelper plugin adds the necessary javascript and hidden divs if the users has min.
 ACCESS_ADD permissions for MultiHook.
 
+In non-Xanthiathemes (legacy, AT...) you can call
+
+    $multihookhelper = pnModFunc('MultiHook', 'admin', 'helper'));
+    
+to retrieve the HTML in $multihookhelper and show where you want (which in fact iswhat the 
+plugin does too).
+ 
 If you do not want to use Ajax you can still use the normal admin panel for adding and changing
 the data.
 

@@ -332,4 +332,22 @@ function MultiHook_admin_modifyconfig()
     return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
 }
 
+/**
+ * helper
+ *
+ * Implements hidden divs and javascript for Ajax usage. Used in the 
+ * multihookhelper plugin, can also be called from legacy themes or AutoThemes
+ * if necessary.
+ */
+function MultiHook_admin_helper()
+{
+    $out = '';
+    if(pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADD)) { 
+        pnModLangLoad('MultiHook', 'admin');
+        $pnr = new pnRender('MultiHook', false);
+        $out = $pnr->fetch('mh_dynamic_hiddenform.html');
+    }
+    return $out;
+}
+
 ?>

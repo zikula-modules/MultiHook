@@ -66,15 +66,23 @@
     float: right;
 }
 
-.multihookrow {
+.multihooklabel {
     clear: both;
-    padding: 3px 0 3px 0;
-}
-
-.multihookleftcell {
     float: left;
+    margin: 3px 0 3px 0;
 }
 
-.multihookrightcell {
+.multihookinput {
     float: right; 
+    margin: 3px 0 3px 0;
+}
+.multihookinputreadonly {
+    float: right; 
+    margin: 3px 0 3px 0;
+    background: #eeeeee;
+}
+
+.mh_adminrow {
+    margin: 5px;
+    text-align: left; 
 }

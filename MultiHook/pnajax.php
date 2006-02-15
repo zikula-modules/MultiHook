@@ -1,4 +1,23 @@
 <?php
+// $Id$
+// ----------------------------------------------------------------------
+// LICENSE
+//
+// This program is free software; you can redistribute it and/or
+// modify it under the terms of the GNU General Public License (GPL)
+// as published by the Free Software Foundation; either version 2
+// of the License, or (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// To read the license please visit http://www.gnu.org/copyleft/gpl.html
+// ----------------------------------------------------------------------
+// Original Author of file: Frank Schummertz
+// Purpose of file:  Ajax functions
+// ----------------------------------------------------------------------
 
 include_once('modules/MultiHook/common.php');
 
@@ -83,7 +102,7 @@ function MultiHook_ajax_store()
                 }
                 break;
             case '2': // link
-                if(empty($long) || (pnVarValidate($long, 'url')==false)) {
+                if(empty($long)) {
                     $error .= _MH_WRONGPARAMETER_LONG . '<br />';
                 }
                 if(empty($title)) {
@@ -103,7 +122,6 @@ function MultiHook_ajax_store()
                                   'language' => $language));
         if(!is_bool($aid)) {
             // result is not false, its a aid of the new created or updated entry
-            pnModLangLoad('MultiHook','admin');
             $mhadmin = pnSecAuthAction(0, 'MultiHook::', '.*', ACCESS_ADMIN);
             $mhshoweditlink = (pnModGetVar('MultiHook', 'mhshoweditlink')==1) ? true : false;
             $haveoverlib = pnModAvailable('overlib');
@@ -138,8 +156,6 @@ function MultiHook_ajax_store()
                     $error = 'internal error: invalid mode parameter';
             }
         }
-//    } else {
-//        $error = _MH_NOAUTH;
     }
     
     mh_ajaxerror($error);

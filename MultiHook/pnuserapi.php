@@ -298,7 +298,7 @@ function MultiHook_userapitransform($text)
     }
 
     // Step 2 - remove all html tags, we do not want to change them!!
-    $htmlcount = preg_match_all("/<(?:[^\"\']+?|.+?(?:\"|\').*?(?:\"|\')?.*?)*?>/siU", $text, $html);
+    $htmlcount = preg_match_all("/<(?:[^\"\']+?|.+?(?:\"|\').*?(?:\"|\')?.*?)*?>/si", $text, $html);
     for ($i=0; $i < $htmlcount; $i++) {
         $text = preg_replace('/(' . preg_quote($html[0][$i], '/') . ')/', " MULTIHOOKHTMLREPLACEMENT{$i} ", $text, 1);
     }

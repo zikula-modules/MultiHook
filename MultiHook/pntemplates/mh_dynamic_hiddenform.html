@@ -5,17 +5,15 @@
 <script type="text/javascript" src="modules/MultiHook/pnjavascript/ajax_tools.js"></script>
 <script type="text/javascript">
     var objMHSelection = new MHSelectedText();
-    var objMHMouse = new MHMouse();
     var objMouseXY = new MouseXY();
 
     // check mouse position at selection start
-    document.onmouseup = checkMHSelection;
+    document.onmouseup = stopSelection;
     // check mouse position at selection end
-    document.onmousedown = checkMHSelection1;
+    document.onmousedown = startSelection;
     
     var loadingText = '<!--[ pnml name="_MH_LOADINGDATA" ]-->';
     var savingText = '<!--[ pnml name="_MH_SAVINGDATA" ]-->';
-    
 </script>
 
 
@@ -27,63 +25,30 @@
 <div class="multihookheader">
     <a onclick="this.parentNode.parentNode.visiblity=hidden;" href="http://noc.postnuke.com/projects/multihook" title="<!--[ $modinfo.displayname ]--> v<!--[ $modinfo.version ]-->"><strong><!--[ $modinfo.displayname ]--> v<!--[ $modinfo.version ]--></strong></a>
 </div>
-<div class="multihookrow">
-    <div class="multihookleftcell">
-        <label for="mh_short"><!--[ pnml name='_MH_SHORT' ]-->:</label>
-    </div>
-    <div class="multihookrightcell">
-        <input readonly="readonly" type="text" name="mh_short" id="mh_short" value="" />
-    </div>
-</div>
 
-<div class="multihookrow">
-    <div class="multihookleftcell">
-        <label for="mh_long"><!--[ pnml name='_MH_LONG' ]-->:</label>
-    </div>
-    <div class="multihookrightcell">
-        <input type="text" name="mh_long" id="mh_long" value="" />
-    </div>
-</div>
+<label class="multihooklabel" for="mh_short"><!--[ pnml name='_MH_SHORT' ]-->:</label>
+<input class="multihookinputreadonly" readonly="readonly" type="text" name="mh_short" id="mh_short" value="" />
 
-<div class="multihookrow">
-    <em><!--[ pnml name='_MH_LONGHINT' ]--></em>
-</div>
+<label class="multihooklabel" for="mh_long"><!--[ pnml name='_MH_LONG' ]-->:</label>
+<input class="multihookinput" type="text" name="mh_long" id="mh_long" value="" />
 
-<div class="multihookrow">
-    <div class="multihookleftcell">
-        <label for="mh_title"><!--[ pnml name='_MH_TITLE' ]-->:</label>
-    </div>
-    <div class="multihookrightcell">
-        <input type="text" name="mh_title" id="mh_title" value="" />
-    </div>
-</div>
+<div class="multihooklabel"><em><!--[ pnml name='_MH_LONGHINT' ]--></em></div>
 
-<div class="multihookrow">
-    <em><!--[ pnml name='_MH_TITLEHINT' ]--></em>
-</div>
+<label class="multihooklabel" for="mh_title"><!--[ pnml name='_MH_TITLE' ]-->:</label>
+<input class="multihookinput" type="text" name="mh_title" id="mh_title" value="" />
 
-<div class="multihookrow">
-    <div class="multihookleftcell">
-        <label for="mh_language"><!--[ pnml name='_MH_LANGUAGE' ]-->:</label>
-    </div>
-    <div class="multihookrightcell">
-        <!--[ mhlanguagelist name="mh_language" id="mh_language" installed=1 selected=$userlang ]-->
-    </div>
-</div>
+<div class="multihooklabel"><em><!--[ pnml name='_MH_TITLEHINT' ]--></em></div>
 
-<div class="multihookrow">
-    <div class="multihookleftcell">
-        <label for="mh_type"><!--[ pnml name='_MH_TYPE' ]-->:</label>
-    </div>
-    <div class="multihookrightcell">
-        <select style="font-size: 9px;" name="mh_type" id="mh_type">
-            <option value="0"><!--[ pnml name='_MH_TYPEABBREVIATION' ]--></option>
-            <option value="1"><!--[ pnml name='_MH_TYPEACRONYM' ]--></option>
-            <option value="2"><!--[ pnml name='_MH_TYPELINK' ]--></option>
-        </select>
-    </div>
-</div>
-        
+<label class="multihooklabel" for="mh_language"><!--[ pnml name='_MH_LANGUAGE' ]-->:</label>
+<span class="multihookinput"><!--[ mhlanguagelist name="mh_language" id="mh_language" installed=1 selected=$userlang ]--></span>
+
+<label class="multihooklabel" for="mh_type"><!--[ pnml name='_MH_TYPE' ]-->:</label>
+<select class="multihookinput" name="mh_type" id="mh_type">
+    <option value="0"><!--[ pnml name='_MH_TYPEABBREVIATION' ]--></option>
+    <option value="1"><!--[ pnml name='_MH_TYPEACRONYM' ]--></option>
+    <option value="2"><!--[ pnml name='_MH_TYPELINK' ]--></option>
+</select>
+
 <div class="multihookbuttonarea">    
     <button type="submit" class="multihooksubmitbutton" onclick="submitmultihook();return false;"><!--[ pnml name='_SUBMIT' ]--></button>
     <button type="reset" class="multihookcancelbutton" onclick="cancelmultihook()"><!--[ pnml name='_CANCEL' ]--></button>
@@ -99,64 +64,33 @@
 <div class="multihookheader">
     <a onclick="this.parentNode.parentNode.visiblity=hidden;" href="http://noc.postnuke.com/projects/multihook" title="<!--[ $modinfo.displayname ]--> v<!--[ $modinfo.version ]-->"><strong><!--[ $modinfo.displayname ]--> v<!--[ $modinfo.version ]--></strong></a>
 </div>
-<div class="multihookrow">
-    <div class="multihookleftcell">
-        <label for="mhedit_short"><!--[ pnml name='_MH_SHORT' ]-->:</label>
-    </div>
-    <div class="multihookrightcell">
-        <input readonly="readonly" type="text" name="mhedit_short" id="mhedit_short" value="" />
-    </div>
-</div>
-<div class="multihookrow">
-    <div class="multihookleftcell">
-        <label for="mhedit_long"><!--[ pnml name='_MH_LONG' ]-->:</label>
-    </div>
-    <div class="multihookrightcell">
-        <input type="text" name="mhedit_long" id="mhedit_long" value="" />
-    </div>
-</div>
-<div class="multihookrow">
-    <em><!--[ pnml name='_MH_LONGHINT' ]--></em>
-</div>
-<div class="multihookrow">
-    <div class="multihookleftcell">
-        <label for="mhedit_title"><!--[ pnml name='_MH_TITLE' ]-->:</label>
-    </div>
-    <div class="multihookrightcell">
-        <input type="text" name="mhedit_title" id="mhedit_title" value="" />
-    </div>
-</div>
-<div class="multihookrow">
-    <em><!--[ pnml name='_MH_TITLEHINT' ]--></em>
-</div>
-<div class="multihookrow">
-    <div class="multihookleftcell">
-        <label for="mhedit_language"><!--[ pnml name='_MH_LANGUAGE' ]-->:</label>
-    </div>
-    <div class="multihookrightcell">
-        <!--[ mhlanguagelist name="mhedit_language" id="mhedit_language" installed=1 selected=$userlang ]-->
-    </div>
-</div>
-<div class="multihookrow">
-    <div class="multihookleftcell">
-        <label for="mhedit_type"><!--[ pnml name='_MH_TYPE' ]-->:</label>
-    </div>
-    <div class="multihookrightcell">
-        <select style="font-size: 9px;" name="mhedit_type" id="mhedit_type">
-            <option value="0"><!--[ pnml name='_MH_TYPEABBREVIATION' ]--></option>
-            <option value="1"><!--[ pnml name='_MH_TYPEACRONYM' ]--></option>
-            <option value="2"><!--[ pnml name='_MH_TYPELINK' ]--></option>
-        </select>
-    </div>
-</div>
-<div class="multihookrow">
-    <div class="multihookleftcell">
-        <label for="mhedit_delete"><!--[ pnml name='_MH_DELETE' ]-->:</label>
-    </div>
-    <div class="multihookrightcell">
-        <input type="checkbox" name="mhedit_delete" id="mhedit_delete" value="1" />
-    </div>
-</div>
+
+<label class="multihooklabel" for="mhedit_short"><!--[ pnml name='_MH_SHORT' ]-->:</label>
+<input class="multihookinput" readonly="readonly" type="text" name="mhedit_short" id="mhedit_short" value="" />
+
+<label class="multihooklabel" for="mhedit_long"><!--[ pnml name='_MH_LONG' ]-->:</label>
+<input class="multihookinput" type="text" name="mhedit_long" id="mhedit_long" value="" />
+
+<div class="multihooklabel"><em><!--[ pnml name='_MH_LONGHINT' ]--></em></div>
+
+<label class="multihooklabel" for="mhedit_title"><!--[ pnml name='_MH_TITLE' ]-->:</label>
+<input class="multihookinput" type="text" name="mhedit_title" id="mhedit_title" value="" />
+
+<div class="multihooklabel"><em><!--[ pnml name='_MH_TITLEHINT' ]--></em></div>
+
+<label class="multihooklabel" for="mhedit_language"><!--[ pnml name='_MH_LANGUAGE' ]-->:</label>
+<span class="multihookinput"><!--[ mhlanguagelist name="mhedit_language" id="mhedit_language" installed=1 selected=$userlang ]--></span>
+
+<label class="multihooklabel" for="mhedit_type"><!--[ pnml name='_MH_TYPE' ]-->:</label>
+<select class="multihookinput" name="mhedit_type" id="mhedit_type">
+    <option value="0"><!--[ pnml name='_MH_TYPEABBREVIATION' ]--></option>
+    <option value="1"><!--[ pnml name='_MH_TYPEACRONYM' ]--></option>
+    <option value="2"><!--[ pnml name='_MH_TYPELINK' ]--></option>
+</select>
+
+<label class="multihooklabel" for="mhedit_delete"><!--[ pnml name='_MH_DELETE' ]-->:</label>
+<input class="multihookinput" type="checkbox" name="mhedit_delete" id="mhedit_delete" value="1" />
+
 <div class="multihookbuttonarea">    
     <button type="submit" class="multihooksubmitbutton" onclick="submiteditmultihook();return false;"><!--[ pnml name='_SUBMIT' ]--></button>
     <button type="reset" class="multihookcancelbutton" onclick="cancelmultihook()"><!--[ pnml name='_CANCEL' ]--></button>
@@ -167,10 +101,7 @@
 
 <!-- hidden information -->
 <div id="multihookinformation" > 
-    <div>
-        <button id="multihookinformationclose" onclick="javascript:hideInfo();">x</button>
-    </div>
-
+    <div><button id="multihookinformationclose" onclick="javascript:hideInfo();">x</button></div>
     <div id="multihookinformationcontent"></div>
 </div>
 <!-- end of hidden information -->

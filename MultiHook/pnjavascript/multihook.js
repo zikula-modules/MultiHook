@@ -1,11 +1,16 @@
-    
+/**
+ *
+ * $Id$
+ *
+ */
+
 function starteditmultihook(aid, parent)
 {
     parent.id = 'mh_update_content';
 
-    showInfo(loadingText, objMouseXY.xpos, objMouseXY.ypos, false);
-    objMouseXY.lastxpos = objMouseXY.xpos;
-    objMouseXY.lastypos = objMouseXY.ypos;
+    showInfo(loadingText, objMouseXY.up_xpos, objMouseXY.up_ypos, false);
+    
+    objMouseXY.backup();
         
     var pars = "module=MultiHook&type=ajax&func=read&mh_aid=" + aid;
     var myAjax = new Ajax.Request(
@@ -35,10 +40,10 @@ function editmultihook(originalRequest)
         setSelect('mhedit_type', abac[4]);
         setSelect('mhedit_language', abac[5]);
         $("mhedit_delete").checked = false;
-
+        
         var objMultiHook = $('multihookedit');
-        objMultiHook.style.left = objMouseXY.xpos + 'px';
-        objMultiHook.style.top  = objMouseXY.ypos + 'px';
+        objMultiHook.style.left = objMouseXY.up_xpos + 'px';
+        objMultiHook.style.top  = objMouseXY.up_ypos + 'px';
         objMultiHook.style.visibility = "visible";
     }
 }
@@ -46,7 +51,7 @@ function editmultihook(originalRequest)
 function submiteditmultihook()
 {
     hideElement('multihookedit');
-    showInfo(savingText, objMouseXY.lastxpos, objMouseXY.lastypos, false);
+    showInfo(savingText, objMouseXY.lastup_xpos, objMouseXY.lastup_ypos, false);
 
     var pars = "module=MultiHook&type=ajax&func=store" + 
                "&mh_aid=" + $F('mhedit_aid') + 
@@ -82,7 +87,7 @@ function submiteditmultihook_response(originalRequest)
 function submitmultihook()
 {
     hideElement('multihook');
-    showInfo(savingText, objMouseXY.lastxpos, objMouseXY.lastypos, false);
+    showInfo(savingText, objMouseXY.lastup_xpos, objMouseXY.lastup_ypos, false);
 
     if((objMHSelection.parentObj != 'undefined') && (objMHSelection.parentObj != null)) {
         var newtext = "<span id='mh_new_content'>" + $('mh_short').value + "</span>";
@@ -117,6 +122,13 @@ function submitmultihook_response(originalRequest)
     if( originalRequest.status != 200 ) { 
         showajaxerror(originalRequest);
     }
+    
+    objMHSelection.text           = '';
+    objMHSelection.selection      = null;
+    objMHSelection.isSelected     = false;
+    objMHSelection.isNew          = false;
+    objMHSelection.parentObj      = 'undefined';
+    
 }
 
 function cancelmultihook()
@@ -131,6 +143,12 @@ function cancelmultihook()
     }
     $('multihook').style.visibility='hidden';
     $('multihookedit').style.visibility='hidden';
+
+    objMHSelection.text           = '';
+    objMHSelection.selection      = null;
+    objMHSelection.isSelected     = false;
+    objMHSelection.isNew          = false;
+    objMHSelection.parentObj      = 'undefined';
 }
 
 function showInfo(text, xpos, ypos, showclose)
@@ -156,55 +174,45 @@ function hideInfo()
 function showajaxerror(ajaxRequest)
 {
     // no success
-    showInfo(ajaxRequest.responseText, objMouseXY.lastxpos, objMouseXY.lastypos, true);
-    
-    
-    /*
-    var objToolTip = $( "multihookinformation" );
-    $('multihookinformationclose').style.visibility = 'visible';
-    objToolTip.style.width = "auto";
-    $('multihookinformationcontent').innerHTML = '<span style="color: #333333;">' + ajaxRequest.responseText + '</span>';
-    if( objToolTip.offsetWidth > getWindowWidth( ) / 2 )
-        objToolTip.style.width = getWindowWidth( ) / 2 + "px";
-    if( objMHSelection.top < objToolTip.offsetHeight )
-        objToolTip.style.top = objMHSelection.bottom + 1 + 'px';
-    else
-        objToolTip.style.top = objMHSelection.top - objToolTip.offsetHeight - 2 + 'px';
-    objToolTip.style.left = objMHSelection.left + 'px';
-    showElement( "multihookinformation" );
-    */
+    showInfo(ajaxRequest.responseText, objMouseXY.lastup_xpos, objMouseXY.lastup_ypos, true);
 }
 
 // update mouse coords on mousedown event to get selection start
-function checkMHSelection1(objEvent)
+function startSelection(objEvent)
 {
-    objMHMouse.update(objEvent);
-    objMouseXY.getXY(objEvent);
+    objMouseXY.getXY(objEvent, true);
 }
 
 // get mouse coords on mouseup event to get selection end
-function checkMHSelection(objEvent)
+function stopSelection(objEvent)
 {
-    objMHMouse.update(objEvent);
-    if( objMHMouse.isNew )
-    {
-        objMHSelection.update( objMHMouse.xStart, objMHMouse.xEnd, objMHMouse.yStart, objMHMouse.yEnd );
-        if( objMHSelection.isSelected )
-        {
+    if($('multihook').style.visibility=='visible') {
+        return;
+    }
+    if($('multihookedit').style.visibility=='visible') {
+        return;
+    }
+    if($('multihookinformation').style.visibility=='visible') {
+        return;
+    }
+    objMouseXY.getXY(objEvent);
+
+    if( objMouseXY.isNew ) {
+        objMHSelection.update();
+        if(objMHSelection.isSelected) {
+
             var objMultiHook = $( "multihook" );
             $('mh_short').value = trim(objMHSelection.text);
             $('mh_long').value = '';
             $('mh_title').value = '';
             setSelect('mh_type', 0);
             setSelect('mh_language', 'all');
-            objMouseXY.lastxpos = objMouseXY.xpos;
-            objMouseXY.lastypos = objMouseXY.ypos;
-
-            objMultiHook.style.left = Math.min( getWindowWidth( ) - objMultiHook.offsetWidth, Math.max( 0, objMHSelection.right - objMultiHook.offsetWidth ) ) + "px";
-            if( objMHSelection.top < objMultiHook.offsetHeight )
-                objMultiHook.style.top = objMHSelection.bottom + 1 + "px";
-            else
-                objMultiHook.style.top = objMHSelection.top - objMultiHook.offsetHeight - 1 + "px";
+            
+            objMouseXY.backup();
+            
+            objMultiHook.style.left = objMouseXY.up_xpos + 'px';
+            objMultiHook.style.top  = objMouseXY.up_ypos + 'px';
+            
             objMultiHook.style.visibility = "visible";
         }
     }
@@ -212,92 +220,62 @@ function checkMHSelection(objEvent)
 
 function MouseXY( )
 {
-    this.xpos     = 0;
-    this.ypos     = 0;
-    this.lastxpos     = 0;
-    this.lastypos     = 0;
+    this.down_xpos    = 0;
+    this.down_ypos    = 0;
+    this.up_xpos      = 0;
+    this.up_ypos      = 0;
+    this.lastup_xpos     = 0;
+    this.lastup_ypos     = 0;
+    this.lastdown_xpos   = 0;
+    this.lastdown_ypos   = 0;
+    this.isNew    = false;
     this.getXY = getMouseXY;
+    this.backup = backupXY;
 }
-function getMouseXY( objEvent )
+function getMouseXY(objEvent, start)
 {
+    if($('multihook').style.visibility=='visible') {
+        return;
+    }
+    if($('multihookedit').style.visibility=='visible') {
+        return;
+    }
+    if($('multihookinformation').style.visibility=='visible') {
+        return;
+    }
+    
     // Internet Explorer
-    if( window.event )
-    {
+    if( window.event ) {
         var intX = event.clientX;
         var intY = event.clientY + getTopScroll( ) ;
     }
     // w3c
-    else
-    {
+    else {
         var intX = objEvent.pageX;
         var intY = objEvent.pageY;
     }
     
-    this.xpos = intX;
-    this.ypos = intY;
+    if(start==true) {
+        this.down_xpos = intX;
+        this.down_ypos = intY;
+        this.isNew = start;
+    } else {
+        this.up_xpos = intX;
+        this.up_ypos = intY;
+    }
 }
 
-function calcXY(objEvent)
+function backupXY(objEvent)
 {
-    objMouseXY.getXY( objEvent );
+    this.lastup_xpos     = this.up_xpos;
+    this.lastup_ypos     = this.up_ypos;
+    this.lastdown_xpos   = this.down_xpos;
+    this.lastdown_ypos   = this.down_ypos;
 }
-
-// class to hold mouse coords
-function MHMouse( )
-{
-    this.intType    = 1;
-    this.xStart     = 0;
-    this.xEnd       = 0;
-    this.yStart     = 0;
-    this.yEnd       = 0;
-    this.blnInit    = false; 
-    this.isNew      = false;
-    this.update     = method_setMHMousePosition;
-}
-
-
-// retrieve mouse coords
-function method_setMHMousePosition( objEvent )
-{
-    // Internet Explorer
-    if( window.event )
-    {
-        var intX = event.clientX;
-        var intY = event.clientY + getTopScroll( ) ;
-    }
-    // w3c
-    else
-    {
-        var intX = objEvent.pageX;
-        var intY = objEvent.pageY;
-    }
-    
-    if( this.intType % 2 )
-    {
-        this.xStart = intX;
-        this.yStart = intY;
-    }
-    else
-    {
-        this.xEnd = intX;
-        this.yEnd = intY;
-    }
-    
-    if( this.blnInit )
-        this.isNew = this.xStart != this.xEnd || this.yStart != this.yEnd;
-    else
-        this.blnInit = true;
-    this.intType++;
-}
-
 
 // class to hold information about current selection
 function MHSelectedText( )
 {
-    this.top            = 0;
-    this.bottom         = 0;
-    this.left           = 0;
-    this.right          = 0;
     this.text           = '';
     this.selection      = null;
     this.isSelected     = false;
@@ -307,108 +285,40 @@ function MHSelectedText( )
 }
 
 // retrieve information about the selected text
-function method_getMHSelectedText( intXStart, intXEnd, intYStart, intYEnd )
+function method_getMHSelectedText()
 {
-    var intTop = this.top;
-    var intBottom = this.bottom;
-    var strText = this.text;
-    
     // mozilla
+    if(this.isSelected) {
+        return;
+    }
+    if($('multihook').style.visibility=='visible') {
+        return;
+    }
+    
     if( window.getSelection )
     {
         this.selection = window.getSelection( );
         this.text = this.selection + ''; // ).replace( /\n/g, ":::" );
         this.parentObj = this.selection.anchorNode.parentNode;
+        //alert(this.parentObj);
         this.isSelected = this.text.length;
-
-        if( this.isSelected )
-        {
-            var objNode1 = this.selection.anchorNode.parentNode;
-            var objNode2 = this.selection.focusNode.parentNode;
-            
-            var blnSwap = ( this.top == objNode2.offsetTop && objNode2.offsetTop != objNode1.offsetTop );
-            
-            var objParent = blnSwap ? objNode2 : objNode1;
-            var intStartOffset = Math.min( this.selection.focusOffset, this.selection.anchorOffset );
-            var intEndOffset = Math.max( this.selection.focusOffset, this.selection.anchorOffset );
-
-            if( objParent.nodeName.toUpperCase( ) == "BODY" || objParent.nodeName.toUpperCase( ) == "HTML"
-                || intStartOffset || this.selection.toString( ).length < getNodeText( objParent ).length )
-            {
-                if( !isNaN( intXStart ) )
-                {
-                    this.top = Math.min( intYStart, intYEnd ) - 6;
-                    this.right = Math.max( intXStart, intXEnd );
-                    this.left = Math.min( intXStart, intXEnd );
-                    this.bottom = Math.max( intYStart, intYEnd ) + 6;
-                }
-            }
-            else
-            {
-                this.top = Math.min( objNode1.offsetTop, objNode2.offsetTop );
-                this.left = Math.min( objNode1.offsetLeft, objNode2.offsetLeft );                   
-                var objLeft = blnSwap ? objNode2 : objNode1;
-                var objClone = objLeft.cloneNode( true );
-                objClone.style.visibility = "hidden";
-                objClone.style.cssFloat = "left";
-                objLeft.parentNode.insertBefore( objClone, objLeft );
-                var strContent = objClone.firstChild.nodeValue.substr( 0, intEndOffset );
-                if( strContent.substr( strContent.length - 1, 1 ) == ' ' )
-                    strContent = strContent.substr( 0, strContent.length - 1 ) + "|" ;
-                objClone.firstChild.nodeValue = strContent; 
-                this.right = this.left + objClone.offsetWidth;
-                if( intStartOffset )
-                {   
-                    strContent = strContent.substr( 0, intStartOffset );
-                    if( strContent.substr( strContent.length - 1, 1 ) == ' ' )
-                        strContent = strContent.substr( 0, strContent.length - 1 ) + "|" ;
-                    objClone.firstChild.nodeValue = strContent;                 
-                    this.left += objClone.offsetWidth;
-                }
-                objClone.parentNode.removeChild( objClone );
-            }
-            
-            this.bottom = Math.max( objNode1.offsetTop + objNode1.offsetHeight, objNode2.offsetTop + objNode2.offsetHeight );
-        }
     }
     // opera
     else if( document.getSelection )
     {
-        /*
-        var oldtext = document.getSelection(); 
-        var newtext = "<span id='mh_new_content'>" + oldtext + "</span>";
-        var oldregexp = eval( '/' + oldtext + '/g');
-        document.getSelection.anchorNode.parentNode.innerHTML = document.getSelection.anchorNode.parentNode.innerHTML.replace(oldregexp, newtext);
-        */
         this.selection = document.getSelection();
-        this.text = this.selection.replace( /\n/g, ":::" );
-        this.parentObj = this.selection.parentElement;
+        this.text = this.selection; //.replace( /\n/g, ":::" );
+        this.parentObj = this.selection.parent;
         //alert(this.parentObj);
         this.isSelected = this.text.length;
-        if( !isNaN( intXStart ) )
-        {
-            this.top = Math.min( intYStart, intYEnd ) - 12;
-            this.bottom = Math.max( intYStart, intYEnd ) + 12;
-            this.right = Math.max( intXStart, intXEnd );
-            this.left = Math.min( intXStart, intXEnd );
-        }
     }
     // internet explorer
-    else
-    {
+    else {
         this.selection = document.selection.createRange();
         this.text = this.selection.text; //.replace( /\n/g, ":::" );
         this.parentObj = this.selection.parentElement();
         this.isSelected = this.text.length;
-        if( this.isSelected )
-        {
-            this.top = this.selection.offsetTop + getTopScroll( );
-            this.left = this.selection.offsetLeft;
-            this.bottom = this.top + this.selection.boundingHeight + getTopScroll( );
-            this.right = this.left + this.selection.boundingWidth;
-        }
     }
-    this.isNew = intTop != this.top || intBottom != this.bottom || strText != this.text;
 }
     
     
