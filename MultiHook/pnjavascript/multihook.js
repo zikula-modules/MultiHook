@@ -8,11 +8,12 @@ function addEventHandlers()
 {
     var counter = 0;
     var titleparts, elementid;
-    for(var i=0; i < document.links.length; i++) {
-        if(document.links[i].text == '+') {
-            titleparts = document.links[i].title.split('#');
+    var editlinks = document.getElementsByClassName('multihookeditlink');
+    for(var i=0; i < editlinks.length; i++) {
+        if(editlinks[i].innerHTML == '+') {
+            titleparts = editlinks[i].title.split('#');
             elementid = 'editlink_' + counter + '_' + titleparts[1];
-            document.links[i].id = elementid;
+            editlinks[i].id = elementid;
             Event.observe(
                           elementid, 
                           'click', 
