@@ -52,13 +52,15 @@ function MultiHook_ajax_store()
          $title, 
          $type,
          $delete,
-         $language) = pnVarCleanFromInput('mh_aid',
-                                          'mh_short', 
-                                          'mh_long',
-                                          'mh_title',
-                                          'mh_type',
-                                          'mh_delete',
-                                          'mh_language');
+         $language,
+         $eventobjid) = pnVarCleanFromInput('mh_aid',
+                                            'mh_short', 
+                                            'mh_long',
+                                            'mh_title',
+                                            'mh_type',
+                                            'mh_delete',
+                                            'mh_language',
+                                            'mh_eventobjid');
 
     $short    = trim($short); 
     $long     = trim($long); 
@@ -130,13 +132,13 @@ function MultiHook_ajax_store()
             if(is_array($abac)) {
                 switch($abac['type']) {
                     case '0':  // abbr
-                        $return = create_abbr($abac['aid'], $abac['short'], $abac['long'], $abac['language'], $mhadmin, $mhshoweditlink, $haveoverlib);
+                        $return = create_abbr($abac['aid'], $abac['short'], $abac['long'], $abac['language'], $mhadmin, $mhshoweditlink, $haveoverlib, $eventobjid);
                         break;
                     case '1':  // acronym
-                        $return = create_acronym($abac['aid'], $abac['short'], $abac['long'], $abac['language'], $mhadmin, $mhshoweditlink, $haveoverlib);
+                        $return = create_acronym($abac['aid'], $abac['short'], $abac['long'], $abac['language'], $mhadmin, $mhshoweditlink, $haveoverlib, $eventobjid);
                         break;
                     case '2':  // link
-                        $return = create_link($abac['aid'], $abac['short'], $abac['long'], $abac['title'], $abac['language'], $mhadmin, $mhshoweditlink, $haveoverlib);
+                        $return = create_link($abac['aid'], $abac['short'], $abac['long'], $abac['title'], $abac['language'], $mhadmin, $mhshoweditlink, $haveoverlib, $eventobjid);
                         break;
                     default:
                         // why are we here?

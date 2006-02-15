@@ -2,21 +2,6 @@
 
 <script type="text/javascript" src="modules/MultiHook/pnjavascript/prototype.js"></script>
 <script type="text/javascript" src="modules/MultiHook/pnjavascript/multihook.js"></script>
-<script type="text/javascript" src="modules/MultiHook/pnjavascript/ajax_tools.js"></script>
-<script type="text/javascript">
-    var objMHSelection = new MHSelectedText();
-    var objMouseXY = new MouseXY();
-
-    // check mouse position at selection start
-    document.onmouseup = stopSelection;
-    // check mouse position at selection end
-    document.onmousedown = startSelection;
-    
-    var loadingText = '<!--[ pnml name="_MH_LOADINGDATA" ]-->';
-    var savingText = '<!--[ pnml name="_MH_SAVINGDATA" ]-->';
-</script>
-
-
 <!--[ pnusergetlang assign="userlang" ]-->
 <!--[ pnmodgetinfo modname="MultiHook" info=all ]-->
 <!-- hidden div to show form for multihook entries -->
@@ -105,3 +90,25 @@
     <div id="multihookinformationcontent"></div>
 </div>
 <!-- end of hidden information -->
+
+<script type="text/javascript" src="modules/MultiHook/pnjavascript/ajax_tools.js"></script>
+<script type="text/javascript">
+    var objMHSelection = new MHSelectedText();
+    var objMouseXY = new MouseXY();
+    var eentObjID;
+
+    $('multihook').style.visibility = 'hidden';
+    $('multihookedit').style.visibility = 'hidden';
+    $('multihookinformation').style.visibility = 'hidden';
+    
+    // check mouse position at selection start
+    document.onmouseup = stopSelection;
+    // check mouse position at selection end
+    document.onmousedown = startSelection;
+    
+    var loadingText = '<!--[ pnml name="_MH_LOADINGDATA" ]-->';
+    var savingText = '<!--[ pnml name="_MH_SAVINGDATA" ]-->';
+    
+    addEventHandlers();
+    
+</script>

@@ -4,15 +4,41 @@
  *
  */
 
-function starteditmultihook(aid, parent)
+function addEventHandlers()
 {
-    parent.id = 'mh_update_content';
+    var counter = 0;
+    var titleparts, elementid;
+    for(var i=0; i < document.links.length; i++) {
+        if(document.links[i].text == '+') {
+            titleparts = document.links[i].title.split('#');
+            elementid = 'editlink_' + counter + '_' + titleparts[1];
+            document.links[i].id = elementid;
+            Event.observe(
+                          elementid, 
+                          'click', 
+                          function(clickevent) {
+                             starteditmultihook(clickevent);
+                          },
+                          false );
+            counter++;
+        }
+    }
+}
+
+function starteditmultihook(clickevent)
+{
+    // set the parent objects id for finding it later
+    Event.element(clickevent).parentNode.id = 'mh_update_content';
+
+    // save th objects id that ause the event    
+    eventObjID = Event.element(clickevent).id;
 
     showInfo(loadingText, objMouseXY.up_xpos, objMouseXY.up_ypos, false);
     
     objMouseXY.backup();
         
-    var pars = "module=MultiHook&type=ajax&func=read&mh_aid=" + aid;
+    var eventparams = Event.element(clickevent).id.split('_');
+    var pars = "module=MultiHook&type=ajax&func=read&mh_aid=" + eventparams[2];
     var myAjax = new Ajax.Request(
         "index.php", 
         {
@@ -60,7 +86,9 @@ function submiteditmultihook()
                "&mh_title=" + $F('mhedit_title') + 
                "&mh_type=" + $F('mhedit_type') + 
                "&mh_delete=" + $F('mhedit_delete') + 
-               "&mh_language=" + $F('mhedit_language');
+               "&mh_language=" + $F('mhedit_language') + 
+               "&mh_eventobjid=" + eventObjID;
+
     var myAjax = new Ajax.Updater(
                     {success: 'mh_update_content'},
                     "index.php", 
@@ -77,6 +105,15 @@ function submiteditmultihook_response(originalRequest)
 {
     hideInfo();
     $('mh_update_content').id = '';
+
+    // add new eventhandler to editlink
+    Event.observe(
+                  eventObjID, 
+                  'click', 
+                  function(clickevent) {
+                     starteditmultihook(clickevent);
+                  },
+                  false );
 
     // show error if necessary
     if( originalRequest.status != 200 ) { 
