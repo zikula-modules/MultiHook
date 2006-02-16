@@ -69,12 +69,12 @@
 .multihooklabel {
     clear: both;
     float: left;
-    margin: 3px 0 3px 0;
+    margin: 2px 0 2px 0;
 }
 
 .multihookinput {
     float: right; 
-    margin: 3px 0 3px 0;
+    margin: 2px 0 2px 0;
 }
 .multihookinputreadonly {
     float: right; 
