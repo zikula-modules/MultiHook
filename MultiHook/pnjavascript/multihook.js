@@ -10,19 +10,17 @@ function addEventHandlers()
     var titleparts, elementid;
     var editlinks = document.getElementsByClassName('multihookeditlink');
     for(var i=0; i < editlinks.length; i++) {
-        if(editlinks[i].innerHTML == '+') {
-            titleparts = editlinks[i].title.split('#');
-            elementid = 'editlink_' + counter + '_' + titleparts[1];
-            editlinks[i].id = elementid;
-            Event.observe(
-                          elementid, 
-                          'click', 
-                          function(clickevent) {
-                             starteditmultihook(clickevent);
-                          },
-                          false );
-            counter++;
-        }
+        titleparts = editlinks[i].title.split('#');
+        elementid = 'editlink_' + counter + '_' + titleparts[1];
+        editlinks[i].id = elementid;
+        Event.observe(
+                      elementid, 
+                      'click', 
+                      function(clickevent) {
+                         starteditmultihook(clickevent);
+                      },
+                      false );
+        counter++;
     }
 }
 
@@ -152,7 +150,7 @@ function submitmultihook_response(originalRequest)
     addEventHandlers();
     
     objMHSelection.text           = '';
-    objMHSelection.selection      = null;
+    //objMHSelection.selection      = null;
     objMHSelection.isSelected     = false;
     objMHSelection.isNew          = false;
     objMHSelection.parentObj      = 'undefined';
@@ -173,7 +171,7 @@ function cancelmultihook()
     $('multihookedit').style.visibility='hidden';
 
     objMHSelection.text           = '';
-    objMHSelection.selection      = null;
+    //objMHSelection.selection      = null;
     objMHSelection.isSelected     = false;
     objMHSelection.isNew          = false;
     objMHSelection.parentObj      = 'undefined';
@@ -305,7 +303,7 @@ function backupXY(objEvent)
 function MHSelectedText( )
 {
     this.text           = '';
-    this.selection      = null;
+    //this.selection      = null;
     this.isSelected     = false;
     this.isNew          = false;
     this.parentObj      = 'undefined';
@@ -323,29 +321,35 @@ function getSelectedText()
         return;
     }
     
+    var selection;
     if( window.getSelection )
     {
-        this.selection = window.getSelection( );
-        this.text = this.selection + ''; // ).replace( /\n/g, ":::" );
-        this.parentObj = this.selection.anchorNode.parentNode;
-        //alert(this.parentObj);
-        this.isSelected = this.text.length;
+        selection = window.getSelection();
+        if(selection) {
+            this.text = selection + '';
+            this.parentObj = selection.anchorNode.parentNode;
+            this.isSelected = this.text.length;
+        }
     }
     // opera
     else if( document.getSelection )
     {
-        this.selection = document.getSelection();
-        this.text = this.selection; //.replace( /\n/g, ":::" );
-        this.parentObj = this.selection.parent;
-        //alert(this.parentObj);
-        this.isSelected = this.text.length;
+        selection = document.getSelection();
+        if(selection) {
+            this.text = selection;
+            this.parentObj = selection.parent;
+            //alert(this.parentObj);
+            this.isSelected = this.text.length;
+        }
     }
     // internet explorer
     else {
-        this.selection = document.selection.createRange();
-        this.text = this.selection.text; //.replace( /\n/g, ":::" );
-        this.parentObj = this.selection.parentElement();
-        this.isSelected = this.text.length;
+        selection = document.selection.createRange();
+        if(selection) {
+            this.text = selection.text;
+            this.parentObj = selection.parentElement();
+            this.isSelected = this.text.length;
+        }
     }
 }
     
