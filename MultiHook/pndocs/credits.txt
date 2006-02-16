@@ -3,3 +3,6 @@ $Id$
 MultiHook written by Frank Schummertz (frank.schummertz@landseer-stuttgart.de) and
 is basing on AutoLinks by Jim McDonald.
 
+French Translation by Franky Chestnut (webmaster@pnconcept.com)
+
+Javascript library prototype.js by Sam Stephenson (http://prototype.conio.net/)
