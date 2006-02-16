@@ -31,9 +31,6 @@ function starteditmultihook(clickevent)
     // set the parent objects id for finding it later
     Event.element(clickevent).parentNode.id = 'mh_update_content';
 
-    // save th objects id that ause the event    
-    eventObjID = Event.element(clickevent).id;
-
     showInfo(loadingText, objMouseXY.up_xpos, objMouseXY.up_ypos, false);
     
     objMouseXY.backup();
@@ -87,8 +84,7 @@ function submiteditmultihook()
                "&mh_title=" + $F('mhedit_title') + 
                "&mh_type=" + $F('mhedit_type') + 
                "&mh_delete=" + $F('mhedit_delete') + 
-               "&mh_language=" + $F('mhedit_language') + 
-               "&mh_eventobjid=" + eventObjID;
+               "&mh_language=" + $F('mhedit_language');
 
     var myAjax = new Ajax.Updater(
                     {success: 'mh_update_content'},
@@ -107,14 +103,7 @@ function submiteditmultihook_response(originalRequest)
     hideInfo();
     $('mh_update_content').id = '';
 
-    // add new eventhandler to editlink
-    Event.observe(
-                  eventObjID, 
-                  'click', 
-                  function(clickevent) {
-                     starteditmultihook(clickevent);
-                  },
-                  false );
+    addEventHandlers();
 
     // show error if necessary
     if( originalRequest.status != 200 ) { 
@@ -160,6 +149,7 @@ function submitmultihook_response(originalRequest)
     if( originalRequest.status != 200 ) { 
         showajaxerror(originalRequest);
     }
+    addEventHandlers();
     
     objMHSelection.text           = '';
     objMHSelection.selection      = null;
@@ -319,11 +309,11 @@ function MHSelectedText( )
     this.isSelected     = false;
     this.isNew          = false;
     this.parentObj      = 'undefined';
-    this.update         = method_getMHSelectedText;
+    this.update         = getSelectedText;
 }
 
 // retrieve information about the selected text
-function method_getMHSelectedText()
+function getSelectedText()
 {
     // mozilla
     if(this.isSelected) {

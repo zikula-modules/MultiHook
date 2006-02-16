@@ -52,116 +52,120 @@ function MultiHook_ajax_store()
          $title, 
          $type,
          $delete,
-         $language,
-         $eventobjid) = pnVarCleanFromInput('mh_aid',
-                                            'mh_short', 
-                                            'mh_long',
-                                            'mh_title',
-                                            'mh_type',
-                                            'mh_delete',
-                                            'mh_language',
-                                            'mh_eventobjid');
+         $language) = pnVarCleanFromInput('mh_aid',
+                                          'mh_short', 
+                                          'mh_long',
+                                          'mh_title',
+                                          'mh_type',
+                                          'mh_delete',
+                                          'mh_language');
 
     $short    = trim($short); 
     $long     = trim($long); 
     $title    = trim($title); 
     $language = trim($language);
 
-    // check if aid exists 
+    // get the entry (needed for permission checks)
     $abac = pnModAPIFunc('MultiHook', 'user', 'get', 
                          array('aid' => $aid));
-    $mode = '';
-    if(!is_array($abac) && pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADD)) {
-        $mode = 'create';
-    }
-    if(is_array($abac) && pnSecAuthAction(0, 'MultiHook::', $abac['short'] . '::' . $abac['aid'], ACCESS_EDIT)) {
-        $mode = 'update';
-        if(!empty($delete)&& ($delete=='1')) {
-            $mode = 'delete';
+
+    if(!empty($delete)&& ($delete=='1')) {
+        if(pnSecAuthAction(0, 'MultiHook::', $abac['short'] . '::' . $abac['aid'], ACCESS_DELETE)) {
             if(pnModAPIFunc('MultiHook', 'admin', 'delete',
-                             array('aid'      => $aid))) {
+                             array('aid' => $aid))) {
                 $return = $abac['short'];
             } else {
                 $error = _MH_DELETEFAILED;
             }
-        }
-    }
-    if(empty($mode)) {
-        $error = _MH_NOAUTH;
-    }
-
-    if(!empty($mode) && ($mode<>'delete') ) {
-    
-        
-        if(empty($short)) {
-            $error = _MH_WRONGPARAMETER_SHORT . '<br />';
-        }
-        switch($type) {
-            case '0': // abbr
-            case '1': // acronym
-                if(empty($long)) {
-                    $error .= _MH_WRONGPARAMETER_LONG . '<br />';
-                }
-                break;
-            case '2': // link
-                if(empty($long)) {
-                    $error .= _MH_WRONGPARAMETER_LONG . '<br />';
-                }
-                if(empty($title)) {
-                    $error .= _MH_WRONGPARAMETER_TITLE . '<br />';
-                }
-                break;
-            default:
-                $error = _MH_WRONGPARAMETER_TYPE . ' (' . $type . ')<br />';
-        }
-        
-        $aid = pnModAPIFunc('MultiHook', 'admin', $mode,
-                            array('aid'      => $aid,
-                                  'short'    => $short,
-                                  'long'     => utf8_decode($long),
-                                  'title'    => utf8_decode($title),
-                                  'type'     => $type,
-                                  'language' => $language));
-        if(!is_bool($aid)) {
-            // result is not false, its a aid of the new created or updated entry
-            $mhadmin = pnSecAuthAction(0, 'MultiHook::', '.*', ACCESS_ADMIN);
-            $mhshoweditlink = (pnModGetVar('MultiHook', 'mhshoweditlink')==1) ? true : false;
-            $haveoverlib = pnModAvailable('overlib');
-            $abac = pnModAPIFunc('MultiHook', 'user', 'get',
-                                 array('aid' => $aid));
-            if(is_array($abac)) {
-                switch($abac['type']) {
-                    case '0':  // abbr
-                        $return = create_abbr($abac['aid'], $abac['short'], $abac['long'], $abac['language'], $mhadmin, $mhshoweditlink, $haveoverlib, $eventobjid);
-                        break;
-                    case '1':  // acronym
-                        $return = create_acronym($abac['aid'], $abac['short'], $abac['long'], $abac['language'], $mhadmin, $mhshoweditlink, $haveoverlib, $eventobjid);
-                        break;
-                    case '2':  // link
-                        $return = create_link($abac['aid'], $abac['short'], $abac['long'], $abac['title'], $abac['language'], $mhadmin, $mhshoweditlink, $haveoverlib, $eventobjid);
-                        break;
-                    default:
-                        // why are we here?
-                }
-            } else {
-                $error = _MH_ERRORREADINGDATA . ' (aid=' . $aid . ')';
-            }
         } else {
-            switch($mode) {
-                case 'create':
-                    $error = _MH_CREATEFAILED;
+            $error = _MH_NOAUTH;
+        }
+    } else {
+
+        $mode = '';
+        if(!is_array($abac) && pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADD)) {
+            $mode = 'create';
+        }
+        if(is_array($abac) && pnSecAuthAction(0, 'MultiHook::', $abac['short'] . '::' . $abac['aid'], ACCESS_EDIT)) {
+            $mode = 'update';
+        }
+        unset($abac);
+        
+        if(empty($mode)) {
+            $error = _MH_NOAUTH;
+        } else {
+            if(empty($short)) {
+                $error = _MH_WRONGPARAMETER_SHORT . '<br />';
+            }
+            switch($type) {
+                case '0': // abbr
+                case '1': // acronym
+                    if(empty($long)) {
+                        $error .= _MH_WRONGPARAMETER_LONG . '<br />';
+                    }
                     break;
-                case 'update':
-                    $error = _MH_UPDATEFAILED;
+                case '2': // link
+                    if(empty($long)) {
+                        $error .= _MH_WRONGPARAMETER_LONG . '<br />';
+                    }
+                    if(empty($title)) {
+                        $error .= _MH_WRONGPARAMETER_TITLE . '<br />';
+                    }
                     break;
                 default:
-                    $error = 'internal error: invalid mode parameter';
+                    $error = _MH_WRONGPARAMETER_TYPE . ' (' . $type . ')<br />';
+            }
+            
+            $aid = pnModAPIFunc('MultiHook', 'admin', $mode,
+                                array('aid'      => $aid,
+                                      'short'    => utf8_decode($short),
+                                      'long'     => utf8_decode($long),
+                                      'title'    => utf8_decode($title),
+                                      'type'     => $type,
+                                      'language' => $language));
+            if(!is_bool($aid)) {
+                // result is not false, its a aid of the new created or updated entry
+                $mhadmin = pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_DELETE);
+                $mhshoweditlink = (pnModGetVar('MultiHook', 'mhshoweditlink')==1) ? true : false;
+                $haveoverlib = pnModAvailable('overlib');
+                $abac = pnModAPIFunc('MultiHook', 'user', 'get',
+                                     array('aid' => $aid));
+                if(is_array($abac)) {
+                    switch($abac['type']) {
+                        case '0':  // abbr
+                            $return = create_abbr($abac['aid'], $abac['short'], $abac['long'], $abac['language'], $mhadmin, $mhshoweditlink, $haveoverlib);
+                            break;
+                        case '1':  // acronym
+                            $return = create_acronym($abac['aid'], $abac['short'], $abac['long'], $abac['language'], $mhadmin, $mhshoweditlink, $haveoverlib);
+                            break;
+                        case '2':  // link
+                            $return = create_link($abac['aid'], $abac['short'], $abac['long'], $abac['title'], $abac['language'], $mhadmin, $mhshoweditlink, $haveoverlib);
+                            break;
+                        default:
+                            //  we cannot get here, type has been checked before already
+                    }
+                } else {
+                    $error = _MH_ERRORREADINGDATA . ' (aid=' . $aid . ')';
+                }
+            } else {
+                switch($mode) {
+                    case 'create':
+                        $error = _MH_CREATEFAILED;
+                        break;
+                    case 'update':
+                        $error = _MH_UPDATEFAILED;
+                        break;
+                    default:
+                        // we should not get here....
+                        $error = 'internal error: invalid mode parameter';
+                }
             }
         }
     }
-    
+    // stop with 400 Bad data if neccesary
     mh_ajaxerror($error);
     
+    // otherwise output result and exit
     echo $return;
     exit;
 }

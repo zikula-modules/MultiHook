@@ -46,7 +46,7 @@ function MultiHook_adminapi_create($args)
         (!isset($title)) ||
         (!isset($type)) ||
         (!isset($language))) {
-        pnSessionSetVar('errormsg', _MODARGSERROR);
+        pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_adminapi_create()');
         return false;
     }
 
@@ -111,7 +111,7 @@ function MultiHook_adminapi_delete($args)
 
     // Argument check
     if (!isset($aid)) {
-        pnSessionSetVar('errormsg', _MODARGSERROR);
+        pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_adminapi_delete()');
         return false;
     }
 
@@ -176,7 +176,7 @@ function MultiHook_adminapi_update($args)
         (!isset($long)) ||
         (!isset($type)) ||
         (!isset($language))) {
-        pnSessionSetVar('errormsg', _MODARGSERROR);
+        pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_adminapi_update()');
         return false;
     }
 

@@ -19,7 +19,7 @@
 // Purpose of file:  common functions
 // ----------------------------------------------------------------------
 
-function create_abbr($aid, $short, $long, $language, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false, $eventobjid='')
+function create_abbr($aid, $short, $long, $language, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false)
 {
     static $mhreplaceabbr;
     if(!isset($mhreplaceabbr)) {
@@ -43,18 +43,14 @@ function create_abbr($aid, $short, $long, $language, $mhadmin=false, $mhshowedit
     }
     
     if($mhadmin == true && $mhshoweditlink==true) {
-        if(!empty($eventobjid)) {
-            $eventobjid = 'id="' . $eventobjid . '"';
-        }
-        $replace_temp = '<span>' . $replace_temp . '<span class="multihookeditlink" ' . $eventobjid . ' title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_ABBREVIATION) . ') #' . $aid . '" >+</span>' . '</span>';
-//        $replace_temp = '<span>' . $replace_temp . '<a onclick="javascript:starteditmultihook(' . $aid . ', this.parentNode);" href="javascript:void(0);" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_ABBREVIATION) . ')" href="javascript:void(0);">+</a>' . '</span>';
+        $replace_temp = '<span>' . $replace_temp . '<span class="multihookeditlink" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_ABBREVIATION) . ') #' . $aid . '" >+</span>' . '</span>';
     }
     
     return $replace_temp;
     
 }
 
-function create_acronym($aid, $short, $long, $language, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false, $eventobjid='')
+function create_acronym($aid, $short, $long, $language, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false)
 {
     list($long, $short) = pnVarPrepForDisplay($long, $short);
 
@@ -67,17 +63,13 @@ function create_acronym($aid, $short, $long, $language, $mhadmin=false, $mhshowe
     }
 
     if($mhadmin == true && $mhshoweditlink==true) {
-        if(!empty($eventobjid)) {
-            $eventobjid = 'id="' . $eventobjid . '"';
-        }
-        $replace_temp = '<span>' . $replace_temp . '<span class="multihookeditlink" ' . $eventobjid . ' title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_ACRONYM) . ') #' . $aid . '">+</span>' . '</span>';
-//        $replace_temp = '<span>' . $replace_temp . '<a onclick="javascript:starteditmultihook(' . $aid . ', this.parentNode);" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_ACRONYM) . ')" href="javascript:void(0);">+</a>' . '</span>';
+        $replace_temp = '<span>' . $replace_temp . '<span class="multihookeditlink" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_ACRONYM) . ') #' . $aid . '">+</span>' . '</span>';
     }
 
     return $replace_temp;
 }
 
-function create_link($aid, $short, $long, $title, $language, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false, $eventobjid='')
+function create_link($aid, $short, $long, $title, $language, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false)
 {
     static $mhlinktitle;
     static $externallinkclass;
@@ -108,11 +100,7 @@ function create_link($aid, $short, $long, $title, $language, $mhadmin=false, $mh
         }
     }
     if($mhadmin == true && $mhshoweditlink==true) {
-        if(!empty($eventobjid)) {
-            $eventobjid = 'id="' . $eventobjid . '"';
-        }
-        $replace_temp = '<span>' . $replace_temp . '<span class="multihookeditlink" ' . $eventobjid . ' title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_LINK) . ') #' . $aid . '">+</span>' . '</span>';
-//        $replace_temp = '<span>' . $replace_temp . '<a onclick="javascript:starteditmultihook(' . $aid . ', this.parentNode);" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_LINK) . ')" href="javascript:void(0);">+</a>' . '</span>';
+        $replace_temp = '<span>' . $replace_temp . '<span class="multihookeditlink" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_LINK) . ') #' . $aid . '">+</span>' . '</span>';
     }
     return $replace_temp;
 }

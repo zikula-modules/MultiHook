@@ -115,15 +115,13 @@ function MultiHook_userapi_get($args)
     $multihooktable = $pntable['multihook'];
     $multihookcolumn = $pntable['multihook_column'];
 
-    if (!isset($aid) || !is_numeric($aid)) {
-        if (!isset($short) || empty($short)) {
-            pnSessionSetVar('errormsg', _MODARGSERROR);
-            return false;
-        } else {
-            $where = "WHERE $multihookcolumn[short] = '" . pnVarPrepForStore($short) . "'";
-        }
-    } else {
+    if (isset($aid) && is_numeric($aid)) {
         $where = "WHERE $multihookcolumn[aid] = '" . (int)pnVarPrepForStore($aid) . "'";
+    } else if(isset($short) && !empty($short)) {
+        $where = "WHERE $multihookcolumn[short] = '" . pnVarPrepForStore($short) . "'";
+    } else {
+        pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_userapi_get()');
+        return false;
     }
 
     $sql = "SELECT $multihookcolumn[aid],
@@ -251,7 +249,7 @@ function MultiHook_userapitransform($text)
 
     static $mhadmin;
     if(!isset($mhadmin)) {
-        $mhadmin = pnSecAuthAction(0, 'MultiHook::', '.*', ACCESS_ADMIN);
+        $mhadmin = pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_DELETE);
     }
 
     static $mhincodetags;
