@@ -327,7 +327,9 @@ function getSelectedText()
         selection = window.getSelection();
         if(selection) {
             this.text = selection + '';
-            this.parentObj = selection.anchorNode.parentNode;
+            if(selection.anchorNode) {
+                this.parentObj = selection.anchorNode.parentNode;
+            }
             this.isSelected = this.text.length;
         }
     }
