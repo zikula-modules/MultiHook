@@ -47,7 +47,7 @@ a.externallink {
 a:hover.externallink {
     padding-left:  14px;
     font-size: 11px;
-    background: url('../../../modules/MultiHook/pnimages/extlink.gif') np-repeat bottom left;
+    background: url('../../../modules/MultiHook/pnimages/extlink.gif') no-repeat bottom left;
 }
 
 This adds the image extlink.gif to the left of the created link. Please note that
@@ -57,7 +57,7 @@ the a:hover the image would disappear in IE when the mouse is over the link
 
 Ajax support
 ------------
-Since version 2.0 MultiHook uses Ajax for easier adding and manipulating of entries. 
+Since version 2.0 MultiHook uses Ajax for easier adding and manipulating of data. 
 If you want to use this feature, your PostNuke theme as to be prepared for
 this and you have to enable javascript in your browser. 
 Copy modules/MultiHook/pntemplates/plugins/function.multihookhelper.php to your 

@@ -85,6 +85,12 @@ function MultiHook_ajax_store()
         $mode = '';
         if(!is_array($abac) && pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADD)) {
             $mode = 'create';
+            // check if db entry with this short already exists
+            $check_abac = pnModAPIFunc('MultiHook', 'user', 'get',
+                                       array('short' => $short)); 
+            if(!is_bool($check_abac)) {
+                mh_ajaxerror("'$short' " . _MH_EXISTSINDB);
+            }
         }
         if(is_array($abac) && pnSecAuthAction(0, 'MultiHook::', $abac['short'] . '::' . $abac['aid'], ACCESS_EDIT)) {
             $mode = 'update';
@@ -133,13 +139,13 @@ function MultiHook_ajax_store()
                 if(is_array($abac)) {
                     switch($abac['type']) {
                         case '0':  // abbr
-                            $return = create_abbr($abac['aid'], $abac['short'], $abac['long'], $abac['language'], $mhadmin, $mhshoweditlink, $haveoverlib);
+                            $return = create_abbr($abac, $mhadmin, $mhshoweditlink, $haveoverlib);
                             break;
                         case '1':  // acronym
-                            $return = create_acronym($abac['aid'], $abac['short'], $abac['long'], $abac['language'], $mhadmin, $mhshoweditlink, $haveoverlib);
+                            $return = create_acronym($abac, $mhadmin, $mhshoweditlink, $haveoverlib);
                             break;
                         case '2':  // link
-                            $return = create_link($abac['aid'], $abac['short'], $abac['long'], $abac['title'], $abac['language'], $mhadmin, $mhshoweditlink, $haveoverlib);
+                            $return = create_link($abac, $mhadmin, $mhshoweditlink, $haveoverlib);
                             break;
                         default:
                             //  we cannot get here, type has been checked before already

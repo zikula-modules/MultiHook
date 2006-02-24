@@ -19,8 +19,9 @@
 // Purpose of file:  common functions
 // ----------------------------------------------------------------------
 
-function create_abbr($aid, $short, $long, $language, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false)
+function create_abbr($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false)
 {
+    extract($abac);
     static $mhreplaceabbr;
     if(!isset($mhreplaceabbr)) {
         $mhreplaceabbr = (pnModGetVar('MultiHook', 'mhreplaceabbr')==1) ? true : false;
@@ -44,15 +45,15 @@ function create_abbr($aid, $short, $long, $language, $mhadmin=false, $mhshowedit
     
     if($mhadmin == true && $mhshoweditlink==true) {
         $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/pnimages/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_ABBREVIATION) . ') #' . $aid . '" />' . '</span>';
-//        $replace_temp = '<span>' . $replace_temp . '<span class="multihookeditlink" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_ABBREVIATION) . ') #' . $aid . '" >+</span>' . '</span>';
     }
     
     return $replace_temp;
     
 }
 
-function create_acronym($aid, $short, $long, $language, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false)
+function create_acronym($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false)
 {
+    extract($abac);
     list($long, $short) = pnVarPrepForDisplay($long, $short);
 
     $xhtmllang = get_xhtml_language($language);
@@ -65,14 +66,15 @@ function create_acronym($aid, $short, $long, $language, $mhadmin=false, $mhshowe
 
     if($mhadmin == true && $mhshoweditlink==true) {
         $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/pnimages/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_ACRONYM) . ') #' . $aid . '" />' . '</span>';
-//        $replace_temp = '<span>' . $replace_temp . '<span class="multihookeditlink" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_ACRONYM) . ') #' . $aid . '">+</span>' . '</span>';
     }
 
     return $replace_temp;
 }
 
-function create_link($aid, $short, $long, $title, $language, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false)
+function create_link($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false)
 {
+    extract($abac);
+
     static $mhlinktitle;
     static $externallinkclass;
     
@@ -83,8 +85,8 @@ function create_link($aid, $short, $long, $title, $language, $mhadmin=false, $mh
         $externallinkclass =pnModGetVar('MultiHook', 'externallinkclass');
     }
     
-    $extclass = (preg_match("/(^http:\/\/)/", $long)==1) ? "class=\"$externallinkclass\"" : "";
-    
+    $extclass = (preg_match("/(^http:\/\/)/", $long_original)==1) ? "class=\"$externallinkclass\"" : "";
+
     // prepare url
     list($long, $short, $title) = pnVarPrepForDisplay($long, $short, $title);
 
@@ -103,7 +105,6 @@ function create_link($aid, $short, $long, $title, $language, $mhadmin=false, $mh
     }
     if($mhadmin == true && $mhshoweditlink==true) {
         $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/pnimages/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_LINK) . ') #' . $aid . '" />' . '</span>';
-//        $replace_temp = '<span>' . $replace_temp . '<span class="multihookeditlink" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_LINK) . ') #' . $aid . '">+</span>' . '</span>';
     }
     return $replace_temp;
 }

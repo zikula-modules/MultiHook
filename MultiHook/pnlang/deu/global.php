@@ -16,6 +16,9 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
+// new
+define('_MH_EXISTSINDB', 'bereits in der Datenbank vorhanden');
+
 //
 // A
 //

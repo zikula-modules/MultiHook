@@ -115,10 +115,18 @@ function MultiHook_userapi_get($args)
     $multihooktable = $pntable['multihook'];
     $multihookcolumn = $pntable['multihook_column'];
 
-    if (isset($aid) && is_numeric($aid)) {
-        $where = "WHERE $multihookcolumn[aid] = '" . (int)pnVarPrepForStore($aid) . "'";
-    } else if(isset($short) && !empty($short)) {
-        $where = "WHERE $multihookcolumn[short] = '" . pnVarPrepForStore($short) . "'";
+    if (isset($aid)) {
+        if(is_numeric($aid)) {
+            $where = "WHERE $multihookcolumn[aid] = '" . (int)pnVarPrepForStore($aid) . "'";
+        } else {
+            return false;
+        }
+    } else if(isset($short)) {
+        if(!empty($short)) {
+            $where = "WHERE $multihookcolumn[short] = '" . pnVarPrepForStore($short) . "'";
+        } else {
+            return false;
+        }
     } else {
         pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_userapi_get()');
         return false;
@@ -136,6 +144,12 @@ function MultiHook_userapi_get($args)
 
     if ($dbconn->ErrorNo() != 0) {
         pnSessionSetVar('errormsg', _MH_SELECTFAILED);
+        return false;
+    }
+    
+    if($result->RecordCount()==0) {
+        // not found
+        $result->Close();
         return false;
     }
 
@@ -326,6 +340,8 @@ function MultiHook_userapitransform($text)
 
         foreach ($tmps as $tmp) {
             // check if the current tmp is a link
+            //save original long
+            $tmp['long_original'] = $tmp['long'];
             if($tmp['type']==2) {
                 $tmp['long'] = absolute_url($tmp['long']);
             }
@@ -339,7 +355,7 @@ function MultiHook_userapitransform($text)
                 $search[]      = $search_temp;
                 $replace[]     = md5($search_temp);
                 $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                $finalreplace[] = create_abbr($tmp['aid'], $tmp['short'], $tmp['long'], $tmp['language'], $mhadmin, $mhshoweditlink, $haveoverlib);
+                $finalreplace[] = create_abbr($tmp, $mhadmin, $mhshoweditlink, $haveoverlib);
                 unset($search_temp);
             } else if($tmp['type']==1) {
                 // 1 = Acronym
@@ -347,7 +363,7 @@ function MultiHook_userapitransform($text)
                 $search[]      = $search_temp;
                 $replace[]     = md5($search_temp);
                 $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                $finalreplace[] = create_acronym($tmp['aid'], $tmp['short'], $tmp['long'], $tmp['language'], $mhadmin, $mhshoweditlink, $haveoverlib);
+                $finalreplace[] = create_acronym($tmp, $mhadmin, $mhshoweditlink, $haveoverlib);
                 unset($search_temp);
             } else if($tmp['type']==2) {
                 // 2 = Link
@@ -361,7 +377,7 @@ function MultiHook_userapitransform($text)
                 $search[]      = $search_temp;
                 $replace[]     = md5($search_temp);
                 $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                $finalreplace[] = create_link($tmp['aid'], $tmp['short'], $tmp['long'], $tmp['title'], $tmp['language'], $mhadmin, $mhshoweditlink, $haveoverlib);
+                $finalreplace[] = create_link($tmp, $mhadmin, $mhshoweditlink, $haveoverlib);
                 unset($search_temp);
             }
             
