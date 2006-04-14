@@ -1,7 +1,9 @@
 $Id$
 
+
+
    - fixed bug: class for to external links
-   - fixed bug #2676 multiple autoliks possible
+   - fixed bug #2676 multiple autolinks possible
 
 Version 2.0
    - added Ajax support for adding and manipulating entries, uses prototype.js
