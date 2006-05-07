@@ -128,7 +128,6 @@ function MultiHook_userapi_get($args)
             return false;
         }
     } else {
-        pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_userapi_get()');
         return false;
     }
 
