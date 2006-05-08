@@ -16,7 +16,6 @@
 }
 
 .multihookheader {
-    clear: both;
     background: #ffffc9; 
     padding: 2px; 
     border-bottom: 1px solid #333333; 
@@ -25,7 +24,6 @@
 
 .multihookbuttonarea {
     border-top: 1px solid #333333; 
-    clear: both;
     padding: 3px;
     margin-top: 2px;
 }
@@ -67,19 +65,22 @@
 }
 
 .multihooklabel {
-    clear: both;
     float: left;
-    margin: 2px 0 2px 0;
+    margin: 2px 0;
 }
 
 .multihookinput {
     float: right; 
-    margin: 2px 0 2px 0;
+    margin: 2px 0;
 }
 .multihookinputreadonly {
     float: right; 
-    margin: 3px 0 3px 0;
+    margin: 3px 0;
     background: #eeeeee;
+}
+
+.mhclear {
+    clear: both;
 }
 
 .mh_adminrow {

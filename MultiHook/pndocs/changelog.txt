@@ -1,7 +1,8 @@
 $Id$
 
-
-
+Version tbd
+   - fixed _MODARGSERROR in pnajax when editing an item
+   - fixed bug in templates (IE....)
    - fixed bug: class for to external links
    - fixed bug #2676 multiple autolinks possible
 
