@@ -1,9 +1,12 @@
 $Id$
 
 Version tbd
-   - fixed _MODARGSERROR in pnajax when editing an item
+*** important: prototype.js must now be copied to /javascript/ajax!!!!! 
+*** please read the install.txt for more information!
+   - prototype.js updated to 1.5.0_rc0
+   - fixed _MODARGSERROR in pnuserapi.php when editing an item
    - fixed bug in templates (IE....)
-   - fixed bug: class for to external links
+   - fixed bug: class for external links
    - fixed bug #2676 multiple autolinks possible
 
 Version 2.0

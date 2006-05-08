@@ -58,6 +58,17 @@ the a:hover the image would disappear in IE when the mouse is over the link
 Ajax support
 ------------
 Since version 2.0 MultiHook uses Ajax for easier adding and manipulating of data. 
+
+********************
+Important note for users upgrading from MultiHook 2.0: Since 2.1 prototype.js
+has to be present in the <PostNuke-Root>/javascript/ajax folder. You can simply 
+copy the ajax subfolder in modules/MultiHook/javascript to <PostNuke-Root>/javascript. 
+This is a preparation for PN .8.0.0.
+When using pnForum or other prototype enabled modules this is not necessary because
+you already have <PostNuke-Root>/javascript/ajax - just make sure that you have the
+latest versin of prototype.js
+********************
+
 If you want to use this feature, your PostNuke theme as to be prepared for
 this and you have to enable javascript in your browser. 
 Copy modules/MultiHook/pntemplates/plugins/function.multihookhelper.php to your 
