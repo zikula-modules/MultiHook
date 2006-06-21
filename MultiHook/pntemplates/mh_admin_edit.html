@@ -5,22 +5,22 @@
 <div style="text-align: center;"><strong><!--[ pnml name='_MH_ADD' ]--></strong></div>
 
 <form action="<!--[ pnmodurl modname="MultiHook" type="admin" func="store" ]-->" method="post">
-<input type="hidden" name="authid" value="<!--[ pnsecgenauthkey ]-->">
-<input type="hidden" name="abbr_aid" value="<!--[ $abac.aid ]-->">
+<input type="hidden" name="authid" value="<!--[ pnsecgenauthkey ]-->" />
+<input type="hidden" name="abbr_aid" value="<!--[ $abac.aid ]-->" />
 
 <div class="mh_adminrow">
     <label for="abbr_short"><!--[ pnml name='_MH_SHORT' ]--></label><br />
-    <input type="text" name="abbr_short" id="abbr_short" value="<!--[ $abac.short ]-->" size="40" maxlength="60">
+    <input type="text" name="abbr_short" id="abbr_short" value="<!--[ $abac.short ]-->" size="40" maxlength="60" />
 </div>
 
 <div class="mh_adminrow">
-    <label for=""abbr_long"><!--[ pnml name='_MH_LONG' ]-->&nbsp;<!--[ pnml name='_MH_LONGHINT' ]--></label><br />
-    <input type="text" name="abbr_long" id="abbr_long" value="<!--[ $abac.long ]-->" size="40" maxlength="200">
+    <label for="abbr_long"><!--[ pnml name='_MH_LONG' ]-->&nbsp;<!--[ pnml name='_MH_LONGHINT' ]--></label><br />
+    <input type="text" name="abbr_long" id="abbr_long" value="<!--[ $abac.long ]-->" size="40" maxlength="200" />
 </div>
 
 <div class="mh_adminrow">
     <label for="abbr_title"><!--[ pnml name='_MH_TITLE' ]-->&nbsp;<!--[ pnml name='_MH_TITLEHINT' ]--></label><br />
-    <input type="text" name="abbr_title" id="abbr_title" value="<!--[ $abac.title ]-->" size="40" maxlength="200">
+    <input type="text" name="abbr_title" id="abbr_title" value="<!--[ $abac.title ]-->" size="40" maxlength="200" />
 </div>
 
 <div class="mh_adminrow">
@@ -45,7 +45,7 @@
 
 <br /><br />
 <div class="mh_adminrow">
-    <input type="submit" name="submit" id="submit" value="<!--[ pnml name='_SUBMIT' ]-->">
+    <input type="submit" name="submit" id="submit" value="<!--[ pnml name='_SUBMIT' ]-->" />
 </div>
 </form>
 <br />
