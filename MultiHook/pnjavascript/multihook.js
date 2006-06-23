@@ -14,8 +14,8 @@ function addEventHandlers()
         elementid = 'editlink_' + counter + '_' + titleparts[1];
         editlinks[i].id = elementid;
         Event.observe(
-                      elementid, 
-                      'click', 
+                      elementid,
+                      'click',
                       function(clickevent) {
                          starteditmultihook(clickevent);
                       },
@@ -30,39 +30,39 @@ function starteditmultihook(clickevent)
     Event.element(clickevent).parentNode.id = 'mh_update_content';
 
     showInfo(loadingText, objMouseXY.up_xpos, objMouseXY.up_ypos, false);
-    
+
     objMouseXY.backup();
-        
+
     var eventparams = Event.element(clickevent).id.split('_');
     var pars = "module=MultiHook&type=ajax&func=read&mh_aid=" + eventparams[2];
     var myAjax = new Ajax.Request(
-        "index.php", 
+        "index.php",
         {
-            method: 'post', 
-            parameters: pars, 
+            method: 'post',
+            parameters: pars,
             onComplete: editmultihook
         });
-    
+
 }
 
 function editmultihook(originalRequest)
 {
     hideInfo();
-        
+
     // show error if necessary
-    if( originalRequest.status != 200 ) { 
+    if( originalRequest.status != 200 ) {
         showajaxerror(originalRequest);
     } else {
         var abac = originalRequest.responseText.split('$');
-        
+
         $("mhedit_aid").value      = abac[0];
         $("mhedit_short").value    = abac[1];
         $("mhedit_long").value     = abac[2];
-        $("mhedit_title").value    = abac[3]; 
+        $("mhedit_title").value    = abac[3];
         setSelect('mhedit_type', abac[4]);
         setSelect('mhedit_language', abac[5]);
         $("mhedit_delete").checked = false;
-        
+
         var objMultiHook = $('multihookedit');
         objMultiHook.style.left = objMouseXY.up_xpos + 'px';
         objMultiHook.style.top  = objMouseXY.up_ypos + 'px';
@@ -75,26 +75,26 @@ function submiteditmultihook()
     hideElement('multihookedit');
     showInfo(savingText, objMouseXY.lastup_xpos, objMouseXY.lastup_ypos, false);
 
-    var pars = "module=MultiHook&type=ajax&func=store" + 
-               "&mh_aid=" + $F('mhedit_aid') + 
-               "&mh_short=" + $F('mhedit_short') + 
-               "&mh_long=" + $F('mhedit_long') + 
-               "&mh_title=" + $F('mhedit_title') + 
-               "&mh_type=" + $F('mhedit_type') + 
-               "&mh_delete=" + $F('mhedit_delete') + 
+    var pars = "module=MultiHook&type=ajax&func=store" +
+               "&mh_aid=" + $F('mhedit_aid') +
+               "&mh_short=" + $F('mhedit_short') +
+               "&mh_long=" + $F('mhedit_long') +
+               "&mh_title=" + $F('mhedit_title') +
+               "&mh_type=" + $F('mhedit_type') +
+               "&mh_delete=" + $F('mhedit_delete') +
                "&mh_language=" + $F('mhedit_language');
 
     var myAjax = new Ajax.Updater(
                     {success: 'mh_update_content'},
-                    "index.php", 
+                    "index.php",
                     {
-                        method: 'post', 
-                        parameters: pars, 
+                        method: 'post',
+                        parameters: pars,
                         onComplete: submiteditmultihook_response
                     }
                     );
 
-} 
+}
 
 function submiteditmultihook_response(originalRequest)
 {
@@ -104,7 +104,7 @@ function submiteditmultihook_response(originalRequest)
     addEventHandlers();
 
     // show error if necessary
-    if( originalRequest.status != 200 ) { 
+    if( originalRequest.status != 200 ) {
         showajaxerror(originalRequest);
     }
 }
@@ -119,19 +119,19 @@ function submitmultihook()
         var oldregexp = eval( '/' + $('mh_short').value + '/g');
         objMHSelection.parentObj.innerHTML = objMHSelection.parentObj.innerHTML.replace(oldregexp, newtext);
     }
-    
+
     var pars = "module=MultiHook&type=ajax&func=store" +
-               "&mh_short=" + $F('mh_short') + 
-               "&mh_long=" + $F('mh_long') + 
-               "&mh_title=" + $F('mh_title') + 
-               "&mh_type=" + $F('mh_type') + 
+               "&mh_short=" + $F('mh_short') +
+               "&mh_long=" + $F('mh_long') +
+               "&mh_title=" + $F('mh_title') +
+               "&mh_type=" + $F('mh_type') +
                "&mh_language=" + $F('mh_language');
     var myAjax = new Ajax.Updater(
                     {success: 'mh_new_content'},
-                    "index.php", 
+                    "index.php",
                     {
-                        method: 'post', 
-                        parameters: pars, 
+                        method: 'post',
+                        parameters: pars,
                         onComplete: submitmultihook_response}
                     );
 }
@@ -142,19 +142,19 @@ function submitmultihook_response(originalRequest)
 {
     hideInfo();
     $('mh_new_content').id = '';
-    
+
     // show error if necessary
-    if( originalRequest.status != 200 ) { 
+    if( originalRequest.status != 200 ) {
         showajaxerror(originalRequest);
     }
     addEventHandlers();
-    
+
     objMHSelection.text           = '';
     //objMHSelection.selection      = null;
     objMHSelection.isSelected     = false;
     objMHSelection.isNew          = false;
     objMHSelection.parentObj      = 'undefined';
-    
+
 }
 
 function cancelmultihook()
@@ -223,7 +223,7 @@ function stopSelection(objEvent)
     }
     objMouseXY.getXY(objEvent);
 
-    if( objMouseXY.isNew ) {
+    if( objMouseXY.isNew && objMouseXY.ctrlkey == true) {
         objMHSelection.update();
         if(objMHSelection.isSelected) {
 
@@ -233,12 +233,12 @@ function stopSelection(objEvent)
             $('mh_title').value = '';
             setSelect('mh_type', 0);
             setSelect('mh_language', 'all');
-            
+
             objMouseXY.backup();
-            
+
             objMultiHook.style.left = objMouseXY.up_xpos + 'px';
             objMultiHook.style.top  = objMouseXY.up_ypos + 'px';
-            
+
             objMultiHook.style.visibility = "visible";
         }
     }
@@ -257,7 +257,9 @@ function MouseXY( )
     this.isNew    = false;
     this.getXY = getMouseXY;
     this.backup = backupXY;
+    this.ctrlkey = false;
 }
+
 function getMouseXY(objEvent, start)
 {
     if($('multihook').style.visibility=='visible') {
@@ -269,18 +271,20 @@ function getMouseXY(objEvent, start)
     if($('multihookinformation').style.visibility=='visible') {
         return;
     }
-    
+
     // Internet Explorer
     if( window.event ) {
         var intX = event.clientX;
         var intY = event.clientY + getTopScroll( ) ;
+        this.ctrlkey = event.ctrlKey;
     }
     // w3c
     else {
         var intX = objEvent.pageX;
         var intY = objEvent.pageY;
+        this.ctrlkey = objEvent.ctrlKey;
     }
-    
+
     if(start==true) {
         this.down_xpos = intX;
         this.down_ypos = intY;
@@ -320,7 +324,7 @@ function getSelectedText()
     if($('multihook').style.visibility=='visible') {
         return;
     }
-    
+
     var selection;
     if( window.getSelection )
     {
@@ -354,6 +358,5 @@ function getSelectedText()
         }
     }
 }
-    
-    
-    
+
+
