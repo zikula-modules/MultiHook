@@ -109,7 +109,7 @@ function MultiHook_init()
 }
 
 /**
- * upgrade the smiley module from an old version
+ * upgrade the module from an old version
  */
 function MultiHook_upgrade($oldversion)
 {
@@ -117,19 +117,18 @@ function MultiHook_upgrade($oldversion)
     switch($oldversion) {
         case '1.0':
             pnModSetVar('MultiHook', 'mhincodetags', 0);
-    	case '1.1':
-    	    pnModSetVar('MultiHook', 'mhlinktitle', 0);
+        case '1.1':
+            pnModSetVar('MultiHook', 'mhlinktitle', 0);
             pnModSetVar('MultiHook', 'mhreplaceabbr', 0);
-    	case '1.3':
-    	    pnModSetVar('MultiHook', 'mhshoweditlink', 1);
-    	    break;
+        case '1.3':
+            pnModSetVar('MultiHook', 'mhshoweditlink', 1);
+            break;
     }
-   	$smarty =& new Smarty;
-   	$smarty->compile_dir = pnConfigGetVar('temp') . '/pnRender_compiled';
-   	$smarty->cache_dir = pnConfigGetVar('temp') . '/pnRender_cache';
-   	$smarty->use_sub_dirs = false;
-   	$smarty->clear_compiled_tpl();
-
+    $smarty =& new Smarty;
+    $smarty->compile_dir = pnConfigGetVar('temp') . '/pnRender_compiled';
+    $smarty->cache_dir = pnConfigGetVar('temp') . '/pnRender_cache';
+    $smarty->use_sub_dirs = false;
+    $smarty->clear_compiled_tpl();
 
     return true;
 }
@@ -139,16 +138,16 @@ function MultiHook_upgrade($oldversion)
  */
 function MultiHook_delete()
 {
-	list($dbconn) = pnDBGetConn();
-	$pntable = pnDBGetTables();
+    $dbconn =& pnDBGetConn(true);
+    $pntable =& pnDBGetTables();
 
     // remove table
-	$sql = "DROP TABLE IF EXISTS ".$pntable['multihook'];
-	$dbconn->Execute($sql);
-	if ($dbconn->ErrorNo() != 0) {
+    $sql = "DROP TABLE IF EXISTS ".$pntable['multihook'];
+    $dbconn->Execute($sql);
+    if ($dbconn->ErrorNo() != 0) {
         pnSessionSetVar('errormsg', "$sql:".$dbconn->ErrorMsg());
-		return false;
-	}
+        return false;
+    }
 
     // Remove module hooks
     if (!pnModUnregisterHook('item',
@@ -167,5 +166,4 @@ function MultiHook_delete()
     // Deletion successful
     return true;
 }
-
 ?>
