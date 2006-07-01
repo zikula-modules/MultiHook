@@ -22,9 +22,9 @@
 // Purpose of file:  MultiHook user API
 // ----------------------------------------------------------------------
 
-$modversion['name'] = 'MultiHook';
-$modversion['version'] = '2.0';
-$modversion['description'] = 'Creates xhtml tags for abbreviations and acronyms, creates autolinks';
+$modversion['name'] = _MH_MODULENAME;
+$modversion['version'] = '3.0';
+$modversion['description'] = _MH_MODULEDESCRIPTION;
 $modversion['credits'] = 'pndocs/credits.txt';
 $modversion['help'] = 'pndocs/help.txt';
 $modversion['changelog'] = 'pndocs/changelog.txt';

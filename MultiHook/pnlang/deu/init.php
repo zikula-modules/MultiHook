@@ -19,11 +19,8 @@
 //
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
-// Original Author of file: Jim McDonald
-// Purpose of file:  Language defines for pninit.php
-// ----------------------------------------------------------------------
 
 define('_MH_COULDNOTREGISTER','Fehler beim Registrieren des MultiHooks');
-define('_MH_OULDNOTUNREGISTER','MultiHook konnte nicht entfernt werden');
+define('_MH_COULDNOTUNREGISTER','MultiHook konnte nicht entfernt werden');
 define('_MH_DBCREATETABLEERROR','Fehler beim Anlegen der Datenbank-Tabellen');
 ?>
