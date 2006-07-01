@@ -1,6 +1,6 @@
 $Id$
 
-Copy the MultiHook folder to your Postnuke's modules folder, regenerate the 
+Copy the MultiHook folder to your Postnuke's modules folder, regenerate the
 modules list in the admin panel, initialize and activate it. Do not forget to
 activate the MultiHook for the modules you want to use it with, like phpBB_14,
 pnForum or Pagesetter.
@@ -52,26 +52,31 @@ a:hover.externallink {
 
 This adds the image extlink.gif to the left of the created link. Please note that
 the path to the image file is relative to the place of the css file used. Without
-the a:hover the image would disappear in IE when the mouse is over the link 
+the a:hover the image would disappear in IE when the mouse is over the link
 (sigh, again IE..).
+
+Make sure that your target links are absolute, not relative. Linking to www.pn-cms.de will lead to
+http://www.yourdomain.com/www.pn-cms.de although the a-tag looks correct in the page source.
+This is not a bug in MultiHook, but the normal behaviour if a browser does not reckognize a fully
+qualified url.
 
 Ajax support
 ------------
-Since version 2.0 MultiHook uses Ajax for easier adding and manipulating of data. 
+Since version 2.0 MultiHook uses Ajax for easier adding and manipulating of data.
 
 ********************
-Important note for users upgrading from MultiHook 2.0: Since 2.1 prototype.js
-has to be present in the <PostNuke-Root>/javascript/ajax folder. You can simply 
-copy the ajax subfolder in modules/MultiHook/javascript to <PostNuke-Root>/javascript. 
-This is a preparation for PN .8.0.0.
-When using pnForum or other prototype enabled modules this is not necessary because
-you already have <PostNuke-Root>/javascript/ajax - just make sure that you have the
-latest versin of prototype.js
+*** Important note for users upgrading from MultiHook 2.0: Since 3.0 prototype.js
+*** has to be present in the <PostNuke-Root>/javascript/ajax folder. You can simply
+*** copy the ajax subfolder in modules/MultiHook/javascript to <PostNuke-Root>/javascript.
+*** This is a preparation for PN .8.0.0.
+*** When using pnForum >2.6 (or maybe other prototype enabled modules too) this is not necessary
+*** because you already have <PostNuke-Root>/javascript/ajax - just make sure that you have the
+*** latest version of prototype.js
 ********************
 
-If you want to use this feature, your PostNuke theme as to be prepared for
-this and you have to enable javascript in your browser. 
-Copy modules/MultiHook/pntemplates/plugins/function.multihookhelper.php to your 
+If you want to use this feature, your PostNuke theme has to be prepared for
+this and you have to enable javascript in your browser.
+Copy modules/MultiHook/pntemplates/plugins/function.multihookhelper.php to your
 modules/Xanthia/plugins folder and change your theme templates:
 
 <... some code ...>
@@ -89,10 +94,14 @@ ACCESS_ADD permissions for MultiHook.
 In non-Xanthiathemes (legacy, AT...) you can call
 
     $multihookhelper = pnModFunc('MultiHook', 'admin', 'helper'));
-    
-to retrieve the HTML in $multihookhelper and show where you want (which in fact iswhat the 
+
+to retrieve the HTML in $multihookhelper and show where you want (which in fact is what the
 plugin does too).
- 
+
+You can now select text portions of your page. When you press CTRL when releasing the mouse button
+at the end of the selection process, a popup window will appear. Without CTRL you can copy and
+paste the text as before.
+
 If you do not want to use Ajax you can still use the normal admin panel for adding and changing
 the data.
 

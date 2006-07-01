@@ -1,6 +1,6 @@
 $Id$
 
-Version tbd
+Version 3.0
 *** important: prototype.js must now be copied to /javascript/ajax!!!!!
 *** please read the install.txt for more information!
    - prototype.js updated to 1.5.0_rc0
@@ -10,6 +10,7 @@ Version tbd
    - fixed bug: class for external links
    - fixed bug #2676 multiple autolinks possible
    - fixed bug #2947 xhtml validation of new/modify/modifyconfig templates
+   - added FR [#2677] copy paste damaged - using CTRL now as modifier to show the popup when selecting text
 
 Version 2.0
    - added Ajax support for adding and manipulating entries, uses prototype.js
