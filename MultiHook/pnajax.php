@@ -25,9 +25,9 @@ function MultiHook_ajax_read()
 {
     $error = '';
     $return = '';
-    
+
     $aid = pnVarCleanFromInput('mh_aid');
-    $abac = pnModAPIFunc('MultiHook', 'user', 'get', 
+    $abac = pnModAPIFunc('MultiHook', 'user', 'get',
                          array('aid' => $aid));
     if(is_array($abac)) {
         $return = implode('$', $abac);
@@ -36,8 +36,8 @@ function MultiHook_ajax_read()
     }
 
     mh_ajaxerror($error);
-    
-    echo $return;  
+
+    echo $return;
     exit;
 }
 
@@ -47,26 +47,26 @@ function MultiHook_ajax_store()
     $return = '';
 
     list($aid,
-         $short, 
-         $long, 
-         $title, 
+         $short,
+         $long,
+         $title,
          $type,
          $delete,
          $language) = pnVarCleanFromInput('mh_aid',
-                                          'mh_short', 
+                                          'mh_short',
                                           'mh_long',
                                           'mh_title',
                                           'mh_type',
                                           'mh_delete',
                                           'mh_language');
 
-    $short    = trim($short); 
-    $long     = trim($long); 
-    $title    = trim($title); 
+    $short    = trim(utf8_decode(urldecode($short)));
+    $long     = trim(utf8_decode(urldecode($long)));
+    $title    = trim(utf8_decode(urldecode($title)));
     $language = trim($language);
 
     // get the entry (needed for permission checks)
-    $abac = pnModAPIFunc('MultiHook', 'user', 'get', 
+    $abac = pnModAPIFunc('MultiHook', 'user', 'get',
                          array('aid' => $aid));
 
     if(!empty($delete)&& ($delete=='1')) {
@@ -87,7 +87,7 @@ function MultiHook_ajax_store()
             $mode = 'create';
             // check if db entry with this short already exists
             $check_abac = pnModAPIFunc('MultiHook', 'user', 'get',
-                                       array('short' => $short)); 
+                                       array('short' => $short));
             if(!is_bool($check_abac)) {
                 mh_ajaxerror("'$short' " . _MH_EXISTSINDB);
             }
@@ -96,7 +96,7 @@ function MultiHook_ajax_store()
             $mode = 'update';
         }
         unset($abac);
-        
+
         if(empty($mode)) {
             $error = _MH_NOAUTH;
         } else {
@@ -121,12 +121,13 @@ function MultiHook_ajax_store()
                 default:
                     $error = _MH_WRONGPARAMETER_TYPE . ' (' . $type . ')<br />';
             }
-            
+            mh_ajaxerror($error);
+
             $aid = pnModAPIFunc('MultiHook', 'admin', $mode,
                                 array('aid'      => $aid,
-                                      'short'    => utf8_decode($short),
-                                      'long'     => utf8_decode($long),
-                                      'title'    => utf8_decode($title),
+                                      'short'    => $short,
+                                      'long'     => $long,
+                                      'title'    => $title,
                                       'type'     => $type,
                                       'language' => $language));
             if(!is_bool($aid)) {
@@ -170,7 +171,7 @@ function MultiHook_ajax_store()
     }
     // stop with 400 Bad data if neccesary
     mh_ajaxerror($error);
-    
+
     // otherwise output result and exit
     echo $return;
     exit;

@@ -77,9 +77,9 @@ function submiteditmultihook()
 
     var pars = "module=MultiHook&type=ajax&func=store" +
                "&mh_aid=" + $F('mhedit_aid') +
-               "&mh_short=" + $F('mhedit_short') +
-               "&mh_long=" + $F('mhedit_long') +
-               "&mh_title=" + $F('mhedit_title') +
+               "&mh_short=" + encodeURIComponent($F('mhedit_short')) +
+               "&mh_long=" + encodeURIComponent($F('mhedit_long')) +
+               "&mh_title=" + encodeURIComponent($F('mhedit_title')) +
                "&mh_type=" + $F('mhedit_type') +
                "&mh_delete=" + $F('mhedit_delete') +
                "&mh_language=" + $F('mhedit_language');
@@ -121,9 +121,9 @@ function submitmultihook()
     }
 
     var pars = "module=MultiHook&type=ajax&func=store" +
-               "&mh_short=" + $F('mh_short') +
-               "&mh_long=" + $F('mh_long') +
-               "&mh_title=" + $F('mh_title') +
+               "&mh_short=" + encodeURIComponent($F('mh_short')) +
+               "&mh_long=" + encodeURIComponent($F('mh_long')) +
+               "&mh_title=" + encodeURIComponent($F('mh_title')) +
                "&mh_type=" + $F('mh_type') +
                "&mh_language=" + $F('mh_language');
     var myAjax = new Ajax.Updater(
