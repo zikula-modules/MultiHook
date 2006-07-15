@@ -19,16 +19,13 @@
 //
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
-// Original Author of file: Jim McDonald
-// Purpose of file:  MultiHook user API
-// ----------------------------------------------------------------------
 
 include_once('modules/MultiHook/common.php');
 
 /**
  * get all entries
  * @params $args['filter'] int 0=abbr, 1=acronyms, 2=links
- * @params $args['sortbylength'] bool 
+ * @params $args['sortbylength'] bool
  * @returns array
  * @return array of entries, or false on failure
  */
@@ -59,7 +56,7 @@ function MultiHook_userapi_getall($args)
     if(isset($filter) && is_numeric($filter) && ($filter>=0 && $filter<=2)) {
         $where = "WHERE $multihookcolumn[type]=" . pnVarPrepForStore($filter);
     }
-    
+
     if(isset($sortbylength) && $sortbylength==true) {
         $orderby = "ORDER BY LENGTH($multihookcolumn[short]) DESC";
     } else {
@@ -145,7 +142,7 @@ function MultiHook_userapi_get($args)
         pnSessionSetVar('errormsg', _MH_SELECTFAILED);
         return false;
     }
-    
+
     if($result->RecordCount()==0) {
         // not found
         $result->Close();
@@ -238,7 +235,7 @@ function MultiHook_userapitransform($text)
     if(strlen($text) == 0) {
         return $text;
     }
-    
+
     // check the user agent - if it is a bot, return immediately
     $robotslist = array ( "ia_archiver",
                           "googlebot",
@@ -269,7 +266,7 @@ function MultiHook_userapitransform($text)
     if(!isset($mhincodetags)) {
         $mhincodetags = (pnModGetVar('MultiHook', 'mhincodetags')==1) ? true : false;
     }
-    
+
     static $mhshoweditlink;
     if(!isset($mhshoweditlink)) {
         $mhshoweditlink = (pnModGetVar('MultiHook', 'mhshoweditlink')==1) ? true : false;
@@ -285,20 +282,26 @@ function MultiHook_userapitransform($text)
         $haveoverlib = pnModAvailable('overlib');
     }
 
+    // current url and uri
+    $currenturl = pnGetCurrentURL();
+    $currenturi = pnGetCurrentURI();
+
     // Step 0 - move all bbcode with [code][/code] out of the way
     //          if MultiHook is configured accordingly
     if($mhincodetags==false) {
         // if we are faster than pn_bbcode, we will have to remove the code tags
         $codecount1 = preg_match_all("/\[code(.*)\](.*)\[\/code\]/siU", $text, $codes1);
         for($i=0; $i < $codecount1; $i++) {
-            $text = preg_replace('/(' . preg_quote($codes1[0][$i], '/') . ')/', " MULTIHOOKCODE1REPLACEMENT{$i} ", $text, 1);
+            $text = str_replace($codes1[0][$i], " MULTIHOOKCODE1REPLACEMENT{$i} ", $text);
+            //$text = preg_replace('/(' . preg_quote($codes1[0][$i], '/') . ')/', " MULTIHOOKCODE1REPLACEMENT{$i} ", $text, 1);
         }
         // but pn_bbode may have been faster than we are,. To avoid any problems its embraces the
         // replaced code tags with <!--code--> and <!--/code-->
         // this is what we are taking care of now
         $codecount2 = preg_match_all("/<!--code-->(.*)<!--\/code-->/siU", $text, $codes2);
         for($i=0; $i < $codecount2; $i++) {
-            $text = preg_replace('/(' . preg_quote($codes2[0][$i], '/') . ')/', " MULTIHOOKCODE2REPLACEMENT{$i} ", $text, 1);
+            $text = str_replace($codes2[0][$i], " MULTIHOOKCODE2REPLACEMENT{$i} ", $text);
+            //$text = preg_replace('/(' . preg_quote($codes2[0][$i], '/') . ')/', " MULTIHOOKCODE2REPLACEMENT{$i} ", $text, 1);
         }
     }
 
@@ -366,20 +369,23 @@ function MultiHook_userapitransform($text)
                 unset($search_temp);
             } else if($tmp['type']==2) {
                 // 2 = Link
-                // if short beginns with a single ' we need another regexp to not check for \w
-                // this enables autolinks for german deppenapostrophs :-)
-                if($tmp['short'][0] == '\'') {
-                    $search_temp = '/(?<![\/@\.:-])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:-])(?!\.\w)/i';
-                } else {
-                    $search_temp = '/(?<![\/\w@\.:-])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:-])(?!\.\w)/i';
+                // don't show link if the target is the current url
+                if($tmp['long_original'] <> $currenturl && $tmp['long_original'] <> $currenturi) {
+                    // if short beginns with a single ' we need another regexp to not check for \w
+                    // this enables autolinks for german deppenapostrophs :-)
+                    if($tmp['short'][0] == '\'') {
+                        $search_temp = '/(?<![\/@\.:-])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:-])(?!\.\w)/i';
+                    } else {
+                        $search_temp = '/(?<![\/\w@\.:-])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:-])(?!\.\w)/i';
+                    }
+                    $search[]      = $search_temp;
+                    $replace[]     = md5($search_temp);
+                    $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
+                    $finalreplace[] = create_link($tmp, $mhadmin, $mhshoweditlink, $haveoverlib);
+                    unset($search_temp);
                 }
-                $search[]      = $search_temp;
-                $replace[]     = md5($search_temp);
-                $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                $finalreplace[] = create_link($tmp, $mhadmin, $mhshoweditlink, $haveoverlib);
-                unset($search_temp);
             }
-            
+
         }
     }
 
@@ -416,10 +422,12 @@ function MultiHook_userapitransform($text)
 
     if($mhincodetags==false) {
         for ($i = 0; $i < $codecount2; $i++) {
-            $text = preg_replace("/ MULTIHOOKCODE2REPLACEMENT{$i} /", $codes2[0][$i], $text, 1);
+            $text = str_replace(" MULTIHOOKCODE2REPLACEMENT{$i} ", $codes2[0][$i], $text);
+            //$text = preg_replace("/ MULTIHOOKCODE2REPLACEMENT{$i} /", $codes2[0][$i], $text, 1);
         }
         for ($i = 0; $i < $codecount1; $i++) {
-            $text = preg_replace("/ MULTIHOOKCODE1REPLACEMENT{$i} /", $codes1[0][$i], $text, 1);
+            $text = str_replace(" MULTIHOOKCODE1REPLACEMENT{$i} ", $codes1[0][$i], $text);
+            //$text = preg_replace("/ MULTIHOOKCODE1REPLACEMENT{$i} /", $codes1[0][$i], $text, 1);
         }
     }
     return $text;

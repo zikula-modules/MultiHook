@@ -22,14 +22,15 @@
 function create_abbr($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false)
 {
     extract($abac);
+
     static $mhreplaceabbr;
     if(!isset($mhreplaceabbr)) {
         $mhreplaceabbr = (pnModGetVar('MultiHook', 'mhreplaceabbr')==1) ? true : false;
     }
 
     $xhtmllang = get_xhtml_language($language);
-    
-    list($long, $short) = pnVarPrepForDisplay($long, $short);
+
+    list($long, $short) = pnVarPrepHTMLDisplay($long, $short);
 
     $replace_temp = '';
     if($mhreplaceabbr==false) {
@@ -42,19 +43,19 @@ function create_abbr($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=
     } else {
         $replace_temp = $long;
     }
-    
-    if($mhadmin == true && $mhshoweditlink==true) {
+
+    if($mhadmin==true && $mhshoweditlink==true) {
         $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/pnimages/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_ABBREVIATION) . ') #' . $aid . '" />' . '</span>';
     }
-    
+
     return $replace_temp;
-    
+
 }
 
 function create_acronym($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false)
 {
     extract($abac);
-    list($long, $short) = pnVarPrepForDisplay($long, $short);
+    list($long, $short) = pnVarPrepHTMLDisplay($long, $short);
 
     $xhtmllang = get_xhtml_language($language);
 
@@ -64,7 +65,7 @@ function create_acronym($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverl
         $replace_temp = '<acronym '.$xhtmllang.' title="' . $long . '">' . $short . '</acronym>';
     }
 
-    if($mhadmin == true && $mhshoweditlink==true) {
+    if($mhadmin==true && $mhshoweditlink==true) {
         $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/pnimages/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_ACRONYM) . ') #' . $aid . '" />' . '</span>';
     }
 
@@ -77,18 +78,19 @@ function create_link($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=
 
     static $mhlinktitle;
     static $externallinkclass;
-    
+
     if(!isset($mhlinktitle)) {
         $mhlinktitle = (pnModGetVar('MultiHook', 'mhlinktitle')==1) ? true : false;
     }
     if(!isset($externallinkclass)) {
         $externallinkclass =pnModGetVar('MultiHook', 'externallinkclass');
     }
-    
+
     $extclass = (preg_match("/(^http:\/\/)/", $long_original)==1) ? "class=\"$externallinkclass\"" : "";
 
     // prepare url
-    list($long, $short, $title) = pnVarPrepForDisplay($long, $short, $title);
+    list($long, $aid) = pnVarPrepForDisplay($long, $aid);
+    list($short, $title) = pnVarPrepHTMLDisplay($short, $title);
 
     if($mhlinktitle==false) {
         if($haveoverlib) {
@@ -103,7 +105,7 @@ function create_link($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=
             $replace_temp = '<a '.$extclass.' href="' . $long . '" title="' . $title . '">' . $title . '</a>';
         }
     }
-    if($mhadmin == true && $mhshoweditlink==true) {
+    if($mhadmin==true && $mhshoweditlink==true) {
         $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/pnimages/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_LINK) . ') #' . $aid . '" />' . '</span>';
     }
     return $replace_temp;
@@ -194,7 +196,7 @@ function absolute_url($url='')
     return $url;
 }
 
-function mh_ajaxerror($error)
+function mh_ajaxerror($error='')
 {
     if(!empty($error)) {
         header('HTTP/1.0 400 Bad Data');
