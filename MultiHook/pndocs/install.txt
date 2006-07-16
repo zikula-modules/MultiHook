@@ -1,19 +1,22 @@
 $Id$
 
 Copy the MultiHook folder to your Postnuke's modules folder, regenerate the
-modules list in the admin panel, initialize and activate it. Do not forget to
-activate the MultiHook for the modules you want to use it with, like phpBB_14,
+modules list in the admin panel, initialize and activate it.
+Copy the modules/MultiHook/pnjavascript/ajax folder to your PostNuke's javascript folder.
+For further changes see the chapter "Ajax support".
+
+Do not forget to activate the MultiHook for the modules you want to use it with, like
 pnForum or Pagesetter.
 
 If present, the links stored in AutoLinks will be copied to the MultiHook
 tables.
 
-You can now add links, acronyms and abbreviations in the admin panel.
+You can now add links, acronyms and abbreviations in the admin panel or by selecting
+text while pressing the CTRL-button on every page inside PN.
 
 
 Internet Explorer special trick:
 --------------------------------
-
 IE cannot (sigh...) handle the abbr tag correctly (or better said: it cannot
 handle it correctly at all). We need a special css trick to make this
 possible. Add this

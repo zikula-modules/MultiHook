@@ -5,12 +5,15 @@ Version 3.0
 *** please read the install.txt for more information!
    - prototype.js updated to 1.5.0_rc0
    - xhtml/wcag fixes
-   - fixed _MODARGSERROR in pnuserapi.php when editing an item
+   - fixed encoding of strings in javascript to enable usage of special chars in urls etc.
+   - fixed _MODARGSERROR in pnuserapi.php when editing an item (same as bug #2957)
    - fixed bug in templates (IE....)
    - fixed bug: class for external links
    - fixed bug #2676 multiple autolinks possible
    - fixed bug #2947 xhtml validation of new/modify/modifyconfig templates
-   - added FR [#2677] copy paste damaged - using CTRL now as modifier to show the popup when selecting text
+   - fixed bug #3007 preg_replace error in Multihook at community.postnuke.com
+   - added FR #2677 copy paste damaged - using CTRL now as modifier to show the popup when selecting text
+   - added FR #2971 Don't link to current URL
 
 Version 2.0
    - added Ajax support for adding and manipulating entries, uses prototype.js
