@@ -1,10 +1,6 @@
 <?php
 // $Id$
 // ----------------------------------------------------------------------
-// PostNuke Content Management System
-// Copyright (C) 2002 by the PostNuke Development Team.
-// http://www.postnuke.com/
-// ----------------------------------------------------------------------
 // LICENSE
 //
 // This program is free software; you can redistribute it and/or
@@ -19,7 +15,7 @@
 //
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
-// Original Author of file: Jim McDonald
+// Original Author of file: Frank Schummertz
 // Purpose of file:  MultiHook administration display functions
 // ----------------------------------------------------------------------
 
@@ -66,7 +62,7 @@ function MultiHook_admin_edit($args)
         // set permission flags
             $abac['edit'] = false;
             $abac['delete'] = false;
-        
+
             if (pnSecAuthAction(0, 'MultiHook::', "$abac[short]::$abac[aid]", ACCESS_EDIT)) {
                 $abac['edit'] = true;
                 if (pnSecAuthAction(0, 'MultiHook::', "$abac[short]::$abac[aid]", ACCESS_DELETE)) {
@@ -123,8 +119,8 @@ function MultiHook_admin_store($args)
     }
 
     // Check arguments
-    
-    
+
+
     if( (isset($aid)) && (!is_numeric($aid)) ) {
         pnSessionSetVar( 'errormsg', _MODARGSERROR );
         return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
@@ -135,18 +131,18 @@ function MultiHook_admin_store($args)
                              'user',
                              'get',
                              array('aid' => $aid));
-    
+
         if ($abac == false) {
             pnSessionSetVar('errormsg', _MH_NOSUCHITEM);
             return pnRedirect(pnModURL('MultiHook','admin','main'));
         }
-    
+
         // Security check
         if (!pnSecAuthAction(0, 'MultiHook::Item', "$abac[short]::$aid", ACCESS_DELETE)) {
             pnSessionSetVar('errormsg', _MH_NOAUTH);
             return pnRedirect(pnModURL('MultiHook','admin','main'));
         }
-    
+
         // The API function is called
         if (pnModAPIFunc('MultiHook',
                          'admin',
@@ -279,18 +275,18 @@ function MultiHook_admin_modifyconfig()
     if (!pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADMIN)) {
         return _MH_NOAUTH;
     }
-    
+
     $submit = pnVarCleanFromInput('submit');
-    
+
     if(!$submit) {
-    
+
         $pnr =& new pnRender('MultiHook');
         $pnr->caching = false;
         $pnr->add_core_data();
         return $pnr->fetch('mh_admin_config.html');
 
     } else {  // submit is set
-    
+
         if (!pnSecConfirmAuthKey()) {
             pnSessionSetVar('errormsg', _BADAUTHKEY);
             return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
@@ -309,24 +305,24 @@ function MultiHook_admin_modifyconfig()
                                                  'mhshoweditlink',
                                                  'externallinkclass',
                                                  'itemsperpage');
-        
-        
+
+
         if (empty($abacfirst)) {
             $abacfirst = 0;
         }
         pnModSetVar('MultiHook', 'abacfirst', $abacfirst);
-        
+
         if (empty($itemsperpage)) {
             $itemsperpage = 20;
         }
-        
+
         pnModSetVar('MultiHook', 'mhincodetags', $mhincodetags);
         pnModSetVar('MultiHook', 'mhlinktitle', $mhlinktitle);
         pnModSetVar('MultiHook', 'mhreplaceabbr', $mhreplaceabbr);
         pnModSetVar('MultiHook', 'mhshoweditlink', $mhshoweditlink);
         pnModSetVar('MultiHook', 'itemsperpage', $itemsperpage);
         pnModSetVar('MultiHook', 'externallinkclass', $externallinkclass);
-        
+
         pnSessionSetVar('statusmsg', _MH_UPDATEDCONFIG);
     }
     return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
@@ -335,14 +331,14 @@ function MultiHook_admin_modifyconfig()
 /**
  * helper
  *
- * Implements hidden divs and javascript for Ajax usage. Used in the 
+ * Implements hidden divs and javascript for Ajax usage. Used in the
  * multihookhelper plugin, can also be called from legacy themes or AutoThemes
  * if necessary.
  */
 function MultiHook_admin_helper()
 {
     $out = '';
-    if(pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADD)) { 
+    if(pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADD)) {
         pnModLangLoad('MultiHook', 'admin');
         $pnr = new pnRender('MultiHook', false);
         $out = $pnr->fetch('mh_dynamic_hiddenform.html');

@@ -1,14 +1,6 @@
 <?php
 // $Id$
 // ----------------------------------------------------------------------
-// PostNuke Content Management System
-// Copyright (C) 2001 by the PostNuke Development Team.
-// http://www.postnuke.com/
-// ----------------------------------------------------------------------
-// Based on:
-// PHP-NUKE Web Portal System - http://phpnuke.org/
-// Thatware - http://thatware.org/
-// ----------------------------------------------------------------------
 // LICENSE
 //
 // This program is free software; you can redistribute it and/or
@@ -27,4 +19,5 @@
 define('_MH_COULDNOTREGISTER','Error failed to register your MultHook');
 define('_MH_COULDNOTUNREGISTER','Error unable to remove MultiHook');
 define('_MH_DBCREATETABLEERROR','Database create table error');
+
 ?>

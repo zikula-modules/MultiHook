@@ -1,14 +1,6 @@
 <?php
 // $Id$
 // ----------------------------------------------------------------------
-// PostNuke Content Management System
-// Copyright (C) 2001 by the PostNuke Development Team.
-// http://www.postnuke.com/
-// ----------------------------------------------------------------------
-// Based on:
-// PHP-NUKE Web Portal System - http://phpnuke.org/
-// Thatware - http://thatware.org/
-// ----------------------------------------------------------------------
 // LICENSE
 //
 // This program is free software; you can redistribute it and/or
@@ -27,4 +19,5 @@
 define('_MH_COULDNOTREGISTER',   'Erreur : Echec lors de l\'enregistrement de l\'extension MultHook');
 define('_MH_COULDNOTUNREGISTER', 'Erreur : Impossible de supprimer l\'extension MultiHook');
 define('_MH_DBCREATETABLEERROR', 'Erreur lors de la création de la table');
+
 ?>

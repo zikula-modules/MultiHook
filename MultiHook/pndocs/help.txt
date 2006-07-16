@@ -1,1 +1,1 @@
--- not yet written --
+see modules/MultiHook/pndocs/install.txt

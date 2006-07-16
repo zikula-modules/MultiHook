@@ -1,14 +1,6 @@
 <?php
 // $Id$
 // ----------------------------------------------------------------------
-// PostNuke Content Management System
-// Copyright (C) 2002 by the PostNuke Development Team.
-// http://www.postnuke.com/
-// ----------------------------------------------------------------------
-// Based on:
-// PHP-NUKE Web Portal System - http://phpnuke.org/
-// Thatware - http://thatware.org/
-// ----------------------------------------------------------------------
 // LICENSE
 //
 // This program is free software; you can redistribute it and/or
@@ -23,6 +15,10 @@
 //
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
+// Original Author of file: Frank Schummertz
+// Purpose of file:  pnRender plugin
+// ----------------------------------------------------------------------
+
 /**
  * pnRender plugin
  *
@@ -51,7 +47,7 @@
  *   <!--[languagelist name=language selected=eng]-->
  *
  *
- * @author       Mark West
+ * @author       Mark West, Frank Schummertz
  * @since        25 April 2004
  * @param        array       $params      All attributes passed to this function from the template
  * @param        object      &$smarty     Reference to the Smarty object
@@ -71,7 +67,7 @@ function smarty_function_mhlanguagelist($params, &$smarty)
         $smarty->trigger_error("languagelist:  parameter 'name' required");
         return false;
     }
-    
+
     $id = (isset($id)) ? $id : $name;
 
     if (!isset($all)) {

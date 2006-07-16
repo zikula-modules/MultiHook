@@ -1,10 +1,6 @@
 <?php
 // $Id$
 // ----------------------------------------------------------------------
-// PostNuke Content Management System
-// Copyright (C) 2002 by the PostNuke Development Team.
-// http://www.postnuke.com/
-// ----------------------------------------------------------------------
 // LICENSE
 //
 // This program is free software; you can redistribute it and/or
@@ -18,6 +14,9 @@
 // GNU General Public License for more details.
 //
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
+// ----------------------------------------------------------------------
+// Original Author of file: Frank Schummertz
+// Purpose of file:  MultiHook userapi functions
 // ----------------------------------------------------------------------
 
 include_once('modules/MultiHook/common.php');

@@ -1,10 +1,6 @@
 <?php
 // $Id$
 // ----------------------------------------------------------------------
-// PostNuke Content Management System
-// Copyright (C) 2002 by the PostNuke Development Team.
-// http://www.postnuke.com/
-// ----------------------------------------------------------------------
 // LICENSE
 //
 // This program is free software; you can redistribute it and/or
@@ -19,7 +15,8 @@
 //
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
-// Purpose of file:  MultiHook user API
+// Original Author of file: Frank Schummertz
+// Purpose of file:  MultiHook version information
 // ----------------------------------------------------------------------
 
 $modversion['name'] = _MH_MODULENAME;
