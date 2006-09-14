@@ -255,6 +255,7 @@ function MultiHook_userapitransform($text)
     static $finalsearch = array();
     static $finalreplace = array();
     static $gotabbreviations = 0;
+    static $gotneedles = 0;
 
     static $mhadmin;
     if(!isset($mhadmin)) {
@@ -281,12 +282,9 @@ function MultiHook_userapitransform($text)
         $haveoverlib = pnModAvailable('overlib');
     }
 
-    static $needles;
-    if(!isset($needles)) {
-        $needles = @unserialize(pnModGetVar('MultiHook', 'needles'));
-        if(!is_array($needles)) {
-            $needles = array();
-        }
+    $needles = @unserialize(pnModGetVar('MultiHook', 'needles'));
+    if(!is_array($needles)) {
+        $needles = array();
     }
 
     // current url and uri
@@ -397,8 +395,10 @@ function MultiHook_userapitransform($text)
     // check for needles
     if(count($needles) > 0) {
         foreach($needles as $needle) {
-            preg_match_all($needle['regexp'], $text, $needleresults);
+            preg_match_all('/(?<![\/\w@\.:])' . strtoupper($needle['name']) . '([a-zA-Z0-9\-_]*?)(?![\/\w@:])(?!\.\w)/', $text, $needleresults);
             if(is_array($needleresults) && count($needleresults[0])>0) {
+//pnfdebug('needles', $needles);
+//pnfdebug('needleresults', $needleresults, true);
                 // complete needle in $needleresults[0], needle id in needleresults[1]
                 // both are arrays!
                 for($ncnt = 0; $ncnt<count($needleresults[0]); $ncnt++) {

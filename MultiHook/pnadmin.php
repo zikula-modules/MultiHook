@@ -379,14 +379,12 @@ function MultiHook_admin_viewneedles()
             $modname = str_replace('.php', '', $file);
             $infofunc = 'MultiHook_needleapi_' . $modname . '_info';
             if(function_exists($infofunc)){
-                list($description, $regexp) = $infofunc();
+                $description = $infofunc();
             } else {
                 $description = _MH_NODESCRIPTIONFOUND;
-                $regexp      = '';
             }
             $needles[] = array('name'        => $modname,
-                               'description' => $description,
-                               'regexp'      => $regexp);
+                               'description' => $description);
         }
     }
     
