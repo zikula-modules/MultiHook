@@ -31,13 +31,9 @@ function MultiHook_needleapi_pnforum($args)
     unset($args);
     
     // cache the results
-    static $fcache;
-    if(!isset($fcache)) {
-        $fcache = array();
-    } 
-    static $tcache;
-    if(!isset($tcache)) {
-        $tcache = array();
+    static $cache;
+    if(!isset($cache)) {
+        $cache = array();
     } 
 
     if(!pnModAvailable('pnForum')) {
@@ -55,8 +51,9 @@ function MultiHook_needleapi_pnforum($args)
         $pntable =& pnDBGetTables();
         
         switch($type) {
-            case '0':
-                if(!isset($fcache[$id])) {
+            case 'F':
+                if(!isset($cache[$nid])) {
+                    // not in cache array
                     $tblforums = $pntable['pnforum_forums'];
                     $colforums = $pntable['pnforum_forums_column'];
                     
@@ -68,13 +65,16 @@ function MultiHook_needleapi_pnforum($args)
                         list($title) = $res->fields;
                         $url   = pnVarPrepForDisplay(pnModURL('pnForum', 'user', 'viewforum', array('forum' => $id)));
                         $title = pnVarPrepForDisplay($title);
-                        $fcache[$id] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
-                        $result = $fcache[$id];
+                        $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
+                        $result = $cache[$nid];
                     }
+                } else {
+                    $result = $cache[$nid];
                 }
                 break;
-            case '1':
-                if(!isset($tcache[$id])) {
+            case 'T':
+                if(!isset($cache[$nid])) {
+                    // not in cache array
                     $tbltopics = $pntable['pnforum_topics'];
                     $coltopics = $pntable['pnforum_topics_column'];
                     
@@ -86,9 +86,11 @@ function MultiHook_needleapi_pnforum($args)
                         list($title) = $res->fields;
                         $url   = pnVarPrepForDisplay(pnModURL('pnForum', 'user', 'viewtopic', array('topic' => $id)));
                         $title = pnVarPrepForDisplay($title);
-                        $tcache[$id] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
-                        $result = $tcache[$id];
+                        $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
+                        $result = $cache[$nid];
                     }
+                } else {
+                    $result = $cache[$nid];
                 }
                 break;
             default:
@@ -100,13 +102,13 @@ function MultiHook_needleapi_pnforum($args)
 }
 
 /**
- * pnforum needle onfo
+ * pnforum needle info
  * @param none
  * @return string with short usage description
  */
 function MultiHook_needleapi_pnforum_info($args)
 {
-    $info = 'PNFORUM{0_forumid|1_topicid}';
+    $info = 'PNFORUM{F_forumid|T_topicid}';
     return $info;
 }
 
