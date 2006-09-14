@@ -17,7 +17,14 @@
 // ----------------------------------------------------------------------
 
 // new
+define('_MH_ISHOOKEDWITH', 'Der Multihook wird mit folgenden Modulen verwendet');
+define('_MH_ADDHOOK', 'Hook für weitere Module aktivieren');
+define('_MH_START','Start');
+define('_MH_TYPENEEDLES', 'Needle');
+define('_MH_VIEWNEEDLES', 'Needles');
 define('_MH_EXISTSINDB', 'bereits in der Datenbank vorhanden');
+define('_MH_NONEEDLES', 'Keine Needles gefunden');
+define('_MH_NODESCRIPTIONFOUND', 'keine Beschreibung vorhanden');
 
 //
 // A

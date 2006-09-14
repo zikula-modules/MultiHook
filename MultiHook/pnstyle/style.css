@@ -87,3 +87,34 @@
     margin: 5px;
     text-align: left; 
 }
+
+#multihookadmin {
+    clear: both; 
+    padding-top: 2em;
+}
+
+#multihookadmin dt {
+    margin: 3px;
+    font-weight: bold;
+}
+
+#multihookadmin dd {
+    margin: 3px 0 3px 30px;
+}
+
+.multihookoptionrow {
+    clear: both; 
+    margin: 1em 0;
+}
+
+.multihookoption24 {
+    width: 24%; 
+    text-align: center; 
+    float: left;
+}
+
+.multihookoption33 {
+    width: 33%; 
+    text-align: center; 
+    float: left;
+}

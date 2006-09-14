@@ -1,0 +1,22 @@
+<!--[* $Id: mh_admin_view.html 65 2006-06-23 15:49:58Z landseer $ *]-->
+
+<!--[ include file=mh_admin_header.html ]-->
+
+<h2><!--[ pnml name='_MH_VIEWNEEDLES' ]--></h2>
+<br />
+
+<!--[ if $needles ]-->
+    <dl>
+    <!--[ foreach item=needle from=$needles]-->
+        <dt><!--[ $needle.name|pnvarprepfordisplay ]--></dt>
+        <dd>
+            <!--[ $needle.description|pnvarprepfordisplay ]-->
+            <br /><!--[ $needle.regexp|pnvarprepfordisplay ]-->
+        </dd>
+    <!--[ /foreach ]-->
+    </dl>
+<!--[ else ]-->
+    <h3><!--[ pnml name="_MH_NONEEDLES" ]--></h3>
+<!--[ /if ]-->
+
+<!--[ include file=mh_admin_footer.html ]-->

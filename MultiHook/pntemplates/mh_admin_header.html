@@ -1,31 +1,39 @@
 <!--[* $Id$ *]-->
 <!--[ admincategorymenu ]-->
-<h3 style="margin: 1em; text-align: center;"><strong><!--[ pnml name='_MH_ADMINTITLE' ]--></strong></h3>
+<h1><!--[ pnml name='_MH_ADMINTITLE' ]--></h1>
 
-<div style="clear: both;">
-    <div style="width:49%; text-align:center; float: left;">
+<div class="multihookoptionrow">
+    <div class="multihookoption33">
+        <a href="<!--[ pnmodurl modname=MultiHook type=admin func=main ]-->"><!--[ pnml name='_MH_START' ]--></a>
+    </div>
+
+    <div class="multihookoption33">
         <a href="<!--[ pnmodurl modname=MultiHook type=admin func=edit aid=-1 ]-->"><!--[ pnml name='_MH_ADD' ]--></a>
     </div>
 
-    <div style="width:49%; text-align:center; float: right;">
+    <div class="multihookoption33">
         <a href="<!--[ pnmodurl modname=MultiHook type=admin func=modifyconfig ]-->"><!--[ pnml name='_MH_MODIFYCONFIG' ]--></a>
     </div>
 
 </div>
 <br />
-<div style="clear:both;">
-    <div style="width:33%; text-align:center; float: left;">
+<div class="multihookoptionrow">
+    <div class="multihookoption24">
         <a href="<!--[ pnmodurl modname=MultiHook type=admin func=view filter=0 ]-->"><!--[ pnml name='_MH_VIEWABBR' ]--></a>
     </div>
 
-    <div style="width:33%; text-align:center; float: left;">
+    <div class="multihookoption24">
         <a href="<!--[ pnmodurl modname=MultiHook type=admin func=view filter=1 ]-->"><!--[ pnml name='_MH_VIEWACRONYMS' ]--></a>
     </div>
 
-    <div style="width:33%; text-align:center; float: right;">
+    <div class="multihookoption24">
         <a href="<!--[ pnmodurl modname=MultiHook type=admin func=view filter=2 ]-->"><!--[ pnml name='_MH_VIEWLINKS' ]--></a>
+    </div>
+
+    <div class="multihookoption24">
+        <a href="<!--[ pnmodurl modname=MultiHook type=admin func=viewneedles ]-->"><!--[ pnml name='_MH_VIEWNEEDLES' ]--></a>
     </div>
 </div>
 
 
-<div style="clear: both; padding-top: 2em;">
+<div id="multihookadmin">

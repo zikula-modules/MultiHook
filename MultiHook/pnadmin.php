@@ -26,6 +26,14 @@ function MultiHook_admin_main()
 {
     $pnr =& new pnRender("MultiHook");
     $pnr->caching = false;
+    $hmods = pnModAPIFunc('modules', 'admin', 'gethookedmodules', array('hookmodname' => 'MultiHook'));
+    foreach($hmods as $hmod => $dummy) {
+        $modid = pnModGetIDFromName($hmod);
+        $moddata = pnModGetInfo($modid);
+        $moddata['id'] = $modid;
+        $hookedmodules[] = $moddata;
+    }
+    $pnr->assign('hookedmodules', $hookedmodules);
     return $pnr->fetch("mh_admin_main.html");
 }
 
@@ -79,7 +87,7 @@ function MultiHook_admin_edit($args)
     $pnr->assign('abac', $abac);
     $pnr->assign('types', array( _MH_TYPEABBREVIATION,
                                  _MH_TYPEACRONYM,
-                                 _MH_TYPELINK ));
+                                 _MH_TYPELINK));
     return $pnr->fetch("mh_admin_edit.html");
 }
 
@@ -253,7 +261,8 @@ function MultiHook_admin_view()
     }
     $titles = array( _MH_VIEWABBR,
                      _MH_VIEWACRONYMS,
-                     _MH_VIEWLINKS );
+                     _MH_VIEWLINKS,
+                     _MH_VIEWNEEDLES );
 
     // Create output object
     $pnr =& new pnRender('MultiHook');
@@ -346,4 +355,48 @@ function MultiHook_admin_helper()
     return $out;
 }
 
+/**
+ * viewneedles
+ *
+ * shows a list of all needles supported by the MultiHook
+ */
+function MultiHook_admin_viewneedles()
+{
+    // todo: scan for needles and show them
+    if (!pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADMIN)) {
+        return _MH_NOAUTH;
+    }
+    
+    $needles = array();
+    $needledir = 'modules/MultiHook/pnneedleapi/';
+    $dh = opendir($needledir);
+    while($file = readdir($dh)) {
+        if((is_file($needledir . $file)) &&
+                ($file != '.') &&
+                ($file != '..') &&
+                ($file != 'index.html')) {
+            include_once($needledir . $file);
+            $modname = str_replace('.php', '', $file);
+            $infofunc = 'MultiHook_needleapi_' . $modname . '_info';
+            if(function_exists($infofunc)){
+                list($description, $regexp) = $infofunc();
+            } else {
+                $description = _MH_NODESCRIPTIONFOUND;
+                $regexp      = '';
+            }
+            $needles[] = array('name'        => $modname,
+                               'description' => $description,
+                               'regexp'      => $regexp);
+        }
+    }
+    
+    // store the needlesarray now
+    pnModSetVar('MultiHook', 'needles', serialize($needles));
+    
+    
+    $pnr = new pnRender('MultiHook');
+    $pnr->caching = false;
+    $pnr->assign('needles', $needles);
+    return $pnr->fetch('mh_admin_viewneedles.html');    
+}
 ?>
