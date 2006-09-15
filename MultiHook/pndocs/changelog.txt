@@ -1,5 +1,10 @@
 $Id$
 
+Version 4.0
+   - added PagEd-like needles
+   - removed prototype.js from distribution, you need to install the AjaxSupportPackage 
+     from http://noc.postnuke.com/frs/?group_id=8 to get full Ajax support in MultiHook now
+
 Version 3.0
 *** important: prototype.js must now be copied to /javascript/ajax!!!!!
 *** please read the install.txt for more information!

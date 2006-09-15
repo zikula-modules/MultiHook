@@ -374,9 +374,10 @@ function MultiHook_admin_viewneedles()
         if((is_file($needledir . $file)) &&
                 ($file != '.') &&
                 ($file != '..') &&
-                ($file != 'index.html')) {
+                ($file != 'index.html') &&
+                (stristr($file, '_info.php'))) {
             include_once($needledir . $file);
-            $modname = str_replace('.php', '', $file);
+            $modname = str_replace('_info.php', '', $file);
             $infofunc = 'MultiHook_needleapi_' . $modname . '_info';
             if(function_exists($infofunc)){
                 $description = $infofunc();

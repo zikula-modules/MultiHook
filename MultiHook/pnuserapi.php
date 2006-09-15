@@ -398,7 +398,7 @@ function MultiHook_userapitransform($text)
             preg_match_all('/(?<![\/\w@\.:])' . strtoupper($needle['name']) . '([a-zA-Z0-9\-_]*?)(?![\/\w@:])(?!\.\w)/', $text, $needleresults);
             if(is_array($needleresults) && count($needleresults[0])>0) {
 //pnfdebug('needles', $needles);
-//pnfdebug('needleresults', $needleresults, true);
+//pnfdebug('needleresults', $needleresults);
                 // complete needle in $needleresults[0], needle id in needleresults[1]
                 // both are arrays!
                 for($ncnt = 0; $ncnt<count($needleresults[0]); $ncnt++) {
