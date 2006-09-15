@@ -101,15 +101,4 @@ function MultiHook_needleapi_pnforum($args)
     
 }
 
-/**
- * pnforum needle info
- * @param none
- * @return string with short usage description
- */
-function MultiHook_needleapi_pnforum_info($args)
-{
-    $info = 'PNFORUM{F_forumid|T_topicid}';
-    return $info;
-}
-
 ?>

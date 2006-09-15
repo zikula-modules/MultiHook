@@ -41,13 +41,15 @@ function MultiHook_needleapi_photoshare($args)
     } else {
         // Get arguments from argument array
         
-        // nid is like pid_tid
+        // nid is like type_imageid or type_imageid_width_height
         $temp = explode('_', $nid);
         $type   = $temp[0];
         $id     = $temp[1];
-        $width  = $temp[2]; // if type==P
-        $height = $temp[3]; // if type==P
-
+        if($type=='P') {
+            $width  = (isset($temp[2])) ? $temp[2] : null; // if type==P
+            $height = (isset($temp[3])) ? $temp[3] : null; // if type==P
+        }
+    
         pnModDBInfoLoad('pnForum');
         $dbconn =& pnDBGetConn(true);
         $pntable =& pnDBGetTables();
@@ -77,7 +79,7 @@ function MultiHook_needleapi_photoshare($args)
                     $url   = pnVarPrepForDisplay(pnModURL('photoshare', 'user', 'viewimage', array('iid' => $id)));
                     $title = pnVarPrepForDisplay($title);
                     $widthheight = '';
-                    if(!empty($width) && !empty($height)) {
+                    if(isset($width) && !isset($height)) {
                         $widthheight = ' width="' . $width . '" height="' . $height . '"';
                     }
                     $cache[$nid] = '<img src="' . $url . '" title="' . $title . '" title="' . $title . '"' . $widthheight . ' />';
@@ -106,17 +108,6 @@ function MultiHook_needleapi_photoshare($args)
     }
     return $result;
     
-}
-
-/**
- * photoshare needle info
- * @param none
- * @return string with short usage description
- */
-function MultiHook_needleapi_photoshare_info($args)
-{
-    $info = 'PHOTOSHARE{A_albumid|P_pictureid|T_pictureid}';
-    return $info;
 }
 
 ?>

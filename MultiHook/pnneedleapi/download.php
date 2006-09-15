@@ -103,15 +103,4 @@ function MultiHook_needleapi_download($args)
     return $result;
 }
 
-/**
- * download needle info
- * @param none
- * @return string with short usage description
- */
-function MultiHook_needleapi_download_info($args)
-{
-    $info = 'DOWNLOAD{C_downloadcategoryid|D_downloadid|L_downloadid}';
-    return $info;
-}
-
 ?>

@@ -71,15 +71,4 @@ function MultiHook_needleapi_pagesetter($args)
 
 }
 
-/**
- * pagesetter needle info
- * @param none
- * @return string with short usage description
- */
-function MultiHook_needleapi_pagesetter_info($args)
-{
-    $info = 'PAGESETTER{tid}_{pid}';
-    return $info;
-}
-
 ?>
