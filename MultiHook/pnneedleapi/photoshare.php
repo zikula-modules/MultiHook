@@ -79,7 +79,7 @@ function MultiHook_needleapi_photoshare($args)
                     $url   = pnVarPrepForDisplay(pnModURL('photoshare', 'user', 'viewimage', array('iid' => $id)));
                     $title = pnVarPrepForDisplay($title);
                     $widthheight = '';
-                    if(isset($width) && !isset($height)) {
+                    if(isset($width) && isset($height)) {
                         $widthheight = ' width="' . $width . '" height="' . $height . '"';
                     }
                     $cache[$nid] = '<img src="' . $url . '" title="' . $title . '" title="' . $title . '"' . $widthheight . ' />';
