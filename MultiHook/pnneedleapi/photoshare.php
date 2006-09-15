@@ -77,12 +77,12 @@ function MultiHook_needleapi_photoshare($args)
                     $image = pnModAPIFunc('photoshare', 'show', 'get_image_info', 
                                           array('imageID' => $id));
                     $url   = pnVarPrepForDisplay(pnModURL('photoshare', 'user', 'viewimage', array('iid' => $id)));
-                    $title = pnVarPrepForDisplay($title);
+                    $title = pnVarPrepForDisplay($image['title']);
                     $widthheight = '';
                     if(isset($width) && isset($height)) {
                         $widthheight = ' width="' . $width . '" height="' . $height . '"';
                     }
-                    $cache[$nid] = '<img src="' . $url . '" title="' . $title . '" title="' . $title . '"' . $widthheight . ' />';
+                    $cache[$nid] = '<img src="' . $url . '" title="' . $title . '" alt="' . $title . '"' . $widthheight . ' />';
                     $result = $cache[$nid];
                 } else {
                     $result = $cache[$nid];
@@ -95,7 +95,7 @@ function MultiHook_needleapi_photoshare($args)
                                           array('imageID' => $id));
                     $fullurl   = pnVarPrepForDisplay(pnModURL('photoshare', 'user', 'viewimage', array('iid' => $id)));
                     $thumburl = $fullurl . '&amp;thumbnail=1';
-                    $title = pnVarPrepForDisplay($title);
+                    $title = pnVarPrepForDisplay($image['title']);
                     $cache[$nid] = '<a href="' . $fullurl . '" title="' . $title . '"><img src="' . $thumburl . '" alt="' . $title . '" /></a>';
                     $result = $cache[$nid];
                 } else {
