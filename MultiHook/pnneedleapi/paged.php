@@ -60,7 +60,7 @@ function MultiHook_needleapi_paged($args)
                     $titlestable = $pntable['paged_titles'];
                     $sql = 'SELECT title, topic_id from ' . $titlestable . ' WHERE page_id=' . pnVarPrepForStore($id);
                     $res = $dbconn->Execute($sql);
-                    if($dbconn->ErrorNo()==0 && !$result->EOF) {
+                    if($dbconn->ErrorNo()==0 && !$res->EOF) {
                         list($title, $topic_id) = $res->fields;
                         $url   = pnVarPrepForDisplay('modules.php?op=modload&name=PagEd&file=index&page_id=' . pnVarPrepForDisplay($id));
                         $title = pnVarPrepForDisplay($title);
@@ -71,7 +71,7 @@ function MultiHook_needleapi_paged($args)
                     $topicstable = $pntable['paged_topics'];
                     $sql = 'SELECT topic_title, topic_description from ' . $topicstable . ' WHERE topic_id=' . pnVarPrepForStore($id);
                     $res = $dbconn->Execute($sql);
-                    if($dbconn->ErrorNo()==0 && !$result->EOF) {
+                    if($dbconn->ErrorNo()==0 && !$res->EOF) {
                         list($title, $desc) = $res->fields;
                         $url   = pnVarPrepForDisplay('modules.php?op=modload&name=PagEd&file=index&topic_id=' . pnVarPrepForDisplay($id));
                         $title = pnVarPrepForDisplay($title);

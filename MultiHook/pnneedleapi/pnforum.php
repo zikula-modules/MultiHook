@@ -62,7 +62,7 @@ function MultiHook_needleapi_pnforum($args)
                     
                     $sql = 'SELECT ' . $colforums['forum_name'] . ' FROM ' . $tblforums . ' WHERE ' . $colforums['forum_id'] . '=' . pnVarPrepForStore($id);
                     $res = $dbconn->Execute($sql);
-                    if($dbconn->ErrorNo()==0 && !$result->EOF) {
+                    if($dbconn->ErrorNo()==0 && !$res->EOF) {
                         list($title) = $res->fields;
                         $url   = pnVarPrepForDisplay(pnModURL('pnForum', 'user', 'viewforum', array('forum' => $id)));
                         $title = pnVarPrepForDisplay($title);

@@ -61,7 +61,7 @@ function MultiHook_needleapi_download($args)
                     
                     $sql = 'SELECT ' . $coldlcats['title'] . ', ' . $coldlcats['cdescription'] . ' FROM ' . $tbldlcats . ' WHERE ' . $coldlcats['cid'] . '=' . pnVarPrepForStore($id);
                     $res = $dbconn->Execute($sql);
-                    if($dbconn->ErrorNo()==0 && !$result->EOF) {
+                    if($dbconn->ErrorNo()==0 && !$res->EOF) {
                         list($title, $desc) = $res->fields;
                         list($url,
                              $title,
@@ -78,7 +78,7 @@ function MultiHook_needleapi_download($args)
                     
                     $sql = 'SELECT ' . $coldls['title'] . ', ' . $coldls['description'] . ' FROM ' . $tbldls . ' WHERE ' . $coldls['lid'] . '=' . pnVarPrepForStore($id);
                     $res = $dbconn->Execute($sql);
-                    if($dbconn->ErrorNo()==0 && !$result->EOF) {
+                    if($dbconn->ErrorNo()==0 && !$res->EOF) {
                         list($title, $desc) = $res->fields;
                         if($type=='D') {
                             $url = pnVarPrepForDisplay('index.php?name=Downloads&req=viewdownload&cid=' . $id);
