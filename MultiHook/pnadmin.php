@@ -386,7 +386,7 @@ function MultiHook_admin_viewneedles()
                 $module      = _MH_NOMODULEFOUND;
             }
             $needles[] = array('module'      => $module,
-                               'needle'      => strtoupper($needle),
+                               'needle'      => $needle,
                                'description' => $description);
         }
     }
