@@ -36,66 +36,57 @@ function MultiHook_needleapi_pnforum($args)
         $cache = array();
     } 
 
-    if(!pnModAvailable('pnForum')) {
-        $result = '<em>PNFORUM' . $nid . '</em>';
-    } else {
-        // Get arguments from argument array
-        
-        // nid is like pid_tid
-        $temp = explode('_', $nid);
-        $type = $temp[0];
-        $id   = $temp[1];
+    $result = '<em>PNFORUM' . $nid . '</em>';
+    if(!isset($cache[$nid])) {
+        // not in cache array
+        // set the default
+        $cache[$nid] = $result;
+        if(pnModAvailable('pnForum')) {
+            
+            // nid is like C_## or T_##
+            $temp = explode('_', $nid);
+            $type = '';
+            if(is_array($temp) && count($temp)==2) {
+                $type = $temp[0];
+                $id   = $temp[1];
+            }
+            
+            pnModDBInfoLoad('pnForum');
+            $dbconn =& pnDBGetConn(true);
+            $pntable =& pnDBGetTables();
 
-        pnModDBInfoLoad('pnForum');
-        $dbconn =& pnDBGetConn(true);
-        $pntable =& pnDBGetTables();
-        
-        switch($type) {
-            case 'F':
-                if(!isset($cache[$nid])) {
-                    // not in cache array
+            switch($type) {
+                case 'F':
                     $tblforums = $pntable['pnforum_forums'];
                     $colforums = $pntable['pnforum_forums_column'];
                     
                     $sql = 'SELECT ' . $colforums['forum_name'] . ' FROM ' . $tblforums . ' WHERE ' . $colforums['forum_id'] . '=' . pnVarPrepForStore($id);
                     $res = $dbconn->Execute($sql);
-                    if($dbconn->ErrorNo() != 0) {
-                        $result = '<em>PNFORUM' . $nid . '</em>';
-                    } else {
+                    if($dbconn->ErrorNo()==0 && !$result->EOF) {
                         list($title) = $res->fields;
                         $url   = pnVarPrepForDisplay(pnModURL('pnForum', 'user', 'viewforum', array('forum' => $id)));
                         $title = pnVarPrepForDisplay($title);
                         $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
-                        $result = $cache[$nid];
                     }
-                } else {
-                    $result = $cache[$nid];
-                }
-                break;
-            case 'T':
-                if(!isset($cache[$nid])) {
-                    // not in cache array
+                    break;
+                case 'T':
                     $tbltopics = $pntable['pnforum_topics'];
                     $coltopics = $pntable['pnforum_topics_column'];
                     
                     $sql = 'SELECT ' . $coltopics['topic_title'] . ' FROM ' . $tbltopics . ' WHERE ' . $coltopics['topic_id'] . '=' . pnVarPrepForStore($id);
                     $res = $dbconn->Execute($sql);
-                    if($dbconn->ErrorNo() != 0) {
-                        $result = '<em>PNFORUM' . $nid . '</em>';
-                    } else {
+                    if($dbconn->ErrorNo()==0 && !$result->EOF) {
                         list($title) = $res->fields;
                         $url   = pnVarPrepForDisplay(pnModURL('pnForum', 'user', 'viewtopic', array('topic' => $id)));
                         $title = pnVarPrepForDisplay($title);
                         $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
-                        $result = $cache[$nid];
                     }
-                } else {
-                    $result = $cache[$nid];
-                }
-                break;
-            default:
-                $result = '<em>PNFORUM' . $nid . '</em>';
+                    break;
+                default:
+                    // $cache[$nid] = $result; is already done
+            }
         }
+        $result = $cache[$nid];
     }
     return $result;
     

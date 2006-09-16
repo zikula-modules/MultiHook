@@ -30,8 +30,6 @@ function MultiHook_needleapi_paged($args)
     $nid = $args['nid'];
     unset($args); 
     
-    // nid is the paged id, no need for transformation
-    
     // cache the results
     static $cache;
     if(!isset($cache)) {
@@ -40,8 +38,13 @@ function MultiHook_needleapi_paged($args)
 
     // set the default for errors of all kind
     $result = '<em>PAGED' . $nid . '</em>';
-    if(pnModAvailable('PagEd')) {
-        if(!isset($cache[$nid])) {
+    if(!isset($cache[$nid])) {
+        // not in cache array
+        // set the default
+        $cache[$nid] = $result;
+        if(pnModAvailable('PagEd')) {
+            // nid is the paged id, no need for transformation
+    
             pnModDBInfoLoad('PagEd');
             $dbconn =& pnDBGetConn(true);
             $pntable =& pnDBGetTables();
@@ -49,13 +52,11 @@ function MultiHook_needleapi_paged($args)
             $titlestable = $pntable['paged_titles'];
             $sql = 'SELECT title, topic_id from ' . $titlestable . ' WHERE page_id=' . pnVarPrepForStore($nid);
             $res = $dbconn->Execute($sql);
-            if($dbconn->ErrorNo() == 0) {
+            if($dbconn->ErrorNo()==0 && !$result->EOF) {
                 list($title, $topic_id) = $res->fields;
                 $url   = pnVarPrepForDisplay('modules.php?op=modload&name=PagEd&file=index&page_id=' . pnVarPrepForDisplay($nid));
                 $title = pnVarPrepForDisplay($title);
                 $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
-            } else {
-                $cache[$nid] = 'dberror!!!';
             }
         }
         $result = $cache[$nid];

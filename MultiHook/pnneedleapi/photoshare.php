@@ -36,43 +36,38 @@ function MultiHook_needleapi_photoshare($args)
         $cache = array();
     } 
 
-    if(!pnModAvailable('photoshare')) {
-        $result = '<em>PHOTOSHARE' . $nid . '</em>';
-    } else {
-        // Get arguments from argument array
-        
-        // nid is like type_imageid or type_imageid_width_height
-        $temp = explode('_', $nid);
-        $type   = $temp[0];
-        $id     = $temp[1];
-        if($type=='P') {
-            $width  = (isset($temp[2])) ? $temp[2] : null; // if type==P
-            $height = (isset($temp[3])) ? $temp[3] : null; // if type==P
-        }
-    
-        pnModDBInfoLoad('pnForum');
-        $dbconn =& pnDBGetConn(true);
-        $pntable =& pnDBGetTables();
-        
-        switch($type) {
-            case 'A':
-                if(!isset($cache[$nid])) {
+    $result = '<em>PHOTOSHARE' . $nid . '</em>';
+    if(!isset($cache[$nid])) {
+        // not in cache array
+        // set the default
+        $cache[$nid] = $result;
+        if(pnModAvailable('photoshare')) {
+            
+            // nid is like type_albumid, type_imageid or type_imageid_width_height
+            $temp = explode('_', $nid);
+            $type = '';
+            if(is_array($temp) && count($temp)>=2) {
+                $type   = $temp[0];
+                $id     = $temp[1];
+                if($type=='P') {
+                    $width  = (isset($temp[2])) ? $temp[2] : null; // if type==P
+                    $height = (isset($temp[3])) ? $temp[3] : null; // if type==P
+                }
+            }
+            
+            switch($type) {
+                case 'A':
                     // not in cache array
                     $folder =  pnModAPIFunc('photoshare',
                                             'user',
                                             'get_folder_info',
                                             array('folderID' => $id) );
-
+        
                     $url   = pnVarPrepForDisplay(pnModURL('photoshare', 'user', 'showimages', array('fid' => $id)));
                     $title = pnVarPrepForDisplay($folder['title']);
                     $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
-                    $result = $cache[$nid];
-                } else {
-                    $result = $cache[$nid];
-                }
-                break;
-            case 'P':
-                if(!isset($cache[$nid])) {
+                    break;
+                case 'P':
                     // not in cache array
                     $image = pnModAPIFunc('photoshare', 'show', 'get_image_info', 
                                           array('imageID' => $id));
@@ -83,13 +78,8 @@ function MultiHook_needleapi_photoshare($args)
                         $widthheight = ' width="' . $width . '" height="' . $height . '"';
                     }
                     $cache[$nid] = '<img src="' . $url . '" title="' . $title . '" alt="' . $title . '"' . $widthheight . ' />';
-                    $result = $cache[$nid];
-                } else {
-                    $result = $cache[$nid];
-                }
-                break;
-            case 'T':
-                if(!isset($cache[$nid])) {
+                    break;
+                case 'T':
                     // not in cache array
                     $image = pnModAPIFunc('photoshare', 'show', 'get_image_info', 
                                           array('imageID' => $id));
@@ -97,14 +87,12 @@ function MultiHook_needleapi_photoshare($args)
                     $thumburl = $fullurl . '&amp;thumbnail=1';
                     $title = pnVarPrepForDisplay($image['title']);
                     $cache[$nid] = '<a href="' . $fullurl . '" title="' . $title . '"><img src="' . $thumburl . '" alt="' . $title . '" /></a>';
-                    $result = $cache[$nid];
-                } else {
-                    $result = $cache[$nid];
-                }
-                break;
-            default:
-                $result = '<em>PHOTOSHARE' . $nid . '</em>';
+                    break;
+                default:
+                    // default already set before
+            }
         }
+        $result = $cache[$nid];
     }
     return $result;
     

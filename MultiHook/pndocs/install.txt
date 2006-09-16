@@ -137,6 +137,8 @@ DOWNLOAD{C_downloadcategoryid|D_downloadid|L_downloadid}
 -> links to a download category, the download details or directly to the download 
 PAGED{publicationid}
 -> links to the PagEd article, showing its title
+PAGESETTER{tid}
+-> links to the list of all publications of publication type tid
 PAGESETTER{tid}_{pid} 
 -> links to the Pagesetter publication with publication type tid 
    and publication pid

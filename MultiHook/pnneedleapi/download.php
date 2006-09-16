@@ -36,69 +36,65 @@ function MultiHook_needleapi_download($args)
         $cache = array();
     } 
 
-    if(!pnModAvailable('Downloads')) {
-        $result = '<em>DOWNLOAD' . $nid . '</em>';
-    } else {
-        // Get arguments from argument array
-        $temp = explode('_', $nid);
-        $type = $temp[0];
-        $id   = $temp[1];
+    $result = '<em>DOWNLOAD' . $nid . '</em>';
+    if(!isset($cache[$nid])) {
+        // not in cache array
+        // set the default
+        $cache[$nid] = $result;
+        if(pnModAvailable('Downloads')) {
+            // nid is like C_##, D_## or L_##
+            $temp = explode('_', $nid);
+            $type = '';
+            if(is_array($temp) && count($temp)==2) {
+                $type = $temp[0];
+                $id   = $temp[1];
+            }
         
-        pnModDBInfoLoad('Downloads');
-        $dbconn =& pnDBGetConn(true);
-        $pntable =& pnDBGetTables();
-        
-        switch($type) {
-            case 'C':
-                if(!isset($cache[$nid])) {
-                    // not in cache array
+            pnModDBInfoLoad('Downloads');
+            $dbconn =& pnDBGetConn(true);
+            $pntable =& pnDBGetTables();
+            
+            switch($type) {
+                case 'C':
                     $tbldlcats = $pntable['downloads_categories'];
                     $coldlcats = $pntable['downloads_categories_column'];
                     
-                    $sql = 'SELECT ' . $coldlcats['title'] . ' FROM ' . $tbldlcats . ' WHERE ' . $coldlcats['cid'] . '=' . pnVarPrepForStore($id);
+                    $sql = 'SELECT ' . $coldlcats['title'] . ', ' . $coldlcats['cdescription'] . ' FROM ' . $tbldlcats . ' WHERE ' . $coldlcats['cid'] . '=' . pnVarPrepForStore($id);
                     $res = $dbconn->Execute($sql);
-                    if($dbconn->ErrorNo() != 0) {
-                        $result = '<em>DOWNLOAD' . $nid . '</em>';
-                    } else {
-                        list($title) = $res->fields;
-                        $url   = pnVarPrepForDisplay('index.php?name=Downloads&req=viewdownload&cid=' . $id);
-                        $title = pnVarPrepForDisplay($title);
-                        $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
-                        $result = $cache[$nid];
+                    if($dbconn->ErrorNo()==0 && !$result->EOF) {
+                        list($title, $desc) = $res->fields;
+                        list($url,
+                             $title,
+                             $desc) = pnVarPrepForDisplay('index.php?name=Downloads&req=viewdownload&cid=' . $id,
+                                                          $title,
+                                                          $desc);
+                        $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
                     }
-                } else {
-                    $result = $cache[$nid];
-                }
-                break;
-            case 'D':
-            case 'L':
-                if(!isset($cache[$nid])) {
-                    // not in cache array
+                    break;
+                case 'D':
+                case 'L':
                     $tbldls = $pntable['downloads_downloads'];
                     $coldls = $pntable['downloads_downloads_column'];
                     
-                    $sql = 'SELECT ' . $coldls['title'] . ' FROM ' . $tbldls . ' WHERE ' . $coldls['lid'] . '=' . pnVarPrepForStore($id);
+                    $sql = 'SELECT ' . $coldls['title'] . ', ' . $coldls['description'] . ' FROM ' . $tbldls . ' WHERE ' . $coldls['lid'] . '=' . pnVarPrepForStore($id);
                     $res = $dbconn->Execute($sql);
-                    if($dbconn->ErrorNo() != 0) {
-                        $result = '<em>DOWNLOAD' . $nid . '</em>';
-                    } else {
-                        list($title) = $res->fields;
+                    if($dbconn->ErrorNo()==0 && !$result->EOF) {
+                        list($title, $desc) = $res->fields;
                         if($type=='D') {
-                            $url   = pnVarPrepForDisplay('index.php?name=Downloads&req=viewdownload&cid=' . $id);
+                            $url = pnVarPrepForDisplay('index.php?name=Downloads&req=viewdownload&cid=' . $id);
                         } else {
-                            $url   = pnVarPrepForDisplay('index.php?name=Downloads&req=getit&lid=' . $id);
+                            $url = pnVarPrepForDisplay('index.php?name=Downloads&req=getit&lid=' . $id);
                         }
                         $title = pnVarPrepForDisplay($title);
-                        $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
-                        $result = $cache[$nid];
+                        $desc  = pnVarPrepForDisplay($desc);
+                        $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
                     }
-                } else {
-                    $result = $cache[$nid];
-                }
-                break;
-            default:
-                $result = '<em>DOWNLOAD' . $nid . '</em>';
+                    break;
+                default:
+                    // default already set before
+            }
         }
+        $result = $cache[$nid];
     }
     return $result;
 }

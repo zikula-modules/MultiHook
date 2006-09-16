@@ -35,37 +35,53 @@ function MultiHook_needleapi_pagesetter($args)
         $cache = array();
     } 
    
-    if(!pnModAvailable('pagesetter')) {
-        $result = '<em>PAGESETTER' . $nid . '</em>';
-    } else {
-        if(!isset($cache[$nid])) {
-        
-            // Get arguments from argument array
-            
-            // nid is like pid_tid
+    $result = '<em>PAGESETTER' . $nid . '</em>';
+    if(!isset($cache[$nid])) {
+        // not in cache array
+        // set the default
+        $cache[$nid] = $result;
+        if(pnModAvailable('pagesetter')) {
+            // nid is like tid_pid or tid only
             $temp = explode('_', $nid);
-            $pid = $temp[0];
-            $tid = $temp[1];
-            $pub = pnModAPIFunc('pagesetter',
-                                'user',
-                                'getPub',
-                                array('tid'    => $tid,
-                                      'pid'    => $pid,
-                                      'format' => 'user'));
-            if(!is_array($pub)) {
-                $result = '<em>PAGESETTER' . $nid . '</em>';
-            } else {          
-                $url = pnModURL('pagesetter', 'user', 'viewpub',
-                                array('tid' => $tid,
-                                      'pid' => $pid));
-                $pubtitle = pnVarPrepForDisplay($pub['title']);
-                $cache[$nid] = '<a href="' . pnVarPrepForDisplay($url) . '" title="' . $pubtitle . '">' . $pubtitle . '</a>';
-                $result = $cache[$nid];
+            switch(count($temp)) {
+                case 1:
+                    // $temp[0] is treated as tid
+                    $pubInfo =  pnModAPIFunc('pagesetter',
+                                             'admin',
+                                             'getPubTypeInfo',
+                                             array('tid' => $temp[0]));
+
+                    list($url,
+                         $pubtitle,
+                         $pubdesc) = pnVarPrepForDisplay(pnModURL('pagesetter', 'user', 'view',
+                                                                  array('tid' => $temp[0])),
+                                                         $pubInfo['publication']['title'],
+                                                         $pubInfo['publication']['description']);
+                    
+                    $cache[$nid] = '<a href="' . $url . '" title="' . $pubdesc . '">' . $pubtitle . '</a>';
+                    break;
+                case 2:
+                    // $temp[0] is treated as tid
+                    // $temp[1] is treated as pid
+                    $pub = pnModAPIFunc('pagesetter',
+                                        'user',
+                                        'getPub',
+                                        array('tid'    => $temp[0],
+                                              'pid'    => $temp[1],
+                                              'format' => 'user'));
+                    if(is_array($pub)) {
+                        $url = pnModURL('pagesetter', 'user', 'viewpub',
+                                        array('tid' => $temp[0],
+                                              'pid' => $temp[1]));
+                        $pubtitle = pnVarPrepForDisplay($pub['title']);
+                        $cache[$nid] = '<a href="' . pnVarPrepForDisplay($url) . '" title="' . $pubtitle . '">' . $pubtitle . '</a>';
+                    }
+                    break;
+                default:
             }
-        } else {
-            $result = $cache[$nid];
+
         }
-               
+        $result = $cache[$nid];
     }
     return $result;
 
