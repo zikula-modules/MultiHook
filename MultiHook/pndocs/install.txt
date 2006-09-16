@@ -167,8 +167,8 @@ Writing new needles (for developers only)
 A needle consists of two simple functions stored in two files, see the MultiHook/pnneedleapi/
 folder. 
 
-modulename_info.php contains MultiHook_needleapi_moulename_info(), which just returs a 
-string of how to use the needle.
+modulename_info.php contains MultiHook_needleapi_moulename_info(), which returns an array 
+containing the modulename and a string of how to use the needle.
 modulename.php contains MultiHook_nedleapi_modulename(), which does the real work and returns
 the replacement string. It gets the needle id passed as $nid. The needle id is the part after
 the uppercase modulename, in PNFORUMF_1 the F_1 is the needle id. 
