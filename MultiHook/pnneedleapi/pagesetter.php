@@ -35,7 +35,7 @@ function MultiHook_needleapi_pagesetter($args)
         $cache = array();
     } 
    
-    $result = '<em>PAGESETTER' . $nid . '</em>';
+    $result = '<em title="' . pnVarPrepForDisplay(sprintf(_MH_NEEDLEDATAERROR, $nid, 'pagesetter')) . '">PAGESETTER' . $nid . '</em>';
     if(!isset($cache[$nid])) {
         // not in cache array
         // set the default

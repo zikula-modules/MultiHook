@@ -36,7 +36,7 @@ function MultiHook_needleapi_download($args)
         $cache = array();
     } 
 
-    $result = '<em>DOWNLOAD' . $nid . '</em>';
+    $result = '<em title="' . pnVarPrepForDisplay(sprintf(_MH_NEEDLEDATAERROR, $nid, 'Downloads')) . '">DOWNLOAD' . $nid . '</em>';
     if(!isset($cache[$nid])) {
         // not in cache array
         // set the default

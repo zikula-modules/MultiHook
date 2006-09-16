@@ -36,7 +36,7 @@ function MultiHook_needleapi_pnforum($args)
         $cache = array();
     } 
 
-    $result = '<em>PNFORUM' . $nid . '</em>';
+    $result = '<em title="' . pnVarPrepForDisplay(sprintf(_MH_NEEDLEDATAERROR, $nid, 'pnForum')) . '">PNFORUM' . $nid . '</em>';
     if(!isset($cache[$nid])) {
         // not in cache array
         // set the default

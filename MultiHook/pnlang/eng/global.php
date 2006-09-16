@@ -25,6 +25,7 @@ define('_MH_VIEWNEEDLES', 'Needles');
 define('_MH_EXISTSINDB', ' already exists in database');
 define('_MH_NONEEDLES', 'No Needles found');
 define('_MH_NODESCRIPTIONFOUND', 'no description found');
+define('_MH_NEEDLEDATAERROR', 'Error reading reading needle data for \'%s\' or module \'%s\' is not active');
 
 //
 // A

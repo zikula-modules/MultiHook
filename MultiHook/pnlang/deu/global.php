@@ -25,6 +25,7 @@ define('_MH_VIEWNEEDLES', 'Needles');
 define('_MH_EXISTSINDB', 'bereits in der Datenbank vorhanden');
 define('_MH_NONEEDLES', 'Keine Needles gefunden');
 define('_MH_NODESCRIPTIONFOUND', 'keine Beschreibung vorhanden');
+define('_MH_NEEDLEDATAERROR', 'Fehler beim Einlesen der Needledaten für \'%s\' oder Modul \'%s\' nicht aktiv');
 
 //
 // A

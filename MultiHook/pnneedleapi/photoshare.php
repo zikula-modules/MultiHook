@@ -36,7 +36,7 @@ function MultiHook_needleapi_photoshare($args)
         $cache = array();
     } 
 
-    $result = '<em>PHOTOSHARE' . $nid . '</em>';
+    $result = '<em title="' . pnVarPrepForDisplay(sprintf(_MH_NEEDLEDATAERROR, $nid, 'photoshare')) . '">PHOTOSHARE' . $nid . '</em>';
     if(!isset($cache[$nid])) {
         // not in cache array
         // set the default

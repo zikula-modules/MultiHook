@@ -37,7 +37,7 @@ function MultiHook_needleapi_paged($args)
     } 
 
     // set the default for errors of all kind
-    $result = '<em>PAGED' . $nid . '</em>';
+    $result = '<em title="' . pnVarPrepForDisplay(sprintf(_MH_NEEDLEDATAERROR, $nid, 'PagEd')) . '">PAGED' . $nid . '</em>';
     if(!isset($cache[$nid])) {
         // not in cache array
         // set the default

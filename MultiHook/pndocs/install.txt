@@ -20,6 +20,14 @@ tables.
 You can now add links, acronyms and abbreviations in the admin panel or by selecting
 text while pressing the CTRL-button on every page inside PN.
 
+HTML Tags needed for MultiHook
+------------------------------
+You need to allow these tags incl. parameters for the MultiHook:
+* a
+* abbr
+* acronym
+* em
+* span
 
 Internet Explorer special trick:
 --------------------------------
@@ -135,6 +143,8 @@ These needles are shipped with MultiHook:
 
 DOWNLOAD{C_downloadcategoryid|D_downloadid|L_downloadid} 
 -> links to a download category, the download details or directly to the download 
+HTMLPAGE{pid}
+-> links to the htmlpages page pid
 PAGED{P_publicationid|T_TOPICID}
 -> links to the PagEd article or a list of articles of the given topic
 PAGESETTER{tid}

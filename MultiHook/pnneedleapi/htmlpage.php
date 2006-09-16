@@ -36,7 +36,7 @@ function MultiHook_needleapi_htmlpage($args)
         $cache = array();
     } 
 
-    $result = '<em>HTMLPAGE' . $nid . '</em>';
+    $result = '<em title="' . pnVarPrepForDisplay(sprintf(_MH_NEEDLEDATAERROR, $nid, 'htmlpages')) . '">HTMLPAGE' . $nid . '</em>';
     if(!isset($cache[$nid])) {
         // not in cache array
         // set the default
