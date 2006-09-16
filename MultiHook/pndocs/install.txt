@@ -162,6 +162,13 @@ the replacement string. It gets the needle id passed as $nid. The needle id is t
 the uppercase modulename, in PNFORUMF_1 the F_1 is the needle id. 
 Parsing and acting on the results is your part as developer ;-)
 
+The modulename must not necessarily be a real module name, you can use this to for different
+purposes, e.g. 
+
+showlistofitems.php/showlistofitems_info.php to show a list (SHOWLIST###)
+showitem.php/showitem_info.php show one item (SHOWITEM###)
+for the same module. 
+
 You are encouraged to use some caching mechanism in order to avoid consecutive SQL calls.
 
  
