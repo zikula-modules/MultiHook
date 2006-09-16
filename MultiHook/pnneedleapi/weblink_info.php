@@ -1,5 +1,5 @@
 <?php
-// $Id: pnadminapi.php 73 2006-07-16 09:21:42Z landseer $
+// $Id$
 // ----------------------------------------------------------------------
 // LICENSE
 //
@@ -26,7 +26,7 @@
  */
 function MultiHook_needleapi_weblink_info($args)
 {
-    $info = 'WEBLINK{C_weblinkcategoryid|D_weblinkid|L_weblinkid}';
+    $info = array('Web_Links', 'WEBLINK{C_weblinkcategoryid|D_weblinkid|L_weblinkid}');
     return $info;
 }
 

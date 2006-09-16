@@ -1,5 +1,5 @@
 <?php
-// $Id: pnadminapi.php 73 2006-07-16 09:21:42Z landseer $
+// $Id$
 // ----------------------------------------------------------------------
 // LICENSE
 //
@@ -26,7 +26,7 @@
  */
 function MultiHook_needleapi_download_info($args)
 {
-    $info = 'DOWNLOAD{C_downloadcategoryid|D_downloadid|L_downloadid}';
+    $info = array('Downloads', 'DOWNLOAD{C_downloadcategoryid|D_downloadid|L_downloadid}');
     return $info;
 }
 

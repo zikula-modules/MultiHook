@@ -377,14 +377,16 @@ function MultiHook_admin_viewneedles()
                 ($file != 'index.html') &&
                 (stristr($file, '_info.php'))) {
             include_once($needledir . $file);
-            $modname = str_replace('_info.php', '', $file);
-            $infofunc = 'MultiHook_needleapi_' . $modname . '_info';
+            $needle = str_replace('_info.php', '', $file);
+            $infofunc = 'MultiHook_needleapi_' . $needle . '_info';
             if(function_exists($infofunc)){
-                $description = $infofunc();
+                list($module, $description) = $infofunc();
             } else {
                 $description = _MH_NODESCRIPTIONFOUND;
+                $module      = _MH_NOMODULEFOUND;
             }
-            $needles[] = array('name'        => $modname,
+            $needles[] = array('module'      => $module,
+                               'needle'      => strtoupper($needle),
                                'description' => $description);
         }
     }

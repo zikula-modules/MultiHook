@@ -1,5 +1,5 @@
 <?php
-// $Id: pnadminapi.php 73 2006-07-16 09:21:42Z landseer $
+// $Id$
 // ----------------------------------------------------------------------
 // LICENSE
 //
@@ -26,7 +26,7 @@
  */
 function MultiHook_needleapi_photoshare_info($args)
 {
-    $info = 'PHOTOSHARE{A_albumid|P_pictureid|T_pictureid}';
+    $info = array('photoshare', 'PHOTOSHARE{A_albumid|P_pictureid|T_pictureid}');
     return $info;
 }
 

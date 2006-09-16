@@ -1,5 +1,5 @@
 <?php
-// $Id: pnadminapi.php 73 2006-07-16 09:21:42Z landseer $
+// $Id$
 // ----------------------------------------------------------------------
 // LICENSE
 //
@@ -26,7 +26,7 @@
  */
 function MultiHook_needleapi_pagesetter_info($args)
 {
-    $info = 'PAGESETTER{tid}_{pid}';
+    $info = array('pagesetter', 'PAGESETTER{tid}_{pid}');
     return $info;
 }
 

@@ -1,5 +1,5 @@
 <?php
-// $Id: pnadminapi.php 73 2006-07-16 09:21:42Z landseer $
+// $Id$
 // ----------------------------------------------------------------------
 // LICENSE
 //
@@ -26,7 +26,7 @@
  */
 function MultiHook_needleapi_pnforum_info($args)
 {
-    $info = 'PNFORUM{F_forumid|T_topicid}';
+    $info = array('pnForum', 'PNFORUM{F_forumid|T_topicid}');
     return $info;
 }
 
