@@ -43,20 +43,46 @@ function MultiHook_needleapi_paged($args)
         // set the default
         $cache[$nid] = $result;
         if(pnModAvailable('PagEd')) {
-            // nid is the paged id, no need for transformation
+            // nid is like P_## or T_##
+            $temp = explode('_', $nid);
+            $type = '';
+            if(is_array($temp) && count($temp)==2) {
+                $type = $temp[0];
+                $id   = $temp[1];
+            }
     
             pnModDBInfoLoad('PagEd');
             $dbconn =& pnDBGetConn(true);
             $pntable =& pnDBGetTables();
             
-            $titlestable = $pntable['paged_titles'];
-            $sql = 'SELECT title, topic_id from ' . $titlestable . ' WHERE page_id=' . pnVarPrepForStore($nid);
-            $res = $dbconn->Execute($sql);
-            if($dbconn->ErrorNo()==0 && !$result->EOF) {
-                list($title, $topic_id) = $res->fields;
-                $url   = pnVarPrepForDisplay('modules.php?op=modload&name=PagEd&file=index&page_id=' . pnVarPrepForDisplay($nid));
-                $title = pnVarPrepForDisplay($title);
-                $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
+            switch($type) {
+                case 'P':
+                    $titlestable = $pntable['paged_titles'];
+                    $sql = 'SELECT title, topic_id from ' . $titlestable . ' WHERE page_id=' . pnVarPrepForStore($id);
+                    $res = $dbconn->Execute($sql);
+                    if($dbconn->ErrorNo()==0 && !$result->EOF) {
+                        list($title, $topic_id) = $res->fields;
+                        $url   = pnVarPrepForDisplay('modules.php?op=modload&name=PagEd&file=index&page_id=' . pnVarPrepForDisplay($id));
+                        $title = pnVarPrepForDisplay($title);
+                        $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
+                    }
+                    break;
+                case 'T':
+                    $topicstable = $pntable['paged_topics'];
+                    $sql = 'SELECT topic_title, topic_description from ' . $topicstable . ' WHERE topic_id=' . pnVarPrepForStore($id);
+                    $res = $dbconn->Execute($sql);
+                    if($dbconn->ErrorNo()==0 && !$result->EOF) {
+                        list($title, $desc) = $res->fields;
+                        $url   = pnVarPrepForDisplay('modules.php?op=modload&name=PagEd&file=index&topic_id=' . pnVarPrepForDisplay($id));
+                        $title = pnVarPrepForDisplay($title);
+                        $desc  = pnVarPrepForDisplay($desc);
+                        $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
+                    } else {
+                        $cache[$nid] = 'PagEd: unknownn topic ' . pnVarPrepForDisplay($id);
+                    }
+                    break;
+                default:
+                    // default already set before
             }
         }
         $result = $cache[$nid];
