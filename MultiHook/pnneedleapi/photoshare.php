@@ -36,12 +36,14 @@ function MultiHook_needleapi_photoshare($args)
         $cache = array();
     } 
 
-    $result = '<em title="' . pnVarPrepForDisplay(sprintf(_MH_NEEDLEDATAERROR, $nid, 'photoshare')) . '">PHOTOSHARE' . $nid . '</em>';
     if(!isset($cache[$nid])) {
         // not in cache array
         // set the default
         $cache[$nid] = $result;
         if(pnModAvailable('photoshare')) {
+            pnModLoad('photoshare', 'user');
+            // load language defines from pnlang/xxx/photoshare.php
+            pnModLangLoad('MultiHook', 'photoshare');
             
             // nid is like type_albumid, type_imageid or type_imageid_width_height
             $temp = explode('_', $nid);
@@ -57,42 +59,66 @@ function MultiHook_needleapi_photoshare($args)
             
             switch($type) {
                 case 'A':
+                    // show link to folder,display folder name
                     // not in cache array
                     $folder =  pnModAPIFunc('photoshare',
                                             'user',
                                             'get_folder_info',
                                             array('folderID' => $id) );
-        
-                    $url   = pnVarPrepForDisplay(pnModURL('photoshare', 'user', 'showimages', array('fid' => $id)));
-                    $title = pnVarPrepForDisplay($folder['title']);
-                    $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
+                    if(is_array($folder)) {
+                        if(photoshareAccessFolder($id, photoshareAccessRequirementView, '')) {
+                            $url   = pnVarPrepForDisplay(pnModURL('photoshare', 'user', 'showimages', array('fid' => $id)));
+                            $title = pnVarPrepForDisplay($folder['title']);
+                            $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
+                        } else {
+                            $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PS_NOAUTHFORFOLDER . ' (' . $id . ')') . '</em>';
+                        }
+                    } else {
+                        $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PS_UNKNOWNFOLDER .  ' (' . $id . ')') . '</em>';
+                    }
                     break;
                 case 'P':
-                    // not in cache array
-                    $image = pnModAPIFunc('photoshare', 'show', 'get_image_info', 
-                                          array('imageID' => $id));
-                    $url   = pnVarPrepForDisplay(pnModURL('photoshare', 'user', 'viewimage', array('iid' => $id)));
-                    $title = pnVarPrepForDisplay($image['title']);
-                    $widthheight = '';
-                    if(isset($width) && isset($height)) {
-                        $widthheight = ' width="' . $width . '" height="' . $height . '"';
-                    }
-                    $cache[$nid] = '<img src="' . $url . '" title="' . $title . '" alt="' . $title . '"' . $widthheight . ' />';
-                    break;
+                    // show image
                 case 'T':
+                    // show thumbnail with link to fullsize image
                     // not in cache array
                     $image = pnModAPIFunc('photoshare', 'show', 'get_image_info', 
                                           array('imageID' => $id));
-                    $fullurl   = pnVarPrepForDisplay(pnModURL('photoshare', 'user', 'viewimage', array('iid' => $id)));
-                    $thumburl = $fullurl . '&amp;thumbnail=1';
-                    $title = pnVarPrepForDisplay($image['title']);
-                    $cache[$nid] = '<a href="' . $fullurl . '" title="' . $title . '"><img src="' . $thumburl . '" alt="' . $title . '" /></a>';
+                    if(is_array($image) && isset($image['id'])) {
+                        if(photoshareAccessImage($id, photoshareAccessRequirementView, '')) {
+                            if($type=='P') {
+                                // Picture
+                                $url   = pnVarPrepForDisplay(pnModURL('photoshare', 'user', 'viewimage', array('iid' => $id)));
+                                $title = pnVarPrepForDisplay($image['title']);
+                                $widthheight = '';
+                                if(isset($width) && isset($height)) {
+                                    $widthheight = ' width="' . $width . '" height="' . $height . '"';
+                                }
+                                $cache[$nid] = '<img src="' . $url . '" title="' . $title . '" alt="' . $title . '"' . $widthheight . ' />';
+                            } else {
+                                // Thumbnail
+                                $fullurl   = pnVarPrepForDisplay(pnModURL('photoshare', 'user', 'viewimage', array('iid' => $id)));
+                                $thumburl = $fullurl . '&amp;thumbnail=1';
+                                $title = pnVarPrepForDisplay($image['title']);
+                                $cache[$nid] = '<a href="' . $fullurl . '" title="' . $title . '"><img src="' . $thumburl . '" alt="' . $title . '" /></a>';
+                            }
+                        } else {
+                            $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PS_NOAUTHFORIMAGE . ' (' . $id . ')') . '</em>';
+                        }
+                    } else {
+                        $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PS_UNKNOWNIMAGE .  ' (' . $id . ')') . '</em>';
+                    }
                     break;
                 default:
-                    // default already set before
+                    $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PS_UNKNOWNTYPE) . '</em>';
+                    
             }
+        } else {
+            $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PS_NOTAVAILABLE) . '</em>';
         }
         $result = $cache[$nid];
+    } else {
+        $result = '<em>' . pnVarPrepForDisplay(_MH_PS_NONEEDLEID) . '</em>';
     }
     return $result;
     
