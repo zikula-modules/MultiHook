@@ -36,40 +36,40 @@ function MultiHook_needleapi_htmlpage($args)
         $cache = array();
     } 
 
-    $result = '<em title="' . pnVarPrepForDisplay(sprintf(_MH_NEEDLEDATAERROR, $nid, 'htmlpages')) . '">HTMLPAGE' . $nid . '</em>';
-    if(!isset($cache[$nid])) {
-        // not in cache array
-        // set the default
-        $cache[$nid] = $result;
-        if(pnModAvailable('htmlpages')) {
-            pnModLangLoad('MultiHook', 'htmlpage');
-            // nid is the pid
-            
-            pnModDBInfoLoad('htmlpages');
-            $dbconn = pnDBGetConn(true);
-            $pntable = pnDBGetTables();
-            $htmlpagestable = $pntable['htmlpages'];
-            $htmlpagescolumn = &$pntable['htmlpages_column'];
-        
-            $sql = "SELECT $htmlpagescolumn[title]
-                    FROM $htmlpagestable
-                    WHERE $htmlpagescolumn[pid] = '" . (int)pnVarPrepForStore($nid) . "'";
-            $res = $dbconn->Execute($sql);
-            if($dbconn->ErrorNo()==0 && !$res->EOF) {
-                list($title) = $res->fields;
-                if(pnSecAuthAction(0, 'htmlpages::', "$title::$nid", ACCESS_READ)) {
-                    $url   = pnVarPrepForDisplay(pnModURL('htmlpages', 'user', 'display', array('pid' => $nid)));
-                    $title = pnVarPrepForDisplay($title);
-                    $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
-                } else {
-                    $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_HP_NOAUTHFORPAGE . ' (' . $nid . ')') . '</em>';
-                }
-            } else {
-                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_HP_UNKNOWNPAGE . ' (' . $nid . ')') . '</em>';
-            }
+    pnModLangLoad('MultiHook', 'htmlpage');
+    if(!empty($nid)) {
+        if(!isset($cache[$nid])) {
+            // not in cache array
 
-        } else {
-            $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_HP_NOTAVAILABLE) . '</em>';
+            if(pnModAvailable('htmlpages')) {
+                // nid is the pid
+                
+                pnModDBInfoLoad('htmlpages');
+                $dbconn = pnDBGetConn(true);
+                $pntable = pnDBGetTables();
+                $htmlpagestable = $pntable['htmlpages'];
+                $htmlpagescolumn = &$pntable['htmlpages_column'];
+            
+                $sql = "SELECT $htmlpagescolumn[title]
+                        FROM $htmlpagestable
+                        WHERE $htmlpagescolumn[pid] = '" . (int)pnVarPrepForStore($nid) . "'";
+                $res = $dbconn->Execute($sql);
+                if($dbconn->ErrorNo()==0 && !$res->EOF) {
+                    list($title) = $res->fields;
+                    if(pnSecAuthAction(0, 'htmlpages::', "$title::$nid", ACCESS_READ)) {
+                        $url   = pnVarPrepForDisplay(pnModURL('htmlpages', 'user', 'display', array('pid' => $nid)));
+                        $title = pnVarPrepForDisplay($title);
+                        $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
+                    } else {
+                        $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_HP_NOAUTHFORPAGE . ' (' . $nid . ')') . '</em>';
+                    }
+                } else {
+                    $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_HP_UNKNOWNPAGE . ' (' . $nid . ')') . '</em>';
+                }
+        
+            } else {
+                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_HP_NOTAVAILABLE) . '</em>';
+            }
         }
         $result = $cache[$nid];
     } else {
