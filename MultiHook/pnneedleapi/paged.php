@@ -65,6 +65,8 @@ function MultiHook_needleapi_paged($args)
                         $url   = pnVarPrepForDisplay('modules.php?op=modload&name=PagEd&file=index&page_id=' . pnVarPrepForDisplay($id));
                         $title = pnVarPrepForDisplay($title);
                         $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
+                    } else {
+                        $cache[$nid] = 'PagEd: unknown publication ' . pnVarPrepForDisplay($id);
                     }
                     break;
                 case 'T':
@@ -78,7 +80,7 @@ function MultiHook_needleapi_paged($args)
                         $desc  = pnVarPrepForDisplay($desc);
                         $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
                     } else {
-                        $cache[$nid] = 'PagEd: unknownn topic ' . pnVarPrepForDisplay($id);
+                        $cache[$nid] = 'PagEd: unknown topic ' . pnVarPrepForDisplay($id);
                     }
                     break;
                 default:
