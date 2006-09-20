@@ -115,14 +115,14 @@ function MultiHook_userapi_get($args)
         if(is_numeric($aid)) {
             $where = "WHERE $multihookcolumn[aid] = '" . (int)pnVarPrepForStore($aid) . "'";
         } else {
-            pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_userapi_get() [aid]'
+            pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_userapi_get() [aid]');
             return false;
         }
     } else if(isset($short)) {
         if(!empty($short)) {
             $where = "WHERE $multihookcolumn[short] = '" . pnVarPrepForStore($short) . "'";
         } else {
-            pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_userapi_get() [short]'
+            pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_userapi_get() [short]');
             return false;
         }
     } else {
@@ -214,7 +214,7 @@ function MultiHook_userapi_transform($args)
     extract($args);
     // Argument check
     if (!isset($extrainfo)) {
-        pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_userapi_transform() [extrainfo]'
+        pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_userapi_transform() [extrainfo]');
         return;
     }
 
