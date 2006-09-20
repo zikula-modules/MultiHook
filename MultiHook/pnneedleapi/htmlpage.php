@@ -42,7 +42,7 @@ function MultiHook_needleapi_htmlpage($args)
         // set the default
         $cache[$nid] = $result;
         if(pnModAvailable('htmlpages')) {
-            
+            pnModLangLoad('MultiHook', 'htmlpage');
             // nid is the pid
             
             pnModDBInfoLoad('htmlpages');
@@ -57,13 +57,23 @@ function MultiHook_needleapi_htmlpage($args)
             $res = $dbconn->Execute($sql);
             if($dbconn->ErrorNo()==0 && !$res->EOF) {
                 list($title) = $res->fields;
-                $url   = pnVarPrepForDisplay(pnModURL('htmlpages', 'user', 'display', array('pid' => $nid)));
-                $title = pnVarPrepForDisplay($title);
-                $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
+                if(pnSecAuthAction(0, 'htmlpages::', "$title::$nid", ACCESS_READ)) {
+                    $url   = pnVarPrepForDisplay(pnModURL('htmlpages', 'user', 'display', array('pid' => $nid)));
+                    $title = pnVarPrepForDisplay($title);
+                    $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
+                } else {
+                    $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_HP_NOAUTHFORPAGE . ' (' . $nid . ')') . '</em>';
+                }
+            } else {
+                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_HP_UNKNOWNPAGE . ' (' . $nid . ')') . '</em>';
             }
 
+        } else {
+            $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_HP_NOTAVAILABLE) . '</em>';
         }
         $result = $cache[$nid];
+    } else {
+        $result = '<em>' . pnVarPrepForDisplay(_MH_HP_NONEEDLEID) . '</em>';
     }
     return $result;
     
