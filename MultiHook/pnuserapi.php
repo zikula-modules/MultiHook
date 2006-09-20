@@ -115,12 +115,14 @@ function MultiHook_userapi_get($args)
         if(is_numeric($aid)) {
             $where = "WHERE $multihookcolumn[aid] = '" . (int)pnVarPrepForStore($aid) . "'";
         } else {
+            pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_userapi_get() [aid]'
             return false;
         }
     } else if(isset($short)) {
         if(!empty($short)) {
             $where = "WHERE $multihookcolumn[short] = '" . pnVarPrepForStore($short) . "'";
         } else {
+            pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_userapi_get() [short]'
             return false;
         }
     } else {
@@ -212,7 +214,7 @@ function MultiHook_userapi_transform($args)
     extract($args);
     // Argument check
     if (!isset($extrainfo)) {
-        pnSessionSetVar('errormsg', _MODARGSERROR);
+        pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_userapi_transform() [extrainfo]'
         return;
     }
 
@@ -397,9 +399,7 @@ function MultiHook_userapitransform($text)
         foreach($needles as $needle) {
             preg_match_all('/(?<![\/\w@\.:])' . strtoupper($needle['needle']) . '([a-zA-Z0-9\-_]*?)(?![\/\w@:])(?!\.\w)/', $text, $needleresults);
             if(is_array($needleresults) && count($needleresults[0])>0) {
-//pnfdebug('needles', $needles);
-//pnfdebug('needleresults', $needleresults);
-                // complete needle in $needleresults[0], needle id in needleresults[1]
+                // complete needle in $needleresults[0], needle id in $needleresults[1]
                 // both are arrays!
                 for($ncnt = 0; $ncnt<count($needleresults[0]); $ncnt++) {
                     $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($needleresults[0][$ncnt], '/'). ')(?![\/\w@:])(?!\.\w)/';

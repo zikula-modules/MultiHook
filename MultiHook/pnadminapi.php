@@ -107,7 +107,7 @@ function MultiHook_adminapi_delete($args)
 
     // Argument check
     if (!isset($aid)) {
-        pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_adminapi_delete()');
+        pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_adminapi_delete() [aid]');
         return false;
     }
 
