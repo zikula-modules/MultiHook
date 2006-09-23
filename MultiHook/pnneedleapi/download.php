@@ -36,7 +36,6 @@ function MultiHook_needleapi_download($args)
         $cache = array();
     } 
 
-    $result = '<em title="' . pnVarPrepForDisplay(sprintf(_MH_NEEDLEDATAERROR, $nid, 'Downloads')) . '">DOWNLOAD' . $nid . '</em>';
     if(!empty($nid)) {
         if(!isset($cache[$nid])) {
             // not in cache array
@@ -50,7 +49,7 @@ function MultiHook_needleapi_download($args)
                 // nid is like C_##, D_## or L_##
                 $temp = explode('_', $nid);
                 $type = '';
-                if(is_array($temp) && count($temp)==2) {
+                if(is_array($temp)) {
                     $type = $temp[0];
                     $id   = $temp[1];
                 }
@@ -160,6 +159,10 @@ function MultiHook_needleapi_download($args)
                                 $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_DL_UNKNOWNDOWNLOAD . ' (' . $id . ')') .'</em>';
                             }
                         }
+                        break;
+                    case 'S':
+                        // link to main page
+                        $cache[$nid] = '<a href="index.php?name=Downloads" title="' . pnVarPrepForDisplay(_MH_DL_DOWNLOADS) . '">' . pnVarPrepForDisplay(_MH_DL_DOWNLOADS) . '</a>';
                         break;
                     default:
                         $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_DL_UNKNOWNTYPE) . '</em>';

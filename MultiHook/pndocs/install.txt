@@ -141,7 +141,7 @@ in the system. This rescans the pnneedleapi folder. Now the new needles are avai
 
 These needles are shipped with MultiHook:
 
-DOWNLOAD{C_downloadcategoryid|D_downloadid|L_downloadid} 
+DOWNLOAD{C_downloadcategoryid|D_downloadid|L_downloadid|S} 
 -> links to a download category, the download details or directly to the download 
 HTMLPAGE{pid}
 -> links to the htmlpages page pid
@@ -159,7 +159,7 @@ PHOTOSHARE{A_albumid|P_pictureid|T_pictureid}
    PHOTOSHAREP_3_200_150 will result in an image with width=200 and height=150
 PNFORUM{F_forumid|T_topicid} 
 -> links to a forum or topic
-WEBLINK{C_weblinkcategoryid|D_weblinkid|L_weblinkid} 
+WEBLINK{C_weblinkcategoryid|D_weblinkid|L_weblinkid|S} 
 -> links to a web links category, the web links details or directly to the link 
 
 Writing new needles (for developers only)

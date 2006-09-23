@@ -36,66 +36,86 @@ function MultiHook_needleapi_weblink($args)
         $cache = array();
     } 
 
-    $result = '<em title="' . pnVarPrepForDisplay(sprintf(_MH_NEEDLEDATAERROR, $nid, 'Web_Links')) . '">WEBLINK' . $nid . '</em>';
-    if(!isset($cache[$nid])) {
-        // not in cache array
-        // set the default
-        $cache[$nid] = $result;
-        if(pnModAvailable('Web_Links')) {
-            // nid is like C_##, D_## or L_##
-            $temp = explode('_', $nid);
-            $type = '';
-            if(is_array($temp) && count($temp)==2) {
-                $type = $temp[0];
-                $id   = $temp[1];
-            }
-        
-            pnModDBInfoLoad('Web_Links');
-            $dbconn =& pnDBGetConn(true);
-            $pntable =& pnDBGetTables();
+    if(!empty($nid)) {
+        if(!isset($cache[$nid])) {
+            // not in cache array
+            if(pnModAvailable('Web_Links')) {
+                pnModLangLoad('MultiHook', 'weblink');
+                // nid is like C_##, D_## or L_##
+                $temp = explode('_', $nid);
+                $type = '';
+                if(is_array($temp)) {
+                    $type = $temp[0];
+                    $id   = $temp[1];
+                }
             
-            switch($type) {
-                case 'C':
-                    $tblwlcats = $pntable['links_categories'];
-                    $colwlcats = $pntable['links_categories_column'];
-                    
-                    $sql = 'SELECT ' . $colwlcats['title'] . ', ' . $colwlcats['cdescription'] . ' FROM ' . $tblwlcats . ' WHERE ' . $colwlcats['cat_id'] . '=' . pnVarPrepForStore($id);
-                    $res = $dbconn->Execute($sql);
-                    if($dbconn->ErrorNo()==0 && !$res->EOF) {
-                        list($title, $desc) = $res->fields;
-                        list($url,
-                             $title,
-                             $desc) = pnVarPrepForDisplay('index.php?name=Web_Links&req=viewlink&cid=' . $id,
-                                                          $title,
-                                                          $desc);
-                        $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
-                    }
-                    break;
-                case 'D':
-                case 'L':
-                    $tblwls = $pntable['links_links'];
-                    $colwls = $pntable['links_links_column'];
-                    
-                    $sql = 'SELECT ' . $colwls['title'] . ', ' . $colwls['description'] . ' FROM ' . $tblwls . ' WHERE ' . $colwls['lid'] . '=' . pnVarPrepForStore($id);
-                    $res = $dbconn->Execute($sql);
-                    if($dbconn->ErrorNo()==0 && !$res->EOF) {
-                        list($title, $desc) = $res->fields;
-                        if($type=='D') {
-                            $url = 'index.php?name=Web_Links&req=viewlinkdetails&lid=' . $id;
+                pnModDBInfoLoad('Web_Links');
+                $dbconn =& pnDBGetConn(true);
+                $pntable =& pnDBGetTables();
+                
+                switch($type) {
+                    case 'C':
+                        $tblwlcats = $pntable['links_categories'];
+                        $colwlcats = $pntable['links_categories_column'];
+                        
+                        $sql = 'SELECT ' . $colwlcats['title'] . ', ' . $colwlcats['cdescription'] . ' FROM ' . $tblwlcats . ' WHERE ' . $colwlcats['cat_id'] . '=' . pnVarPrepForStore($id);
+                        $res = $dbconn->Execute($sql);
+                        if($dbconn->ErrorNo()==0 && !$res->EOF) {
+                            list($title, $desc) = $res->fields;
+                            if(pnSecAuthAction(0, 'Web Links::Category', $title . '::' . $id, ACCESS_READ)) {
+                                list($url,
+                                     $title,
+                                     $desc) = pnVarPrepForDisplay('index.php?name=Web_Links&req=viewlink&cid=' . $id,
+                                                                  $title,
+                                                                  $desc);
+                                $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
+                            } else {
+                                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_WL_NOAUTHFORCATEGORY . ' (' . $id . ')') .'</em>';
+                            }
                         } else {
-                            $url = 'index.php?name=Web_Links&req=visit&lid=' . $id;
+                            $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_DL_UNKNOWNCATEGORY . ' (' . $id . ')') .'</em>';
                         }
-                        list($url,
-                             $title,
-                             $desc)  = pnVarPrepForDisplay($url, $title, $desc);
-                        $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
-                    }
-                    break;
-                default:
-                    // default already set before
+                        break;
+                    case 'D':
+                    case 'L':
+                        $tblwls = $pntable['links_links'];
+                        $colwls = $pntable['links_links_column'];
+                        
+                        $sql = 'SELECT ' . $colwls['title'] . ', ' . $colwls['description'] . ' FROM ' . $tblwls . ' WHERE ' . $colwls['lid'] . '=' . pnVarPrepForStore($id);
+                        $res = $dbconn->Execute($sql);
+                        if($dbconn->ErrorNo()==0 && !$res->EOF) {
+                            list($title, $desc) = $res->fields;
+                            if (pnSecAuthAction(0, 'Web Links::Link', ':' . $title . ':' . $id, ACCESS_READ)) {
+                                if($type=='D') {
+                                    $url = 'index.php?name=Web_Links&req=viewlinkdetails&lid=' . $id;
+                                } else {
+                                    $url = 'index.php?name=Web_Links&req=visit&lid=' . $id;
+                                }
+                                list($url,
+                                     $title,
+                                     $desc)  = pnVarPrepForDisplay($url, $title, $desc);
+                                $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
+                            } else {
+                                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_WL_NOAUTHFORWEBLINK . ' (' . $id . ')') .'</em>';
+                            }
+                        } else {
+                            $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_DL_UNKNOWNWEBLINK . ' (' . $id . ')') .'</em>';
+                        }
+                        break;
+                    case 'S':
+                        // show link to main page
+                        $cache[$nid] = '<a href="index.php?name=Web_Links" title="' . pnVarPrepForDisplay(_MH_WL_WEBLINKS) . '">' . pnVarPrepForDisplay(_MH_WL_WEBLINKS) . '</a>';
+                        break;
+                    default:
+                        $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_WL_UNKNOWNTYPE) . '</em>';
+                }
+            } else {
+                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_WL_NOTAVAILABLE) . '</em>';
             }
+            $result = $cache[$nid];
         }
-        $result = $cache[$nid];
+    } else {
+        $result = '<em>' . pnVarPrepForDisplay(_MH_WL_NONEEDLEID) . '</em>';
     }
     return $result;
 }

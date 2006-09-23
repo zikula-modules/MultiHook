@@ -16,13 +16,13 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-define('_MH_DL_DOWNLOADS', 'downloads');
-define('_MH_DL_NONEEDLEID', 'no needle id');
-define('_MH_DL_NOTAVAILABLE', 'Downloads not available');
-define('_MH_DL_UNKNOWNTYPE', 'unknown parameter at pos.1 (C, D, L or S)');
-define('_MH_DL_UNKNOWNCATEGORY', 'unknown category');
-define('_MH_DL_NOAUTHFORCATEGORY', 'no permission for this category');
-define('_MH_DL_UNKNOWNDOWNLOAD', 'unknown download');
-define('_MH_DL_NOAUTHFORDOWNLOAD', 'no permission for this download');
+define('_MH_WL_WEBLINKS', 'Weblinks');
+define('_MH_WL_NONEEDLEID', 'keine NeedleID');
+define('_MH_WL_NOTAVAILABLE', 'Web_Links ist nicht verfügbar');
+define('_MH_WL_UNKNOWNTYPE', 'unbekannter Parameter an Pos.1 (C, D, L oder S)');
+define('_MH_WL_UNKNOWNCATEGORY', 'unbekannte Kategorie');
+define('_MH_WL_NOAUTHFORCATEGORY', 'keine Berechtigung für diese Kategorie');
+define('_MH_WL_UNKNOWNWEBLINK', 'unbekannter Link');
+define('_MH_WL_NOAUTHFORWEBLINK', 'keine Berechtigung für diesen Link');
 
 ?>
