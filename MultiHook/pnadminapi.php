@@ -31,6 +31,11 @@
  */
 function MultiHook_adminapi_create($args)
 {
+    // Security check
+    if (!pnSecAuthAction(0, 'MultiHook::', "::", ACCESS_ADD)) {
+        pnSessionSetVar('errormsg', _MH_NOAUTH);
+        return false;
+    }
 
     // Get arguments from argument array
     extract($args);
@@ -43,12 +48,6 @@ function MultiHook_adminapi_create($args)
         (!isset($type)) ||
         (!isset($language))) {
         pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_adminapi_create()');
-        return false;
-    }
-
-    // Security check
-    if (!pnSecAuthAction(0, 'MultiHook::', "::", ACCESS_ADD)) {
-        pnSessionSetVar('errormsg', _MH_NOAUTH);
         return false;
     }
 
@@ -102,6 +101,11 @@ function MultiHook_adminapi_create($args)
  */
 function MultiHook_adminapi_delete($args)
 {
+    // Security check
+    if (!pnSecAuthAction(0, 'MultiHook::', '', ACCESS_ADMIN)) {
+        pnSessionSetVar('errormsg', _MH_NOAUTH);
+        return false;
+    }
     // Get arguments from argument array
     extract($args);
 
@@ -118,12 +122,6 @@ function MultiHook_adminapi_delete($args)
                          array('aid' => $aid));
 
     if ($abac == false) {
-        return false;
-    }
-
-    // Security check
-    if (!pnSecAuthAction(0, 'MultiHook::', "$abac[short]::$aid", ACCESS_DELETE)) {
-        pnSessionSetVar('errormsg', _MH_NOAUTH);
         return false;
     }
 
@@ -162,6 +160,11 @@ function MultiHook_adminapi_delete($args)
  */
 function MultiHook_adminapi_update($args)
 {
+    if (!pnSecAuthAction(0, 'MultiHook::', '', ACCESS_EDIT)) {
+        pnSessionSetVar('errormsg', _MH_NOAUTH);
+        return false;
+    }
+
     // Get arguments from argument array
     extract($args);
 
@@ -183,15 +186,6 @@ function MultiHook_adminapi_update($args)
                          array('aid' => $aid));
 
     if ($abac == false) {
-        return false;
-    }
-
-    if (!pnSecAuthAction(0, 'MultiHook::', "$abac[short]::$aid", ACCESS_EDIT)) {
-        pnSessionSetVar('errormsg', _MH_NOAUTH);
-        return false;
-    }
-    if (!pnSecAuthAction(0, 'MultiHook::', "$short::$aid", ACCESS_EDIT)) {
-        pnSessionSetVar('errormsg', _MH_NOAUTH);
         return false;
     }
 

@@ -24,6 +24,10 @@
  */
 function MultiHook_admin_main()
 {
+    if(!pnSecAuthAction('MultiHook::', '::', ACCESS_ADMIN)) {
+        return pnVarPrepForDisplay(_MH_NOAUTH);
+    }
+    
     $pnr =& new pnRender("MultiHook");
     $pnr->caching = false;
     $hmods = pnModAPIFunc('modules', 'admin', 'gethookedmodules', array('hookmodname' => 'MultiHook'));
@@ -103,6 +107,10 @@ function MultiHook_admin_edit($args)
  */
 function MultiHook_admin_store($args)
 {
+    if(!pnSecAuthAction('MultiHook::', '::', ACCESS_ADD)) {
+        return pnVarPrepForDisplay(_MH_NOAUTH);
+    }
+
     // Get parameters from whatever input we need
     list($aid,
          $short,
@@ -231,13 +239,13 @@ function MultiHook_admin_store($args)
  */
 function MultiHook_admin_view()
 {
+    if (!pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADMIN)) {
+        return pnVarPrepForDisplay(_MH_NOAUTH);
+    }
+
     // Get parameters from whatever input we need
     $startnum = (int)pnVarCleanFromInput('startnum');
     $filter   = (int)pnVarCleanFromInput('filter');
-
-    if (!pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_EDIT)) {
-        return _MH_NOAUTH;
-    }
 
     // The user API function is called
     $abacs = pnModAPIFunc('MultiHook',
@@ -282,7 +290,7 @@ function MultiHook_admin_modifyconfig()
 {
 
     if (!pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADMIN)) {
-        return _MH_NOAUTH;
+        return pnVarPrepForDisplay(_MH_NOAUTH);
     }
 
     $submit = pnVarCleanFromInput('submit');

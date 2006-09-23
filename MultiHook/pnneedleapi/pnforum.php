@@ -110,7 +110,9 @@ function MultiHook_needleapi_pnforum($args)
                     default:
                         $cache[$nid] = '<em>' . pnVarPrepForDisplay(MH_PNF_UNKNOWNTYPE) . '</em>';
                 }
-            }
+            } else {
+                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PNF_NOTAVAILABLE) . '</em>';
+            }    
         }
         $result = $cache[$nid];
     } else {
