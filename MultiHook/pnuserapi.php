@@ -406,7 +406,7 @@ function MultiHook_userapitransform($text)
                     $search[]      = $search_temp;
                     $replace[]     = md5($search_temp);
                     $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                    $finalreplace[] = pnModAPIFunc('MultiHook', 'needle', $needle['needle'],
+                    $finalreplace[] = pnModAPIFunc('MultiHook', 'needle', strtolower($needle['needle']),
                                                array('nid' => $needleresults[1][$ncnt]));
                     unset($search_temp);
                 }
