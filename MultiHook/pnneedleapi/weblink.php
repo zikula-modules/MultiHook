@@ -112,8 +112,8 @@ function MultiHook_needleapi_weblink($args)
             } else {
                 $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_WL_NOTAVAILABLE) . '</em>';
             }
-            $result = $cache[$nid];
         }
+        $result = $cache[$nid];
     } else {
         $result = '<em>' . pnVarPrepForDisplay(_MH_WL_NONEEDLEID) . '</em>';
     }

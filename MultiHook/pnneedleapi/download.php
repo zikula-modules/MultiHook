@@ -170,8 +170,8 @@ function MultiHook_needleapi_download($args)
             } else {
                 $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_DL_NOTAVAILABLE) . '</em>';
             }
-            $result = $cache[$nid];
         }
+        $result = $cache[$nid];
     } else {
         $result = '<em>' . pnVarPrepForDisplay(_MH_DL_NONEEDLEID) . '</em>';
     }
