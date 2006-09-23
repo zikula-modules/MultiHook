@@ -26,7 +26,7 @@
  */
 function MultiHook_needleapi_pagesetter_info($args)
 {
-    $info = array('pagesetter', 'PAGESETTER{tid}_{pid}');
+    $info = array('pagesetter', 'PAGESETTER{tid}{_pid}');
     return $info;
 }
 
