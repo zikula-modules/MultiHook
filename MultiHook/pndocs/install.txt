@@ -1,7 +1,7 @@
 $Id$
 
 Sine version 4.0 MultiHook needs the AjaxSupportPackage because the prototype.js used
-here has been removed fro the distribution. The reason was I was too lazy to maintain
+here has been removed from the distribution. The reason is simple: I am too lazy to maintain
 the same files in three or four projects each. Now we have one place only.
 You can get the AjaxSupportPackage from
     http://noc.postnuke.com/frs/?group_id=8
@@ -12,7 +12,7 @@ modules list in the admin panel, initialize and activate it.
 For further changes to your theme see the chapter "Ajax support".
 
 Do not forget to activate the MultiHook for the modules you want to use it with, like
-pnForum or Pagesetter.
+pnForum or Pagesetter. The main admin panel shows for which modules the MultiHook is activated. 
 
 If present, the links stored in AutoLinks will be copied to the MultiHook
 tables.
@@ -35,8 +35,7 @@ IE cannot (sigh...) handle the abbr tag correctly (or better said: it cannot
 handle it correctly at all). We need a special css trick to make this
 possible. Add this
 
-abbr, acronym, span.abbr
-{
+abbr, acronym, span.abbr {
     cursor: help;
     border-bottom: 1px dashed #000;
 }
@@ -127,15 +126,14 @@ Needles
 -------
 Needles are a clever invention by Oivind Skau and have been implemented in PagEd for the
 first time.
-You can simply add any kind of link by writing MODULENAME{moduleparams} if there is a
+
+You can simply add any kind of link by writing NEEDLENAME{moduleparams} if there is a
 corresponding pnneedleapi-function available, eg.
 
 PNFORUMF_2 adds a link to the forum with id 2
 PNFORUMT_5 adds a link to the topic with id 5
 
-There is no permission check done for showing the links!
-
-Important: After adding new needles, you need to click the needles confiuration in Multihook
+Important: After adding new needles, you need to click the needles configuration in Multihook
 once (index.php?module=MultiHook&type=admin&func=viewneedles) in order to make them available
 in the system. This rescans the pnneedleapi folder. Now the new needles are available.
 
@@ -167,12 +165,14 @@ Writing new needles (for developers only)
 A needle consists of two simple functions stored in two files, see the MultiHook/pnneedleapi/
 folder. 
 
-modulename_info.php contains MultiHook_needleapi_moulename_info(), which returns an array 
-containing the modulename and a string of how to use the needle.
-modulename.php contains MultiHook_nedleapi_modulename(), which does the real work and returns
-the replacement string. It gets the needle id passed as $nid. The needle id is the part after
-the uppercase modulename, in PNFORUMF_1 the F_1 is the needle id. 
-Parsing and acting on the results is your part as developer ;-)
+modulename_info.php 
+-> contains MultiHook_needleapi_moulename_info(), which returns an array 
+   containing the modulename and a string of how to use the needle.
+modulename.php
+-> contains MultiHook_needleapi_modulename(), which does the real work and returns
+   the replacement string. It gets the needle id passed as $nid. The needle id is the
+   part after the uppercase needlename, in PNFORUMF_1 the F_1 is the needle id. 
+   Parsing and acting on the results is your part as developer ;-)
 
 The modulename must not necessarily be a real module name, you can use this to for different
 purposes, e.g. 
@@ -183,4 +183,3 @@ for the same module.
 
 You are encouraged to use some caching mechanism in order to avoid consecutive SQL calls.
 
- 
