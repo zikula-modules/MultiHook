@@ -122,6 +122,16 @@ paste the text as before.
 If you do not want to use Ajax you can still use the normal admin panel for adding and changing
 the data.
 
+*** Note ***
+When using other modules on the same page that also use prototype you might need to move the
+inclusion of the exernal script from the mh_dynamic_hiddenform.html template to the theme in
+order to avoid conflicts. In this cas add 
+
+<script type="text/javascript" src="javascript/ajax/prototype.js"></script>
+
+right before or after the MultiHook stylesheet as mentioned before.
+*** /Note ***
+
 Needles
 -------
 Needles are a clever invention by Oivind Skau and have been implemented in PagEd for the
