@@ -215,4 +215,44 @@ function MultiHook_adminapi_update($args)
     return $aid;
 }
 
+/**
+ * collectneedles
+ * scans the pnneedleapi folder for needles and stores them in a module var
+ *
+ *@params none
+ *@returns array of needles
+ */
+function MultiHook_adminapi_collectneedles()
+{
+    $needles = array();
+    $needledir = 'modules/MultiHook/pnneedleapi/';
+    $dh = opendir($needledir);
+    if($dh) {
+        while($file = readdir($dh)) {
+            if((is_file($needledir . $file)) &&
+                    ($file != '.') &&
+                    ($file != '..') &&
+                    ($file != 'index.html') &&
+                    (stristr($file, '_info.php'))) {
+                include_once($needledir . $file);
+                $needle = str_replace('_info.php', '', $file);
+                $infofunc = 'MultiHook_needleapi_' . $needle . '_info';
+                if(function_exists($infofunc)){
+                    list($module, $description) = $infofunc();
+                } else {
+                    $description = _MH_NODESCRIPTIONFOUND;
+                    $module      = _MH_NOMODULEFOUND;
+                }
+                $needles[] = array('module'      => $module,
+                                   'needle'      => $needle,
+                                   'description' => $description);
+            }
+        }
+        closedir($dh);
+    } 
+    // store the needlesarray now
+    pnModSetVar('MultiHook', 'needles', serialize($needles));
+    return $needles;
+}
+
 ?>

@@ -375,6 +375,8 @@ function MultiHook_admin_viewneedles()
         return _MH_NOAUTH;
     }
     
+    $needles = pnModAPIFunc('MultiHook', 'admin', 'collectneedles');
+    
     $needles = array();
     $needledir = 'modules/MultiHook/pnneedleapi/';
     $dh = opendir($needledir);
