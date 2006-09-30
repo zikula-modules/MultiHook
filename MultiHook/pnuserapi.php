@@ -399,11 +399,10 @@ function MultiHook_userapitransform($text)
         foreach($needles as $needle) {
             preg_match_all('/(?<![\/\w@\.:])' . strtoupper($needle['needle']) . '([a-zA-Z0-9_-]*?)(?![\/\w@:-])(?!\.\w)/', $text, $needleresults);
             if(is_array($needleresults) && count($needleresults[0])>0) {
-//pnfdebug('nr', $needleresults);
                 // complete needle in $needleresults[0], needle id in $needleresults[1]
                 // both are arrays!
                 for($ncnt = 0; $ncnt<count($needleresults[0]); $ncnt++) {
-                    $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($needleresults[0][$ncnt], '/'). ')(?![\/\w@:])(?!\.\w)/';
+                    $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($needleresults[0][$ncnt], '/'). ')(?![\/\w@:-])(?!\.\w)/';
                     $search[]      = $search_temp;
                     $replace[]     = md5($search_temp);
                     $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
