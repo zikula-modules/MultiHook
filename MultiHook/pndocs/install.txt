@@ -140,8 +140,8 @@ first time.
 You can simply add any kind of link by writing NEEDLENAME{moduleparams} if there is a
 corresponding pnneedleapi-function available, eg.
 
-PNFORUMF_2 adds a link to the forum with id 2
-PNFORUMT_5 adds a link to the topic with id 5
+PNFORUMF-2 adds a link to the forum with id 2
+PNFORUMT-5 adds a link to the topic with id 5
 
 Important: After adding new needles, you need to click the needles configuration in Multihook
 once (index.php?module=MultiHook&type=admin&func=viewneedles) in order to make them available
@@ -149,25 +149,25 @@ in the system. This rescans the pnneedleapi folder. Now the new needles are avai
 
 These needles are shipped with MultiHook:
 
-DOWNLOAD{C_downloadcategoryid|D_downloadid|L_downloadid|S} 
+DOWNLOAD{C-downloadcategoryid|D-downloadid|L-downloadid|S} 
 -> links to a download category, the download details or directly to the download 
 HTMLPAGE{pid}
 -> links to the htmlpages page pid
-PAGED{P_publicationid|T_TOPICID}
+PAGED{P-publicationid|T-topicid}
 -> links to the PagEd article or a list of articles of the given topic
 PAGESETTER{tid}
 -> links to the list of all publications of publication type tid
-PAGESETTER{tid}_{pid} 
+PAGESETTER{tid}-{pid} 
 -> links to the Pagesetter publication with publication type tid 
    and publication pid
-PHOTOSHARE{A_albumid|P_pictureid|T_pictureid}
+PHOTOSHARE{A-albumid|P-pictureid|T-pictureid}
 -> links to an album, an image or a thumbnail with a link to the full size
    image. In case of P its also possible to add addtional parameter for the
    width and height to be used. So you can resize the output:
-   PHOTOSHAREP_3_200_150 will result in an image with width=200 and height=150
-PNFORUM{F_forumid|T_topicid} 
+   PHOTOSHAREP-3-200-150 will result in an image with width=200 and height=150
+PNFORUM{F-forumid|T-topicid} 
 -> links to a forum or topic
-WEBLINK{C_weblinkcategoryid|D_weblinkid|L_weblinkid|S} 
+WEBLINK{C-weblinkcategoryid|D-weblinkid|L-weblinkid|S} 
 -> links to a web links category, the web links details or directly to the link 
 
 Writing new needles (for developers only)
@@ -181,7 +181,7 @@ modulename_info.php
 modulename.php
 -> contains MultiHook_needleapi_modulename(), which does the real work and returns
    the replacement string. It gets the needle id passed as $nid. The needle id is the
-   part after the uppercase needlename, in PNFORUMF_1 the F_1 is the needle id. 
+   part after the uppercase needlename, in PNFORUMF-1 the F-1 is the needle id. 
    Parsing and acting on the results is your part as developer ;-)
 
 The modulename must not necessarily be a real module name, you can use this to for different
