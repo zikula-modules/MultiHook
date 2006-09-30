@@ -42,7 +42,7 @@ function MultiHook_needleapi_weblink($args)
             if(pnModAvailable('Web_Links')) {
                 pnModLangLoad('MultiHook', 'weblink');
                 // nid is like C_##, D_## or L_##
-                $temp = explode('_', $nid);
+                $temp = explode('-', $nid);
                 $type = '';
                 if(is_array($temp)) {
                     $type = $temp[0];

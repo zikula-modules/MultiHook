@@ -44,7 +44,7 @@ function MultiHook_needleapi_paged($args)
         $cache[$nid] = $result;
         if(pnModAvailable('PagEd')) {
             // nid is like P_## or T_##
-            $temp = explode('_', $nid);
+            $temp = explode('-', $nid);
             $type = '';
             if(is_array($temp) && count($temp)==2) {
                 $type = $temp[0];

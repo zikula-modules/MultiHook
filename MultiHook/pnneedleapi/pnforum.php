@@ -45,7 +45,7 @@ function MultiHook_needleapi_pnforum($args)
             if(pnModAvailable('pnForum')) {
                 
                 // nid is like F_## or T_##
-                $temp = explode('_', $nid);
+                $temp = explode('-', $nid);
                 $type = '';
                 if(is_array($temp) && count($temp)==2) {
                     $type = $temp[0];
@@ -74,10 +74,10 @@ function MultiHook_needleapi_pnforum($args)
                                 $title = pnVarPrepForDisplay($title);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . pnVarPrepForDisplay(MH_PNF_NOAUTHFORFORUM . ' (' . $id . ')') . '</em>';
+                                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PNF_NOAUTHFORFORUM . ' (' . $id . ')') . '</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . pnVarPrepForDisplay(MH_PNF_UNKNOWNFORUM . ' (' . $id . ')') . '</em>';
+                            $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PNF_UNKNOWNFORUM . ' (' . $id . ')') . '</em>';
                         }
                         break;
                     case 'T':
@@ -101,14 +101,14 @@ function MultiHook_needleapi_pnforum($args)
                                 $title = pnVarPrepForDisplay($title);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . pnVarPrepForDisplay(MH_PNF_NOAUTHFORTOPIC . ' (' . $id . ')') . '</em>';
+                                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PNF_NOAUTHFORTOPIC . ' (' . $id . ')') . '</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . pnVarPrepForDisplay(MH_PNF_UNKNOWNTOPIC . ' (' . $id . ')') . '</em>';
+                            $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PNF_UNKNOWNTOPIC . ' (' . $id . ')') . '</em>';
                         }
                         break;
                     default:
-                        $cache[$nid] = '<em>' . pnVarPrepForDisplay(MH_PNF_UNKNOWNTYPE) . '</em>';
+                        $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PNF_UNKNOWNTYPE) . '</em>';
                 }
             } else {
                 $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PNF_NOTAVAILABLE) . '</em>';

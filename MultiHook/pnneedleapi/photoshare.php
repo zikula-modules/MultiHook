@@ -45,7 +45,7 @@ function MultiHook_needleapi_photoshare($args)
                 pnModLangLoad('MultiHook', 'photoshare');
                 
                 // nid is like type_albumid, type_imageid or type_imageid_width_height
-                $temp = explode('_', $nid);
+                $temp = explode('-', $nid);
                 $type = '';
                 if(is_array($temp) && count($temp)>=2) {
                     $type   = $temp[0];

@@ -47,7 +47,7 @@ function MultiHook_needleapi_download($args)
                 // if  <2.0 -> false
                 $is_dl20 = version_compare($modinfo['version'], '2.0', '>=');
                 // nid is like C_##, D_## or L_##
-                $temp = explode('_', $nid);
+                $temp = explode('-', $nid);
                 $type = '';
                 if(is_array($temp)) {
                     $type = $temp[0];

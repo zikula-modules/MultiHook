@@ -40,7 +40,7 @@ function MultiHook_needleapi_pagesetter($args)
             if(pnModAvailable('pagesetter')) {
                 pnModLangLoad('MultiHook', 'pagesetter');
                 // nid is like tid_pid or tid only
-                $temp = explode('_', $nid);
+                $temp = explode('-', $nid);
                 switch(count($temp)) {
                     case 1:
                         // $temp[0] is treated as tid
