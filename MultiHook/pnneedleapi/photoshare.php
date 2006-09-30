@@ -47,12 +47,20 @@ function MultiHook_needleapi_photoshare($args)
                 // nid is like type_albumid, type_imageid or type_imageid_width_height
                 $temp = explode('-', $nid);
                 $type = '';
-                if(is_array($temp) && count($temp)>=2) {
+                if(is_array($temp)) {
                     $type   = $temp[0];
-                    $id     = $temp[1];
+                    $id  = (isset($temp[1])) ? $temp[1] : null;
                     if($type=='P') {
                         $width  = (isset($temp[2])) ? $temp[2] : null; // if type==P
                         $height = (isset($temp[3])) ? $temp[3] : null; // if type==P
+                        $align  = (isset($temp[4])) ? strtolower($temp[4]) : null; // if type==P
+                        if(isset($align) && $align <> 'left' && $align <> 'right') {
+                            unset($align);
+                        }
+                    }
+                    // only type==C allows an empty id:
+                    if($type<>'C' && !isset($id)) {
+                        $type = '';
                     }
                 }
                 
@@ -94,6 +102,10 @@ function MultiHook_needleapi_photoshare($args)
                                         $widthheight = ' width="' . $width . '" height="' . $height . '"';
                                     }
                                     $cache[$nid] = '<img src="' . $url . '" title="' . $title . '" alt="' . $title . '"' . $widthheight . ' />';
+                                    if(isset($align)) {
+                                        // validity checks have been done before
+                                        $cache[$nid] = '<span style="float: ' . $align . '">'. $cache[$nid] . '</span>';
+                                    }    
                                 } else {
                                     // Thumbnail
                                     $fullurl   = pnVarPrepForDisplay(pnModURL('photoshare', 'user', 'viewimage', array('iid' => $id)));
@@ -107,6 +119,9 @@ function MultiHook_needleapi_photoshare($args)
                         } else {
                             $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PS_UNKNOWNIMAGE .  ' (' . $id . ')') . '</em>';
                         }
+                        break;
+                    case 'C':
+                        $cache[$nid] = '<span style="clear: both;">&nbsp;</span>';
                         break;
                     default:
                         $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PS_UNKNOWNTYPE) . '</em>';
