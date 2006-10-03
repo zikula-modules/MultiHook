@@ -135,7 +135,7 @@ right before or after the MultiHook stylesheet as mentioned before.
 Needles
 -------
 Needles are a clever invention by Oivind Skau and have been implemented in PagEd for the
-first time.
+first time. They have been implemented since MultiHook 4.0.
 
 You can simply add any kind of link by writing NEEDLENAME{moduleparams} if there is a
 corresponding pnneedleapi-function available, eg.
@@ -143,9 +143,9 @@ corresponding pnneedleapi-function available, eg.
 PNFORUMF-2 adds a link to the forum with id 2
 PNFORUMT-5 adds a link to the topic with id 5
 
-Important: After adding new needles, you need to click the needles configuration in Multihook
+Important: After adding new needles, you need to go to the needles configuration in Multihook
 once (index.php?module=MultiHook&type=admin&func=viewneedles) in order to make them available
-in the system. This rescans the pnneedleapi folder. Now the new needles are available.
+in the system. This rescans the pnneedleapi folder. Now the new needles are ready for use.
 
 These needles are shipped with MultiHook:
 
@@ -169,6 +169,10 @@ PNFORUM{F-forumid|T-topicid}
 -> links to a forum or topic
 WEBLINK{C-weblinkcategoryid|D-weblinkid|L-weblinkid|S} 
 -> links to a web links category, the web links details or directly to the link 
+
+The needles will be searched in upper case only:
+HTMLPAGE12 will be found while
+htmlpage12 won't. 
 
 Writing new needles (for developers only)
 -----------------------------------------
