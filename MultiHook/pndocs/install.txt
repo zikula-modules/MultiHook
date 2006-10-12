@@ -1,6 +1,6 @@
 $Id$
 
-Sine version 4.0 MultiHook needs the AjaxSupportPackage because the prototype.js used
+Since version 4.0 MultiHook needs the AjaxSupportPackage because the prototype.js used
 here has been removed from the distribution. The reason is simple: I am too lazy to maintain
 the same files in three or four projects each. Now we have one place only.
 You can get the AjaxSupportPackage from
