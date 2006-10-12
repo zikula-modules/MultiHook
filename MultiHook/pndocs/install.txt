@@ -170,6 +170,10 @@ PNFORUM{F-forumid|T-topicid}
 WEBLINK{C-weblinkcategoryid|D-weblinkid|L-weblinkid|S} 
 -> links to a web links category, the web links details or directly to the link 
 
+Replace {description} with the data, | means "or".
+E.g. {P-pictureid} should be used like P-123 for picture 123
+
+
 The needles will be searched in upper case only:
 HTMLPAGE12 will be found while
 htmlpage12 won't. 
