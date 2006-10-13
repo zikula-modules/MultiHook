@@ -144,7 +144,7 @@ function MultiHook_needleapi_download($args)
                                 list($title, $desc) = $res->fields;
                                 if(pnSecAuthAction(0, 'Downloads::Item', $title . '::' . $id, ACCESS_READ)) {
                                     if($type=='D') {
-                                        $url = 'index.php?name=Downloads&req=viewdownload&cid=' . $id;
+                                        $url = 'index.php?name=Downloads&req=viewdownloaddetails&lid=' . $id;
                                     } else {
                                         $url = 'index.php?name=Downloads&req=getit&lid=' . $id;
                                     }
