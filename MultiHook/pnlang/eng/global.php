@@ -18,7 +18,7 @@
 
 // new
 define('_MH_ISHOOKEDWITH', 'Actually Multihook is used with the following modules');
-define('_MH_ADDHOOK', 'Activate MultiHook fpr more modules');
+define('_MH_ADDHOOK', 'Activate MultiHook for more modules');
 define('_MH_START','Start');
 define('_MH_TYPENEEDLES', 'Needle');
 define('_MH_VIEWNEEDLES', 'Needles');
