@@ -26,7 +26,7 @@
  */
 function MultiHook_needleapi_pnforum_info($args)
 {
-    $info = array('pnForum', 'PNFORUM{F_forumid|T_topicid}');
+    $info = array('pnForum', 'PNFORUM{F-forumid|T-topicid}');
     return $info;
 }
 
