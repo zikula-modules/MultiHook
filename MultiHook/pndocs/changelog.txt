@@ -1,5 +1,10 @@
 $Id$
 
+Version 4.5
+   - implemented censor functions 
+   - fixed [#3462] Link to "more-modules" is wrong
+   - fixed [#3461] Link for Needle: DOWNLOADD is wrong
+
 Version 4.0
    - added PagEd-like needles
    - removed prototype.js from distribution, you need to install the AjaxSupportPackage 

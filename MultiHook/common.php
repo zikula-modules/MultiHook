@@ -111,6 +111,20 @@ function create_link($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=
     return $replace_temp;
 }
 
+function create_censor($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false)
+{
+    extract($abac);
+
+    $replace_temp = str_repeat("*", strlen($abac['short']));
+
+    if($mhadmin==true && $mhshoweditlink==true) {
+        $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/pnimages/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_CENSOR) . ') #' . $aid . '" />' . '</span>';
+    }
+
+    return $replace_temp;
+
+}
+
 function overlib_params()
 {
     $overlib_border = 1;

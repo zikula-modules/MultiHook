@@ -16,6 +16,11 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
+// even newer :-)
+define('_MH_CENSOR', 'Censor');
+define('_MH_TYPEILLEGALWORD', 'illegal word');
+define('_MH_VIEWILLEGALWORDS', 'Illegal words');
+
 // new
 define('_MH_ISHOOKEDWITH', 'Actually Multihook is used with the following modules');
 define('_MH_ADDHOOK', 'Activate MultiHook for more modules');
@@ -75,7 +80,7 @@ define('_MH_LINK', 'Link');
 define('_MH_LOADINGDATA', 'loading data...');
 define('_MH_LONG','Long version');
 define('_MH_LONGEMPTY', 'missing long text');
-define('_MH_LONGHINT', '(in case of a link the url)');
+define('_MH_LONGHINT', '(in case of a link the url, ignored for illegal words)');
 
 //
 // M
@@ -117,7 +122,7 @@ define('_MH_SHOWME','Show');
 //
 define('_MH_TITLE','Title');
 define('_MH_TITLEEMPTY', 'missing title text');
-define('_MH_TITLEHINT', '(only necessary for a link)');
+define('_MH_TITLEHINT', '(only necessary for a link, ignored for illegal words)');
 define('_MH_TYPE','Type');
 define('_MH_TYPEABBREVIATION', 'Abbreviation');
 define('_MH_TYPEACRONYM', 'Acronym');

@@ -23,7 +23,7 @@ include_once('modules/MultiHook/common.php');
 
 /**
  * get all entries
- * @params $args['filter'] int 0=abbr, 1=acronyms, 2=links
+ * @params $args['filter'] int 0=abbr, 1=acronyms, 2=links, 3=censored words
  * @params $args['sortbylength'] bool
  * @returns array
  * @return array of entries, or false on failure
@@ -52,7 +52,7 @@ function MultiHook_userapi_getall($args)
     $multihookcolumn = $pntable['multihook_column'];
 
     $where = "";
-    if(isset($filter) && is_numeric($filter) && ($filter>=0 && $filter<=2)) {
+    if(isset($filter) && is_numeric($filter) && ($filter>=0 && $filter<=3)) {
         $where = "WHERE $multihookcolumn[type]=" . pnVarPrepForStore($filter);
     }
 
@@ -81,6 +81,10 @@ function MultiHook_userapi_getall($args)
     for (; !$result->EOF; $result->MoveNext()) {
         list($aid, $short, $long, $title, $type, $language) = $result->fields;
         if (pnSecAuthAction(0, 'MultiHook::', "$short::$aid", ACCESS_READ)) {
+            if($type==3) {
+                $long  = str_repeat("*", strlen($short));
+                $title = str_repeat("*", strlen($short));
+            }
             $abacs[] = array('aid' => $aid,
                              'short' => trim($short),
                              'long' => trim($long),
@@ -391,6 +395,13 @@ function MultiHook_userapitransform($text)
                     $finalreplace[] = create_link($tmp, $mhadmin, $mhshoweditlink, $haveoverlib);
                     unset($search_temp);
                 }
+            } else if($tmp['type']==3) {
+                $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:])(?!\.\w)/i';
+                $search[]      = $search_temp;
+                $replace[]     = md5($search_temp);
+                $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
+                $finalreplace[] = create_censor($tmp, $mhadmin, $mhshoweditlink, $haveoverlib);
+                unset($search_temp);
             }
         } // foreach
     }

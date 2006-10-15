@@ -91,7 +91,8 @@ function MultiHook_admin_edit($args)
     $pnr->assign('abac', $abac);
     $pnr->assign('types', array( _MH_TYPEABBREVIATION,
                                  _MH_TYPEACRONYM,
-                                 _MH_TYPELINK));
+                                 _MH_TYPELINK,
+                                 _MH_TYPEILLEGALWORD));
     return $pnr->fetch("mh_admin_edit.html");
 }
 
@@ -270,7 +271,7 @@ function MultiHook_admin_view()
     $titles = array( _MH_VIEWABBR,
                      _MH_VIEWACRONYMS,
                      _MH_VIEWLINKS,
-                     _MH_VIEWNEEDLES );
+                     _MH_VIEWILLEGALWORDS );
 
     // Create output object
     $pnr =& new pnRender('MultiHook');

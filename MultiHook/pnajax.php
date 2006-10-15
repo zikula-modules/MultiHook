@@ -118,6 +118,8 @@ function MultiHook_ajax_store()
                         $error .= _MH_WRONGPARAMETER_TITLE . '<br />';
                     }
                     break;
+                case '3': // illegal word
+                    break;
                 default:
                     $error = _MH_WRONGPARAMETER_TYPE . ' (' . $type . ')<br />';
             }
@@ -148,6 +150,8 @@ function MultiHook_ajax_store()
                         case '2':  // link
                             $return = create_link($abac, $mhadmin, $mhshoweditlink, $haveoverlib);
                             break;
+                        case '3':  // illegal word
+                            $return = create_censor($abac, $mhadmin, $mhshoweditlink, $haveoverlib);
                         default:
                             //  we cannot get here, type has been checked before already
                     }

@@ -123,13 +123,14 @@ function MultiHook_upgrade($oldversion)
             pnModSetVar('MultiHook', 'mhreplaceabbr', 0);
         case '1.3':
             pnModSetVar('MultiHook', 'mhshoweditlink', 1);
-            break;
+        case '2.0':
         case '3.0':
-        // collect the needles  
-        // force loading of adminapi
-        pnModAPILoad('MultiHook', 'admin', true);
-        pnModAPIFunc('MultiHook', 'admin', 'collectneedles');
-        
+            // collect the needles  
+            // force loading of adminapi
+            pnModAPILoad('MultiHook', 'admin', true);
+            pnModAPIFunc('MultiHook', 'admin', 'collectneedles');
+        case '4.0':
+            break;
     }
     $smarty = new Smarty;
     $smarty->compile_dir = pnConfigGetVar('temp') . '/pnRender_compiled';

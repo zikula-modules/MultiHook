@@ -20,7 +20,7 @@
 // ----------------------------------------------------------------------
 
 $modversion['name'] = _MH_MODULENAME;
-$modversion['version'] = '4.0';
+$modversion['version'] = '4.5';
 $modversion['description'] = _MH_MODULEDESCRIPTION;
 $modversion['credits'] = 'pndocs/credits.txt';
 $modversion['help'] = 'pndocs/help.txt';
