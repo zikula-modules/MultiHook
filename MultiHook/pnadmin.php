@@ -24,7 +24,7 @@
  */
 function MultiHook_admin_main()
 {
-    if(!pnSecAuthAction('MultiHook::', '::', ACCESS_ADMIN)) {
+    if(!pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADMIN)) {
         return pnVarPrepForDisplay(_MH_NOAUTH);
     }
     
@@ -108,7 +108,7 @@ function MultiHook_admin_edit($args)
  */
 function MultiHook_admin_store($args)
 {
-    if(!pnSecAuthAction('MultiHook::', '::', ACCESS_ADD)) {
+    if(!pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADD)) {
         return pnVarPrepForDisplay(_MH_NOAUTH);
     }
 
