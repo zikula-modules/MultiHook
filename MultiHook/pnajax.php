@@ -37,7 +37,7 @@ function MultiHook_ajax_read()
 
     mh_ajaxerror($error);
 
-    echo $return;
+    echo utf8_encode($return);
     exit;
 }
 
@@ -177,7 +177,7 @@ function MultiHook_ajax_store()
     mh_ajaxerror($error);
 
     // otherwise output result and exit
-    echo $return;
+    echo utf8_encode($return);
     exit;
 }
 
