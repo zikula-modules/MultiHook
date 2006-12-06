@@ -17,7 +17,7 @@ pnForum or Pagesetter. The main admin panel shows for which modules the MultiHoo
 If present, the links stored in AutoLinks will be copied to the MultiHook
 tables.
 
-You can now add links, acronyms and abbreviations in the admin panel or by selecting
+You can now add links, acronyms, abbreviations and censors in the admin panel or by selecting
 text while pressing the CTRL-button on every page inside PN.
 
 HTML Tags needed for MultiHook
@@ -76,6 +76,12 @@ http://www.yourdomain.com/www.pn-cms.de although the a-tag looks correct in the 
 This is not a bug in MultiHook, but the normal behaviour if a browser does not reckognize a fully
 qualified url.
 
+Censoring
+---------
+Since 4.5 MultiHook is able to replace the .76x module Censor. You can define words or
+phrases that get replaced by **** (one * for each character). Handling is the same as for 
+link, abbreviations or acronyms. 
+
 Ajax support
 ------------
 Since version 2.0 MultiHook uses Ajax for easier adding and manipulating of data.
@@ -88,7 +94,7 @@ Since version 2.0 MultiHook uses Ajax for easier adding and manipulating of data
 *** This is a preparation for PN .8.0.0.
 *** When using pnForum >2.6 (or maybe other prototype enabled modules too) this is not necessary
 *** because you already have <PostNuke-Root>/javascript/ajax - just make sure that you have the
-*** latest version of prototype.js
+*** latest supported version of prototype.js
 ********************
 
 If you want to use this feature, your PostNuke theme has to be prepared for
