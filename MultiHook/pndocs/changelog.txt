@@ -2,6 +2,7 @@ $Id$
 
 Version 5.0
    - PostNuke .8 only
+   - no more theme changes necessary!
    
 Version 4.5
    - implemented censor functions 

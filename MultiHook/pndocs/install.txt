@@ -33,14 +33,15 @@ Internet Explorer special trick:
 --------------------------------
 IE cannot (sigh...) handle the abbr tag correctly (or better said: it cannot
 handle it correctly at all). We need a special css trick to make this
-possible. Add this
+possible. This
 
 abbr, acronym, span.abbr {
     cursor: help;
     border-bottom: 1px dashed #000;
 }
 
-to your stylesheet files.
+is stored in the internal stylesheet mh.css file which will be loaded automatically
+in PostNuke .8.
 
 The abbr tag created will look like this:
 
@@ -53,7 +54,7 @@ External Links
 MultiHook can add special markup for external links. For this feature you can (and
 should) specify a css class in the configuration, e.g. externallink.
 
-The css declaration in your style.css / styleNN.css can look like:
+The css declaration in mh.css looks like:
 
 a.externallink {
     padding-left:  14px;
@@ -82,22 +83,18 @@ Since 4.5 MultiHook is able to replace the .76x module Censor. You can define wo
 phrases that get replaced by **** (one * for each character). Handling is the same as for 
 link, abbreviations or acronyms. 
 
+Using PostNuke .8 this is 100% integrated in the MultiHook and replaces the old
+Censor module.
+
 Ajax support
 ------------
 Since version 2.0 MultiHook uses Ajax for easier adding and manipulating of data.
 
-********************
-*** Important note for users upgrading from MultiHook 2.0: Since 3.0 prototype.js
-*** has to be present in the <PostNuke-Root>/javascript/ajax folder. You have to install the
-*** AjaxSupportPackage from http://noc.postnuke.com/frs/?group_id=8 to get all necessary
-*** files.
-*** This is a preparation for PN .8.0.0.
-*** When using pnForum >2.6 (or maybe other prototype enabled modules too) this is not necessary
-*** because you already have <PostNuke-Root>/javascript/ajax - just make sure that you have the
-*** latest supported version of prototype.js
-********************
-
-If you want to use this feature, your PostNuke theme has to be prepared for
+In previous versions of MultiHook you had to make manual changes to
+yiur theme . using PostNuke .8 this is not longer necessary. The core is
+prepared to do eerything automatically when using a Xanthia theme.
+ 
+If you want to use this feature n other themes, your PostNuke theme has to be prepared for
 this and you have to enable javascript in your browser.
 Copy modules/MultiHook/pntemplates/plugins/function.multihookhelper.php to your
 modules/Xanthia/plugins folder and change your theme templates:
@@ -116,7 +113,7 @@ ACCESS_ADD permissions for MultiHook.
 
 In non-Xanthiathemes (legacy, AT...) you can call
 
-    $multihookhelper = pnModFunc('MultiHook', 'admin', 'helper'));
+    $multihookhelper = pnModFunc('MultiHook', 'theme', 'helper'));
 
 to retrieve the HTML in $multihookhelper and show where you want (which in fact is what the
 plugin does too).
@@ -127,16 +124,6 @@ paste the text as before.
 
 If you do not want to use Ajax you can still use the normal admin panel for adding and changing
 the data.
-
-*** Note ***
-When using other modules on the same page that also use prototype you might need to move the
-inclusion of the exernal script from the mh_dynamic_hiddenform.html template to the theme in
-order to avoid conflicts. In this cas add 
-
-<script type="text/javascript" src="javascript/ajax/prototype.js"></script>
-
-right before or after the MultiHook stylesheet as mentioned before.
-*** /Note ***
 
 Needles
 -------
