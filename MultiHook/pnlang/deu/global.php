@@ -17,16 +17,16 @@
 // ----------------------------------------------------------------------
 
 // even newer :-)
+define('_MH_NEEDLES', 'Needles');
+define('_MH_NOTHOOKED', '** der MultiHook wird zur Zeit von keinem Modul verwendet **');
+define('_MH_LINKS', 'Links');
+define('_MH_UPGRADETO50FAILED', 'Upgrade auf 5.0 fehlgeschlagen');
 define('_MH_CENSOR', 'Zensur');
-define('_MH_TYPEILLEGALWORD', 'unerwünschter Begriff');
 define('_MH_VIEWILLEGALWORDS', 'Unerwünschte Begriffe');
 
 // new
 define('_MH_ISHOOKEDWITH', 'Der Multihook wird mit folgenden Modulen verwendet');
-define('_MH_ADDHOOK', 'Hook für weitere Module aktivieren');
 define('_MH_START','Start');
-define('_MH_TYPENEEDLES', 'Needle');
-define('_MH_VIEWNEEDLES', 'Needles');
 define('_MH_EXISTSINDB', 'bereits in der Datenbank vorhanden');
 define('_MH_NONEEDLES', 'Keine Needles gefunden');
 define('_MH_NODESCRIPTIONFOUND', 'keine Beschreibung vorhanden');
@@ -36,10 +36,11 @@ define('_MH_NEEDLEDATAERROR', 'Fehler beim Einlesen der Needledaten für \'%s\' o
 // A
 //
 define('_MH_ABACFIRST', 'Gefundene Einträge nur jeweils einmal im Text ersetzen');
-define('_MH_ABBREVIATION', 'Abkürzung');
-define('_MH_ACRONYM', 'Akronym');
-define('_MH_ADD', 'Hinzufügen');
-define('_MH_ADMINTITLE','Links, Abkürzungen und Akronyme');
+define('_MH_ABBREVIATION', 'Abkürzungen');
+define('_MH_ACRONYM', 'Akronyme');
+define('_MH_ADD', 'Eintrag hinzufügen');
+define('_MH_ADDHOOK', 'Hook für weitere Module aktivieren');
+define('_MH_ADMINTITLE','Links, Abkürzungen, Akronyme und Zensur');
 
 //
 // C
@@ -76,7 +77,7 @@ define('_MH_ITEMSPERPAGE', 'Anzahl der Einträge pro Seite in der Adminanzeige');
 //
 define('_MH_LANGUAGE','Sprache');
 define('_MH_LANGUAGEEMPTY', 'Sprache fehlt');
-define('_MH_LINK', 'Link');
+define('_MH_LINK', 'Links');
 define('_MH_LOADINGDATA', 'lade Daten...');
 define('_MH_LONG','Langfassung');
 define('_MH_LONGEMPTY', 'Langfassung fehlt');
@@ -126,6 +127,8 @@ define('_MH_TITLEHINT', '(nur bei einem Link notwendig, wird bei unerwünschten B
 define('_MH_TYPE','Typ');
 define('_MH_TYPEABBREVIATION', 'Abkürzung');
 define('_MH_TYPEACRONYM', 'Akronym');
+define('_MH_TYPENEEDLES', 'Needle');
+define('_MH_TYPEILLEGALWORD', 'Unerwünschter Begriff');
 define('_MH_TYPEEMPTY', 'Typ fehlt');
 define('_MH_TYPELINK', 'Link');
 
@@ -143,6 +146,8 @@ define('_MH_UPDATEFAILED','Aktualisierung des Eintrags fehlgeschlagen');
 define('_MH_VIEWABBR','Abkürzungsliste');
 define('_MH_VIEWACRONYMS','Akronymliste');
 define('_MH_VIEWLINKS','Linkliste');
+define('_MH_VIEWNEEDLES', 'Needleliste');
+define('_MH_VIEWCENSOR', 'Liste der unerwünschten Begriffe');
 
 //
 // W

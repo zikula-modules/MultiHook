@@ -159,4 +159,26 @@ function MultiHook_adminapi_collectneedles()
     return $needles;
 }
 
+/**
+ * get available admin panel links
+ *
+ * @author Mark West
+ * @return array array of admin links
+ */
+function MultiHook_adminapi_getlinks()
+{
+    $links = array();
+    if (SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
+        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'main'), 'text' => _MH_START);
+        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'edit', array('aid' => -1)), 'text' => _MH_ADD);
+        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'view', array('filter' => 0)), 'text' => _MH_ABBREVIATION, 'title' => _MH_VIEWABBR);
+        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'view', array('filter' => 1)), 'text' => _MH_ACRONYM, 'title' => _MH_VIEWACRONYMS);
+        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'view', array('filter' => 2)), 'text' => _MH_LINKS, 'title' => _MH_VIEWLINKS);
+        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'view', array('filter' => 3)), 'text' => _MH_CENSOR, 'title' => _MH_VIEWCENSOR);
+        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'viewneedles'), 'text' => _MH_NEEDLES, 'title' => _MH_VIEWNEEDLES);
+        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'modifyconfig'), 'text' => _MH_MODIFYCONFIG);
+    }
+    return $links;
+}
+
 ?>

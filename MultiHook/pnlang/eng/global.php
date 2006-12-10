@@ -17,16 +17,16 @@
 // ----------------------------------------------------------------------
 
 // even newer :-)
+define('_MH_NEEDLES', 'Needles');
+define('_MH_NOTHOOKED', '** MultiHook is not used with any module **');
+define('_MH_LINKS', 'Links');
+define('_MH_UPGRADETO50FAILED', 'Upgrade to 5.0 failed');
 define('_MH_CENSOR', 'Censor');
-define('_MH_TYPEILLEGALWORD', 'illegal word');
 define('_MH_VIEWILLEGALWORDS', 'Illegal words');
 
 // new
 define('_MH_ISHOOKEDWITH', 'Actually Multihook is used with the following modules');
-define('_MH_ADDHOOK', 'Activate MultiHook for more modules');
 define('_MH_START','Start');
-define('_MH_TYPENEEDLES', 'Needle');
-define('_MH_VIEWNEEDLES', 'Needles');
 define('_MH_EXISTSINDB', ' already exists in database');
 define('_MH_NONEEDLES', 'No Needles found');
 define('_MH_NODESCRIPTIONFOUND', 'no description found');
@@ -36,10 +36,11 @@ define('_MH_NEEDLEDATAERROR', 'Error reading reading needle data for \'%s\' or m
 // A
 //
 define('_MH_ABACFIRST', 'Only replace first occurence per text');
-define('_MH_ABBREVIATION', 'Abbreviation');
-define('_MH_ACRONYM', 'Acronym');
-define('_MH_ADD','Add');
-define('_MH_ADMINTITLE','Links, Abbreviations and Acronyms');
+define('_MH_ABBREVIATION', 'Abbreviations');
+define('_MH_ACRONYM', 'Acronyms');
+define('_MH_ADD','Add item');
+define('_MH_ADDHOOK', 'Activate MultiHook for more modules');
+define('_MH_ADMINTITLE','Links, Abbreviations, Acronyms and Censor');
 
 //
 // B
@@ -76,7 +77,7 @@ define('_MH_ITEMSPERPAGE', 'Items per page in admin view');
 //
 define('_MH_LANGUAGE','Language');
 define('_MH_LANGUAGEEMPTY', 'missing language');
-define('_MH_LINK', 'Link');
+define('_MH_LINK', 'Links');
 define('_MH_LOADINGDATA', 'loading data...');
 define('_MH_LONG','Long version');
 define('_MH_LONGEMPTY', 'missing long text');
@@ -126,6 +127,8 @@ define('_MH_TITLEHINT', '(only necessary for a link, ignored for illegal words)'
 define('_MH_TYPE','Type');
 define('_MH_TYPEABBREVIATION', 'Abbreviation');
 define('_MH_TYPEACRONYM', 'Acronym');
+define('_MH_TYPENEEDLES', 'Needle');
+define('_MH_TYPEILLEGALWORD', 'Illegal word');
 define('_MH_TYPEEMPTY', 'missing type');
 define('_MH_TYPELINK', 'Link');
 
@@ -143,6 +146,8 @@ define('_MH_UPDATEFAILED','Database update of entry failed');
 define('_MH_VIEWABBR','View abbreviations');
 define('_MH_VIEWACRONYMS','View acronyms');
 define('_MH_VIEWLINKS','View links');
+define('_MH_VIEWNEEDLES', 'View needles');
+define('_MH_VIEWCENSOR', 'View censored words');
 
 //
 // W

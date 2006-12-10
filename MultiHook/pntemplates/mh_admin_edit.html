@@ -5,49 +5,42 @@
 <h2><!--[ pnml name='_MH_ADD' ]--></h2>
 
 <form action="<!--[ pnmodurl modname="MultiHook" type="admin" func="store" ]-->" method="post">
-<input type="hidden" name="authid" value="<!--[ pnsecgenauthkey module="MultiHook" ]-->" />
-<input type="hidden" name="mh_aid" value="<!--[ $abac.aid ]-->" />
+<div>
+    <input type="hidden" name="authid" value="<!--[ pnsecgenauthkey module="MultiHook" ]-->" />
+    <input type="hidden" name="mh_aid" value="<!--[ $abac.aid ]-->" />
+    <div class="mhfloatbox">
+        <dl>
+            <dt><label for="mh_short"><!--[ pnml name='_MH_SHORT' ]--></label></dt>
+            <dd><input type="text" name="mh_short" id="mh_short" value="<!--[ $abac.short ]-->" size="40" maxlength="60" /></dd>
 
-<div class="mh_adminrow">
-    <label for="abbr_short"><!--[ pnml name='_MH_SHORT' ]--></label><br />
-    <input type="text" name="mh_short" id="abbr_short" value="<!--[ $abac.short ]-->" size="40" maxlength="60" />
-</div>
+            <dt><label for="mh_long"><!--[ pnml name='_MH_LONG' ]-->&nbsp;<!--[ pnml name='_MH_LONGHINT' ]--></label></dt>
+            <dd><input type="text" name="mh_long" id="mh_long" value="<!--[ $abac.long ]-->" size="40" maxlength="200" /></dd>
 
-<div class="mh_adminrow">
-    <label for="abbr_long"><!--[ pnml name='_MH_LONG' ]-->&nbsp;<!--[ pnml name='_MH_LONGHINT' ]--></label><br />
-    <input type="text" name="mh_long" id="abbr_long" value="<!--[ $abac.long ]-->" size="40" maxlength="200" />
-</div>
+            <dt><label for="mh_title"><!--[ pnml name='_MH_TITLE' ]-->&nbsp;<!--[ pnml name='_MH_TITLEHINT' ]--></label></dt>
+            <dd><input type="text" name="mh_title" id="mh_title" value="<!--[ $abac.title ]-->" size="40" maxlength="200" /></dd>
 
-<div class="mh_adminrow">
-    <label for="abbr_title"><!--[ pnml name='_MH_TITLE' ]-->&nbsp;<!--[ pnml name='_MH_TITLEHINT' ]--></label><br />
-    <input type="text" name="mh_title" id="abbr_title" value="<!--[ $abac.title ]-->" size="40" maxlength="200" />
-</div>
+            <dt><label for="mh_type"><!--[ pnml name='_MH_TYPE' ]--></label></dt>
+            <dd>
+                <select id="mh_type" name="mh_type">
+                <!--[ html_options options=$types selected=$abac.type ]-->
+                </select>
+            </dd>
 
-<div class="mh_adminrow">
-    <label for="abbr_type"><!--[ pnml name='_MH_TYPE' ]--></label>
-    <select id="abbr_type" name="mh_type">
-    <!--[ html_options options=$types selected=$abac.type ]-->
-    </select>
-</div>
+            <dt><label for="mh_language"><!--[ pnml name='_MH_LANGUAGE' ]--></label></dt>
+            <dd><!--[ mhlanguagelist name="mh_language" id="mh_language" installed=1 selected=$abac.language ]--></dd>
 
-<div class="mh_adminrow">
-    <label for="abbr_language"><!--[ pnml name='_MH_LANGUAGE' ]--></label>
-    <!--[ mhlanguagelist name="mh_language" id="abbr_language" installed=1 selected=$abac.language ]-->
-</div>
+            <!--[ if $abac.delete == true ]-->
+            <dt><label for="mh_delete"><!--[ pnml name='_MH_DELETE' ]--></label></dt>
+            <dd><input type="checkbox" name="mh_delete" id="mh_delete" value="1" /></dd>
+            <!--[ /if ]-->
+        </dl>
+    </div>
 
-<!--[ if $abac.delete == true ]-->
-<div class="mh_adminrow">
-    <label for="abbr_language"><!--[ pnml name='_MH_DELETE' ]--></label>
-    <input type="checkbox" name="mh_delete" id="mh_delete" value="1" />
-</div>
-<!--[ /if ]-->
+    <p>
+        <input type="submit" name="submit" id="submit" value="<!--[ pnml name='_SUBMIT' ]-->" />
+    </p>
 
-
-<br /><br />
-<div class="mh_adminrow">
-    <input type="submit" name="submit" id="submit" value="<!--[ pnml name='_SUBMIT' ]-->" />
 </div>
 </form>
-<br />
 
 <!--[ include file=mh_admin_footer.html ]-->

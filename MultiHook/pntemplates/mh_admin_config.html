@@ -3,83 +3,39 @@
 <!--[ include file=mh_admin_header.html ]-->
 
 <h2><!--[ pnml name='_MH_MODIFYCONFIG' ]--></h2>
-<br />
 
 <form action="<!--[ pnmodurl modname=MultiHook type=admin func=modifyconfig ]-->" method="post">
-<input type="hidden" name="authid" value="<!--[ pnsecgenauthkey module="MultiHook" ]-->" />
-
-<div style="clear: both;">
-    <div style="width: 50%; text-align: left; float: left;">
-        <label for="abacfirst"><!--[ pnml name='_MH_ABACFIRST' ]--></label>
+<div>
+    <div class="mhfloatbox">
+        <input type="hidden" name="authid" value="<!--[ pnsecgenauthkey module="MultiHook" ]-->" />
+    
+        <dl class="mhclearfix">
+            <dt><label for="abacfirst"><!--[ pnml name='_MH_ABACFIRST' ]--></label></dt>
+            <dd><input type="checkbox" id="abacfirst" name="abacfirst" value="1" <!--[ if $pncore.MultiHook.abacfirst==1 ]-->checked="checked"<!--[ /if ]--> /></dd>
+            
+            <dt><label for="externallinkclass"><!--[ pnml name='_MH_EXTERNALLINKCLASS' ]--></label></dt>
+            <dd><input type="text" size="20" maxlength="40" id="externallinkclass" name="externallinkclass" value="<!--[ $pncore.MultiHook.externallinkclass ]-->" /></dd>
+            
+            <dt><label for="itemsperpage"><!--[ pnml name='_MH_ITEMSPERPAGE' ]--></label></dt>
+            <dd><input type="text" size="4" maxlength="4" id="itemsperpage" name="itemsperpage" value="<!--[ $pncore.MultiHook.itemsperpage ]-->" /></dd>
+            
+            <dt><label for="mhincodetags"><!--[ pnml name='_MH_MHINCODETAGS' ]--></label></dt>
+            <dd><input type="checkbox" id="mhincodetags" name="mhincodetags" value="1" <!--[ if $pncore.MultiHook.mhincodetags==1 ]-->checked="checked"<!--[ /if ]--> /></dd>
+            
+            <dt><label for="mhlinktitle"><!--[ pnml name='_MH_REPLACELINKWITHTITLE' ]--></label></dt>
+            <dd><input type="checkbox" id="mhlinktitle" name="mhlinktitle" value="1" <!--[ if $pncore.MultiHook.mhlinktitle==1 ]-->checked="checked"<!--[ /if ]--> /></dd>
+            
+            <dt><label for="mhreplaceabbr"><!--[ pnml name='_MH_REPLACEABBREVIATIONS' ]--></label></dt>
+            <dd><input type="checkbox" id="mhreplaceabbr" name="mhreplaceabbr" value="1" <!--[ if $pncore.MultiHook.mhreplaceabbr==1 ]-->checked="checked"<!--[ /if ]--> /></dd>
+            
+            <dt><label for="mhshoweditlink"><!--[ pnml name='_MH_SHOWEDITLINK' ]--></label></dt>
+            <dd><input type="checkbox" id="mhshoweditlink" name="mhshoweditlink" value="1" <!--[ if $pncore.MultiHook.mhshoweditlink==1 ]-->checked="checked"<!--[ /if ]--> /></dd>
+        </dl>
     </div>
-
-    <div style="width: 50%; text-align: left; float: right;">
-        <input type="checkbox" id="abacfirst" name="abacfirst" value="1" <!--[ if $pncore.MultiHook.abacfirst==1 ]-->checked="checked"<!--[ /if ]--> />
-    </div>
+    <p>
+        <input type="submit" name="submit" value="<!--[ pnml name='_MH_UPDATECONFIG' ]-->" />
+    </p>
 </div>
-
-<div style="clear: both;">
-    <div style="width: 50%; text-align: left; float: left;">
-        <label for="externallinkclass"><!--[ pnml name='_MH_EXTERNALLINKCLASS' ]--></label>
-    </div>
-
-    <div style="width: 50%; text-align: left; float: right;">
-        <input type="text" size="20" maxlength="40" id="externallinkclass" name="externallinkclass" value="<!--[ $pncore.MultiHook.externallinkclass ]-->" />
-    </div>
-</div>
-
-<div style="clear: both;">
-    <div style="width: 50%; text-align: left; float: left;">
-        <label for="itemsperpage"><!--[ pnml name='_MH_ITEMSPERPAGE' ]--></label>
-    </div>
-
-    <div style="width: 50%; text-align: left; float: right;">
-        <input type="text" size="4" maxlength="4" id="itemsperpage" name="itemsperpage" value="<!--[ $pncore.MultiHook.itemsperpage ]-->" />
-    </div>
-</div>
-
-<div style="clear: both;">
-    <div style="width: 50%; text-align: left; float: left;">
-        <label for="mhincodetags"><!--[ pnml name='_MH_MHINCODETAGS' ]--></label>
-    </div>
-
-    <div style="width: 50%; text-align: left; float: right;">
-        <input type="checkbox" id="mhincodetags" name="mhincodetags" value="1" <!--[ if $pncore.MultiHook.mhincodetags==1 ]-->checked="checked"<!--[ /if ]--> />
-    </div>
-</div>
-
-<div style="clear: both;">
-    <div style="width: 50%; text-align: left; float: left;">
-        <label for="mhlinktitle"><!--[ pnml name='_MH_REPLACELINKWITHTITLE' ]--></label>
-    </div>
-
-    <div style="width: 50%; text-align: left; float: right;">
-        <input type="checkbox" id="mhlinktitle" name="mhlinktitle" value="1" <!--[ if $pncore.MultiHook.mhlinktitle==1 ]-->checked="checked"<!--[ /if ]--> />
-    </div>
-</div>
-
-<div style="clear: both;">
-    <div style="width: 50%; text-align: left; float: left;">
-        <label for="mhreplaceabbr"><!--[ pnml name='_MH_REPLACEABBREVIATIONS' ]--></label>
-    </div>
-
-    <div style="width: 50%; text-align: left; float: right;">
-        <input type="checkbox" id="mhreplaceabbr" name="mhreplaceabbr" value="1" <!--[ if $pncore.MultiHook.mhreplaceabbr==1 ]-->checked="checked"<!--[ /if ]--> />
-    </div>
-</div>
-
-<div style="clear: both;">
-    <div style="width: 50%; text-align: left; float: left;">
-        <label for="mhshoweditlink"><!--[ pnml name='_MH_SHOWEDITLINK' ]--></label>
-    </div>
-
-    <div style="width: 50%; text-align: left; float: right;">
-        <input type="checkbox" id="mhshoweditlink" name="mhshoweditlink" value="1" <!--[ if $pncore.MultiHook.mhshoweditlink==1 ]-->checked="checked"<!--[ /if ]--> />
-    </div>
-</div>
-
-<br /><br />
-<input type="submit" name="submit" value="<!--[ pnml name='_MH_UPDATECONFIG' ]-->" />
 </form>
 
 <!--[ include file=mh_admin_footer.html ]-->

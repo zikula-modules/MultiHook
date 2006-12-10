@@ -83,38 +83,90 @@
     clear: both;
 }
 
-.mh_adminrow {
-    margin: 5px;
-    text-align: left; 
-}
+/**
+ * admin section
+ *
+ */
 
 #multihookadmin {
     clear: both; 
     padding-top: 2em;
 }
 
-#multihookadmin dt {
+#multihookadmin dl {
+    float: left;
+}
+    
+#multihookadmin dl dt {
+    clear: both;
     margin: 3px;
-    font-weight: bold;
+    float: left; 
+    font-weight: normal;
+    width: 300px;
 }
 
-#multihookadmin dd {
+#multihookadmin dl dd {
+    margin: 3px 0;
+    float: left;
+}
+
+#multihookadmin p {
     margin: 3px 0 3px 30px;
 }
 
-.multihookoptionrow {
+/*
+ * user section
+ *
+ */
+
+#mhuser {
+    margin: 3px 0;
+}
+
+#mhuser table {
+    width: 99%;
+    border-collapse: collapse;
+}
+
+#mhuser table tr {
+    width: 100%;
+}
+
+#mhuser table tr th {
+    background: #eeeeee; 
+    text-align: center; 
+}
+
+#mhuser table tr td {
+    text-align: center; 
+}
+
+.mhselection {
+    text-align: center;
+    margin: 5px 0;
+}
+
+/*
+ * clearfix solution
+ *
+ */
+
+.mhclearfix:after {
+    content: "."; 
+    display: block; 
+    height: 0; 
     clear: both; 
-    margin: 1em 0;
+    visibility: hidden;
 }
 
-.multihookoption19 {
-    width: 19%; 
-    text-align: center; 
-    float: left;
-}
+.mhclearfix {display: inline-table;}
 
-.multihookoption33 {
-    width: 33%; 
-    text-align: center; 
-    float: left;
+/* Hides from IE-mac \*/
+* html .mhclearfix {height: 1%;}
+.mhclearfix {display: block;}
+/* End hide from IE-mac */
+
+/* Overflow-Methode zum Clearen der Float-Umgebungen */
+.mhfloatbox { 
+    overflow:hidden; 
 }

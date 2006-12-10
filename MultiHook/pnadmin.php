@@ -121,11 +121,11 @@ function MultiHook_admin_store()
 
     // Get parameters from whatever input we need
     $aid       = (int)FormUtil::getPassedValue('mh_aid',      -1, 'GETPOST');
-    $short     =      FormUtil::getPassedValue('mh_short',    null, 'GETPOST');
-    $long      =      FormUtil::getPassedValue('mh_long',     null, 'GETPOST');
-    $title     =      FormUtil::getPassedValue('mh_title',    null, 'GETPOST');
-    $type      = (int)FormUtil::getPassedValue('mh_type',     null, 'GETPOST');
-    $language  =      FormUtil::getPassedValue('mh_language', null, 'GETPOST');
+    $short     =      FormUtil::getPassedValue('mh_short',    '', 'GETPOST');
+    $long      =      FormUtil::getPassedValue('mh_long',     '', 'GETPOST');
+    $title     =      FormUtil::getPassedValue('mh_title',    '', 'GETPOST');
+    $type      = (int)FormUtil::getPassedValue('mh_type',     0,  'GETPOST');
+    $language  =      FormUtil::getPassedValue('mh_language', '', 'GETPOST');
     $mh_delete =      FormUtil::getPassedValue('mh_delete',   '', 'GETPOST');
 
     if(!empty($mh_delete) && ($mh_delete=='1') ) {
@@ -146,12 +146,12 @@ function MultiHook_admin_store()
         LogUtil::registerError(_MH_SHORTEMPTY );
         return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
     }
-    if(empty($long)) {
+    if(empty($long) && ($type<>3)) {
         LogUtil::registerError(_MH_LONGEMPTY );
         return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
     }
-    if(empty($type) || ($type<0) || ($type>3)) {
-        LogUtil::registerError(_MH_TYPEEMPTY );
+    if(($type<0) || ($type>3)) {
+        LogUtil::registerError(_MH_TYPEEMPTY . "($type)" );
         return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
     }
     if($type==2 && empty($title)) {

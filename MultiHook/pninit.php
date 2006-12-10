@@ -108,14 +108,19 @@ function MultiHook_upgrade($oldversion)
             pnModSetVar('MultiHook', 'mhshoweditlink', 1);
         case '2.0':
         case '3.0':
-            // collect the needles  
-            // force loading of adminapi
-            pnModAPILoad('MultiHook', 'admin', true);
-            pnModAPIFunc('MultiHook', 'admin', 'collectneedles');
+            // collecting the needles is done below on every upgrade  
         case '4.0':
         case '4.5':
+            if (!DBUtil::changeTable('groups')) {
+                return LogUtil::registerError(_MH_UPGRADETO50FAILED);
+            }
             break;
     }
+    // collecting needles
+    // force loading of adminapi
+    pnModAPILoad('MultiHook', 'admin', true);
+    pnModAPIFunc('MultiHook', 'admin', 'collectneedles');
+    // clear compiled templates
     pnModAPIFunc('pnRender', 'user', 'clear_compiled');
 
     return true;

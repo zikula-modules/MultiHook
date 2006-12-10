@@ -1,37 +1,38 @@
 <!--[* $Id$ *]-->
 
 <!--[ pngetstatusmsg ]--><br />
-<div style="text-align: center;">
 <h2><!--[ pnml name='_MH_GLOSSARY' ]--></h2>
-<br />
+
+<div id="mhuser">
+    
 <form action="<!--[ pnmodurl modname=MultiHook func=main ]-->" method="post">
-<select name="filter">
-<option style="font-size: 11px;" value="-1" <!--[ if $filter eq -1 ]-->selected="selected"<!--[ /if ]-->><!--[ pnml name='_MH_SELECT' ]--></option>
-<option style="font-size: 11px;" value="0" <!--[ if $filter eq 0 ]-->selected="selected"<!--[ /if ]-->><!--[ pnml name='_MH_VIEWABBR' ]--></option>
-<option style="font-size: 11px;" value="1" <!--[ if $filter eq 1 ]-->selected="selected"<!--[ /if ]-->><!--[ pnml name='_MH_VIEWACRONYMS' ]--></option>
-<option style="font-size: 11px;" value="2" <!--[ if $filter eq 2 ]-->selected="selected"<!--[ /if ]-->><!--[ pnml name='_MH_VIEWLINKS' ]--></option>
-</select>
-<input type="submit" name="submit" value="<!--[ pnml name='_MH_SHOWME' ]-->">
-</form>
+<div class="mhselection">
+    <select name="filter">
+    <option value="-1" <!--[ if $filter eq -1 ]-->selected="selected"<!--[ /if ]-->><!--[ pnml name='_MH_SELECT' ]--></option>
+    <option value="0" <!--[ if $filter eq 0 ]-->selected="selected"<!--[ /if ]-->><!--[ pnml name='_MH_VIEWABBR' ]--></option>
+    <option value="1" <!--[ if $filter eq 1 ]-->selected="selected"<!--[ /if ]-->><!--[ pnml name='_MH_VIEWACRONYMS' ]--></option>
+    <option value="2" <!--[ if $filter eq 2 ]-->selected="selected"<!--[ /if ]-->><!--[ pnml name='_MH_VIEWLINKS' ]--></option>
+    </select>
+    <input type="submit" name="submit" value="<!--[ pnml name='_MH_SHOWME' ]-->" />
 </div>
-<br />
-<!--[ pndebug ]-->
+</form>
+
 <!--[ pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars=filter shift=1 ]-->
-<table style="width: 100%;" cellpadding="0">
-    <tr style="width: 100%;">
-        <th style="background: #eeeeee; text-align: center; font-size: 12px;"><!--[ pnml name='_MH_SHORT' ]--></th>
-        <th style="background: #eeeeee; text-align: center; font-size: 12px;"><!--[ pnml name='_MH_LONG' ]--></th>
-        <th style="background: #eeeeee; text-align: center; font-size: 12px;"><!--[ pnml name='_MH_TITLE' ]--></th>
+<table cellpadding="0">
     <tr>
+        <th><!--[ pnml name='_MH_SHORT' ]--></th>
+        <th><!--[ pnml name='_MH_LONG' ]--></th>
+        <th><!--[ pnml name='_MH_TITLE' ]--></th>
+    </tr>
     <!--[ foreach item=abac from=$abacs ]-->
-    <tr style="width: 100%;">
-        <td style="text-align: center; font-size: 12px;">
+    <tr>
+        <td>
             <!--[ $abac.short ]-->
         </td>
-        <td style="text-align: center; font-size: 12px;">
+        <td>
             <!--[ $abac.long ]-->
         </td>
-        <td style="text-align: center; font-size: 12px;">
+        <td>
             <!--[ if $abac.type eq 2 ]-->
                 <a title="<!--[ $abac.title ]-->" href="<!--[ $abac.long ]-->"><!--[ $abac.title ]--></a>
             <!--[ else ]-->
@@ -47,5 +48,7 @@
     </tr>
     <!--[ /foreach ]-->
 </table>
-<br />
+
 <!--[ pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars=filter shift=1 ]-->
+
+</div>

@@ -84,10 +84,12 @@ function MultiHook_userapi_getall($args)
  */
 function MultiHook_userapi_get($args)
 {
+    if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_READ)) {
+        return LogUtil::registerError(_MH_NOAUTH);
+    }
+
     pnModDBInfoLoad('MultiHook', 'MultiHook');
     $pntable =& pnDBGetTables();
-
-    $multihooktable = $pntable['multihook'];
     $multihookcolumn = $pntable['multihook_column'];
 
     $permfilter[] = array ('realm'            =>  0,
@@ -132,6 +134,10 @@ function MultiHook_userapi_get($args)
  */
 function MultiHook_userapi_countitems($args)
 {
+    if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_READ)) {
+        return LogUtil::registerError(_MH_NOAUTH);
+    }
+
     pnModDBInfoLoad('MultiHook', 'MultiHook');
     $pntable =& pnDBGetTables();
     $multihookcolumn = $pntable['multihook_column'];
@@ -153,8 +159,6 @@ function MultiHook_userapi_countitems($args)
  */
 function MultiHook_userapi_transform($args)
 {
-    // Get arguments from argument array
-    extract($args);
     // Argument check
     if (!isset($args['extrainfo'])) {
         return LogUtil::registerError(_MODARGSERROR . ' in MultiHook_userapi_transform() [extrainfo]');
@@ -194,6 +198,10 @@ function MultiHook_userapitransform($text)
             return $text;
         }
     }
+
+    // pad it with a space so we can distinguish between FALSE and matching the 1st char (index 0).
+    $text = ' '  . $text;
+
     
     // add stylesheet
     pnPageAddVar('stylesheet', 'modules/MultiHook/pnstyle/mh.css');
@@ -423,6 +431,9 @@ function MultiHook_userapitransform($text)
             //$text = preg_replace("/ MULTIHOOKCODE1REPLACEMENT{$i} /", $codes1[0][$i], $text, 1);
         }
     }
+
+    // Remove our padding from the string..
+    $text = substr($text, 1);
     return $text;
 }
 
