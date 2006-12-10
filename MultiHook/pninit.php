@@ -24,31 +24,14 @@
  */
 function MultiHook_init()
 {
-    // Set up database tables
-    $dbconn =& pnDBGetConn(true);
-    $pntable =& pnDBGetTables();
-
-    $multihooktable = $pntable['multihook'];
-    $multihookcolumn = $pntable['multihook_column'];
-
-    $sql = "CREATE TABLE $multihooktable (
-            $multihookcolumn[aid] INT(11) NOT NULL auto_increment,
-            $multihookcolumn[short] VARCHAR(100) NOT NULL default '',
-            $multihookcolumn[long] VARCHAR(200) NOT NULL default '',
-            $multihookcolumn[title] VARCHAR(100) NOT NULL default '',
-            $multihookcolumn[type] TINYINT(1) NOT NULL,
-            $multihookcolumn[language] VARCHAR(30) NOT NULL default '',
-            PRIMARY KEY (pn_aid))";
-    $dbconn->Execute($sql);
-
-    if ($dbconn->ErrorNo() != 0) {
-        pnSessionSetVar('errormsg', _MH_DBCREATETABLEERROR);
+    // create the MultiHook table
+    if (!DBUtil::createTable('multihook')) {
         return false;
     }
 
     // Set up module variables
     pnModSetVar('MultiHook', 'itemsperpage', 20);
-    pnModSetVar('MultiHook', 'abacfirst', 1);
+    pnModSetVar('MultiHook', 'abacfirst', 0);
     pnModSetVar('MultiHook', 'mhincodetags', 0);
     pnModSetVar('MultiHook', 'mhlinktitle', 0);
     pnModSetVar('MultiHook', 'mhreplaceabbr', 0);
@@ -130,13 +113,10 @@ function MultiHook_upgrade($oldversion)
             pnModAPILoad('MultiHook', 'admin', true);
             pnModAPIFunc('MultiHook', 'admin', 'collectneedles');
         case '4.0':
+        case '4.5':
             break;
     }
-    $smarty = new Smarty;
-    $smarty->compile_dir = pnConfigGetVar('temp') . '/pnRender_compiled';
-    $smarty->cache_dir = pnConfigGetVar('temp') . '/pnRender_cache';
-    $smarty->use_sub_dirs = false;
-    $smarty->clear_compiled_tpl();
+    pnModAPIFunc('pnRender', 'user', 'clear_compiled');
 
     return true;
 }
@@ -146,16 +126,13 @@ function MultiHook_upgrade($oldversion)
  */
 function MultiHook_delete()
 {
-    $dbconn =& pnDBGetConn(true);
-    $pntable =& pnDBGetTables();
-
-    // remove table
-    $sql = "DROP TABLE IF EXISTS ".$pntable['multihook'];
-    $dbconn->Execute($sql);
-    if ($dbconn->ErrorNo() != 0) {
-        pnSessionSetVar('errormsg', "$sql:".$dbconn->ErrorMsg());
+    // drop the table
+    if (!DBUtil::dropTable('multihook')) {
         return false;
     }
+
+    // Remove module variables
+    pnModDelVar('MultiHook');
 
     // Remove module hooks
     if (!pnModUnregisterHook('item',
@@ -164,12 +141,9 @@ function MultiHook_delete()
                              'MultiHook',
                              'user',
                              'transform')) {
-        pnSessionSetVar('errormsg', _MH_COULDNOTUNREGISTER);
+        return LogUtil::registerError(_MH_COULDNOTUNREGISTER);
         return false;
     }
-
-    // Remove module variables
-    pnModDelVar('MultiHook');
 
     // Deletion successful
     return true;

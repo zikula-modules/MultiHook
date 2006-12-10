@@ -24,12 +24,12 @@
  */
 function MultiHook_admin_main()
 {
-    if(!pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADMIN)) {
-        return pnVarPrepForDisplay(_MH_NOAUTH);
+    if(!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
+        LogUtil::registerError(_MH_NOAUTH);
+        return pnRedirect('index.php');
     }
     
-    $pnr =& new pnRender("MultiHook");
-    $pnr->caching = false;
+    $pnr = new pnRender('MultiHook', false);
     $hmods = pnModAPIFunc('modules', 'admin', 'gethookedmodules', array('hookmodname' => 'MultiHook'));
     foreach($hmods as $hmod => $dummy) {
         $modid = pnModGetIDFromName($hmod);
@@ -47,14 +47,15 @@ function MultiHook_admin_main()
 function MultiHook_admin_edit($args)
 {
     // Security check
-    if (!pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADD)) {
-        return pnVarPrepForDisplay(_MH_NOAUTH);
+    if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
+        LogUtil::registerError(_MH_NOAUTH);
+        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
     }
 
-    $aid = pnVarCleanFromInput('aid');
-    extract($args);
+    // aid = -1 means add a new entry
+    $aid = (int)FormUtil::getPassedValue('aid', (isset($args['aid'])) ? $args['aid'] : -1, 'GETPOST');
 
-    if( (!isset($aid)) || ($aid==-1) ) {
+    if(($aid==-1) ) {
         $abac = array( 'aid'   => -1,
                        'short' => '',
                        'long'  => '',
@@ -68,26 +69,25 @@ function MultiHook_admin_edit($args)
                              array('aid' => $aid));
 
         if ($abac == false) {
-            pnSessionSetVar('errormsg', _MH_NOSUCHITEM);
+            LogUtil::registerError(_MH_NOSUCHITEM);
             return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
         }
-        // set permission flags
+            // set permission flags
             $abac['edit'] = false;
             $abac['delete'] = false;
 
-            if (pnSecAuthAction(0, 'MultiHook::', "$abac[short]::$abac[aid]", ACCESS_EDIT)) {
+            if (SecurityUtil::checkPermission('MultiHook::', "$abac[short]::$abac[aid]", ACCESS_EDIT)) {
                 $abac['edit'] = true;
-                if (pnSecAuthAction(0, 'MultiHook::', "$abac[short]::$abac[aid]", ACCESS_DELETE)) {
+                if (SecurityUtil::checkPermission('MultiHook::', "$abac[short]::$abac[aid]", ACCESS_DELETE)) {
                     $abac['delete'] = true;
                 }
             } else {
-                pnSessionSetVar('errormsg', _MH_NOAUTH);
+                LogUtil::registerError(_MH_NOAUTH);
                 return pnRedirect(pnModURL('MultiHook','admin','main'));
             }
 
     }
-    $pnr =& new pnRender("MultiHook");
-    $pnr->caching = false;
+    $pnr = new pnRender('MultiHook', false);
     $pnr->assign('abac', $abac);
     $pnr->assign('types', array( _MH_TYPEABBREVIATION,
                                  _MH_TYPEACRONYM,
@@ -106,98 +106,66 @@ function MultiHook_admin_edit($args)
  * @param 'type' the type of the item to be created
  * @param 'language' the language of the item to be created
  */
-function MultiHook_admin_store($args)
+function MultiHook_admin_store()
 {
-    if(!pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADD)) {
-        return pnVarPrepForDisplay(_MH_NOAUTH);
+    if(!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
+        LogUtil::registerError(_MH_NOAUTH);
+        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
+    }
+
+    // Confirm authorisation code.
+    if (!pnSecConfirmAuthKey()) {
+        LogUtil::registerError(_BADAUTHKEY);
+        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
     }
 
     // Get parameters from whatever input we need
-    list($aid,
-         $short,
-         $long,
-         $title,
-         $type,
-         $language,
-         $mh_delete) = pnVarCleanFromInput('abbr_aid',
-                                           'abbr_short',
-                                           'abbr_long',
-                                           'abbr_title',
-                                           'abbr_type',
-                                           'abbr_language',
-                                           'mh_delete');
-    extract($args);
+    $aid       = (int)FormUtil::getPassedValue('mh_aid',      -1, 'GETPOST');
+    $short     =      FormUtil::getPassedValue('mh_short',    null, 'GETPOST');
+    $long      =      FormUtil::getPassedValue('mh_long',     null, 'GETPOST');
+    $title     =      FormUtil::getPassedValue('mh_title',    null, 'GETPOST');
+    $type      = (int)FormUtil::getPassedValue('mh_type',     null, 'GETPOST');
+    $language  =      FormUtil::getPassedValue('mh_language', null, 'GETPOST');
+    $mh_delete =      FormUtil::getPassedValue('mh_delete',   '', 'GETPOST');
 
-    // Confirm authorisation code.
-
-    if (!pnSecConfirmAuthKey()) {
-        pnSessionSetVar('errormsg', _BADAUTHKEY);
-        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
-    }
-
-    // Check arguments
-
-
-    if( (isset($aid)) && (!is_numeric($aid)) ) {
-        pnSessionSetVar( 'errormsg', _MODARGSERROR );
-        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
-    }
-
-    if(!empty($mh_delete) && ($mh_delete=="1") ) {
-        $abac = pnModAPIFunc('MultiHook',
-                             'user',
-                             'get',
-                             array('aid' => $aid));
-
-        if ($abac == false) {
-            pnSessionSetVar('errormsg', _MH_NOSUCHITEM);
-            return pnRedirect(pnModURL('MultiHook','admin','main'));
-        }
-
-        // Security check
-        if (!pnSecAuthAction(0, 'MultiHook::Item', "$abac[short]::$aid", ACCESS_DELETE)) {
-            pnSessionSetVar('errormsg', _MH_NOAUTH);
-            return pnRedirect(pnModURL('MultiHook','admin','main'));
-        }
-
+    if(!empty($mh_delete) && ($mh_delete=='1') ) {
         // The API function is called
         if (pnModAPIFunc('MultiHook',
                          'admin',
                          'delete',
                          array('aid' => $aid))) {
             // Success
-            pnSessionSetVar('statusmsg', _MH_DELETED);
+            LogUtil::registerStatus(_MH_DELETED);
         } else {
-            pnSessionSetVar('errormsg', _MH_DELETEFAILED);
+            LogUtil::registerError(_MH_DELETEFAILED);
         }
         return pnRedirect(pnModURL('MultiHook', 'admin', 'view', array('filter' => $abac['type'])));
     }
-
     // no deletion, further checks needed
-    if (!isset($short)) {
-        pnSessionSetVar( 'errormsg', _MH_SHORTEMPTY );
+    if(empty($short)) {
+        LogUtil::registerError(_MH_SHORTEMPTY );
         return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
     }
-    if (!isset($long)) {
-        pnSessionSetVar( 'errormsg', _MH_LONGEMPTY );
+    if(empty($long)) {
+        LogUtil::registerError(_MH_LONGEMPTY );
         return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
     }
-    if (!isset($type)) {
-        pnSessionSetVar( 'errormsg', _MH_TYPEEMPTY );
+    if(empty($type) || ($type<0) || ($type>3)) {
+        LogUtil::registerError(_MH_TYPEEMPTY );
         return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
     }
-    if ($type==2 && !isset($title)) {
-        pnSessionSetVar( 'errormsg', _MH_TITLEEMPTY );
+    if($type==2 && empty($title)) {
+        LogUtil::registerError(_MH_TITLEEMPTY );
         return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
     }
 
-    if (!isset($language)) {
-        pnSessionSetVar( 'errormsg', _MH_LANGUAGEEMPTY );
+    if(empty($language)) {
+        LogUtil::registerError(_MH_LANGUAGEEMPTY );
         return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
     }
 
     // The API function is called
-    if( $aid == -1 ) {
+    if($aid == -1) {
         $aid = pnModAPIFunc('MultiHook',
                             'admin',
                             'create',
@@ -209,9 +177,9 @@ function MultiHook_admin_store($args)
 
         if ($aid != false) {
             // Success
-            pnSessionSetVar('statusmsg', _MH_CREATED);
+            LogUtil::registerStatus( _MH_CREATED);
         } else {
-            pnSessionSetVar('errormsg', _MH_CREATEDFAILED);
+            LogUtil::registerError(_MH_CREATEDFAILED);
         }
     } else {
         if(pnModAPIFunc('MultiHook',
@@ -224,9 +192,9 @@ function MultiHook_admin_store($args)
                               'type' => $type,
                               'language' => $language))<>false) {
             // Success
-            pnSessionSetVar('statusmsg', _MH_UPDATED);
+            LogUtil::registerStatus(_MH_UPDATED);
         } else {
-            pnSessionSetVar('errormsg', _MH_UPDATEFAILED);
+            LogUtil::registerError(_MH_UPDATEFAILED);
         }
     }
 
@@ -240,13 +208,14 @@ function MultiHook_admin_store($args)
  */
 function MultiHook_admin_view()
 {
-    if (!pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADMIN)) {
-        return pnVarPrepForDisplay(_MH_NOAUTH);
+    if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
+        LogUtil::registerError(_MH_NOAUTH);
+        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
     }
 
     // Get parameters from whatever input we need
-    $startnum = (int)pnVarCleanFromInput('startnum');
-    $filter   = (int)pnVarCleanFromInput('filter');
+    $startnum = (int)FormUtil::getPassedValue('startnum', 0, 'GETPOST');
+    $filter   = (int)FormUtil::getPassedValue('filter', -1, 'GETPOST');
 
     // The user API function is called
     $abacs = pnModAPIFunc('MultiHook',
@@ -261,9 +230,9 @@ function MultiHook_admin_view()
         $abacs[$cnt]['edit'] = false;
         $abacs[$cnt]['delete'] = false;
 
-        if (pnSecAuthAction(0, 'MultiHook::', "$abacs[$cnt][short]::$abacs[$cnt][aid]", ACCESS_EDIT)) {
+        if (SecurityUtil::checkPermission('MultiHook::', "$abacs[$cnt][short]::$abacs[$cnt][aid]", ACCESS_EDIT)) {
             $abacs[$cnt]['edit'] = true;
-            if (pnSecAuthAction(0, 'MultiHook::', "$abacs[$cnt][short]::$abacs[$cnt][aid]", ACCESS_DELETE)) {
+            if (SecurityUtil::checkPermission('MultiHook::', "$abacs[$cnt][short]::$abacs[$cnt][aid]", ACCESS_DELETE)) {
                 $abacs[$cnt]['delete'] = true;
             }
         }
@@ -274,8 +243,7 @@ function MultiHook_admin_view()
                      _MH_VIEWILLEGALWORDS );
 
     // Create output object
-    $pnr =& new pnRender('MultiHook');
-    $pnr->caching = false;
+    $pnr = new pnRender('MultiHook', false);
     $pnr->add_core_data();
     $pnr->assign('abacs', $abacs);
     $pnr->assign('title', $titles[$filter]);
@@ -290,50 +258,32 @@ function MultiHook_admin_view()
 function MultiHook_admin_modifyconfig()
 {
 
-    if (!pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADMIN)) {
-        return pnVarPrepForDisplay(_MH_NOAUTH);
+    if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
+        LogUtil::registerError(_MH_NOAUTH);
+        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
     }
 
-    $submit = pnVarCleanFromInput('submit');
+    $submit = FormUtil::getPassedValue('submit', null, 'GETPOST');
 
     if(!$submit) {
-
-        $pnr =& new pnRender('MultiHook');
-        $pnr->caching = false;
+        $pnr = new pnRender('MultiHook', false);
         $pnr->add_core_data();
         return $pnr->fetch('mh_admin_config.html');
-
     } else {  // submit is set
-
         if (!pnSecConfirmAuthKey()) {
-            pnSessionSetVar('errormsg', _BADAUTHKEY);
+            LogUtil::registerError(_BADAUTHKEY);
             return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
         }
 
-        list($abacfirst,
-             $mhincodetags,
-             $mhlinktitle,
-             $mhreplaceabbr,
-             $mhshoweditlink,
-             $externallinkclass,
-             $itemsperpage)= pnVarCleanFromInput('abacfirst',
-                                                 'mhincodetags',
-                                                 'mhlinktitle',
-                                                 'mhreplaceabbr',
-                                                 'mhshoweditlink',
-                                                 'externallinkclass',
-                                                 'itemsperpage');
+        $abacfirst         = FormUtil::getPassedValue('abacfirst', 0, 'GETPOST');
+        $mhincodetags      = FormUtil::getPassedValue('mhincodetags', '', 'GETPOST');
+        $mhlinktitle       = FormUtil::getPassedValue('mhlinktitle', '', 'GETPOST');
+        $mhreplaceabbr     = FormUtil::getPassedValue('mhreplaceabbr', '', 'GETPOST');
+        $mhshoweditlink    = FormUtil::getPassedValue('mhshoweditlink', '', 'GETPOST');
+        $externallinkclass = FormUtil::getPassedValue('externallinkclass', '', 'GETPOST');
+        $itemsperpage      = (int)FormUtil::getPassedValue('itemsperpage', 20, 'GETPOST');
 
-
-        if (empty($abacfirst)) {
-            $abacfirst = 0;
-        }
         pnModSetVar('MultiHook', 'abacfirst', $abacfirst);
-
-        if (empty($itemsperpage)) {
-            $itemsperpage = 20;
-        }
-
         pnModSetVar('MultiHook', 'mhincodetags', $mhincodetags);
         pnModSetVar('MultiHook', 'mhlinktitle', $mhlinktitle);
         pnModSetVar('MultiHook', 'mhreplaceabbr', $mhreplaceabbr);
@@ -341,7 +291,7 @@ function MultiHook_admin_modifyconfig()
         pnModSetVar('MultiHook', 'itemsperpage', $itemsperpage);
         pnModSetVar('MultiHook', 'externallinkclass', $externallinkclass);
 
-        pnSessionSetVar('statusmsg', _MH_UPDATEDCONFIG);
+        LogUtil::registerStatus(_MH_UPDATEDCONFIG);
     }
     return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
 }
@@ -356,7 +306,7 @@ function MultiHook_admin_modifyconfig()
 function MultiHook_admin_helper()
 {
     $out = '';
-    if(pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADD)) {
+    if(SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
         pnModLangLoad('MultiHook', 'admin');
         $pnr = new pnRender('MultiHook', false);
         $out = $pnr->fetch('mh_dynamic_hiddenform.html');
@@ -372,8 +322,9 @@ function MultiHook_admin_helper()
 function MultiHook_admin_viewneedles()
 {
     // todo: scan for needles and show them
-    if (!pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADMIN)) {
-        return _MH_NOAUTH;
+    if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
+        LogUtil::registerError(_MH_NOAUTH);
+        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
     }
     
     $needles = pnModAPIFunc('MultiHook', 'admin', 'collectneedles');
@@ -406,8 +357,7 @@ function MultiHook_admin_viewneedles()
     pnModSetVar('MultiHook', 'needles', serialize($needles));
     
     
-    $pnr = new pnRender('MultiHook');
-    $pnr->caching = false;
+    $pnr = new pnRender('MultiHook', false);
     $pnr->assign('needles', $needles);
     return $pnr->fetch('mh_admin_viewneedles.html');    
 }

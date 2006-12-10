@@ -44,7 +44,7 @@ function MultiHook_needleapi_pagesetter($args)
                 switch(count($temp)) {
                     case 1:
                         // $temp[0] is treated as tid
-                        if(pnSecAuthAction(0, 'pagesetter', $temp[0] . '::', ACCESS_READ)) {
+                        if(SecurityUtil::checkPermission('pagesetter', $temp[0] . '::', ACCESS_READ)) {
                             $pubInfo =  pnModAPIFunc('pagesetter',
                                                      'admin',
                                                      'getPubTypeInfo',
@@ -69,7 +69,7 @@ function MultiHook_needleapi_pagesetter($args)
                     case 2:
                         // $temp[0] is treated as tid
                         // $temp[1] is treated as pid
-                        if(pnSecAuthAction(0, 'pagesetter::', $temp[0] . ':' . $temp[1] . ':', ACCESS_READ)) {
+                        if(SecurityUtil::checkPermission('pagesetter::', $temp[0] . ':' . $temp[1] . ':', ACCESS_READ)) {
                             $pub = pnModAPIFunc('pagesetter',
                                                 'user',
                                                 'getPub',

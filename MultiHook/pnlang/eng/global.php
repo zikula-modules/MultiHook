@@ -45,7 +45,7 @@ define('_MH_ADMINTITLE','Links, Abbreviations and Acronyms');
 // B
 //
 define('_MH_CREATE','Create');
-define('_MH_CREATED','entry created');
+define('_MH_CREATED','Entry created');
 define('_MH_CREATEFAILED','Error: entry creation failed');
 
 //
@@ -133,7 +133,7 @@ define('_MH_TYPELINK', 'Link');
 // U
 //
 define('_MH_UPDATECONFIG', 'Update Configuration');
-define('_MH_UPDATED','entry updated');
+define('_MH_UPDATED','Entry updated');
 define('_MH_UPDATEDCONFIG', 'Configuration updated');
 define('_MH_UPDATEFAILED','Database update of entry failed');
 

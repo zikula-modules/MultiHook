@@ -1,5 +1,8 @@
 $Id$
 
+Version 5.0
+   - PostNuke .8 only
+   
 Version 4.5
    - implemented censor functions 
    - fixed [#3462] Link to "more-modules" is wrong

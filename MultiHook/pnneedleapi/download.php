@@ -60,7 +60,7 @@ function MultiHook_needleapi_download($args)
                     case 'C':
                         if($is_dl20) {
                             // Downloads 2.0 or later
-                            if(pnSecAuthAction(0, 'Downloads::Category', $id . '::', ACCESS_READ)) {
+                            if(SecurityUtil::checkPermission('Downloads::Category', $id . '::', ACCESS_READ)) {
                                 $dl20categoryinfo = pnModAPIFunc('Downloads', 'user', 'category_info',
                                                                  array('cid' => $id));
                                 if(is_array($dl20categoryinfo)) {
@@ -86,7 +86,7 @@ function MultiHook_needleapi_download($args)
                             $res = $dbconn->Execute($sql);
                             if($dbconn->ErrorNo()==0 && !$res->EOF) {
                                 list($title, $desc) = $res->fields;
-	                            if(pnSecAuthAction(0, 'Downloads::Category', $title . '::' . $id, ACCESS_READ)) {
+	                            if(SecurityUtil::checkPermission('Downloads::Category', $title . '::' . $id, ACCESS_READ)) {
                                     list($url,
                                          $title,
                                          $desc) = pnVarPrepForDisplay('index.php?name=Downloads&req=viewdownload&cid=' . $id,
@@ -142,7 +142,7 @@ function MultiHook_needleapi_download($args)
                             $res = $dbconn->Execute($sql);
                             if($dbconn->ErrorNo()==0 && !$res->EOF) {
                                 list($title, $desc) = $res->fields;
-                                if(pnSecAuthAction(0, 'Downloads::Item', $title . '::' . $id, ACCESS_READ)) {
+                                if(SecurityUtil::checkPermission('Downloads::Item', $title . '::' . $id, ACCESS_READ)) {
                                     if($type=='D') {
                                         $url = 'index.php?name=Downloads&req=viewdownloaddetails&lid=' . $id;
                                     } else {

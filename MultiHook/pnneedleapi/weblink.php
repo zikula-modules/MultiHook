@@ -62,7 +62,7 @@ function MultiHook_needleapi_weblink($args)
                         $res = $dbconn->Execute($sql);
                         if($dbconn->ErrorNo()==0 && !$res->EOF) {
                             list($title, $desc) = $res->fields;
-                            if(pnSecAuthAction(0, 'Web Links::Category', $title . '::' . $id, ACCESS_READ)) {
+                            if(SecurityUtil::checkPermission('Web Links::Category', $title . '::' . $id, ACCESS_READ)) {
                                 list($url,
                                      $title,
                                      $desc) = pnVarPrepForDisplay('index.php?name=Web_Links&req=viewlink&cid=' . $id,
@@ -85,7 +85,7 @@ function MultiHook_needleapi_weblink($args)
                         $res = $dbconn->Execute($sql);
                         if($dbconn->ErrorNo()==0 && !$res->EOF) {
                             list($title, $desc) = $res->fields;
-                            if (pnSecAuthAction(0, 'Web Links::Link', ':' . $title . ':' . $id, ACCESS_READ)) {
+                            if (SecurityUtil::checkPermission('Web Links::Link', ':' . $title . ':' . $id, ACCESS_READ)) {
                                 if($type=='D') {
                                     $url = 'index.php?name=Web_Links&req=viewlinkdetails&lid=' . $id;
                                 } else {

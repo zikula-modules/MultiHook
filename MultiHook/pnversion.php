@@ -20,7 +20,7 @@
 // ----------------------------------------------------------------------
 
 $modversion['name'] = _MH_MODULENAME;
-$modversion['version'] = '4.5';
+$modversion['version'] = '5.0';
 $modversion['description'] = _MH_MODULEDESCRIPTION;
 $modversion['credits'] = 'pndocs/credits.txt';
 $modversion['help'] = 'pndocs/help.txt';
@@ -30,5 +30,6 @@ $modversion['official'] = 0;
 $modversion['author'] = 'Frank Schummertz';
 $modversion['contact'] = 'frank.schummertz@landseer-stuttgart.de';
 $modversion['admin'] = 1;
+$modversion['user'] = 1;
 $modversion['securityschema'] = array('MultiHook::' => 'Shorttext::$ID' );
 ?>

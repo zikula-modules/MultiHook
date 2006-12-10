@@ -32,65 +32,26 @@
 function MultiHook_adminapi_create($args)
 {
     // Security check
-    if (!pnSecAuthAction(0, 'MultiHook::', "::", ACCESS_ADD)) {
-        pnSessionSetVar('errormsg', _MH_NOAUTH);
-        return false;
+    if (!SecurityUtil::checkPermission('MultiHook::', "::", ACCESS_ADD)) {
+        return LogUtil::registerError(_MH_NOAUTH);
     }
-
-    // Get arguments from argument array
-    extract($args);
 
     // Argument check - make sure that all required arguments are present,
     // if not then set an appropriate error message and return
-    if ((!isset($short)) ||
-        (!isset($long)) ||
-        (!isset($title)) ||
-        (!isset($type)) ||
-        (!isset($language))) {
-        pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_adminapi_create()');
-        return false;
+    if ((!isset($args['short'])) ||
+        (!isset($args['long'])) ||
+        (!isset($args['title'])) ||
+        (!isset($args['type'])) ||
+        (!isset($args['language']))) {
+        return LogUtil::registerError(_MODARGSERROR . ' in MultiHook_adminapi_create()');
     }
 
-    // Get database setup
-    $dbconn =& pnDBGetConn(true);
-    $pntable =& pnDBGetTables();
-
-    $multihooktable = $pntable['multihook'];
-    $multihookcolumn = &$pntable['multihook_column'];
-
-    // Get next ID in table
-    $nextId = $dbconn->GenId($multihooktable);
-
-    // Add item
-    $sql = "INSERT INTO $multihooktable (
-              $multihookcolumn[aid],
-              $multihookcolumn[short],
-              $multihookcolumn[title],
-              $multihookcolumn[long],
-              $multihookcolumn[type],
-              $multihookcolumn[language])
-            VALUES (
-              $nextId,
-              '" . pnVarPrepForStore($short) . "',
-              '" . pnVarPrepForStore($title) . "',
-              '" . pnVarPrepForStore($long) . "',
-              '" . pnVarPrepForStore($type) . "',
-              '" . pnVarPrepForStore($language) . "')";
-    $dbconn->Execute($sql);
-
-    if ($dbconn->ErrorNo() != 0) {
-        pnSessionSetVar('errormsg', _MH_CREATEFAILED);
-        return false;
+    $obj = DBUtil::insertObject($args, 'multihook', 'aid');
+    if($obj == false) {
+        return LogUtil::registerError(_MH_CREATEFAILED);
     }
-
-    // Get the ID of the item that we inserted
-    $aid = $dbconn->PO_Insert_ID($multihooktable, $multihookcolumn['aid']);
-
-    // Let any hooks know that we have created a new abbrviation
-    pnModCallHooks('item', 'create', $aid, 'aid');
-
-    // Return the id of the newly created abbr to the calling process
-    return $aid;
+    pnModCallHooks('item', 'create', $obj['aid'], 'aid');
+    return $obj['aid'];
 }
 
 /**
@@ -102,48 +63,22 @@ function MultiHook_adminapi_create($args)
 function MultiHook_adminapi_delete($args)
 {
     // Security check
-    if (!pnSecAuthAction(0, 'MultiHook::', '', ACCESS_ADMIN)) {
-        pnSessionSetVar('errormsg', _MH_NOAUTH);
-        return false;
+    if (!SecurityUtil::checkPermission('MultiHook::', '', ACCESS_ADMIN)) {
+        return LogUtil::registerError(_MH_NOAUTH);
     }
-    // Get arguments from argument array
-    extract($args);
 
     // Argument check
-    if (!isset($aid)) {
-        pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_adminapi_delete() [aid]');
-        return false;
+    if (!isset($args['aid'])) {
+        return LogUtil::registerError(_MODARGSERROR . ' in MultiHook_adminapi_delete() [aid]');
     }
 
-    // The user API function is called
-    $abac = pnModAPIFunc('MultiHook',
-                         'user',
-                         'get',
-                         array('aid' => $aid));
-
-    if ($abac == false) {
-        return false;
-    }
-
-    // Get database setup
-    $dbconn =& pnDBGetConn(true);
-    $pntable =& pnDBGetTables();
-
-    $multihooktable = $pntable['multihook'];
-    $multihookcolumn = &$pntable['multihook_column'];
-
-    // Delete the item
-    $sql = "DELETE FROM $multihooktable
-            WHERE $multihookcolumn[aid] = '".pnVarPrepForStore($aid)."'";
-    $dbconn->Execute($sql);
-
-    if ($dbconn->ErrorNo() != 0) {
-        pnSessionSetVar('errormsg', _MH_DELETEFAILED);
-        return false;
+    $res = DBUtil::deleteObjectByID ('multihook', (int)$args['aid'], 'aid');
+    if($res==false) {
+        return LogUtil::registerError(_MH_DELETEFAILED);
     }
 
     // Let any hooks know that we have deleted a abbr
-    pnModCallHooks('item', 'delete', $aid, '');
+    pnModCallHooks('item', 'delete', $args['aid'], '');
 
     // Let the calling process know that we have finished successfully
     return true;
@@ -160,59 +95,28 @@ function MultiHook_adminapi_delete($args)
  */
 function MultiHook_adminapi_update($args)
 {
-    if (!pnSecAuthAction(0, 'MultiHook::', '', ACCESS_EDIT)) {
-        pnSessionSetVar('errormsg', _MH_NOAUTH);
-        return false;
+    if (!SecurityUtil::checkPermission('MultiHook::', '', ACCESS_EDIT)) {
+        return LogUtil::registerError(_MH_NOAUTH);
     }
 
     // Get arguments from argument array
-    extract($args);
+    //extract($args);
 
     // Argument check
-    if ((!isset($aid)) ||
-        (!isset($short)) ||
-        (!isset($title)) ||
-        (!isset($long)) ||
-        (!isset($type)) ||
-        (!isset($language))) {
-        pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_adminapi_update()');
-        return false;
+    if ((!isset($args['aid'])) ||
+        (!isset($args['short'])) ||
+        (!isset($args['title'])) ||
+        (!isset($args['long'])) ||
+        (!isset($args['type'])) ||
+        (!isset($args['language']))) {
+        return LogUtil::registerError(_MODARGSERROR . ' in MultiHook_adminapi_update()');
     }
 
-    // The user API function is called
-    $abac = pnModAPIFunc('MultiHook',
-                         'user',
-                         'get',
-                         array('aid' => $aid));
-
-    if ($abac == false) {
-        return false;
+    $res = DBUtil::updateObject($args, 'multihook', '', 'aid');
+    if($res == false) {
+        return LogUtil::registerError(_MH_UPDATEFAILED);
     }
-
-    // Get database setup
-    $dbconn =& pnDBGetConn(true);
-    $pntable =& pnDBGetTables();
-
-    $multihooktable = $pntable['multihook'];
-    $multihookcolumn = &$pntable['multihook_column'];
-
-    // Update the abbr
-    $sql = "UPDATE $multihooktable
-            SET $multihookcolumn[short] = '" . pnVarPrepForStore($short) . "',
-                $multihookcolumn[long] = '" . pnVarPrepForStore($long) . "',
-                $multihookcolumn[title] = '" . pnVarPrepForStore($title) . "',
-                $multihookcolumn[type] = '" . pnVarPrepForStore($type) . "',
-                $multihookcolumn[language] = '" . pnVarPrepForStore($language) . "'
-            WHERE $multihookcolumn[aid] = '".pnVarPrepForStore($aid)."'";
-    $dbconn->Execute($sql);
-
-    if ($dbconn->ErrorNo() != 0) {
-        pnSessionSetVar('errormsg', _MH_UPDATEFAILED);
-        return false;
-    }
-
-    // Let the calling process know that we have finished successfully
-    return $aid;
+    return $args['aid'];
 }
 
 /**

@@ -56,7 +56,7 @@ function MultiHook_needleapi_htmlpage($args)
                 $res = $dbconn->Execute($sql);
                 if($dbconn->ErrorNo()==0 && !$res->EOF) {
                     list($title) = $res->fields;
-                    if(pnSecAuthAction(0, 'htmlpages::', "$title::$nid", ACCESS_READ)) {
+                    if(SecurityUtil::checkPermission('htmlpages::', "$title::$nid", ACCESS_READ)) {
                         $url   = pnVarPrepForDisplay(pnModURL('htmlpages', 'user', 'display', array('pid' => $nid)));
                         $title = pnVarPrepForDisplay($title);
                         $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';

@@ -28,11 +28,12 @@
 function MultiHook_user_main()
 {
     // Get parameters from whatever input we need
-    $startnum = (int)pnVarCleanFromInput('startnum');
-    $filter   = (int)pnVarCleanFromInput('filter');
+    $startnum = (int)FormUtil::getPassedValue('startnum', 0, 'GETPOST');
+    $filter   = (int)FormUtil::getPassedValue('filter', -1, 'GETPOST');
 
-    if (!pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_READ)) {
-        return _MH_NOAUTH;
+    if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_READ)) {
+        LogUtil::registerError(_MH_NOAUTH);
+        return pnRedirect('index.php');
     }
 
     if($filter>=0 && $filter<=2) {
@@ -54,8 +55,7 @@ function MultiHook_user_main()
                      _MH_VIEWLINKS );
 
     // Create output object
-    $pnr =& new pnRender('MultiHook');
-    $pnr->caching = false;
+    $pnr = new pnRender('MultiHook', false);
     $pnr->add_core_data();
     $pnr->assign('abacs', $abacs);
     $pnr->assign('title', $titles[$filter]);
@@ -63,6 +63,5 @@ function MultiHook_user_main()
     $pnr->assign('abacscount', $abacscount );
     return $pnr->fetch('mh_user_main.html');
 }
-
 
 ?>

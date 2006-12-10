@@ -25,76 +25,53 @@ include_once('modules/MultiHook/common.php');
  * get all entries
  * @params $args['filter'] int 0=abbr, 1=acronyms, 2=links, 3=censored words
  * @params $args['sortbylength'] bool
+ * @params $args['startnum'] int
+ * @params $args['numitens'] int
  * @returns array
  * @return array of entries, or false on failure
  */
 function MultiHook_userapi_getall($args)
 {
-    extract($args);
-
     // Optional arguments
-    if (!isset($startnum) || !is_numeric($startnum)) {
-        $startnum = 1;
+    if (!isset($args['startnum']) || !is_numeric($args['startnum'])) {
+        $args['startnum'] = 0;
     }
-    if (!isset($numitems) || !is_numeric($numitems)) {
-        $numitems = -1;
+    if (!isset($args['numitems']) || !is_numeric($args['numitems'])) {
+        $args['numitems'] = -1;
     }
 
-    if (!pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_READ)) {
-        return false;
+    if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_READ)) {
+        return LogUtil::registerError(_MH_NOAUTH);
     }
-    $abacs = array();
 
-    $dbconn =& pnDBGetConn(true);
+    $permfilter[] = array ('realm'            =>  0,
+                           'component_left'   =>  'MultiHook',
+                           'component_middle' =>  '',
+                           'component_right'  =>  '',
+                           'instance_left'    =>  'short',
+                           'instance_middle'  =>  '',
+                           'instance_right'   =>  'aid',
+                           'level'            =>  ACCESS_READ);
+
+    pnModDBInfoLoad('MultiHook', 'MultiHook');
     $pntable =& pnDBGetTables();
-
-    $multihooktable = $pntable['multihook'];
     $multihookcolumn = $pntable['multihook_column'];
 
-    $where = "";
-    if(isset($filter) && is_numeric($filter) && ($filter>=0 && $filter<=3)) {
-        $where = "WHERE $multihookcolumn[type]=" . pnVarPrepForStore($filter);
+    $where = '';
+    if(isset($args['filter']) && is_numeric($args['filter']) && ($args['filter']>=0 && $args['filter']<=3)) {
+        $where = "WHERE $multihookcolumn[type]=" . DataUtil::formatForStore($args['filter']);
     }
 
-    if(isset($sortbylength) && $sortbylength==true) {
+    if(isset($args['sortbylength']) && $args['sortbylength']==true) {
         $orderby = "ORDER BY LENGTH($multihookcolumn[short]) DESC";
     } else {
         $orderby = "ORDER BY $multihookcolumn[short]";
     }
-    $sql = "SELECT $multihookcolumn[aid],
-                   $multihookcolumn[short],
-                   $multihookcolumn[long],
-                   $multihookcolumn[title],
-                   $multihookcolumn[type],
-                   $multihookcolumn[language]
-            FROM $multihooktable
-            $where
-            $orderby"; // ORDER BY LENGTH($multihookcolumn[short]) DESC"; //$multihookcolumn[short]";
 
-    $result = $dbconn->SelectLimit($sql, (int)$numitems, (int)$startnum-1);
-
-    if ($dbconn->ErrorNo() != 0) {
-        pnSessionSetVar('errormsg', _MH_SELECTFAILED);
-        return false;
+    $abacs = DBUtil::selectObjectArray('multihook', $where, $orderby, (int)$args['startnum'], (int)$args['numitems'], '', $permfilter);
+    if ($abacs === false) {
+        return LogUtil::registerError(_MH_SELECTFAILED);
     }
-
-    for (; !$result->EOF; $result->MoveNext()) {
-        list($aid, $short, $long, $title, $type, $language) = $result->fields;
-        if (pnSecAuthAction(0, 'MultiHook::', "$short::$aid", ACCESS_READ)) {
-            if($type==3) {
-                $long  = str_repeat("*", strlen($short));
-                $title = str_repeat("*", strlen($short));
-            }
-            $abacs[] = array('aid' => $aid,
-                             'short' => trim($short),
-                             'long' => trim($long),
-                             'title' => trim($title),
-                             'type' => $type,
-                             'language' => $language);
-        }
-    }
-
-    $result->Close();
     return $abacs;
 }
 
@@ -107,103 +84,65 @@ function MultiHook_userapi_getall($args)
  */
 function MultiHook_userapi_get($args)
 {
-    extract($args);
-
-    $dbconn =& pnDBGetConn(true);
+    pnModDBInfoLoad('MultiHook', 'MultiHook');
     $pntable =& pnDBGetTables();
 
     $multihooktable = $pntable['multihook'];
     $multihookcolumn = $pntable['multihook_column'];
 
-    if (isset($aid)) {
-        if(is_numeric($aid)) {
-            $where = "WHERE $multihookcolumn[aid] = '" . (int)pnVarPrepForStore($aid) . "'";
+    $permfilter[] = array ('realm'            =>  0,
+                           'component_left'   =>  'MultiHook',
+                           'component_middle' =>  '',
+                           'component_right'  =>  '',
+                           'instance_left'    =>  'short',
+                           'instance_middle'  =>  '',
+                           'instance_right'   =>  'aid',
+                           'level'            =>  ACCESS_READ);
+
+    if (isset($args['aid'])) {
+        if(is_numeric($args['aid'])) {
+            // Get item
+            $abac = DBUtil::selectObjectByID('multihook', $args['aid'], 'aid', null, $permfilter);
         } else {
-            pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_userapi_get() [aid]');
-            return false;
+            return LogUtil::registerError(_MODARGSERROR . ' in MultiHook_userapi_get() [aid]');
         }
-    } else if(isset($short)) {
-        if(!empty($short)) {
-            $where = "WHERE $multihookcolumn[short] = '" . pnVarPrepForStore($short) . "'";
+    } else if(isset($args['short'])) {
+        if(!empty($args['short'])) {
+            // Get item
+            $where = "WHERE $multihookcolumn[short] = '" . DataUtil::formatForStore($args['short']) . "'";
+            $abac = DBUtil::selectObject('multihook', $where, null, $permfilter);
         } else {
-            pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_userapi_get() [short]');
-            return false;
+            return LogUtil::registerError(_MODARGSERROR . ' in MultiHook_userapi_get() [short]');
         }
     } else {
-        return false;
+        return LogUtil::registerError (_MODARGSERROR);
     }
-
-    $sql = "SELECT $multihookcolumn[aid],
-                   $multihookcolumn[short],
-                   $multihookcolumn[long],
-                   $multihookcolumn[title],
-                   $multihookcolumn[type],
-                   $multihookcolumn[language]
-            FROM $multihooktable
-            $where";
-    $result =& $dbconn->Execute($sql);
-
-    if ($dbconn->ErrorNo() != 0) {
-        pnSessionSetVar('errormsg', _MH_SELECTFAILED);
-        return false;
+    
+    if($abac == false) {
+        return LogUtil::registerError (_MH_SELECTFAILED);
     }
-
-    if($result->RecordCount()==0) {
-        // not found
-        $result->Close();
-        return false;
-    }
-
-    list($aid, $short, $long, $title, $type, $language) = $result->fields;
-    $result->Close();
-
-    if (!pnSecAuthAction(0, 'MultiHook::', "$short::$aid", ACCESS_READ)) {
-        return false;
-    }
-    $abac = array('aid' => $aid,
-                  'short' => trim($short),
-                  'long' => trim($long),
-                  'title' => trim($title),
-                  'type' => $type,
-                  'language' => $language);
-
     return $abac;
 }
 
 /**
  * count the number of items in the database
- * @params $args['filter'] int 0=abbr, 1=acronyms, 2=links
+ * @params $args['filter'] int 0=abbr, 1=acronyms, 2=links, 3=censor
  * @returns integer
  * @returns number of items in the database
  */
 function MultiHook_userapi_countitems($args)
 {
-    extract($args);
-    unset($args);
-
-    if(!isset($filter)) {
-        return false;
-    }
-
-    $dbconn =& pnDBGetConn(true);
+    pnModDBInfoLoad('MultiHook', 'MultiHook');
     $pntable =& pnDBGetTables();
-
-    $multihooktable = $pntable['multihook'];
     $multihookcolumn = $pntable['multihook_column'];
 
-    $sql = "SELECT COUNT(1)
-            FROM $multihooktable
-            WHERE $multihookcolumn[type]=" . pnVarPrepForStore($filter);
-    $result =& $dbconn->Execute($sql);
-
-    if ($dbconn->ErrorNo() != 0) {
-        return false;
+    $where = '';
+    if(isset($args['filter']) && is_numeric($args['filter']) && ($args['filter']>=0 && $args['filter']<=3)) {
+        $where = "WHERE $multihookcolumn[type]=" . DataUtil::formatForStore($args['filter']);
     }
 
-    list($numitems) = $result->fields;
-
-    $result->Close();
-    return $numitems;
+    $objcount = DBUtil::selectObjectCount ('multihook', $where);
+    return $objcount;
 }
 
 /**
@@ -217,14 +156,14 @@ function MultiHook_userapi_transform($args)
     // Get arguments from argument array
     extract($args);
     // Argument check
-    if (!isset($extrainfo)) {
-        pnSessionSetVar('errormsg', _MODARGSERROR . ' in MultiHook_userapi_transform() [extrainfo]');
+    if (!isset($args['extrainfo'])) {
+        return LogUtil::registerError(_MODARGSERROR . ' in MultiHook_userapi_transform() [extrainfo]');
         return;
     }
 
-    if (is_array($extrainfo)) {
+    if (is_array($args['extrainfo'])) {
         $transformed = array();
-        foreach($extrainfo as $text) {
+        foreach($args['extrainfo'] as $text) {
             $transformed[] = MultiHook_userapitransform($text);
         }
     } else {
@@ -255,6 +194,9 @@ function MultiHook_userapitransform($text)
             return $text;
         }
     }
+    
+    // add stylesheet
+    pnPageAddVar('stylesheet', 'modules/MultiHook/pnstyle/mh.css');
 
     static $search = array();
     static $replace = array();
@@ -265,7 +207,7 @@ function MultiHook_userapitransform($text)
 
     static $mhadmin;
     if(!isset($mhadmin)) {
-        $mhadmin = pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_DELETE);
+        $mhadmin = SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_DELETE);
     }
 
     static $mhincodetags;
@@ -292,6 +234,10 @@ function MultiHook_userapitransform($text)
     if(!is_array($needles)) {
         $needles = array();
     }
+
+    // deal with munded words (leet speak)
+    $leetsearch  = array('/o/i', '/e/i', '/a/i', '/i/i');
+    $leetreplace = array('0', '3', '@', '1');
 
     // current url and uri
     $currenturl = pnGetCurrentURL();
@@ -396,11 +342,22 @@ function MultiHook_userapitransform($text)
                     unset($search_temp);
                 }
             } else if($tmp['type']==3) {
+                // original censored word
                 $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:])(?!\.\w)/i';
                 $search[]      = $search_temp;
                 $replace[]     = md5($search_temp);
                 $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
                 $finalreplace[] = create_censor($tmp, $mhadmin, $mhshoweditlink, $haveoverlib);
+                
+                // Common replacements
+                $mungedword = preg_replace($leetsearch, $leetreplace, $tmp['short']);
+                if ($mungedword != $tmp['short']) {
+                    $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($mungedword, '/'). ')(?![\/\w@:])(?!\.\w)/i';
+                    $search[]      = $search_temp;
+                    $replace[]     = md5($search_temp);
+                    $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
+                    $finalreplace[] = create_censor($tmp, $mhadmin, $mhshoweditlink, $haveoverlib);
+                }
                 unset($search_temp);
             }
         } // foreach

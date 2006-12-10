@@ -6,33 +6,33 @@
 
 <form action="<!--[ pnmodurl modname="MultiHook" type="admin" func="store" ]-->" method="post">
 <input type="hidden" name="authid" value="<!--[ pnsecgenauthkey module="MultiHook" ]-->" />
-<input type="hidden" name="abbr_aid" value="<!--[ $abac.aid ]-->" />
+<input type="hidden" name="mh_aid" value="<!--[ $abac.aid ]-->" />
 
 <div class="mh_adminrow">
     <label for="abbr_short"><!--[ pnml name='_MH_SHORT' ]--></label><br />
-    <input type="text" name="abbr_short" id="abbr_short" value="<!--[ $abac.short ]-->" size="40" maxlength="60" />
+    <input type="text" name="mh_short" id="abbr_short" value="<!--[ $abac.short ]-->" size="40" maxlength="60" />
 </div>
 
 <div class="mh_adminrow">
     <label for="abbr_long"><!--[ pnml name='_MH_LONG' ]-->&nbsp;<!--[ pnml name='_MH_LONGHINT' ]--></label><br />
-    <input type="text" name="abbr_long" id="abbr_long" value="<!--[ $abac.long ]-->" size="40" maxlength="200" />
+    <input type="text" name="mh_long" id="abbr_long" value="<!--[ $abac.long ]-->" size="40" maxlength="200" />
 </div>
 
 <div class="mh_adminrow">
     <label for="abbr_title"><!--[ pnml name='_MH_TITLE' ]-->&nbsp;<!--[ pnml name='_MH_TITLEHINT' ]--></label><br />
-    <input type="text" name="abbr_title" id="abbr_title" value="<!--[ $abac.title ]-->" size="40" maxlength="200" />
+    <input type="text" name="mh_title" id="abbr_title" value="<!--[ $abac.title ]-->" size="40" maxlength="200" />
 </div>
 
 <div class="mh_adminrow">
     <label for="abbr_type"><!--[ pnml name='_MH_TYPE' ]--></label>
-    <select id="abbr_type" name="abbr_type">
+    <select id="abbr_type" name="mh_type">
     <!--[ html_options options=$types selected=$abac.type ]-->
     </select>
 </div>
 
 <div class="mh_adminrow">
     <label for="abbr_language"><!--[ pnml name='_MH_LANGUAGE' ]--></label>
-    <!--[ mhlanguagelist name="abbr_language" id="abbr_language" installed=1 selected=$abac.language ]-->
+    <!--[ mhlanguagelist name="mh_language" id="abbr_language" installed=1 selected=$abac.language ]-->
 </div>
 
 <!--[ if $abac.delete == true ]-->

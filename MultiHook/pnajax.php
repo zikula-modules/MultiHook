@@ -70,7 +70,7 @@ function MultiHook_ajax_store()
                          array('aid' => $aid));
 
     if(!empty($delete)&& ($delete=='1')) {
-        if(pnSecAuthAction(0, 'MultiHook::', $abac['short'] . '::' . $abac['aid'], ACCESS_DELETE)) {
+        if(SecurityUtil::checkPermission('MultiHook::', $abac['short'] . '::' . $abac['aid'], ACCESS_DELETE)) {
             if(pnModAPIFunc('MultiHook', 'admin', 'delete',
                              array('aid' => $aid))) {
                 $return = $abac['short'];
@@ -83,7 +83,7 @@ function MultiHook_ajax_store()
     } else {
 
         $mode = '';
-        if(!is_array($abac) && pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_ADD)) {
+        if(!is_array($abac) && SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
             $mode = 'create';
             // check if db entry with this short already exists
             $check_abac = pnModAPIFunc('MultiHook', 'user', 'get',
@@ -92,7 +92,7 @@ function MultiHook_ajax_store()
                 mh_ajaxerror("'$short' " . _MH_EXISTSINDB);
             }
         }
-        if(is_array($abac) && pnSecAuthAction(0, 'MultiHook::', $abac['short'] . '::' . $abac['aid'], ACCESS_EDIT)) {
+        if(is_array($abac) && SecurityUtil::checkPermission('MultiHook::', $abac['short'] . '::' . $abac['aid'], ACCESS_EDIT)) {
             $mode = 'update';
         }
         unset($abac);
@@ -134,7 +134,7 @@ function MultiHook_ajax_store()
                                       'language' => $language));
             if(!is_bool($aid)) {
                 // result is not false, its a aid of the new created or updated entry
-                $mhadmin = pnSecAuthAction(0, 'MultiHook::', '::', ACCESS_DELETE);
+                $mhadmin = SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_DELETE);
                 $mhshoweditlink = (pnModGetVar('MultiHook', 'mhshoweditlink')==1) ? true : false;
                 $haveoverlib = pnModAvailable('overlib');
                 $abac = pnModAPIFunc('MultiHook', 'user', 'get',
