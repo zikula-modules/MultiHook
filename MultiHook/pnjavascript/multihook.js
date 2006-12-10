@@ -34,9 +34,9 @@ function starteditmultihook(clickevent)
     objMouseXY.backup();
 
     var eventparams = Event.element(clickevent).id.split('_');
-    var pars = "module=MultiHook&type=ajax&func=read&mh_aid=" + eventparams[2];
+    var pars = "module=MultiHook&func=read&mh_aid=" + eventparams[2];
     var myAjax = new Ajax.Request(
-        "index.php",
+        "ajax.php",
         {
             method: 'post',
             parameters: pars,
@@ -48,19 +48,19 @@ function starteditmultihook(clickevent)
 function editmultihook(originalRequest)
 {
     hideInfo();
-
     // show error if necessary
     if( originalRequest.status != 200 ) {
         showajaxerror(originalRequest);
     } else {
-        var abac = originalRequest.responseText.split('$');
+        var abac = mhdejsonize(originalRequest.responseText);
+        //var abac = json.split('$');
 
-        $("mhedit_aid").value      = abac[0];
-        $("mhedit_short").value    = abac[1];
-        $("mhedit_long").value     = abac[2];
-        $("mhedit_title").value    = abac[3];
-        setSelect('mhedit_type', abac[4]);
-        setSelect('mhedit_language', abac[5]);
+        $("mhedit_aid").value      = abac['aid'];
+        $("mhedit_short").value    = abac['short'];
+        $("mhedit_long").value     = abac['long'];
+        $("mhedit_title").value    = abac['title'];
+        setSelect('mhedit_type', abac['type']);
+        setSelect('mhedit_language', abac['language']);
         $("mhedit_delete").checked = false;
 
         var objMultiHook = $('multihookedit');
@@ -75,7 +75,7 @@ function submiteditmultihook()
     hideElement('multihookedit');
     showInfo(savingText, objMouseXY.lastup_xpos, objMouseXY.lastup_ypos, false);
 
-    var pars = "module=MultiHook&type=ajax&func=store" +
+    var pars = "module=MultiHook&func=store" +
                "&mh_aid=" + $F('mhedit_aid') +
                "&mh_short=" + encodeURIComponent($F('mhedit_short')) +
                "&mh_long=" + encodeURIComponent($F('mhedit_long')) +
@@ -86,7 +86,7 @@ function submiteditmultihook()
 
     var myAjax = new Ajax.Updater(
                     {success: 'mh_update_content'},
-                    "index.php",
+                    "ajax.php",
                     {
                         method: 'post',
                         parameters: pars,
@@ -120,7 +120,7 @@ function submitmultihook()
         objMHSelection.parentObj.innerHTML = objMHSelection.parentObj.innerHTML.replace(oldregexp, newtext);
     }
 
-    var pars = "module=MultiHook&type=ajax&func=store" +
+    var pars = "module=MultiHook&func=store" +
                "&mh_short=" + encodeURIComponent($F('mh_short')) +
                "&mh_long=" + encodeURIComponent($F('mh_long')) +
                "&mh_title=" + encodeURIComponent($F('mh_title')) +
@@ -128,7 +128,7 @@ function submitmultihook()
                "&mh_language=" + $F('mh_language');
     var myAjax = new Ajax.Updater(
                     {success: 'mh_new_content'},
-                    "index.php",
+                    "ajax.php",
                     {
                         method: 'post',
                         parameters: pars,
@@ -359,4 +359,20 @@ function getSelectedText()
     }
 }
 
-
+/**
+ * mhdejsonize
+ * unserializes an array
+ *
+ *@param jsondata JSONized array in utf-8 (as created by AjaxUtil::output
+ *@return array
+ */
+function mhdejsonize(jsondata)
+{
+    var result;
+    try {
+        result = eval('(' + jsondata + ')');
+    } catch(error) {
+        alert('illegal JSON response: \n' + error + 'in\n' + jsondata);
+    }
+    return result;
+}

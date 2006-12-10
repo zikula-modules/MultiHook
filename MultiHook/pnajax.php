@@ -26,19 +26,16 @@ function MultiHook_ajax_read()
     $error = '';
     $return = '';
 
-    $aid = pnVarCleanFromInput('mh_aid');
+    $aid = (int)FormUtil::getPassedValue('mh_aid', -1, 'POST');
     $abac = pnModAPIFunc('MultiHook', 'user', 'get',
                          array('aid' => $aid));
     if(is_array($abac)) {
-        $return = implode('$', $abac);
+        AjaxUtil::output($abac);
+        exit;
     } else {
-        $error = _MH_ERRORREADINGDATA . ' (aid=' . $aid . ')';
+        AjaxUtil::error(_MH_ERRORREADINGDATA . ' (aid=' . $aid . ')', '404 Not found');
     }
-
-    mh_ajaxerror($error);
-
-    echo utf8_encode($return);
-    exit;
+    // we should never get here
 }
 
 function MultiHook_ajax_store()
@@ -46,19 +43,14 @@ function MultiHook_ajax_store()
     $error = '';
     $return = '';
 
-    list($aid,
-         $short,
-         $long,
-         $title,
-         $type,
-         $delete,
-         $language) = pnVarCleanFromInput('mh_aid',
-                                          'mh_short',
-                                          'mh_long',
-                                          'mh_title',
-                                          'mh_type',
-                                          'mh_delete',
-                                          'mh_language');
+    // Get parameters from whatever input we need
+    $aid       = (int)FormUtil::getPassedValue('mh_aid',      -1, 'POST');
+    $short     =      FormUtil::getPassedValue('mh_short',    '', 'POST');
+    $long      =      FormUtil::getPassedValue('mh_long',     '', 'POST');
+    $title     =      FormUtil::getPassedValue('mh_title',    '', 'POST');
+    $type      = (int)FormUtil::getPassedValue('mh_type',     0,  'POST');
+    $delete    =      FormUtil::getPassedValue('mh_delete',   '', 'POST');
+    $language  =      FormUtil::getPassedValue('mh_language', '', 'POST');
 
     $short    = trim(utf8_decode(urldecode($short)));
     $long     = trim(utf8_decode(urldecode($long)));
@@ -81,7 +73,6 @@ function MultiHook_ajax_store()
             $error = _MH_NOAUTH;
         }
     } else {
-
         $mode = '';
         if(!is_array($abac) && SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
             $mode = 'create';
@@ -89,7 +80,7 @@ function MultiHook_ajax_store()
             $check_abac = pnModAPIFunc('MultiHook', 'user', 'get',
                                        array('short' => $short));
             if(!is_bool($check_abac)) {
-                mh_ajaxerror("'$short' " . _MH_EXISTSINDB);
+                AjaxUtil::error("'$short' " . _MH_EXISTSINDB);
             }
         }
         if(is_array($abac) && SecurityUtil::checkPermission('MultiHook::', $abac['short'] . '::' . $abac['aid'], ACCESS_EDIT)) {
@@ -123,7 +114,7 @@ function MultiHook_ajax_store()
                 default:
                     $error = _MH_WRONGPARAMETER_TYPE . ' (' . $type . ')<br />';
             }
-            mh_ajaxerror($error);
+            AjaxUtil::error($error);
 
             $aid = pnModAPIFunc('MultiHook', 'admin', $mode,
                                 array('aid'      => $aid,
@@ -174,7 +165,7 @@ function MultiHook_ajax_store()
         }
     }
     // stop with 400 Bad data if neccesary
-    mh_ajaxerror($error);
+    AjaxUtil::error($error);
 
     // otherwise output result and exit
     echo utf8_encode($return);
