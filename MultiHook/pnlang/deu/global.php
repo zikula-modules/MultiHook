@@ -60,6 +60,7 @@ define('_MH_DELETEFAILED','Löschen des Eintrags fehlgeschlagen');
 // E
 //
 define('_MH_ERRORREADINGDATA', 'Fehler beim Einlesen');
+define('_MH_EXTERNALLINK', '(externer Link)');
 define('_MH_EXTERNALLINKCLASS', 'CSS-Klasse für externe Links');
 
 //

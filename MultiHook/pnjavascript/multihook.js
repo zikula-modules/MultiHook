@@ -105,7 +105,7 @@ function submiteditmultihook_response(originalRequest)
 
     // show error if necessary
     if( originalRequest.status != 200 ) {
-        showajaxerror(originalRequest);
+        showajaxerror(originalRequest.responseText);
     }
 }
 
@@ -145,7 +145,7 @@ function submitmultihook_response(originalRequest)
 
     // show error if necessary
     if( originalRequest.status != 200 ) {
-        showajaxerror(originalRequest);
+        showajaxerror(originalRequest.responseText);
     }
     addEventHandlers();
 

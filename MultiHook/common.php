@@ -86,7 +86,15 @@ function create_link($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=
         $externallinkclass =pnModGetVar('MultiHook', 'externallinkclass');
     }
 
-    $extclass = (preg_match("/(^http:\/\/)/", $long_original)==1) ? "class=\"$externallinkclass\"" : "";
+    if(preg_match("/(^http:\/\/)/", $long_original)==1) {
+        if(!empty($externallinkclass)) {
+            $extclass = "class=\"$externallinkclass\"";
+        }
+        $accessebilityhack = ''; // <span class="mhacconly"> ' . DataUtil::formatForDisplay(_MH_EXTERNALLINK) . '</span>';
+    } else {
+        $extclass = '';
+        $accessebilityhack = '';
+    }
 
     // prepare url
     list($long, $aid) = pnVarPrepForDisplay($long, $aid);
@@ -94,15 +102,15 @@ function create_link($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=
 
     if($mhlinktitle==false) {
         if($haveoverlib) {
-            $replace_temp = '<a '.$extclass.' href="' . $long . '" title="" onmouseover="return overlib(\'' . $long . '\', CAPTION, \''. $title .'\', ' . overlib_params() . ')" onmouseout="return nd();">' . $short . '</a>';
+            $replace_temp = '<a '.$extclass.' href="' . $long . '" title="" onmouseover="return overlib(\'' . $long . '\', CAPTION, \''. $title .'\', ' . overlib_params() . ')" onmouseout="return nd();">' . $short . $accessebilityhack . '</a>';
         } else {
-            $replace_temp = '<a '.$extclass.' href="' . $long . '" title="' . $title . '">' . $short . '</a>';
+            $replace_temp = '<a '.$extclass.' href="' . $long . '" title="' . $title . '">' . $short . $accessebilityhack . '</a>';
         }
     } else {
         if($haveoverlib) {
-            $replace_temp = '<a '.$extclass.' href="' . $long . '" title="" onmouseover="return overlib(\'' . $long . '\', CAPTION, \''. $title .'\', ' . overlib_params() . ')" onmouseout="return nd();">' . $title . '</a>';
+            $replace_temp = '<a '.$extclass.' href="' . $long . '" title="" onmouseover="return overlib(\'' . $long . '\', CAPTION, \''. $title .'\', ' . overlib_params() . ')" onmouseout="return nd();">' . $title . $accessebilityhack . '</a>';
         } else {
-            $replace_temp = '<a '.$extclass.' href="' . $long . '" title="' . $title . '">' . $title . '</a>';
+            $replace_temp = '<a '.$extclass.' href="' . $long . '" title="' . $title . '">' . $title . $accessebilityhack . '</a>';
         }
     }
     if($mhadmin==true && $mhshoweditlink==true) {

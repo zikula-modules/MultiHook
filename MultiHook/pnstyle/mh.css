@@ -6,6 +6,17 @@ abbr, acronym, span.abbr {
     border-bottom: 1px dashed #000;
 }
 
+// accessbility only hack, adds a (external link) in an a-tag
+.mhacconly {
+    position: absolute;
+    left: -10000px;
+    top: -10000px;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    display: inline;
+}
+
 a.externallink {
     padding-left:  14px;
     background: url('../../../modules/MultiHook/pnimages/extlink.gif') no-repeat bottom left;

@@ -201,7 +201,6 @@ function MultiHook_userapitransform($text)
 
     // pad it with a space so we can distinguish between FALSE and matching the 1st char (index 0).
     $text = ' '  . $text;
-
     
     // add stylesheet
     pnPageAddVar('stylesheet', 'modules/MultiHook/pnstyle/mh.css');

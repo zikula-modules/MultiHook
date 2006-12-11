@@ -60,6 +60,7 @@ define('_MH_DELETEFAILED','Database deletion of entry failed');
 // E
 //
 define('_MH_ERRORREADINGDATA', 'Error reading data');
+define('_MH_EXTERNALLINK', '(external link)');
 define('_MH_EXTERNALLINKCLASS', 'CSS-Classdefinition for external links');
 
 //
