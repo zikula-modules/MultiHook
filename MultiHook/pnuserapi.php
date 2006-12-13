@@ -436,4 +436,54 @@ function MultiHook_userapitransform($text)
     return $text;
 }
 
+/**
+ * censor
+ *
+ * This is a function that emulates the old pnVarCensor
+ *
+ */
+function MultiHook_userapi_censor($args)
+{
+    if(!isset($args['word']) || empty($args['word'])) {
+        return '';
+    }
+    static $search;
+    static $replace;
+    static $finalsearch;
+    static $finalreplace;
+    static $beenherebefore;
+    
+    if(empty($beenherebefore)) { 
+echo '---';
+        $beenherebefore = true;   
+        // deal with munded words (leet speak)
+        $leetsearch  = array('o', 'e', 'a', 'i');
+        $leetreplace = array('0', '3', '@', '1');
+        
+        $censoredwords = pnModAPIFunc('MultiHook', 'user', 'getall', array('filter' => 3));
+        foreach($censoredwords as $tmp) {
+            // original censored word
+            $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:])(?!\.\w)/i';
+            $search[]      = $search_temp;
+            $replace[]     = md5($search_temp);
+            $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
+            $finalreplace[] = create_censor($tmp, false, false, false);
+            
+            // Common replacements
+            $mungedword = str_replace($leetsearch, $leetreplace, strtolower($tmp['short']));
+            if ($mungedword != $tmp['short']) {
+                $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($mungedword, '/'). ')(?![\/\w@:])(?!\.\w)/i';
+                $search[]      = $search_temp;
+                $replace[]     = md5($search_temp);
+                $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
+                $finalreplace[] = create_censor($tmp, false, false, false);
+            }
+            unset($search_temp);
+        }
+    }
+    $word = preg_replace($search, $replace, $args['word']);
+    $word = preg_replace($finalsearch, $finalreplace, $word);
+    return $word;
+}
+ 
 ?>
