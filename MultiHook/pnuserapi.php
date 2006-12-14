@@ -454,7 +454,6 @@ function MultiHook_userapi_censor($args)
     static $beenherebefore;
     
     if(empty($beenherebefore)) { 
-echo '---';
         $beenherebefore = true;   
         // deal with munded words (leet speak)
         $leetsearch  = array('o', 'e', 'a', 'i');
