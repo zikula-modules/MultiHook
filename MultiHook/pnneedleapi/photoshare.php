@@ -36,13 +36,13 @@ function MultiHook_needleapi_photoshare($args)
         $cache = array();
     } 
 
+    // load language defines from pnlang/xxx/photoshare.php
+    pnModLangLoad('MultiHook', 'photoshare');
     if(!empty($nid)) {
         if(!isset($cache[$nid])) {
             // not in cache array
             if(pnModAvailable('photoshare')) {
                 pnModLoad('photoshare', 'user');
-                // load language defines from pnlang/xxx/photoshare.php
-                pnModLangLoad('MultiHook', 'photoshare');
                 
                 // nid is like type_albumid, type_imageid or type_imageid_width_height
                 $temp = explode('-', $nid);
@@ -74,14 +74,14 @@ function MultiHook_needleapi_photoshare($args)
                                                 array('folderID' => $id) );
                         if(is_array($folder)) {
                             if(photoshareAccessFolder($id, photoshareAccessRequirementView, '')) {
-                                $url   = pnVarPrepForDisplay(pnModURL('photoshare', 'user', 'showimages', array('fid' => $id)));
-                                $title = pnVarPrepForDisplay($folder['title']);
+                                $url   = DataUtil::formatForDisplay(pnModURL('photoshare', 'user', 'showimages', array('fid' => $id)));
+                                $title = DataUtil::formatForDisplay($folder['title']);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PS_NOAUTHFORFOLDER . ' (' . $id . ')') . '</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_NOAUTHFORFOLDER . ' (' . $id . ')') . '</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PS_UNKNOWNFOLDER .  ' (' . $id . ')') . '</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_UNKNOWNFOLDER .  ' (' . $id . ')') . '</em>';
                         }
                         break;
                     case 'P':
@@ -95,8 +95,8 @@ function MultiHook_needleapi_photoshare($args)
                             if(photoshareAccessImage($id, photoshareAccessRequirementView, '')) {
                                 if($type=='P') {
                                     // Picture
-                                    $url   = pnVarPrepForDisplay(pnModURL('photoshare', 'user', 'viewimage', array('iid' => $id)));
-                                    $title = pnVarPrepForDisplay($image['title']);
+                                    $url   = DataUtil::formatForDisplay(pnModURL('photoshare', 'user', 'viewimage', array('iid' => $id)));
+                                    $title = DataUtil::formatForDisplay($image['title']);
                                     $widthheight = '';
                                     if(isset($width) && isset($height)) {
                                         $widthheight = ' width="' . $width . '" height="' . $height . '"';
@@ -108,32 +108,32 @@ function MultiHook_needleapi_photoshare($args)
                                     }    
                                 } else {
                                     // Thumbnail
-                                    $fullurl   = pnVarPrepForDisplay(pnModURL('photoshare', 'user', 'viewimage', array('iid' => $id)));
+                                    $fullurl   = DataUtil::formatForDisplay(pnModURL('photoshare', 'user', 'viewimage', array('iid' => $id)));
                                     $thumburl = $fullurl . '&amp;thumbnail=1';
-                                    $title = pnVarPrepForDisplay($image['title']);
+                                    $title = DataUtil::formatForDisplay($image['title']);
                                     $cache[$nid] = '<a href="' . $fullurl . '" title="' . $title . '"><img src="' . $thumburl . '" alt="' . $title . '" /></a>';
                                 }
                             } else {
-                                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PS_NOAUTHFORIMAGE . ' (' . $id . ')') . '</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_NOAUTHFORIMAGE . ' (' . $id . ')') . '</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PS_UNKNOWNIMAGE .  ' (' . $id . ')') . '</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_UNKNOWNIMAGE .  ' (' . $id . ')') . '</em>';
                         }
                         break;
                     case 'C':
                         $cache[$nid] = '<span style="clear: both;">&nbsp;</span>';
                         break;
                     default:
-                        $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PS_UNKNOWNTYPE) . '</em>';
+                        $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_UNKNOWNTYPE) . '</em>';
                         
                 }
             } else {
-                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PS_NOTAVAILABLE) . '</em>';
+                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_NOTAVAILABLE) . '</em>';
             }
         }
         $result = $cache[$nid];
     } else {
-        $result = '<em>' . pnVarPrepForDisplay(_MH_PS_NONEEDLEID) . '</em>';
+        $result = '<em>' . DataUtil::formatForDisplay(_MH_PS_NONEEDLEID) . '</em>';
     }
     return $result;
     

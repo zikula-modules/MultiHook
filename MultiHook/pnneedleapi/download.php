@@ -36,75 +36,44 @@ function MultiHook_needleapi_download($args)
         $cache = array();
     } 
 
+    pnModLangLoad('MultiHook', 'download');
     if(!empty($nid)) {
         if(!isset($cache[$nid])) {
             // not in cache array
             if(pnModAvailable('Downloads')) {
-                pnModLangLoad('MultiHook', 'download');
                 $modinfo = pnModGetInfo(pnModGetIDFromName('Downloads'));
                 // check for the version of the Downloads module
                 // if >=2.0 -> true
-                // if  <2.0 -> false
-                $is_dl20 = version_compare($modinfo['version'], '2.0', '>=');
-                // nid is like C_##, D_## or L_##
-                $temp = explode('-', $nid);
-                $type = '';
-                if(is_array($temp)) {
-                    $type = $temp[0];
-                    $id   = $temp[1];
-                }
-            
-                pnModDBInfoLoad('Downloads');
-                
-                switch($type) {
-                    case 'C':
-                        if($is_dl20) {
-                            // Downloads 2.0 or later
+                // if  <2.0 -> false - not supported in MultiHook 5.0 or later!
+                if(version_compare($modinfo['version'], '2.0', '>=')) {
+                    // nid is like C-##, D-##, L-## or S
+                    $temp = explode('-', $nid);
+                    $type = '';
+                    if(is_array($temp)) {
+                        $type = $temp[0];
+                        $id   = $temp[1];
+                    }
+                    
+                    pnModDBInfoLoad('Downloads', 'Downloads');
+                    switch($type) {
+                        case 'C':
                             if(SecurityUtil::checkPermission('Downloads::Category', $id . '::', ACCESS_READ)) {
                                 $dl20categoryinfo = pnModAPIFunc('Downloads', 'user', 'category_info',
                                                                  array('cid' => $id));
                                 if(is_array($dl20categoryinfo)) {
-                                    list($url,
-                                         $title,
-                                         $desc) = pnVarPrepForDisplay(pnModURL('Downloads', 'user', 'view', array('cid' => $id)),
-                                                                      $dl20categoryinfo['title'],
-                                                                      $dl20categoryinfo['description']);
+                                    $url   = DataUtil::formatForDisplay(pnModURL('Downloads', 'user', 'view', array('cid' => $id)));
+                                    $title = DataUtil::formatForDisplay($dl20categoryinfo['title']);
+                                    $desc  = DataUtil::formatForDisplay($dl20categoryinfo['description']);
                                     $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
                                 } else {
-                                    $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_DL_UNKNOWNCATEGORY . ' (' . $id . ')') .'</em>';
+                                    $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_DL_UNKNOWNCATEGORY . ' (' . $id . ')') .'</em>';
                                 }
                             } else {
-                                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_DL_NOAUTHFORCATEGORY . ' (' . $id . ')') .'</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_DL_NOAUTHFORCATEGORY . ' (' . $id . ')') .'</em>';
                             }
-                        } else {
-                            $dbconn =& pnDBGetConn(true);
-                            $pntable =& pnDBGetTables();
-                            $tbldlcats = $pntable['downloads_categories'];
-                            $coldlcats = $pntable['downloads_categories_column'];
-                            
-                            $sql = 'SELECT ' . $coldlcats['title'] . ', ' . $coldlcats['cdescription'] . ' FROM ' . $tbldlcats . ' WHERE ' . $coldlcats['cid'] . '=' . pnVarPrepForStore($id);
-                            $res = $dbconn->Execute($sql);
-                            if($dbconn->ErrorNo()==0 && !$res->EOF) {
-                                list($title, $desc) = $res->fields;
-	                            if(SecurityUtil::checkPermission('Downloads::Category', $title . '::' . $id, ACCESS_READ)) {
-                                    list($url,
-                                         $title,
-                                         $desc) = pnVarPrepForDisplay('index.php?name=Downloads&req=viewdownload&cid=' . $id,
-                                                                      $title,
-                                                                      $desc);
-                                    $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
-                                } else {
-                                    $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_DL_NOAUTHFORCATEGORY . ' (' . $id . ')') .'</em>';
-                                }
-                            } else {
-                                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_DL_UNKNOWNCATEGORY . ' (' . $id . ')') .'</em>';
-                            }
-                        }
-                        break;
-                    case 'D':
-                    case 'L':
-                        if($is_dl20) {
-                            // Downloads 2.0 or later
+                            break;
+                        case 'D':
+                        case 'L':
                             $dl20downloadinfo = pnModAPIFunc('Downloads','user','get_download_info',
                         									  array('lid' => $id,
                         									  		'cid' => 0,
@@ -121,59 +90,34 @@ function MultiHook_needleapi_download($args)
                                     $url = pnModURL('Downloads', 'user', 'display', array('lid' => $id));
                                 } else {
                                     $url = pnModURL('Downloads', 'user', 'prep_hand_out', array('lid'    => $id,
-                                                                                                'authid' => pnSecGenAuthKey('Downloads')));
+                                                                                                'authid' => SecurityUtil::generateAuthKey('Downloads')));
                                 }
-                                list($url,
-                                     $title,
-                                     $desc) = pnVarPrepForDisplay($url,
-                                                                  $dl20downloadinfo[0]['title'],
-                                                                  $dl20downloadinfo[0]['description']);
+                                $url   = DataUtil::formatForDisplay($url);
+                                $title = DataUtil::formatForDisplay($dl20downloadinfo[0]['title']);
+                                $desc  = DataUtil::formatForDisplay($dl20downloadinfo[0]['description']);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_DL_UNKNOWNDOWNLOAD . ' (' . $id . ')') . '</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_DL_UNKNOWNDOWNLOAD . ' (' . $id . ')') . '</em>';
                             }
-                        } else {
-                            $dbconn =& pnDBGetConn(true);
-                            $pntable =& pnDBGetTables();
-                            $tbldls = $pntable['downloads_downloads'];
-                            $coldls = $pntable['downloads_downloads_column'];
-                            
-                            $sql = 'SELECT ' . $coldls['title'] . ', ' . $coldls['description'] . ' FROM ' . $tbldls . ' WHERE ' . $coldls['lid'] . '=' . pnVarPrepForStore($id);
-                            $res = $dbconn->Execute($sql);
-                            if($dbconn->ErrorNo()==0 && !$res->EOF) {
-                                list($title, $desc) = $res->fields;
-                                if(SecurityUtil::checkPermission('Downloads::Item', $title . '::' . $id, ACCESS_READ)) {
-                                    if($type=='D') {
-                                        $url = 'index.php?name=Downloads&req=viewdownloaddetails&lid=' . $id;
-                                    } else {
-                                        $url = 'index.php?name=Downloads&req=getit&lid=' . $id;
-                                    }
-                                    list($url,
-                                         $title,
-                                         $desc)  = pnVarPrepForDisplay($url, $title, $desc);
-                                    $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
-                                } else {
-                                    $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_DL_NOAUTHFORDOWNLOAD . ' (' . $id . ')') .'</em>';
-                                }
-                            } else { 
-                                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_DL_UNKNOWNDOWNLOAD . ' (' . $id . ')') .'</em>';
-                            }
-                        }
-                        break;
-                    case 'S':
-                        // link to main page
-                        $cache[$nid] = '<a href="index.php?name=Downloads" title="' . pnVarPrepForDisplay(_MH_DL_DOWNLOADS) . '">' . pnVarPrepForDisplay(_MH_DL_DOWNLOADS) . '</a>';
-                        break;
-                    default:
-                        $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_DL_UNKNOWNTYPE) . '</em>';
+                            break;
+                        case 'S':
+                            // link to main page
+                            $cache[$nid] = '<a href="index.php?name=Downloads" title="' . DataUtil::formatForDisplay(_MH_DL_DOWNLOADS) . '">' . DataUtil::formatForDisplay(_MH_DL_DOWNLOADS) . '</a>';
+                            break;
+                        default:
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_DL_UNKNOWNTYPE) . '</em>';
+                    }
+                } else {
+                    // no Downloads 2.0 or later
+                    $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_DL_DL20MINIMUMNEEDED) . '</em>';
                 }
             } else {
-                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_DL_NOTAVAILABLE) . '</em>';
+                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_DL_NOTAVAILABLE) . '</em>';
             }
         }
         $result = $cache[$nid];
     } else {
-        $result = '<em>' . pnVarPrepForDisplay(_MH_DL_NONEEDLEID) . '</em>';
+        $result = '<em>' . DataUtil::formatForDisplay(_MH_DL_NONEEDLEID) . '</em>';
     }
     return $result;
 }

@@ -37,7 +37,7 @@ function MultiHook_needleapi_paged($args)
     } 
 
     // set the default for errors of all kind
-    $result = '<em title="' . pnVarPrepForDisplay(sprintf(_MH_NEEDLEDATAERROR, $nid, 'PagEd')) . '">PAGED' . $nid . '</em>';
+    $result = '<em title="' . DataUtil::formatForDisplay(sprintf(_MH_NEEDLEDATAERROR, $nid, 'PagEd')) . '">PAGED' . $nid . '</em>';
     if(!isset($cache[$nid])) {
         // not in cache array
         // set the default
@@ -52,35 +52,26 @@ function MultiHook_needleapi_paged($args)
             }
     
             pnModDBInfoLoad('PagEd');
-            $dbconn =& pnDBGetConn(true);
-            $pntable =& pnDBGetTables();
-            
             switch($type) {
                 case 'P':
-                    $titlestable = $pntable['paged_titles'];
-                    $sql = 'SELECT title, topic_id from ' . $titlestable . ' WHERE page_id=' . pnVarPrepForStore($id);
-                    $res = $dbconn->Execute($sql);
-                    if($dbconn->ErrorNo()==0 && !$res->EOF) {
-                        list($title, $topic_id) = $res->fields;
-                        $url   = pnVarPrepForDisplay('modules.php?op=modload&name=PagEd&file=index&page_id=' . pnVarPrepForDisplay($id));
-                        $title = pnVarPrepForDisplay($title);
+                    $obj = DBUtil::selectObjectByID('paged_titles', $id, 'page_id')
+                    if($obj <> false) {
+                        $url   = DataUtil::formatForDisplay('modules.php?op=modload&name=PagEd&file=index&page_id=' $obj['page_id']);
+                        $title = DataUtil::formatForDisplay($obj['title']);
                         $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
                     } else {
-                        $cache[$nid] = 'PagEd: unknown publication ' . pnVarPrepForDisplay($id);
+                        $cache[$nid] = 'PagEd: unknown publication ' . DataUtil::formatForDisplay($id);
                     }
                     break;
                 case 'T':
-                    $topicstable = $pntable['paged_topics'];
-                    $sql = 'SELECT topic_title, topic_description from ' . $topicstable . ' WHERE topic_id=' . pnVarPrepForStore($id);
-                    $res = $dbconn->Execute($sql);
-                    if($dbconn->ErrorNo()==0 && !$res->EOF) {
-                        list($title, $desc) = $res->fields;
-                        $url   = pnVarPrepForDisplay('modules.php?op=modload&name=PagEd&file=index&topic_id=' . pnVarPrepForDisplay($id));
-                        $title = pnVarPrepForDisplay($title);
-                        $desc  = pnVarPrepForDisplay($desc);
+                    $obj = DBUtil::selectObjectByID('paged_topics', $id, 'topic_id')
+                    if($obj <> false) {
+                        $url   = DataUtil::formatForDisplay('modules.php?op=modload&name=PagEd&file=index&topic_id=' . $obj['topic_id']);
+                        $title = DataUtil::formatForDisplay($obj['topic_title']);
+                        $desc  = DataUtil::formatForDisplay($obj['topic_description']);
                         $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
                     } else {
-                        $cache[$nid] = 'PagEd: unknown topic ' . pnVarPrepForDisplay($id);
+                        $cache[$nid] = 'PagEd: unknown topic ' . DataUtil::formatForDisplay($id);
                     }
                     break;
                 default:

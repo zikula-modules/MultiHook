@@ -45,35 +45,34 @@ function MultiHook_needleapi_htmlpage($args)
                 // nid is the pid
                 
                 pnModDBInfoLoad('htmlpages');
-                $dbconn = pnDBGetConn(true);
                 $pntable = pnDBGetTables();
-                $htmlpagestable = $pntable['htmlpages'];
-                $htmlpagescolumn = &$pntable['htmlpages_column'];
-            
-                $sql = "SELECT $htmlpagescolumn[title]
-                        FROM $htmlpagestable
-                        WHERE $htmlpagescolumn[pid] = '" . (int)pnVarPrepForStore($nid) . "'";
-                $res = $dbconn->Execute($sql);
-                if($dbconn->ErrorNo()==0 && !$res->EOF) {
-                    list($title) = $res->fields;
-                    if(SecurityUtil::checkPermission('htmlpages::', "$title::$nid", ACCESS_READ)) {
-                        $url   = pnVarPrepForDisplay(pnModURL('htmlpages', 'user', 'display', array('pid' => $nid)));
-                        $title = pnVarPrepForDisplay($title);
-                        $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
-                    } else {
-                        $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_HP_NOAUTHFORPAGE . ' (' . $nid . ')') . '</em>';
-                    }
+
+                $permfilter[] = array ('realm'            =>  0,
+                                       'component_left'   =>  'htmlpages',
+                                       'component_middle' =>  '',
+                                       'component_right'  =>  '',
+                                       'instance_left'    =>  'title',
+                                       'instance_middle'  =>  '',
+                                       'instance_right'   =>  'pid',
+                                       'level'            =>  ACCESS_READ);
+                
+                $obj = DBUtil::selectObjectByID('htmlpages', $nid, 'pid', null, $permFilter);
+                
+                if($obj <> false) {
+                    $url   = DataUtil::formatForDisplay(pnModURL('htmlpages', 'user', 'display', array('pid' => $nid)));
+                    $title = DataUtil::formatForDisplay($obj['title']);
+                    $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
                 } else {
-                    $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_HP_UNKNOWNPAGE . ' (' . $nid . ')') . '</em>';
+                    $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_HP_UNKNOWNPAGE . ' (' . $nid . ')') . '</em>';
                 }
         
             } else {
-                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_HP_NOTAVAILABLE) . '</em>';
+                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_HP_NOTAVAILABLE) . '</em>';
             }
         }
         $result = $cache[$nid];
     } else {
-        $result = '<em>' . pnVarPrepForDisplay(_MH_HP_NONEEDLEID) . '</em>';
+        $result = '<em>' . DataUtil::formatForDisplay(_MH_HP_NONEEDLEID) . '</em>';
     }
     return $result;
     

@@ -52,7 +52,7 @@ function MultiHook_needleapi_pnforum($args)
                     $id   = $temp[1];
                 }
                 
-                include_once 'modules/pnForum/common.php';
+                Loader::includeOnce('modules/pnForum/common.php');
                 pnModDBInfoLoad('pnForum');
                 $dbconn =& pnDBGetConn(true);
                 $pntable =& pnDBGetTables();
@@ -70,14 +70,14 @@ function MultiHook_needleapi_pnforum($args)
                         if($dbconn->ErrorNo()==0 && !$res->EOF) {
                             list($title, $cat_id) = $res->fields;
                             if(allowedtoreadcategoryandforum($cat_id, $id)) {
-                                $url   = pnVarPrepForDisplay(pnModURL('pnForum', 'user', 'viewforum', array('forum' => $id)));
-                                $title = pnVarPrepForDisplay($title);
+                                $url   = DataUtil::formatForDisplay(pnModURL('pnForum', 'user', 'viewforum', array('forum' => $id)));
+                                $title = DataUtil::formatForDisplay($title);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PNF_NOAUTHFORFORUM . ' (' . $id . ')') . '</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PNF_NOAUTHFORFORUM . ' (' . $id . ')') . '</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PNF_UNKNOWNFORUM . ' (' . $id . ')') . '</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PNF_UNKNOWNFORUM . ' (' . $id . ')') . '</em>';
                         }
                         break;
                     case 'T':
@@ -97,26 +97,26 @@ function MultiHook_needleapi_pnforum($args)
                         if($dbconn->ErrorNo()==0 && !$result->EOF) {
                             list($title, $forum_id, $cat_id) = $res->fields;
                             if(allowedtoreadcategoryandforum($cat_id, $forum_id)) {
-                                $url   = pnVarPrepForDisplay(pnModURL('pnForum', 'user', 'viewtopic', array('topic' => $id)));
-                                $title = pnVarPrepForDisplay($title);
+                                $url   = DataUtil::formatForDisplay(pnModURL('pnForum', 'user', 'viewtopic', array('topic' => $id)));
+                                $title = DataUtil::formatForDisplay($title);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PNF_NOAUTHFORTOPIC . ' (' . $id . ')') . '</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PNF_NOAUTHFORTOPIC . ' (' . $id . ')') . '</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PNF_UNKNOWNTOPIC . ' (' . $id . ')') . '</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PNF_UNKNOWNTOPIC . ' (' . $id . ')') . '</em>';
                         }
                         break;
                     default:
-                        $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PNF_UNKNOWNTYPE) . '</em>';
+                        $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PNF_UNKNOWNTYPE) . '</em>';
                 }
             } else {
-                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PNF_NOTAVAILABLE) . '</em>';
+                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PNF_NOTAVAILABLE) . '</em>';
             }    
         }
         $result = $cache[$nid];
     } else {
-        $result = '<em>' . pnVarPrepForDisplay(_MH_PNF_NONEEDLEID) . '</em>';
+        $result = '<em>' . DataUtil::formatForDisplay(_MH_PNF_NONEEDLEID) . '</em>';
     }
     return $result;
     

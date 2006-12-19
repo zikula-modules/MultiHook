@@ -36,11 +36,11 @@ function MultiHook_needleapi_weblink($args)
         $cache = array();
     } 
 
+    pnModLangLoad('MultiHook', 'weblink');
     if(!empty($nid)) {
         if(!isset($cache[$nid])) {
             // not in cache array
             if(pnModAvailable('Web_Links')) {
-                pnModLangLoad('MultiHook', 'weblink');
                 // nid is like C_##, D_## or L_##
                 $temp = explode('-', $nid);
                 $type = '';
@@ -63,17 +63,15 @@ function MultiHook_needleapi_weblink($args)
                         if($dbconn->ErrorNo()==0 && !$res->EOF) {
                             list($title, $desc) = $res->fields;
                             if(SecurityUtil::checkPermission('Web Links::Category', $title . '::' . $id, ACCESS_READ)) {
-                                list($url,
-                                     $title,
-                                     $desc) = pnVarPrepForDisplay('index.php?name=Web_Links&req=viewlink&cid=' . $id,
-                                                                  $title,
-                                                                  $desc);
+                                $url   = DataUtil::formatForDisplay('index.php?name=Web_Links&req=viewlink&cid=' . $id);
+                                $title = DataUtil::formatForDisplay($title);
+                                $desc  = DataUtil::formatForDisplay($desc);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_WL_NOAUTHFORCATEGORY . ' (' . $id . ')') .'</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_WL_NOAUTHFORCATEGORY . ' (' . $id . ')') .'</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_DL_UNKNOWNCATEGORY . ' (' . $id . ')') .'</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_DL_UNKNOWNCATEGORY . ' (' . $id . ')') .'</em>';
                         }
                         break;
                     case 'D':
@@ -91,31 +89,31 @@ function MultiHook_needleapi_weblink($args)
                                 } else {
                                     $url = 'index.php?name=Web_Links&req=visit&lid=' . $id;
                                 }
-                                list($url,
-                                     $title,
-                                     $desc)  = pnVarPrepForDisplay($url, $title, $desc);
+                                $url   = DataUtil::formatForDisplay($url);
+                                $title = DataUtil::formatForDisplay($title);
+                                $desc  = DataUtil::formatForDisplay($desc);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_WL_NOAUTHFORWEBLINK . ' (' . $id . ')') .'</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_WL_NOAUTHFORWEBLINK . ' (' . $id . ')') .'</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_DL_UNKNOWNWEBLINK . ' (' . $id . ')') .'</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_DL_UNKNOWNWEBLINK . ' (' . $id . ')') .'</em>';
                         }
                         break;
                     case 'S':
                         // show link to main page
-                        $cache[$nid] = '<a href="index.php?name=Web_Links" title="' . pnVarPrepForDisplay(_MH_WL_WEBLINKS) . '">' . pnVarPrepForDisplay(_MH_WL_WEBLINKS) . '</a>';
+                        $cache[$nid] = '<a href="index.php?name=Web_Links" title="' . DataUtil::formatForDisplay(_MH_WL_WEBLINKS) . '">' . DataUtil::formatForDisplay(_MH_WL_WEBLINKS) . '</a>';
                         break;
                     default:
-                        $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_WL_UNKNOWNTYPE) . '</em>';
+                        $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_WL_UNKNOWNTYPE) . '</em>';
                 }
             } else {
-                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_WL_NOTAVAILABLE) . '</em>';
+                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_WL_NOTAVAILABLE) . '</em>';
             }
         }
         $result = $cache[$nid];
     } else {
-        $result = '<em>' . pnVarPrepForDisplay(_MH_WL_NONEEDLEID) . '</em>';
+        $result = '<em>' . DataUtil::formatForDisplay(_MH_WL_NONEEDLEID) . '</em>';
     }
     return $result;
 }

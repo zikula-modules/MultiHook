@@ -16,6 +16,7 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
+define('_MH_DL_DL20MINIMUMNEEDED', 'Downloads 2.0 or later needed');
 define('_MH_DL_DOWNLOADS', 'downloads');
 define('_MH_DL_NONEEDLEID', 'no needle id');
 define('_MH_DL_NOTAVAILABLE', 'Downloads not available');

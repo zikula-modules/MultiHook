@@ -34,12 +34,13 @@ function MultiHook_needleapi_pagesetter($args)
     if(!isset($cache)) {
         $cache = array();
     } 
+
+    pnModLangLoad('MultiHook', 'pagesetter');
     if(!empty($nid)) {
         if(!isset($cache[$nid])) {
             // not in cache array
             if(pnModAvailable('pagesetter')) {
-                pnModLangLoad('MultiHook', 'pagesetter');
-                // nid is like tid_pid or tid only
+                // nid is like tid-pid or tid only
                 $temp = explode('-', $nid);
                 switch(count($temp)) {
                     case 1:
@@ -51,19 +52,15 @@ function MultiHook_needleapi_pagesetter($args)
                                                      array('tid' => $temp[0]));
                             
                             if(is_array($pubInfo)) {
-                                list($url,
-                                     $pubtitle,
-                                     $pubdesc) = pnVarPrepForDisplay(pnModURL('pagesetter', 'user', 'view',
-                                                                              array('tid' => $temp[0])),
-                                                                     $pubInfo['publication']['title'],
-                                                                     $pubInfo['publication']['description']);
-                                
+                                $url = DataUtil::formatForDisplay(pnModURL('pagesetter', 'user', 'view', array('tid' => $temp[0])));
+                                $pubtitle = DataUtil::formatForDisplay($pubInfo['publication']['title']);
+                                $pubdesc  = DataUtil::formatForDisplay($pubInfo['publication']['description']); 
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $pubdesc . '">' . $pubtitle . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PS_UNKNOWNTID . ' (' . $temp[0] . ')') . '</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_UNKNOWNTID . ' (' . $temp[0] . ')') . '</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PS_NOAUTHFORTID . ' (' . $temp[0] . ')') . '</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_NOAUTHFORTID . ' (' . $temp[0] . ')') . '</em>';
                         }
                         break;
                     case 2:
@@ -80,23 +77,23 @@ function MultiHook_needleapi_pagesetter($args)
                                 $url = pnModURL('pagesetter', 'user', 'viewpub',
                                                 array('tid' => $temp[0],
                                                       'pid' => $temp[1]));
-                                $pubtitle = pnVarPrepForDisplay($pub['title']);
-                                $cache[$nid] = '<a href="' . pnVarPrepForDisplay($url) . '" title="' . $pubtitle . '">' . $pubtitle . '</a>';
+                                $pubtitle = DataUtil::formatForDisplay($pub['title']);
+                                $cache[$nid] = '<a href="' . DataUtil::formatForDisplay($url) . '" title="' . $pubtitle . '">' . $pubtitle . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PS_UNKNOWNPID . ' (' . $nid . ')') . '</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_UNKNOWNPID . ' (' . $nid . ')') . '</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PS_NOAUTHFORPID . ' (' . $nid . ')') . '</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_NOAUTHFORPID . ' (' . $nid . ')') . '</em>';
                         }
                         break;
                     default:
-                        $cache[$nid] = '<em>' . pnVarPrepForDisplay(_MH_PS_WRONGNEEDLEID) . '</em>';
+                        $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_WRONGNEEDLEID) . '</em>';
                 }
             }
         }
         $result = $cache[$nid];
     } else {
-        $result = '<em>' . pnVarPrepForDisplay(_MH_PS_NONEEDLEID) . '</em>';
+        $result = '<em>' . DataUtil::formatForDisplay(_MH_PS_NONEEDLEID) . '</em>';
     }
     return $result;
 
