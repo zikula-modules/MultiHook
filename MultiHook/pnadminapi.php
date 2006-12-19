@@ -136,9 +136,10 @@ function MultiHook_adminapi_collectneedles()
             if((is_file($needledir . $file)) &&
                     ($file != '.') &&
                     ($file != '..') &&
+                    ($file != '.svn') &&
                     ($file != 'index.html') &&
                     (stristr($file, '_info.php'))) {
-                include_once($needledir . $file);
+                Loader::includeOnce($needledir . $file);
                 $needle = str_replace('_info.php', '', $file);
                 $infofunc = 'MultiHook_needleapi_' . $needle . '_info';
                 if(function_exists($infofunc)){
