@@ -110,7 +110,7 @@ function MultiHook_admin_store()
     }
 
     // Confirm authorisation code.
-    if (!SecurityUtil:confirmAuthKey()) {
+    if (!SecurityUtil::confirmAuthKey()) {
         return LogUtil::registerAuthidError(pnModURL('MultiHook', 'admin', 'main'));
     }
 
@@ -253,7 +253,7 @@ function MultiHook_admin_modifyconfig()
 {
 
     if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
-        eturn LogUtil::registerPermissionError(pnModURL('MultiHook', 'admin', 'main'));
+        return LogUtil::registerPermissionError(pnModURL('MultiHook', 'admin', 'main'));
     }
 
     $submit = FormUtil::getPassedValue('submit', null, 'GETPOST');
