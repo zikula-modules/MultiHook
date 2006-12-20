@@ -41,7 +41,7 @@ function MultiHook_userapi_getall($args)
     }
 
     if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_READ)) {
-        return LogUtil::registerError(_MH_NOAUTH);
+        return LogUtil::registerPermissionError();
     }
 
     $permfilter[] = array ('realm'            =>  0,
@@ -85,7 +85,7 @@ function MultiHook_userapi_getall($args)
 function MultiHook_userapi_get($args)
 {
     if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_READ)) {
-        return LogUtil::registerError(_MH_NOAUTH);
+        return LogUtil::registerPermissionError();
     }
 
     pnModDBInfoLoad('MultiHook', 'MultiHook');
@@ -135,7 +135,7 @@ function MultiHook_userapi_get($args)
 function MultiHook_userapi_countitems($args)
 {
     if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_READ)) {
-        return LogUtil::registerError(_MH_NOAUTH);
+        return LogUtil::registerPermissionError();
     }
 
     pnModDBInfoLoad('MultiHook', 'MultiHook');

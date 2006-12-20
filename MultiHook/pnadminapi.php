@@ -32,8 +32,8 @@
 function MultiHook_adminapi_create($args)
 {
     // Security check
-    if (!SecurityUtil::checkPermission('MultiHook::', "::", ACCESS_ADD)) {
-        return LogUtil::registerError(_MH_NOAUTH);
+    if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
+        return LogUtil::registerPermissionError();
     }
 
     // Argument check - make sure that all required arguments are present,
@@ -63,8 +63,8 @@ function MultiHook_adminapi_create($args)
 function MultiHook_adminapi_delete($args)
 {
     // Security check
-    if (!SecurityUtil::checkPermission('MultiHook::', '', ACCESS_ADMIN)) {
-        return LogUtil::registerError(_MH_NOAUTH);
+    if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
+        return LogUtil::registerPermissionError();
     }
 
     // Argument check
@@ -95,8 +95,8 @@ function MultiHook_adminapi_delete($args)
  */
 function MultiHook_adminapi_update($args)
 {
-    if (!SecurityUtil::checkPermission('MultiHook::', '', ACCESS_EDIT)) {
-        return LogUtil::registerError(_MH_NOAUTH);
+    if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_EDIT)) {
+        return LogUtil::registerPermissionError();
     }
 
     // Get arguments from argument array

@@ -32,8 +32,7 @@ function MultiHook_user_main()
     $filter   = (int)FormUtil::getPassedValue('filter', -1, 'GETPOST');
 
     if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_READ)) {
-        LogUtil::registerError(_MH_NOAUTH);
-        return pnRedirect('index.php');
+        return LogUtil::registerPermissionError('index.php');
     }
 
     if($filter>=0 && $filter<=2) {

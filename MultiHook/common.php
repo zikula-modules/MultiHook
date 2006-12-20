@@ -30,12 +30,13 @@ function create_abbr($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=
 
     $xhtmllang = get_xhtml_language($language);
 
-    list($long, $short) = pnVarPrepHTMLDisplay($long, $short);
+    $long  = DataUtil::formatForDisplayHTML($long);
+    $short = DataUtil::formatForDisplayHTML($short);
 
     $replace_temp = '';
     if($mhreplaceabbr==false) {
         if($haveoverlib) {
-            $replace_temp = '<abbr '.$xhtmllang.' onmouseover="return overlib(\'' . $long . '\', CAPTION, \'' . pnVarPrepForDisplay(_MH_ABBREVIATION) . ': '. $short .'\', ' . overlib_params() . ')" onmouseout="return nd();"><span class="abbr" onmouseover="return overlib(\'' . $long . '\', CAPTION, \'' . pnVarPrepForDisplay(_MH_ABBREVIATION) . ': '. $short .'\')" onmouseout="return nd();">' . $short . '</span></abbr>';
+            $replace_temp = '<abbr '.$xhtmllang.' onmouseover="return overlib(\'' . $long . '\', CAPTION, \'' . DataUtil::formatForDisplay(_MH_ABBREVIATION) . ': '. $short .'\', ' . overlib_params() . ')" onmouseout="return nd();"><span class="abbr" onmouseover="return overlib(\'' . $long . '\', CAPTION, \'' . DataUtil::formatForDisplay(_MH_ABBREVIATION) . ': '. $short .'\')" onmouseout="return nd();">' . $short . '</span></abbr>';
         } else {
             $replace_temp = '<abbr '.$xhtmllang.' title="' . $long . '"><span class="abbr" title="'. $long .'">' . $short . '</span></abbr>';
         }
@@ -45,7 +46,7 @@ function create_abbr($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=
     }
 
     if($mhadmin==true && $mhshoweditlink==true) {
-        $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/pnimages/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_ABBREVIATION) . ') #' . $aid . '" />' . '</span>';
+        $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/pnimages/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . DataUtil::formatForDisplay(_EDIT) . ': ' . $short . ' (' . DataUtil::formatForDisplay(_MH_ABBREVIATION) . ') #' . $aid . '" />' . '</span>';
     }
 
     return $replace_temp;
@@ -55,18 +56,19 @@ function create_abbr($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=
 function create_acronym($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false)
 {
     extract($abac);
-    list($long, $short) = pnVarPrepHTMLDisplay($long, $short);
+    $long  = DataUtil::formatForDisplayHTML($long);
+    $short = DataUtil::formatForDisplayHTML($short);
 
     $xhtmllang = get_xhtml_language($language);
 
     if($haveoverlib) {
-        $replace_temp = '<acronym '.$xhtmllang.' onmouseover="return overlib(\'' . $long . '\', CAPTION, \'' . pnVarPrepForDisplay(_MH_ACRONYM) . ': '. $short .'\', ' . overlib_params() . ')" onmouseout="return nd();">' . $short . '</acronym>';
+        $replace_temp = '<acronym '.$xhtmllang.' onmouseover="return overlib(\'' . $long . '\', CAPTION, \'' . DataUtil::formatForDisplay(_MH_ACRONYM) . ': '. $short .'\', ' . overlib_params() . ')" onmouseout="return nd();">' . $short . '</acronym>';
     } else {
         $replace_temp = '<acronym '.$xhtmllang.' title="' . $long . '">' . $short . '</acronym>';
     }
 
     if($mhadmin==true && $mhshoweditlink==true) {
-        $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/pnimages/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_ACRONYM) . ') #' . $aid . '" />' . '</span>';
+        $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/pnimages/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . DataUtil::formatForDisplay(_EDIT) . ': ' . $short . ' (' . DataUtil::formatForDisplay(_MH_ACRONYM) . ') #' . $aid . '" />' . '</span>';
     }
 
     return $replace_temp;
@@ -97,8 +99,10 @@ function create_link($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=
     }
 
     // prepare url
-    list($long, $aid) = pnVarPrepForDisplay($long, $aid);
-    list($short, $title) = pnVarPrepHTMLDisplay($short, $title);
+    $long = DataUtil::formatForDisplay($long);
+    $aid  = DataUtil::formatForDisplay($aid);
+    $short = DataUtil::formatForDisplayHTML($short);
+    $title = DataUtil::formatForDisplayHTML($title);
 
     if($mhlinktitle==false) {
         if($haveoverlib) {
@@ -114,7 +118,7 @@ function create_link($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=
         }
     }
     if($mhadmin==true && $mhshoweditlink==true) {
-        $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/pnimages/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_LINK) . ') #' . $aid . '" />' . '</span>';
+        $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/pnimages/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . DataUtil::formatForDisplay(_EDIT) . ': ' . $short . ' (' . DataUtil::formatForDisplay(_MH_LINK) . ') #' . $aid . '" />' . '</span>';
     }
     return $replace_temp;
 }
@@ -126,7 +130,7 @@ function create_censor($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverli
     $replace_temp = str_repeat('*', strlen($abac['short']));
 
     if($mhadmin==true && $mhshoweditlink==true) {
-        $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/pnimages/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . pnVarPrepForDisplay(_EDIT) . ': ' . $short . ' (' . pnVarPrepForDisplay(_MH_CENSOR) . ') #' . $aid . '" />' . '</span>';
+        $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/pnimages/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . DataUtil::formatForDisplay(_EDIT) . ': ' . $short . ' (' . DataUtil::formatForDisplay(_MH_CENSOR) . ') #' . $aid . '" />' . '</span>';
     }
 
     return $replace_temp;

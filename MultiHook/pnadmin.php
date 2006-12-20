@@ -25,8 +25,7 @@
 function MultiHook_admin_main()
 {
     if(!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
-        LogUtil::registerError(_MH_NOAUTH);
-        return pnRedirect('index.php');
+        return LogUtil::registerPermissionError('index.php');
     }
     
     $pnr = new pnRender('MultiHook', false);
@@ -48,8 +47,7 @@ function MultiHook_admin_edit($args)
 {
     // Security check
     if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
-        LogUtil::registerError(_MH_NOAUTH);
-        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
+        return LogUtil::registerPermissionError(pnModURL('MultiHook', 'admin', 'main'));
     }
 
     // aid = -1 means add a new entry
@@ -82,8 +80,7 @@ function MultiHook_admin_edit($args)
                     $abac['delete'] = true;
                 }
             } else {
-                LogUtil::registerError(_MH_NOAUTH);
-                return pnRedirect(pnModURL('MultiHook','admin','main'));
+                return LogUtil::registerPermissionError(pnModURL('MultiHook','admin','main'));
             }
 
     }
@@ -109,14 +106,12 @@ function MultiHook_admin_edit($args)
 function MultiHook_admin_store()
 {
     if(!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
-        LogUtil::registerError(_MH_NOAUTH);
-        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
+        return LogUtil::registerPermissionError(pnModURL('MultiHook', 'admin', 'main'));
     }
 
     // Confirm authorisation code.
-    if (!pnSecConfirmAuthKey()) {
-        LogUtil::registerError(_BADAUTHKEY);
-        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
+    if (!SecurityUtil:confirmAuthKey()) {
+        return LogUtil::registerAuthidError(pnModURL('MultiHook', 'admin', 'main'));
     }
 
     // Get parameters from whatever input we need
@@ -209,8 +204,7 @@ function MultiHook_admin_store()
 function MultiHook_admin_view()
 {
     if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
-        LogUtil::registerError(_MH_NOAUTH);
-        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
+        return LogUtil::registerPermissionError(pnModURL('MultiHook', 'admin', 'main'));
     }
 
     // Get parameters from whatever input we need
@@ -259,8 +253,7 @@ function MultiHook_admin_modifyconfig()
 {
 
     if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
-        LogUtil::registerError(_MH_NOAUTH);
-        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
+        eturn LogUtil::registerPermissionError(pnModURL('MultiHook', 'admin', 'main'));
     }
 
     $submit = FormUtil::getPassedValue('submit', null, 'GETPOST');
@@ -270,9 +263,8 @@ function MultiHook_admin_modifyconfig()
         $pnr->add_core_data();
         return $pnr->fetch('mh_admin_config.html');
     } else {  // submit is set
-        if (!pnSecConfirmAuthKey()) {
-            LogUtil::registerError(_BADAUTHKEY);
-            return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
+        if (!SecurityUtil::confirmAuthKey()) {
+            return LogUtil::registerAuthidError(pnModURL('MultiHook', 'admin', 'main'));
         }
 
         $abacfirst         = FormUtil::getPassedValue('abacfirst', 0, 'GETPOST');
@@ -303,38 +295,12 @@ function MultiHook_admin_modifyconfig()
  */
 function MultiHook_admin_viewneedles()
 {
-    // todo: scan for needles and show them
     if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
-        LogUtil::registerError(_MH_NOAUTH);
-        return pnRedirect(pnModURL('MultiHook', 'admin', 'main'));
+        return LogUtil::registerPermissionError(pnModURL('MultiHook', 'admin', 'main'));
     }
     
     $needles = pnModAPIFunc('MultiHook', 'admin', 'collectneedles');
-    
-    $needles = array();
-    $needledir = 'modules/MultiHook/pnneedleapi/';
-    $dh = opendir($needledir);
-    while($file = readdir($dh)) {
-        if((is_file($needledir . $file)) &&
-                ($file != '.') &&
-                ($file != '..') &&
-                ($file != 'index.html') &&
-                (stristr($file, '_info.php'))) {
-            include_once($needledir . $file);
-            $needle = str_replace('_info.php', '', $file);
-            $infofunc = 'MultiHook_needleapi_' . $needle . '_info';
-            if(function_exists($infofunc)){
-                list($module, $description) = $infofunc();
-            } else {
-                $description = _MH_NODESCRIPTIONFOUND;
-                $module      = _MH_NOMODULEFOUND;
-            }
-            $needles[] = array('module'      => $module,
-                               'needle'      => $needle,
-                               'description' => $description);
-        }
-    }
-    
+  
     // store the needlesarray now
     pnModSetVar('MultiHook', 'needles', serialize($needles));
     
@@ -343,4 +309,5 @@ function MultiHook_admin_viewneedles()
     $pnr->assign('needles', $needles);
     return $pnr->fetch('mh_admin_viewneedles.html');    
 }
+
 ?>
