@@ -9,7 +9,6 @@ function addEventHandlers()
     var elementid;
     document.getElementsByClassName('multihookeditlink').each(
         function(editlink, index) {
-
             elementid = 'editlink_' + index + '_' + editlink.title.split('#')[1];
             editlink.id = elementid;
             Event.observe(
@@ -79,8 +78,7 @@ function submiteditmultihook()
                "&mh_type=" + $F('mhedit_type') +
                "&mh_delete=" + $F('mhedit_delete') +
                "&mh_language=" + $F('mhedit_language');
-    var myAjax = new Ajax.Updater(
-                    {success: 'mh_update_content'},
+    var myAjax = new Ajax.Request(
                     "ajax.php",
                     {
                         method: 'post',
@@ -94,14 +92,17 @@ function submiteditmultihook()
 function submiteditmultihook_response(originalRequest)
 {
     hideInfo();
-    $('mh_update_content').id = '';
-
-    addEventHandlers();
-
     // show error if necessary
     if( originalRequest.status != 200 ) {
-        showajaxerror(originalRequest.responseText);
+        showajaxerror(originalRequest);
+    } else {
+        var json = mhdejsonize(originalRequest.responseText);
+        $('mh_update_content').innerHTML = json.data;
+        $('mh_update_content').id = '';
+    
     }
+    addEventHandlers();
+
 }
 
 function submitmultihook()
@@ -121,8 +122,7 @@ function submitmultihook()
                "&mh_title=" + encodeURIComponent($F('mh_title')) +
                "&mh_type=" + $F('mh_type') +
                "&mh_language=" + $F('mh_language');
-    var myAjax = new Ajax.Updater(
-                    {success: 'mh_new_content'},
+    var myAjax = new Ajax.Request(
                     "ajax.php",
                     {
                         method: 'post',
@@ -136,11 +136,14 @@ function submitmultihook()
 function submitmultihook_response(originalRequest)
 {
     hideInfo();
-    $('mh_new_content').id = '';
-
     // show error if necessary
     if( originalRequest.status != 200 ) {
-        showajaxerror(originalRequest.responseText);
+        showajaxerror(originalRequest);
+    } else {
+        var json = mhdejsonize(originalRequest.responseText);
+        $('mh_new_content').innerHTML = json.data;
+        $('mh_new_content').id = '';
+    
     }
     addEventHandlers();
 
@@ -175,8 +178,11 @@ function showInfo(text, xpos, ypos, showclose)
     var infoObj = $('multihookinformation');
     if(showclose == true) {
         $('multihookinformationclose').style.visibility = 'visible';
+        $('multihookindicator').style.visibility = 'hidden';
+        
     } else {
         $('multihookinformationclose').style.visibility = 'hidden';
+        $('multihookindicator').style.visibility = 'visible';
     }
     $('multihookinformationcontent').innerHTML = text;
     infoObj.style.left = xpos + 'px';
@@ -187,6 +193,7 @@ function showInfo(text, xpos, ypos, showclose)
 function hideInfo()
 {
     $('multihookinformationclose').style.visibility = 'hidden';
+    $('multihookindicator').style.visibility = 'hidden';
     $('multihookinformation').style.visibility = "hidden";
 }
 

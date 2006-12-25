@@ -170,7 +170,7 @@ function MultiHook_ajax_store()
     AjaxUtil::error($error);
 
     // otherwise output result and exit
-    echo utf8_encode($return);
+    AjaxUtil::output($return);
     exit;
 }
 

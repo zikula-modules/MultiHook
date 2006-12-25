@@ -2,6 +2,10 @@
  $Id$
 */
 
+.multihookeditlink {
+    cursor: pointer;
+}
+
 #multihook, #multihookedit {
     width: 230px; 
     font-size: 10px; 
@@ -31,11 +35,13 @@
 .multihooksubmitbutton {
     float: left; 
     border:none;
+    cursor: pointer;
 }
 
 .multihookcancelbutton {
     float: right; 
     border:none;
+    cursor: pointer;
 }
 
 #multihookinformation {
@@ -62,6 +68,11 @@
     font-size: 9px;
     margin-top: 1px;
     float: right;
+    cursor: pointer;
+}
+
+#multihookindicator {
+    margin: 2px;
 }
 
 .multihooklabel {

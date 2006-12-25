@@ -92,7 +92,7 @@ function create_link($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=
         if(!empty($externallinkclass)) {
             $extclass = "class=\"$externallinkclass\"";
         }
-        $accessebilityhack = ''; // <span class="mhacconly"> ' . DataUtil::formatForDisplay(_MH_EXTERNALLINK) . '</span>';
+        $accessebilityhack = ''; // not working yet: <span class="mhacconly"> ' . DataUtil::formatForDisplay(_MH_EXTERNALLINK) . '</span>';
     } else {
         $extclass = '';
         $accessebilityhack = '';
