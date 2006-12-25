@@ -16,7 +16,7 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 // Original Author of file: Frank Schummertz
-// Purpose of file:  MultiHook user functions
+// Purpose of file:  MultiHook theme functions
 // ----------------------------------------------------------------------
 
 /**
