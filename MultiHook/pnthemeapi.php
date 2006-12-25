@@ -29,6 +29,7 @@ function MultiHook_themeapi_preparetheme()
     if(SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
         pnPageAddVar('stylesheet', 'modules/MultiHook/pnstyle/style.css');
         pnPageAddVar('javascript', 'javascript/ajax/prototype.js');
+        pnPageAddVar('javascript', 'modules/MultiHook/pnjavascript/ajax_tools.js');
         pnPageAddVar('javascript', 'modules/MultiHook/pnjavascript/multihook.js');
     }
     return true;
@@ -48,6 +49,8 @@ function MultiHook_themeapi_helper()
     if(SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
         pnModLangLoad('MultiHook', 'admin');
         $pnr = new pnRender('MultiHook', false);
+        $pnr->assign('userlang', pnUserGetLang());
+        $pnr->assign('modinfo', pnModGetInfo(pnModGetIDFromName('MultiHook')));
         $out = $pnr->fetch('mh_dynamic_hiddenform.html');
     }
     return $out;

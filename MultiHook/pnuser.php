@@ -35,6 +35,7 @@ function MultiHook_user_main()
         return LogUtil::registerPermissionError('index.php');
     }
 
+    // no censor!
     if($filter>=0 && $filter<=2) {
         $abacs = pnModAPIFunc('MultiHook',
                               'user',

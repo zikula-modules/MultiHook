@@ -1,13 +1,5 @@
 <!--[* $Id$ *]-->
 
-<!--[*
- pnpageaddvar name="stylesheet" value="modules/MultiHook/pnstyle/style.css" 
-<script type="text/javascript" src="javascript/ajax/prototype.js"></script>
-<script type="text/javascript" src="modules/MultiHook/pnjavascript/multihook.js"></script>
-*]-->
-
-<!--[ pnusergetlang assign="userlang" ]-->
-<!--[ pnmodgetinfo modname="MultiHook" info=all ]-->
 <!-- hidden div to show form for multihook entries -->
 <div id="multihook"> 
 <form id="multihook_form" action="#">
@@ -119,7 +111,6 @@
 </div>
 <!-- end of hidden information -->
 
-<script type="text/javascript" src="modules/MultiHook/pnjavascript/ajax_tools.js"></script>
 <script type="text/javascript">
     var objMHSelection = new MHSelectedText();
     var objMouseXY = new MouseXY();
@@ -128,10 +119,8 @@
     $('multihookedit').style.visibility = 'hidden';
     $('multihookinformation').style.visibility = 'hidden';
     
-    // check mouse position at selection start
-    document.onmouseup = stopSelection;
     // check mouse position at selection end
-    document.onmousedown = startSelection;
+    document.onmouseup = stopSelection;
     
     var loadingText = '<!--[ pnml name="_MH_LOADINGDATA" ]-->';
     var savingText = '<!--[ pnml name="_MH_SAVINGDATA" ]-->';

@@ -100,11 +100,13 @@ function MultiHook_userapi_get($args)
                            'instance_middle'  =>  '',
                            'instance_right'   =>  'aid',
                            'level'            =>  ACCESS_READ);
-
     if (isset($args['aid'])) {
         if(is_numeric($args['aid'])) {
             // Get item
-            $abac = DBUtil::selectObjectByID('multihook', $args['aid'], 'aid', null, $permfilter);
+            $abac = DBUtil::selectObjectByID('multihook', $args['aid'], 'aid', null, $permfilter, null, false);
+            if($abac == false) {
+                return LogUtil::registerError (_MH_SELECTFAILED . '(aid=' . $args['aid'] . ')');
+            }
         } else {
             return LogUtil::registerError(_MODARGSERROR . ' in MultiHook_userapi_get() [aid]');
         }
@@ -113,6 +115,12 @@ function MultiHook_userapi_get($args)
             // Get item
             $where = "WHERE $multihookcolumn[short] = '" . DataUtil::formatForStore($args['short']) . "'";
             $abac = DBUtil::selectObject('multihook', $where, null, $permfilter);
+            if($abac == false) {
+                // not found, just return false
+                // we do not raise an error in this case, it is ok that the
+                // short value is not find in some cases
+                return false;
+            }
         } else {
             return LogUtil::registerError(_MODARGSERROR . ' in MultiHook_userapi_get() [short]');
         }
@@ -120,9 +128,6 @@ function MultiHook_userapi_get($args)
         return LogUtil::registerError (_MODARGSERROR);
     }
     
-    if($abac == false) {
-        return LogUtil::registerError (_MH_SELECTFAILED);
-    }
     return $abac;
 }
 

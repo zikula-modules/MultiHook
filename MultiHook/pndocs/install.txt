@@ -113,7 +113,7 @@ ACCESS_ADD permissions for MultiHook.
 
 In non-Xanthiathemes (legacy, AT...) you can call
 
-    $multihookhelper = pnModFunc('MultiHook', 'theme', 'helper'));
+    $multihookhelper = pnModAPIFunc('MultiHook', 'theme', 'helper'));
 
 to retrieve the HTML in $multihookhelper and show where you want (which in fact is what the
 plugin does too).

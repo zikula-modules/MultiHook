@@ -58,8 +58,10 @@ function MultiHook_ajax_store()
     $language = trim($language);
 
     // get the entry (needed for permission checks)
-    $abac = pnModAPIFunc('MultiHook', 'user', 'get',
-                         array('aid' => $aid));
+    if($aid <> -1) {
+        $abac = pnModAPIFunc('MultiHook', 'user', 'get',
+                             array('aid' => $aid));
+    }
 
     if(!empty($delete)&& ($delete=='1')) {
         if(SecurityUtil::checkPermission('MultiHook::', $abac['short'] . '::' . $abac['aid'], ACCESS_DELETE)) {
@@ -123,7 +125,7 @@ function MultiHook_ajax_store()
                                       'title'    => $title,
                                       'type'     => $type,
                                       'language' => $language));
-            if(!is_bool($aid)) {
+            if(is_numeric($aid)) {
                 // result is not false, its a aid of the new created or updated entry
                 $mhadmin = SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_DELETE);
                 $mhshoweditlink = (pnModGetVar('MultiHook', 'mhshoweditlink')==1) ? true : false;
