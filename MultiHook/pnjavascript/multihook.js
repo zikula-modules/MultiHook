@@ -67,7 +67,7 @@ function editmultihook(originalRequest)
 
 function submiteditmultihook()
 {
-    hideElement('multihookedit');
+    $('multihookedit').style.visibility = 'hidden';
     showInfo(savingText, objMouseXY.xpos, objMouseXY.ypos, false);
 
     var pars = "module=MultiHook&func=store" +
@@ -107,7 +107,7 @@ function submiteditmultihook_response(originalRequest)
 
 function submitmultihook()
 {
-    hideElement('multihook');
+    $('multihook').style.visibility = 'hidden';
     showInfo(savingText, objMouseXY.xpos, objMouseXY.ypos, false);
 
     if((objMHSelection.parentObj != 'undefined') && (objMHSelection.parentObj != null)) {
@@ -218,7 +218,7 @@ function stopSelection(objEvent)
         if(objMHSelection.isSelected) {
 
             var objMultiHook = $( "multihook" );
-            $('mh_short').value = trim(objMHSelection.text);
+            $('mh_short').value = objMHSelection.text.strip(); // strip = trim
             $('mh_long').value = '';
             $('mh_title').value = '';
             setSelect('mh_type', 0);
@@ -251,7 +251,7 @@ function getMouseXY(objEvent)
     // Internet Explorer
     if( window.event ) {
         this.xpos = event.clientX;
-        this.ypos = event.clientY + getTopScroll( ) ;
+        this.ypos = event.clientY + document.documentElement.scrollTop ;
         this.ctrlkey = event.ctrlKey;
     }
     // w3c
@@ -334,4 +334,16 @@ function mhdejsonize(jsondata)
         alert('illegal JSON response: \n' + error + 'in\n' + jsondata);
     }
     return result;
+}
+
+function setSelect(objID, selValue)
+{
+    var selObject = $(objID);
+    for (var i=0; i<selObject.options.length; i++) {
+        if (selObject.options[i].value == selValue) {
+            selObject.options[i].selected = true;
+        } else {
+            selObject.options[i].selected = false;
+        }
+    }
 }

@@ -29,7 +29,6 @@ function MultiHook_themeapi_preparetheme()
     if(SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
         pnPageAddVar('stylesheet', 'modules/MultiHook/pnstyle/style.css');
         pnPageAddVar('javascript', 'javascript/ajax/prototype.js');
-        pnPageAddVar('javascript', 'modules/MultiHook/pnjavascript/ajax_tools.js');
         pnPageAddVar('javascript', 'modules/MultiHook/pnjavascript/multihook.js');
     }
     return true;
