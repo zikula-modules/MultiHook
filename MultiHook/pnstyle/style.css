@@ -10,7 +10,7 @@
     width: 230px; 
     font-size: 10px; 
     z-index:999; 
-    visibility: hidden;
+    //visibility: hidden;
     border: 1px solid #333333; 
     background: #ffffe5; 
     padding: 5px; 
@@ -47,7 +47,7 @@
 #multihookinformation {
     width: 230px;
     z-index:999; 
-    visibility: hidden; 
+    //visibility: hidden; 
     font-size: 11px; 
     border: 1px solid #333333; 
     background: #ffffe5; 
@@ -62,7 +62,7 @@
 
 #multihookinformationclose {
     border: none;
-    visibility: hidden; 
+    //visibility: hidden; 
     text-align: right; 
     padding: 2px; 
     font-size: 9px;

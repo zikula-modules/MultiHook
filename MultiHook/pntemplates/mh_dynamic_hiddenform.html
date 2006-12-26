@@ -113,15 +113,9 @@
 <!-- end of hidden information -->
 
 <script type="text/javascript">
-    var objMHSelection = new MHSelectedText();
-    var objMouseXY = new MouseXY();
-
-    $('multihook').style.visibility = 'hidden';
-    $('multihookedit').style.visibility = 'hidden';
-    $('multihookinformation').style.visibility = 'hidden';
-    
-    // check mouse position at selection end
-    document.onmouseup = stopSelection;
+    $('multihook').hide();
+    $('multihookedit').hide();
+    $('multihookinformation').hide();
     
     var loadingText = '<!--[ pnml name="_MH_LOADINGDATA" ]-->';
     var savingText = '<!--[ pnml name="_MH_SAVINGDATA" ]-->';

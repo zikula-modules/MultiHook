@@ -4,6 +4,10 @@
  *
  */
 
+var objMHSelection = new MHSelection();
+// check mouse position at selection end
+Event.observe(document, 'mouseup', stopSelection, false);
+
 function addEventHandlers()
 {
     var elementid;
@@ -27,12 +31,11 @@ function starteditmultihook(clickevent)
     // set the parent objects id for finding it later
     Event.element(clickevent).parentNode.id = 'mh_update_content';
 
-    showInfo(loadingText, objMouseXY.xpos, objMouseXY.ypos, false);
+    showInfo(loadingText, objMHSelection.xpos, objMHSelection.ypos, false);
 
-    var eventparams = Event.element(clickevent).id.split('_');
-    var pars = "module=MultiHook&func=read&mh_aid=" + eventparams[2];
+    var pars = 'module=MultiHook&func=read&mh_aid=' + Event.element(clickevent).id.split('_')[2];
     var myAjax = new Ajax.Request(
-        "ajax.php",
+        'ajax.php',
         {
             method: 'post',
             parameters: pars,
@@ -50,36 +53,36 @@ function editmultihook(originalRequest)
     } else {
         var abac = mhdejsonize(originalRequest.responseText);
 
-        $("mhedit_aid").value      = abac['aid'];
-        $("mhedit_short").value    = abac['short'];
-        $("mhedit_long").value     = abac['long'];
-        $("mhedit_title").value    = abac['title'];
+        $('mhedit_aid').value      = abac['aid'];
+        $('mhedit_short').value    = abac['short'];
+        $('mhedit_long').value     = abac['long'];
+        $('mhedit_title').value    = abac['title'];
         setSelect('mhedit_type', abac['type']);
         setSelect('mhedit_language', abac['language']);
-        $("mhedit_delete").checked = false;
+        $('mhedit_delete').checked = false;
 
         var objMultiHook = $('multihookedit');
-        objMultiHook.style.left = objMouseXY.xpos + 'px';
-        objMultiHook.style.top  = objMouseXY.ypos + 'px';
-        objMultiHook.style.visibility = "visible";
+        objMultiHook.style.left = objMHSelection.xpos + 'px';
+        objMultiHook.style.top  = objMHSelection.ypos + 'px';
+        objMultiHook.show();
     }
 }
 
 function submiteditmultihook()
 {
-    $('multihookedit').style.visibility = 'hidden';
-    showInfo(savingText, objMouseXY.xpos, objMouseXY.ypos, false);
+    $('multihookedit').hide();
+    showInfo(savingText, objMHSelection.xpos, objMHSelection.ypos, false);
 
-    var pars = "module=MultiHook&func=store" +
-               "&mh_aid=" + $F('mhedit_aid') +
-               "&mh_short=" + encodeURIComponent($F('mhedit_short')) +
-               "&mh_long=" + encodeURIComponent($F('mhedit_long')) +
-               "&mh_title=" + encodeURIComponent($F('mhedit_title')) +
-               "&mh_type=" + $F('mhedit_type') +
-               "&mh_delete=" + $F('mhedit_delete') +
-               "&mh_language=" + $F('mhedit_language');
+    var pars = 'module=MultiHook&func=store' +
+               '&mh_aid=' + $F('mhedit_aid') +
+               '&mh_short=' + encodeURIComponent($F('mhedit_short')) +
+               '&mh_long=' + encodeURIComponent($F('mhedit_long')) +
+               '&mh_title=' + encodeURIComponent($F('mhedit_title')) +
+               '&mh_type=' + $F('mhedit_type') +
+               '&mh_delete=' + $F('mhedit_delete') +
+               '&mh_language=' + $F('mhedit_language');
     var myAjax = new Ajax.Request(
-                    "ajax.php",
+                    'ajax.php',
                     {
                         method: 'post',
                         parameters: pars,
@@ -96,34 +99,31 @@ function submiteditmultihook_response(originalRequest)
     if( originalRequest.status != 200 ) {
         showajaxerror(originalRequest);
     } else {
-        var json = mhdejsonize(originalRequest.responseText);
-        $('mh_update_content').innerHTML = json.data;
+        $('mh_update_content').update(mhdejsonize(originalRequest.responseText).data);
         $('mh_update_content').id = '';
-    
     }
     addEventHandlers();
-
 }
 
 function submitmultihook()
 {
-    $('multihook').style.visibility = 'hidden';
-    showInfo(savingText, objMouseXY.xpos, objMouseXY.ypos, false);
+    $('multihook').hide();
+    showInfo(savingText, objMHSelection.xpos, objMHSelection.ypos, false);
 
     if((objMHSelection.parentObj != 'undefined') && (objMHSelection.parentObj != null)) {
         var newtext = "<span id='mh_new_content'>" + $('mh_short').value + "</span>";
         var oldregexp = eval( '/' + $('mh_short').value + '/g');
-        objMHSelection.parentObj.innerHTML = objMHSelection.parentObj.innerHTML.replace(oldregexp, newtext);
+        objMHSelection.parentObj.update(objMHSelection.parentObj.innerHTML.replace(oldregexp, newtext));
     }
 
-    var pars = "module=MultiHook&func=store" +
-               "&mh_short=" + encodeURIComponent($F('mh_short')) +
-               "&mh_long=" + encodeURIComponent($F('mh_long')) +
-               "&mh_title=" + encodeURIComponent($F('mh_title')) +
-               "&mh_type=" + $F('mh_type') +
-               "&mh_language=" + $F('mh_language');
+    var pars = 'module=MultiHook&func=store' +
+               '&mh_short=' + encodeURIComponent($F('mh_short')) +
+               '&mh_long=' + encodeURIComponent($F('mh_long')) +
+               '&mh_title=' + encodeURIComponent($F('mh_title')) +
+               '&mh_type=' + $F('mh_type') +
+               '&mh_language=' + $F('mh_language');
     var myAjax = new Ajax.Request(
-                    "ajax.php",
+                    'ajax.php',
                     {
                         method: 'post',
                         parameters: pars,
@@ -140,16 +140,12 @@ function submitmultihook_response(originalRequest)
     if( originalRequest.status != 200 ) {
         showajaxerror(originalRequest);
     } else {
-        var json = mhdejsonize(originalRequest.responseText);
-        $('mh_new_content').innerHTML = json.data;
+        $('mh_new_content').update(mhdejsonize(originalRequest.responseText).data);
         $('mh_new_content').id = '';
-    
     }
     addEventHandlers();
 
     objMHSelection.text           = '';
-    //objMHSelection.selection      = null;
-    objMHSelection.isSelected     = false;
     objMHSelection.parentObj      = 'undefined';
 
 }
@@ -164,12 +160,10 @@ function cancelmultihook()
     if(newObj) {
         newObj.id = '';
     }
-    $('multihook').style.visibility='hidden';
-    $('multihookedit').style.visibility='hidden';
+    $('multihook').hide();
+    $('multihookedit').hide();
 
     objMHSelection.text           = '';
-    //objMHSelection.selection      = null;
-    objMHSelection.isSelected     = false;
     objMHSelection.parentObj      = 'undefined';
 }
 
@@ -177,74 +171,65 @@ function showInfo(text, xpos, ypos, showclose)
 {
     var infoObj = $('multihookinformation');
     if(showclose == true) {
-        $('multihookinformationclose').style.visibility = 'visible';
-        $('multihookindicator').style.visibility = 'hidden';
+        $('multihookinformationclose').show();
+        $('multihookindicator').hide();
         
     } else {
-        $('multihookinformationclose').style.visibility = 'hidden';
-        $('multihookindicator').style.visibility = 'visible';
+        $('multihookinformationclose').hide();
+        $('multihookindicator').show();
     }
-    $('multihookinformationcontent').innerHTML = text;
+    $('multihookinformationcontent').update(text);
     infoObj.style.left = xpos + 'px';
     infoObj.style.top  = ypos + 'px';
-    infoObj.style.visibility = "visible";
+    infoObj.show();
 }
 
 function hideInfo()
 {
-    $('multihookinformationclose').style.visibility = 'hidden';
-    $('multihookindicator').style.visibility = 'hidden';
-    $('multihookinformation').style.visibility = "hidden";
+    $('multihookinformationclose').hide();
+    $('multihookindicator').hide();
+    $('multihookinformation').hide();
 }
 
 function showajaxerror(ajaxRequest)
 {
     // no success
-    showInfo(ajaxRequest.responseText, objMouseXY.xpos, objMouseXY.ypos, true);
+    showInfo(ajaxRequest.responseText, objMHSelection.xpos, objMHSelection.ypos, true);
 }
 
 // get mouse coords on mouseup event to get selection end
 function stopSelection(objEvent)
 {
-    if($('multihook').style.visibility=='visible' ||
-       $('multihookedit').style.visibility=='visible' ||
-       $('multihookinformation').style.visibility=='visible') {
+    if($('multihook').visible()  ||
+       $('multihookedit').visible() ||
+       $('multihookinformation').visible()) {
         return;
     }
-    objMouseXY.getXY(objEvent);
+    objMHSelection.getXY(objEvent);
 
-    if(objMouseXY.ctrlkey == true) {
+    if(objMHSelection.ctrlkey == true) {
         objMHSelection.update();
-        if(objMHSelection.isSelected) {
+        if(objMHSelection.text.length != 0) {
 
-            var objMultiHook = $( "multihook" );
-            $('mh_short').value = objMHSelection.text.strip(); // strip = trim
+            var objMultiHook = $('multihook');
+            $('mh_short').value = objMHSelection.text;
             $('mh_long').value = '';
             $('mh_title').value = '';
             setSelect('mh_type', 0);
             setSelect('mh_language', 'all');
 
-            objMultiHook.style.left = objMouseXY.xpos + 'px';
-            objMultiHook.style.top  = objMouseXY.ypos + 'px';
-
-            objMultiHook.style.visibility = "visible";
+            objMultiHook.style.left = objMHSelection.xpos + 'px';
+            objMultiHook.style.top  = objMHSelection.ypos + 'px';
+            objMultiHook.show();
         }
     }
 }
 
-function MouseXY( )
-{
-    this.xpos      = 0;
-    this.ypos      = 0;
-    this.getXY = getMouseXY;
-    this.ctrlkey = false;
-}
-
 function getMouseXY(objEvent)
 {
-    if($('multihook').style.visibility=='visible' ||
-       $('multihookedit').style.visibility=='visible' ||
-       $('multihookinformation').style.visibility=='visible') {
+    if($('multihook').visible() ||
+       $('multihookedit').visible() ||
+       $('multihookinformation').visible()) {
         return;
     }
 
@@ -264,23 +249,27 @@ function getMouseXY(objEvent)
 }
 
 // class to hold information about current selection
-function MHSelectedText( )
+function MHSelection()
 {
     this.text           = '';
-    //this.selection      = null;
-    this.isSelected     = false;
     this.parentObj      = 'undefined';
     this.update         = getSelectedText;
+    //mouse position related
+    this.xpos      = 0;
+    this.ypos      = 0;
+    this.getXY = getMouseXY;
+    this.ctrlkey = false;
+
 }
 
 // retrieve information about the selected text
 function getSelectedText()
 {
     // mozilla
-    if(this.isSelected) {
+    if(this.text.length != 0) {
         return;
     }
-    if($('multihook').style.visibility=='visible') {
+    if($('multihook').visible()) {
         return;
     }
 
@@ -293,7 +282,6 @@ function getSelectedText()
             if(selection.anchorNode) {
                 this.parentObj = selection.anchorNode.parentNode;
             }
-            this.isSelected = this.text.length;
         }
     }
     // opera
@@ -303,8 +291,6 @@ function getSelectedText()
         if(selection) {
             this.text = selection;
             this.parentObj = selection.parent;
-            //alert(this.parentObj);
-            this.isSelected = this.text.length;
         }
     }
     // internet explorer
@@ -313,9 +299,9 @@ function getSelectedText()
         if(selection) {
             this.text = selection.text;
             this.parentObj = selection.parentElement();
-            this.isSelected = this.text.length;
         }
     }
+    this.text.strip();
 }
 
 /**
@@ -331,7 +317,7 @@ function mhdejsonize(jsondata)
     try {
         result = eval('(' + jsondata + ')');
     } catch(error) {
-        alert('illegal JSON response: \n' + error + 'in\n' + jsondata);
+        alert('illegal JSON response: \n' + error + 'in\n' + jsondata.truncate(200, '...'));
     }
     return result;
 }
@@ -340,10 +326,6 @@ function setSelect(objID, selValue)
 {
     var selObject = $(objID);
     for (var i=0; i<selObject.options.length; i++) {
-        if (selObject.options[i].value == selValue) {
-            selObject.options[i].selected = true;
-        } else {
-            selObject.options[i].selected = false;
-        }
+        selObject.options[i].selected = (selObject.options[i].value == selValue)
     }
 }
