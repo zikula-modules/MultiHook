@@ -485,9 +485,15 @@ function MultiHook_userapi_censor($args)
             unset($search_temp);
         }
     }
-    $word = preg_replace($search, $replace, $args['word']);
-    $word = preg_replace($finalsearch, $finalreplace, $word);
-    return $word;
+
+    if(count($search)>0) {
+        // do something if search is not empty
+        $word = preg_replace($search, $replace, $args['word']);
+        $word = preg_replace($finalsearch, $finalreplace, $word);
+        return $word;
+    }
+    // nothing to do, return original word
+    return $args['word'];    
 }
  
 ?>
