@@ -1,7 +1,7 @@
 <!--[* $Id$ *]-->
 
 <!-- hidden div to show form for multihook entries -->
-<div id="multihook"> 
+<div id="multihook" style="display: none;"> 
 <form id="multihook_form" action="#">
 <div class="mhclear multihookheader">
     <a onclick="this.parentNode.parentNode.visiblity=hidden;" href="http://noc.postnuke.com/projects/multihook" title="<!--[ $modinfo.displayname ]--> v<!--[ $modinfo.version ]-->"><strong><!--[ $modinfo.name ]--> v<!--[ $modinfo.version ]--></strong></a>
@@ -50,7 +50,7 @@
 <!-- end of hidden form for multihook -->          
 
 <!-- hidden div to show edit form for multihook entries -->
-<div id="multihookedit"> 
+<div id="multihookedit" style="display: none;"> 
 <form id="multihookedit_form" action="#">
 <input type="hidden" name="mhedit_aid" id="mhedit_aid" value="" />
 <div class="mhclear multihookheader">
@@ -105,7 +105,7 @@
 <!-- end of hidden form for multihook -->          
 
 <!-- hidden information -->
-<div id="multihookinformation" > 
+<div id="multihookinformation" style="display: none;"> 
     <div><button id="multihookinformationclose" onclick="javascript:hideInfo();">x</button></div>
     <!--[ pnimg src="ajaxindicator.gif" id="multihookindicator"]-->
     <div id="multihookinformationcontent"></div>
@@ -113,13 +113,7 @@
 <!-- end of hidden information -->
 
 <script type="text/javascript">
-    $('multihook').hide();
-    $('multihookedit').hide();
-    $('multihookinformation').hide();
-    
     var loadingText = '<!--[ pnml name="_MH_LOADINGDATA" ]-->';
     var savingText = '<!--[ pnml name="_MH_SAVINGDATA" ]-->';
-    
-    addEventHandlers();
-    
+    Event.observe(window, 'load', mhinit, false);
 </script>

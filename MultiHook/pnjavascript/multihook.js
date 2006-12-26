@@ -4,24 +4,27 @@
  *
  */
 
-var objMHSelection = new MHSelection();
-// check mouse position at selection end
-Event.observe(document, 'mouseup', stopSelection, false);
+function mhinit()
+{
+    objMHSelection = new MHSelection();
+    
+    // check mouse position at selection end
+    Event.observe(document, 'mouseup', stopSelection, false);
 
-function addEventHandlers()
+    new Draggable('multihook', {handle: 'multihookheader'});
+    new Draggable('multihookedit', {handle: 'multihookheader'});
+    
+    addMHEventHandlers();
+}
+
+function addMHEventHandlers()
 {
     var elementid;
     document.getElementsByClassName('multihookeditlink').each(
         function(editlink, index) {
             elementid = 'editlink_' + index + '_' + editlink.title.split('#')[1];
             editlink.id = elementid;
-            Event.observe(
-                          elementid,
-                          'click',
-                          function(clickevent) {
-                             starteditmultihook(clickevent);
-                          },
-                          false );
+            Event.observe(elementid, 'click', starteditmultihook, false);
         }
         );
 }
@@ -102,7 +105,7 @@ function submiteditmultihook_response(originalRequest)
         $('mh_update_content').update(mhdejsonize(originalRequest.responseText).data);
         $('mh_update_content').id = '';
     }
-    addEventHandlers();
+    addMHEventHandlers();
 }
 
 function submitmultihook()
@@ -143,7 +146,7 @@ function submitmultihook_response(originalRequest)
         $('mh_new_content').update(mhdejsonize(originalRequest.responseText).data);
         $('mh_new_content').id = '';
     }
-    addEventHandlers();
+    addMHEventHandlers();
 
     objMHSelection.text           = '';
     objMHSelection.parentObj      = 'undefined';
