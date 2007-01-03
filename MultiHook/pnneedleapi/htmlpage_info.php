@@ -26,7 +26,9 @@
  */
 function MultiHook_needleapi_htmlpage_info($args)
 {
-    $info = array('htmlpages', 'HTMLPAGE{pid}');
+    $info = array('module'  => 'htmlpages', 
+                  'needle'  => 'HTMLPAGE{pid}',
+                  'inspect' => false);
     return $info;
 }
 

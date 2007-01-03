@@ -4,43 +4,37 @@
 
 <h2><!--[ pnml name='_MH_ADD' ]--></h2>
 
-<form action="<!--[ pnmodurl modname="MultiHook" type="admin" func="store" ]-->" method="post">
+<!--[ pnform ]-->
 <div>
-    <input type="hidden" name="authid" value="<!--[ pnsecgenauthkey module="MultiHook" ]-->" />
-    <input type="hidden" name="mh_aid" value="<!--[ $abac.aid ]-->" />
     <div class="mhfloatbox">
         <dl>
-            <dt><label for="mh_short"><!--[ pnml name='_MH_SHORT' ]--></label></dt>
-            <dd><input type="text" name="mh_short" id="mh_short" value="<!--[ $abac.short ]-->" size="40" maxlength="60" /></dd>
+            <dt><!--[ pnformlabel for="mh_short" text='_MH_SHORT' ]--></dt>
+            <dd><!--[ pnformtextinput id="mh_short" dataField="short" text=$abac.short size="40" maxLength="60" ]--></dd>
 
-            <dt><label for="mh_long"><!--[ pnml name='_MH_LONG' ]-->&nbsp;<!--[ pnml name='_MH_LONGHINT' ]--></label></dt>
-            <dd><input type="text" name="mh_long" id="mh_long" value="<!--[ $abac.long ]-->" size="40" maxlength="200" /></dd>
+            <dt><!--[ pnformlabel for="mh_long" text='_MH_LONGWITHHINT' ]--></dt>
+            <dd><!--[ pnformtextinput id="mh_long" dataField="long" text=$abac.long size="40" maxLength="200" ]--></dd>
 
-            <dt><label for="mh_title"><!--[ pnml name='_MH_TITLE' ]-->&nbsp;<!--[ pnml name='_MH_TITLEHINT' ]--></label></dt>
-            <dd><input type="text" name="mh_title" id="mh_title" value="<!--[ $abac.title ]-->" size="40" maxlength="200" /></dd>
+            <dt><!--[ pnformlabel for="mh_title" text='_MH_TITLEWITHHINT' ]--></dt>
+            <dd><!--[ pnformtextinput id="mh_title" dataField="title" text=$abac.title size="40" maxLength="200" ]--></dd>
 
-            <dt><label for="mh_type"><!--[ pnml name='_MH_TYPE' ]--></label></dt>
-            <dd>
-                <select id="mh_type" name="mh_type">
-                <!--[ html_options options=$types selected=$abac.type ]-->
-                </select>
-            </dd>
+            <dt><!--[ pnformlabel for="mh_type" text='_MH_TYPE' ]--></dt>
+            <dd><!--[ pnformmhtypedropdown id="mh_type" dataField="type" items=$types selectedValue=$abac.type ]--></dd>
 
-            <dt><label for="mh_language"><!--[ pnml name='_MH_LANGUAGE' ]--></label></dt>
-            <dd><!--[ mhlanguagelist name="mh_language" id="mh_language" installed=1 selected=$abac.language ]--></dd>
+            <dt><!--[ pnformlabel for="mh_language" text='_MH_LANGUAGE' ]--></dt>
+            <dd><!--[ pnformmhlangdropdown id="mh_language" dataField="language" selectedValue=$abac.language ]--></dd>
 
             <!--[ if $abac.delete == true ]-->
-            <dt><label for="mh_delete"><!--[ pnml name='_MH_DELETE' ]--></label></dt>
-            <dd><input type="checkbox" name="mh_delete" id="mh_delete" value="1" /></dd>
+            <dt><!--[ pnformlabel for="mh_delete" text='_MH_DELETE' ]--></dt>
+            <dd><!--[ pnformcheckbox id="mh_delete" value="1" ]--></dd>
             <!--[ /if ]-->
         </dl>
     </div>
 
     <p>
-        <input type="submit" name="submit" id="submit" value="<!--[ pnml name='_SUBMIT' ]-->" />
+        <!--[pnformbutton id="submit" commandName="submit" text="_SUBMIT"]-->
     </p>
 
 </div>
-</form>
+<!--[ /pnform ]-->
 
 <!--[ include file=mh_admin_footer.html ]-->

@@ -26,7 +26,9 @@
  */
 function MultiHook_needleapi_download_info($args)
 {
-    $info = array('Downloads', 'DOWNLOAD{C-downloadcategoryid|D-downloadid|L-downloadid|S}');
+    $info = array('module'  => 'Downloads', 
+                  'needle'  => 'DOWNLOAD{C-downloadcategoryid|D-downloadid|L-downloadid|S}',
+                  'inspect' => false);
     return $info;
 }
 

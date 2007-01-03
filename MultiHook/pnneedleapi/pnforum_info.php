@@ -26,7 +26,9 @@
  */
 function MultiHook_needleapi_pnforum_info($args)
 {
-    $info = array('pnForum', 'PNFORUM{F-forumid|T-topicid}');
+    $info = array('module'  => 'pnForum', // module name
+                  'needle'  => 'PNFORUM{F-forumid|T-topicid}',   // possible needles  
+                  'inspect' => true);     //reverse lookpup possible, needs MultiHook_needleapi_pnforum_inspect() function
     return $info;
 }
 

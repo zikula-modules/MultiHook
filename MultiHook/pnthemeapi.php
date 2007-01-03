@@ -26,7 +26,8 @@
  */
 function MultiHook_themeapi_preparetheme()
 {
-    if(SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
+    $type = FormUtil::getPassedValue('type', '', 'GETPOST');
+    if($type <> 'admin' && SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
         pnPageAddVar('stylesheet', 'modules/MultiHook/pnstyle/style.css');
         pnPageAddVar('javascript', 'javascript/ajax/prototype.js');
         pnPageAddVar('javascript', 'javascript/ajax/effects.js');
@@ -47,7 +48,8 @@ function MultiHook_themeapi_preparetheme()
 function MultiHook_themeapi_helper()
 {
     $out = '';
-    if(SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
+    $type = FormUtil::getPassedValue('type', '', 'GETPOST');
+    if($type <> 'admin' && SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
         pnModLangLoad('MultiHook', 'admin');
         $pnr = new pnRender('MultiHook', false);
         $pnr->assign('userlang', pnUserGetLang());

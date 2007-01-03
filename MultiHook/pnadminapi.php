@@ -143,20 +143,19 @@ function MultiHook_adminapi_collectneedles()
                 $needle = str_replace('_info.php', '', $file);
                 $infofunc = 'MultiHook_needleapi_' . $needle . '_info';
                 if(function_exists($infofunc)){
-                    list($module, $description) = $infofunc();
+                    $needleinfo = $infofunc();
                 } else {
-                    $description = _MH_NODESCRIPTIONFOUND;
-                    $module      = _MH_NOMODULEFOUND;
+                    $needleinfo['needle']  = _MH_NODESCRIPTIONFOUND;
+                    $needleinfo['module']  = _MH_NOMODULEFOUND;
+                    $needleinfo['inspect'] = false;
                 }
-                $needles[] = array('module'      => $module,
-                                   'needle'      => $needle,
-                                   'description' => $description);
+                $needles[] = $needleinfo;
             }
         }
         closedir($dh);
     } 
     // store the needlesarray now
-    pnModSetVar('MultiHook', 'needles', serialize($needles));
+    pnModSetVar('MultiHook', 'needles', $needles);
     return $needles;
 }
 

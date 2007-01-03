@@ -17,6 +17,10 @@
 // ----------------------------------------------------------------------
 
 // even newer :-)
+define('_MH_LONGWITHHINT', 'Langfassung (im Fall eines Links, die Ziel-URL, wird bei unerwünschten Begriffen ignoriert)');
+define('_MH_TITLEWITHHINT', 'Titel (nur bei einem Link notwendig, wird bei unerwünschten Begriffen ignoriert)');
+
+define('_MH_FAVORITES', 'Favorites');
 define('_MH_NEEDLES', 'Needles');
 define('_MH_NOTHOOKED', '** der MultiHook wird zur Zeit von keinem Modul verwendet **');
 define('_MH_LINKS', 'Links');

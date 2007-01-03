@@ -25,7 +25,7 @@ function smarty_function_multihookhelper($params, &$smarty)
         $modinfo = pnModGetInfo(pnModGetIDFromName('MultiHook'));
         if(version_compare($modinfo['version'], '5.0', '>=')==1) {
             pnModAPIFunc('MultiHook', 'theme', 'preparetheme');
-            return pnModFunc('MultiHook', 'theme', 'helper'); 
+            return pnModAPIFunc('MultiHook', 'theme', 'helper'); 
         }         
     }
 }      

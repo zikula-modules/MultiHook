@@ -4,38 +4,37 @@
 
 <h2><!--[ pnml name='_MH_MODIFYCONFIG' ]--></h2>
 
-<form action="<!--[ pnmodurl modname=MultiHook type=admin func=modifyconfig ]-->" method="post">
+<!--[ pnform ]-->
 <div>
     <div class="mhfloatbox">
-        <input type="hidden" name="authid" value="<!--[ pnsecgenauthkey module="MultiHook" ]-->" />
-    
+        <!--[ pnformvalidationsummary ]-->
         <dl class="mhclearfix">
-            <dt><label for="abacfirst"><!--[ pnml name='_MH_ABACFIRST' ]--></label></dt>
-            <dd><input type="checkbox" id="abacfirst" name="abacfirst" value="1" <!--[ if $pncore.MultiHook.abacfirst==1 ]-->checked="checked"<!--[ /if ]--> /></dd>
+            <dt><!--[ pnformlabel for="abacfirst" text='_MH_ABACFIRST' ]--></dt>
+            <dd><!--[ pnformcheckbox id="abacfirst" checked=$pncore.MultiHook.abacfirst ]--></dd>
             
-            <dt><label for="externallinkclass"><!--[ pnml name='_MH_EXTERNALLINKCLASS' ]--></label></dt>
-            <dd><input type="text" size="20" maxlength="40" id="externallinkclass" name="externallinkclass" value="<!--[ $pncore.MultiHook.externallinkclass ]-->" /></dd>
+            <dt><!--[ pnformlabel for="externallinkclass" text='_MH_EXTERNALLINKCLASS' ]--></dt>
+            <dd><!--[ pnformtextinput size="20" maxLength="40" id="externallinkclass" text=$pncore.MultiHook.externallinkclass ]--></dd>
             
-            <dt><label for="itemsperpage"><!--[ pnml name='_MH_ITEMSPERPAGE' ]--></label></dt>
-            <dd><input type="text" size="4" maxlength="4" id="itemsperpage" name="itemsperpage" value="<!--[ $pncore.MultiHook.itemsperpage ]-->" /></dd>
+            <dt><!--[ pnformlabel for="itemsperpage" text='_MH_ITEMSPERPAGE' ]--></dt>
+            <dd><!--[ pnformintinput id="itemsperpage" text=$pncore.MultiHook.itemsperpage ]--></dd>
             
-            <dt><label for="mhincodetags"><!--[ pnml name='_MH_MHINCODETAGS' ]--></label></dt>
-            <dd><input type="checkbox" id="mhincodetags" name="mhincodetags" value="1" <!--[ if $pncore.MultiHook.mhincodetags==1 ]-->checked="checked"<!--[ /if ]--> /></dd>
+            <dt><!--[ pnformlabel for="mhincodetags" text='_MH_MHINCODETAGS' ]--></dt>
+            <dd><!--[ pnformcheckbox id="mhincodetags" checked=$pncore.MultiHook.mhincodetags ]--></dd>
             
-            <dt><label for="mhlinktitle"><!--[ pnml name='_MH_REPLACELINKWITHTITLE' ]--></label></dt>
-            <dd><input type="checkbox" id="mhlinktitle" name="mhlinktitle" value="1" <!--[ if $pncore.MultiHook.mhlinktitle==1 ]-->checked="checked"<!--[ /if ]--> /></dd>
+            <dt><!--[ pnformlabel for="mhlinktitle" text='_MH_REPLACELINKWITHTITLE' ]--></dt>
+            <dd><!--[ pnformcheckbox id="mhlinktitle" checked=$pncore.MultiHook.mhlinktitle ]--></dd>
             
-            <dt><label for="mhreplaceabbr"><!--[ pnml name='_MH_REPLACEABBREVIATIONS' ]--></label></dt>
-            <dd><input type="checkbox" id="mhreplaceabbr" name="mhreplaceabbr" value="1" <!--[ if $pncore.MultiHook.mhreplaceabbr==1 ]-->checked="checked"<!--[ /if ]--> /></dd>
+            <dt><!--[ pnformlabel for="mhreplaceabbr" text='_MH_REPLACEABBREVIATIONS' ]--></dt>
+            <dd><!--[ pnformcheckbox id="mhreplaceabbr" checked=$pncore.MultiHook.mhreplaceabbr ]--></dd>
             
-            <dt><label for="mhshoweditlink"><!--[ pnml name='_MH_SHOWEDITLINK' ]--></label></dt>
-            <dd><input type="checkbox" id="mhshoweditlink" name="mhshoweditlink" value="1" <!--[ if $pncore.MultiHook.mhshoweditlink==1 ]-->checked="checked"<!--[ /if ]--> /></dd>
+            <dt><!--[ pnformlabel for="mhshoweditlink" text='_MH_SHOWEDITLINK' ]--></dt>
+            <dd><!--[ pnformcheckbox id="mhshoweditlink" checked=$pncore.MultiHook.mhshoweditlink ]--></dd>
         </dl>
     </div>
     <p>
-        <input type="submit" name="submit" value="<!--[ pnml name='_MH_UPDATECONFIG' ]-->" />
+      <!--[pnformbutton id="submit" commandName="submit" text="_MH_UPDATECONFIG"]-->
     </p>
 </div>
-</form>
+<!--[ /pnform ]-->
 
 <!--[ include file=mh_admin_footer.html ]-->
