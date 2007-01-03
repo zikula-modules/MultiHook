@@ -77,9 +77,8 @@ class MultiHook_admin_edithandler
             return LogUtil::registerPermissionError(pnModURL('MultiHook', 'admin', 'main'));
         }  
         if ($args['commandName'] == 'submit') {
-            if (!$pnRender->pnFormIsValid()) {
-                return false;
-            }
+            $ok = $pnRender->pnFormIsValid();
+
             $data = $pnRender->pnFormGetValues();
             $data['aid'] = $this->aid;
 
@@ -96,26 +95,33 @@ class MultiHook_admin_edithandler
                 }
                 return pnRedirect(pnModURL('MultiHook', 'admin', 'view', array('filter' => $data['type'])));
             }
+
             // no deletion, further checks needed
             if(empty($data['short'])) {
-                $pnRender->_pnFormIsValid = false;
-                return LogUtil::registerError(_MH_SHORTEMPTY, pnModURL('MultiHook', 'admin', 'main'));
+                $ifield = & $pnRender->pnFormGetPluginById('mh_short');
+                $ifield->setError(DataUtil::formatForDisplay(_MH_SHORTEMPTY));
+                $ok = false;
             }
             if(empty($data['long']) && ($data['type']<>3)) {
-                $pnRender->_pnFormIsValid = false;
-                return LogUtil::registerError(_MH_LONGEMPTY, pnModURL('MultiHook', 'admin', 'main'));
+                $ifield = & $pnRender->pnFormGetPluginById('mh_long');
+                $ifield->setError(DataUtil::formatForDisplay(_MH_LONGEMPTY));
+                $ok = false;
             }
             if(($data['type']<0) || ($data['type']>3)) {
-                $pnRender->_pnFormIsValid = false;
-                return LogUtil::registerError(_MH_TYPEEMPTY . "($type)", pnModURL('MultiHook', 'admin', 'main'));
+                $ifield = & $pnRender->pnFormGetPluginById('mh_type');
+                $ifield->setError(DataUtil::formatForDisplay(_MH_TYPEEMPTY . "($type)"));
+                $ok = false;
             }
             if($data['type']==2 && empty($data['title'])) {
-                $pnRender->_pnFormIsValid = false;
-                $pnRender->pnFormSetErrorMsg = _MH_TITLEEMPTY;
-                return false;
-                return LogUtil::registerError(_MH_TITLEEMPTY, pnModURL('MultiHook', 'admin', 'main'));
+                $ifield = & $pnRender->pnFormGetPluginById('mh_title');
+                $ifield->setError(DataUtil::formatForDisplay(_MH_TITLEEMPTY));
+                $ok = false;
             }
             
+            if(!$ok) {
+                return false;
+            }
+
             if(empty($data['language'])) {
                 $data['language'] = 'All';
             }
