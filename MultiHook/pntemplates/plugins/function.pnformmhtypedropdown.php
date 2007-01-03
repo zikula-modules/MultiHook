@@ -4,7 +4,7 @@
  *
  * @copyright (c) 2004, PostNuke Development Team
  * @link http://www.postnuke.com
- * @version $Id: function.pnformdropdownlist.php 20923 2007-01-02 18:33:11Z landseer $
+ * @version $Id$
  * @license GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  * @author Jrn Wildt
  * @package PostNuke_Template_Plugins
