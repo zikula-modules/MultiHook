@@ -221,15 +221,5 @@ function absolute_url($url='')
     }
     return $url;
 }
-
-function mh_ajaxerror($error='')
-{
-    if(!empty($error)) {
-        header('HTTP/1.0 400 Bad Data');
-        echo $error;
-        exit;
-    }
-}
-
   
 ?>
