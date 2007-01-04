@@ -26,7 +26,7 @@ function MultiHook_init()
 {
     // create the MultiHook table
     if (!DBUtil::createTable('multihook')) {
-        return false;
+        return LogUtil::registerError(_MH_DBCREATETABLEERROR);
     }
 
     // Set up module variables
@@ -49,41 +49,37 @@ function MultiHook_init()
                            'MultiHook',
                            'user',
                            'transform')) {
-        pnSessionSetVar('errormsg', _MH_COULDNOTREGISTER);
-        return false;
+        return LogUtil::registerError(_MH_COULDNOTREGISTER);
     }
 
-    // silently import autolinks
+    // import autolinks if available
     if(pnModAvailable('Autolinks')) {
         $als = pnModAPIFunc('Autolinks', 'user', 'getall');
         if(is_array($als)) {
-            if(pnModAPILoad('MultiHook', 'admin', true) && pnModAPILoad('MultiHook', 'user', true) ) {
-                $mhs = pnModAPIFunc('MultiHook', 'user', 'getall', array('filter'=>2));
-                // get the short's only
-                $short = array();
-                if(is_array($mhs)) {
-                    foreach($mhs as $mh) {
-                        $short[$mh['short']] = 1;
+            pnModAPILoad('MultiHook', 'user', true);
+            $mhs = pnModAPIFunc('MultiHook', 'user', 'getall', array('filter' => 2));
+            // get the short's only
+            $short = array();
+            if(is_array($mhs)) {
+                foreach($mhs as $mh) {
+                    $short[$mh['short']] = 1;
+                }
+            }
+            $imported = 0;
+            foreach($als as $al) {
+                if(!array_key_exists($al['keyword'], $short)) {
+                    if( pnModAPIFunc('MultiHook',
+                                     'admin',
+                                     'create',
+                                     array('short' => $al['keyword'],
+                                           'long' => $al['url'],
+                                           'title' => $al['title'],
+                                           'type' => 2,
+                                           'language' => "")) >> false ) {
+                        $imported++;
                     }
                 }
-                $imported = 0;
-                $dupes = 0;
-                foreach( $als as $al) {
-                    if(!array_key_exists($al['keyword'], $short)) {
-                        if( pnModAPIFunc('MultiHook',
-                                         'admin',
-                                         'create',
-                                         array('short' => $al['keyword'],
-                                               'long' => $al['url'],
-                                               'title' => $al['title'],
-                                               'type' => 2,
-                                               'language' => "")) >> false ) {
-                            $imported++;
-                        }
-                    } else {
-                        $dupes++;
-                    }
-                }
+                LogUtil::registerStatus(sprintf(_MH_AUTOLINKUPDATESTATUS, $imported));
             }
         }
     }
@@ -111,7 +107,7 @@ function MultiHook_upgrade($oldversion)
             // collecting the needles is done below on every upgrade  
         case '4.0':
         case '4.5':
-            if (!DBUtil::changeTable('groups')) {
+            if (!DBUtil::changeTable('multihook')) {
                 return LogUtil::registerError(_MH_UPGRADETO50FAILED);
             }
             break;
@@ -133,7 +129,7 @@ function MultiHook_delete()
 {
     // drop the table
     if (!DBUtil::dropTable('multihook')) {
-        return false;
+        return LogUtil::registerError(_MH_DBDELETETABLEERROR);
     }
 
     // Remove module variables
@@ -147,10 +143,10 @@ function MultiHook_delete()
                              'user',
                              'transform')) {
         return LogUtil::registerError(_MH_COULDNOTUNREGISTER);
-        return false;
     }
 
     // Deletion successful
     return true;
 }
+
 ?>

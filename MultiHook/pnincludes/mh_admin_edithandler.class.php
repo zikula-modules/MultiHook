@@ -128,20 +128,14 @@ class MultiHook_admin_edithandler
 
             // The API function is called
             if($data['aid'] == -1) {
-                if(pnModAPIFunc('MultiHook',
-                                    'admin',
-                                    'create',
-                                    $data) <> false) {
+                if(pnModAPIFunc('MultiHook', 'admin', 'create', $data) <> false) {
                     // Success
                     LogUtil::registerStatus( _MH_CREATED);
                 } else {
                     LogUtil::registerError(_MH_CREATEDFAILED);
                 }
             } else {
-                if(pnModAPIFunc('MultiHook',
-                                'admin',
-                                'update',
-                                $data) <> false) {
+                if(pnModAPIFunc('MultiHook', 'admin', 'update', $data) <> false) {
                     // Success
                     LogUtil::registerStatus(_MH_UPDATED);
                 } else {

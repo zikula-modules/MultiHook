@@ -18,5 +18,7 @@
 
 define('_MH_COULDNOTREGISTER','Fehler beim Registrieren des MultiHooks');
 define('_MH_COULDNOTUNREGISTER','MultiHook konnte nicht entfernt werden');
-define('_MH_DBCREATETABLEERROR','Fehler beim Anlegen der Datenbank-Tabellen');
+define('_MH_DBCREATETABLEERROR','Fehler beim Anlegen der Datenbank-Tabelle');
+define('_MH_DBDELETETABLEERROR','Fehler beim Löschen der Datenbank-Tabelle');
+define('_MH_AUTOLINKUPDATESTATUS','%d entries copied from AutoLinks, you can remove this module now.');
 ?>
