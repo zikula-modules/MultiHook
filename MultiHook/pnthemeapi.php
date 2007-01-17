@@ -28,11 +28,11 @@ function MultiHook_themeapi_preparetheme()
 {
     $type = FormUtil::getPassedValue('type', '', 'GETPOST');
     if($type <> 'admin' && SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
-        pnPageAddVar('stylesheet', 'modules/MultiHook/pnstyle/style.css');
-        pnPageAddVar('javascript', 'javascript/ajax/prototype.js');
-        pnPageAddVar('javascript', 'javascript/ajax/effects.js');
-        pnPageAddVar('javascript', 'javascript/ajax/dragdrop.js');
-        pnPageAddVar('javascript', 'modules/MultiHook/pnjavascript/multihook.js');
+        PageUtil::addVar('stylesheet', 'modules/MultiHook/pnstyle/style.css');
+        PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
+        PageUtil::addVar('javascript', 'javascript/ajax/effects.js');
+        PageUtil::addVar('javascript', 'javascript/ajax/dragdrop.js');
+        PageUtil::addVar('javascript', 'modules/MultiHook/pnjavascript/multihook.js');
     }
     return true;
 }

@@ -19,10 +19,10 @@
             <dd><!--[ pnformtextinput id="mh_title" dataField="title" text=$abac.title size="40" maxLength="200" ]--></dd>
 
             <dt><!--[ pnformlabel for="mh_type" text='_MH_TYPE' ]--></dt>
-            <dd><!--[ pnformmhtypedropdown id="mh_type" dataField="type" items=$types selectedValue=$abac.type ]--></dd>
+            <dd><!--[ pnformdropdownlist id="mh_type" dataField="type" items=$items selectedValue=$abac.type ]--></dd>
 
             <dt><!--[ pnformlabel for="mh_language" text='_MH_LANGUAGE' ]--></dt>
-            <dd><!--[ pnformmhlangdropdown id="mh_language" dataField="language" selectedValue=$abac.language ]--></dd>
+            <dd><!--[ pnformlanguageselector id="mh_language" dataField="language" selectedValue=$abac.language ]--></dd>
 
             <!--[ if $abac.delete == true ]-->
             <dt><!--[ pnformlabel for="mh_delete" text='_MH_DELETE' ]--></dt>

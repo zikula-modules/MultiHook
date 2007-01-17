@@ -208,7 +208,7 @@ function MultiHook_userapitransform($text)
     $text = ' '  . $text;
     
     // add stylesheet
-    pnPageAddVar('stylesheet', 'modules/MultiHook/pnstyle/mh.css');
+    PageUtil::addVar('stylesheet', 'modules/MultiHook/pnstyle/mh.css');
 
     static $search = array();
     static $replace = array();

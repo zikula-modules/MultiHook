@@ -59,12 +59,14 @@ class MultiHook_admin_edithandler
             }
         
         }
-        
+
+        $items = array( array('text' => _MH_TYPEABBREVIATION, 'value' => 0),
+                        array('text' => _MH_TYPEACRONYM,      'value' => 1),
+                        array('text' => _MH_TYPELINK,         'value' => 2),
+                        array('text' => _MH_TYPEILLEGALWORD,  'value' => 3) );
+ 
+        $pnRender->assign('items', $items); // Supply items
         $pnRender->assign('abac', $abac);
-        $pnRender->assign('types', array( _MH_TYPEABBREVIATION,
-                                          _MH_TYPEACRONYM,
-                                          _MH_TYPELINK,
-                                          _MH_TYPEILLEGALWORD));
 
         return true;
     }
