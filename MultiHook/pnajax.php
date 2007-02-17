@@ -52,9 +52,9 @@ function MultiHook_ajax_store()
     $delete    =      FormUtil::getPassedValue('mh_delete',   '', 'POST');
     $language  =      FormUtil::getPassedValue('mh_language', '', 'POST');
 
-    $short    = trim(utf8_decode(urldecode($short)));
-    $long     = trim(utf8_decode(urldecode($long)));
-    $title    = trim(utf8_decode(urldecode($title)));
+    $short    = trim(DataUtil::convertFromUTF8(urldecode($short)));
+    $long     = trim(DataUtil::convertFromUTF8(urldecode($long)));
+    $title    = trim(DataUtil::convertFromUTF8(urldecode($title)));
     $language = trim($language);
 
     // get the entry (needed for permission checks)
