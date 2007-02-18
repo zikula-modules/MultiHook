@@ -55,6 +55,7 @@
 }
 
 #multihookinformationcontent {
+    text-align: center;
     padding: 3px;
 }
 
@@ -69,6 +70,7 @@
 }
 
 #multihookindicator {
+    text-align: center;
     margin: 2px;
 }
 
