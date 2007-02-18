@@ -55,6 +55,15 @@ function MultiHook_init()
     // import autolinks if available
     if(pnModAvailable('Autolinks')) {
         $als = pnModAPIFunc('Autolinks', 'user', 'getall');
+        pnModAPILoad('MultiHook', 'user', true);
+        $mhs = pnModAPIFunc('MultiHook', 'user', 'getall', array('filter' => 2));
+        // get the short's only
+        $short = array();
+        if(is_array($mhs)) {
+            foreach($mhs as $mh) {
+                $short[$mh['short']] = 1;
+            }
+        }
         if(is_array($als)) {
             pnModAPILoad('MultiHook', 'user', true);
             $mhs = pnModAPIFunc('MultiHook', 'user', 'getall', array('filter' => 2));
@@ -75,15 +84,17 @@ function MultiHook_init()
                                            'long' => $al['url'],
                                            'title' => $al['title'],
                                            'type' => 2,
-                                           'language' => "")) >> false ) {
+                                           'language' => 'All')) >> false ) {
                         $imported++;
                     }
                 }
-                LogUtil::registerStatus(sprintf(_MH_AUTOLINKUPDATESTATUS, $imported));
             }
+            LogUtil::registerStatus(sprintf(_MH_AUTOLINKUPDATESTATUS, $imported));
         }
     }
-
+    
+    MultiHook_import_CensorList();
+    
     // Initialisation successful
     return true;
 }
@@ -110,6 +121,7 @@ function MultiHook_upgrade($oldversion)
             if (!DBUtil::changeTable('multihook')) {
                 return LogUtil::registerError(_MH_UPGRADETO50FAILED);
             }
+            MultiHook_import_CensorList();
             break;
     }
     // collecting needles
@@ -147,6 +159,44 @@ function MultiHook_delete()
 
     // Deletion successful
     return true;
+}
+
+/**
+ * import from old censor module
+ *
+ *
+ */
+function MultiHook_import_CensorList()
+{
+    // import Censor list if available
+    $censoredwords = pnConfigGetVar('CensorList');
+    $censored = 0;
+    if(is_array($censoredwords) && count($censoredwords) <> 0) { 
+        pnModAPILoad('MultiHook', 'user', true);
+        $mhs = pnModAPIFunc('MultiHook', 'user', 'getall', array('filter' => 2));
+        // get the short's only
+        $short = array();
+        if(is_array($mhs)) {
+            foreach($mhs as $mh) {
+                $short[$mh['short']] = 1;
+            }
+        }
+        foreach($censoredwords as $censoredword) {
+            if(!array_key_exists($censoredword, $short)) {
+                if( pnModAPIFunc('MultiHook',
+                                 'admin',
+                                 'create',
+                                 array('short' => $censoredword,
+                                       'long' => '',
+                                       'title' => '',
+                                       'type' => 3,
+                                       'language' => 'All')) >> false ) {
+                    $censored++;
+                }
+            }
+        }
+        LogUtil::registerStatus(sprintf(_MH_CENSORUPDATESTATUS, $censored));
+    }
 }
 
 ?>

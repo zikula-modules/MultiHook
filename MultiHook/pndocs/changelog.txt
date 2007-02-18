@@ -3,6 +3,7 @@ $Id$
 Version 5.0
    - PostNuke .8 only
    - no more theme changes necessary!
+   - added [#4139] Migrating censor module contents
    
 Version 4.5
    - implemented censor functions 
