@@ -24,7 +24,7 @@
  * @param none
  * @return string with short usage description
  */
-function MultiHook_needleapi_pagesetter_info($args)
+function MultiHook_needleapi_pagesetter_info()
 {
     $info = array('module'  => 'pagesetter', 
                   'needle'  => 'PAGESETTER{tid}{-pid}',

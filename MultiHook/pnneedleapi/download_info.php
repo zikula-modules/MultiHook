@@ -24,7 +24,7 @@
  * @param none
  * @return string with short usage description
  */
-function MultiHook_needleapi_download_info($args)
+function MultiHook_needleapi_download_info()
 {
     $info = array('module'  => 'Downloads', 
                   'needle'  => 'DOWNLOAD{C-downloadcategoryid|D-downloadid|L-downloadid|S}',

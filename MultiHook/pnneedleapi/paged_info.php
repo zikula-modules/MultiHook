@@ -24,7 +24,7 @@
  * @param none
  * @return string with short usage description
  */
-function MultiHook_needleapi_paged_info($args)
+function MultiHook_needleapi_paged_info()
 {
     $info = array('module'  => 'PagEd', 
                   'needle'  => 'PAGED{publicationid}',

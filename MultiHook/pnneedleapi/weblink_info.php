@@ -24,7 +24,7 @@
  * @param none
  * @return string with short usage description
  */
-function MultiHook_needleapi_weblink_info($args)
+function MultiHook_needleapi_weblink_info()
 {
     $info = array('module'  => 'Web_Links', 
                   'needle'  => 'WEBLINK{C-weblinkcategoryid|D-weblinkid|L-weblinkid|S}',

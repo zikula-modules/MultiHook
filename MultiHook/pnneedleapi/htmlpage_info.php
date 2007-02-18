@@ -24,7 +24,7 @@
  * @param none
  * @return string with short usage description
  */
-function MultiHook_needleapi_htmlpage_info($args)
+function MultiHook_needleapi_htmlpage_info()
 {
     $info = array('module'  => 'htmlpages', 
                   'needle'  => 'HTMLPAGE{pid}',

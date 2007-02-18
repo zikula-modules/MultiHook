@@ -24,7 +24,7 @@
  * @param none
  * @return string with short usage description
  */
-function MultiHook_needleapi_pnforum_info($args)
+function MultiHook_needleapi_pnforum_info()
 {
     $info = array('module'  => 'pnForum', // module name
                   'needle'  => 'PNFORUM{F-forumid|T-topicid}',   // possible needles  

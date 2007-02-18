@@ -24,7 +24,7 @@
  * @param none
  * @return string with short usage description
  */
-function MultiHook_needleapi_photoshare_info($args)
+function MultiHook_needleapi_photoshare_info()
 {
     $info = array('module'  => 'photoshare', 
                   'needle'  => 'PHOTOSHARE{A-albumid|P-pictureid|T-pictureid}',
