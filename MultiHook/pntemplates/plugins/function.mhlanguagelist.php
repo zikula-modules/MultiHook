@@ -74,23 +74,19 @@ function smarty_function_mhlanguagelist($params, &$smarty)
         $all = true;
     }
 
-    $languagelist = languagelist();
-
     $languagedropdown = '<select id="' . pnVarPrepForDisplay($id) . '" name="'.pnVarPrepForDisplay($name)."\">\n";
     if ($all) {
         $languagedropdown .= '<option value="">'.pnVarPrepForDisplay(_ALL)."</option>\n";
     }
+
+    $languagelist = LanguageUtil::getInstalledLanguages();
     foreach ($languagelist as $code => $text) {
         if (isset($selected) && $code == $selected) {
             $selectedtext = ' selected="selected"';
         } else {
             $selectedtext = '';
         }
-        // itevo, MNA: added param to show only installed languages in pulldown
-        if ((isset($installed) && is_dir("language/$code")) || empty($installed)) {
-            $languagedropdown .= '<option value="'.pnVarPrepForDisplay($code)."\"$selectedtext>".pnVarPrepForDisplay($text)."</option>\n";
-        }
-        // /itevo
+        $languagedropdown .= '<option value="'.pnVarPrepForDisplay($code)."\"$selectedtext>".pnVarPrepForDisplay($text)."</option>\n";
     }
     $languagedropdown .= '</select>';
 
