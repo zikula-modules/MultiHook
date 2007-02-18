@@ -237,6 +237,11 @@ function MultiHook_userapitransform($text)
         $onlyonce = (pnModGetVar('MultiHook', 'abacfirst')==1) ? true : false;
     }
 
+    static $brutalcensor;
+    if(!isset($brutalcensor)) {
+        $brutalcensor = (pnModGetVar('MultiHook', 'mhbrutalcensor')==1) ? true : false;
+    }
+
     static $haveoverlib;
     if(!isset($haveoverlib)) {
         $haveoverlib = pnModAvailable('overlib');
@@ -355,7 +360,11 @@ function MultiHook_userapitransform($text)
                 }
             } else if($tmp['type']==3) {
                 // original censored word
-                $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:])(?!\.\w)/i';
+                if($brutalcensor == false) {
+                    $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:])(?!\.\w)/i';
+                } else {
+                    $search_temp = '/(?)(' . preg_quote($tmp['short'], '/') . ')(?)/i';
+                }
                 $search[]      = $search_temp;
                 $replace[]     = md5($search_temp);
                 $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';

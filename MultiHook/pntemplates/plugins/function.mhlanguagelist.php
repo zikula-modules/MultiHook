@@ -74,9 +74,9 @@ function smarty_function_mhlanguagelist($params, &$smarty)
         $all = true;
     }
 
-    $languagedropdown = '<select id="' . pnVarPrepForDisplay($id) . '" name="'.pnVarPrepForDisplay($name)."\">\n";
+    $languagedropdown = '<select id="' . DataUtil::formatForDisplay($id) . '" name="'.DataUtil::formatForDisplay($name)."\">\n";
     if ($all) {
-        $languagedropdown .= '<option value="">'.pnVarPrepForDisplay(_ALL)."</option>\n";
+        $languagedropdown .= '<option value="All">'.DataUtil::formatForDisplay(_ALL)."</option>\n";
     }
 
     $languagelist = LanguageUtil::getInstalledLanguages();
@@ -86,7 +86,7 @@ function smarty_function_mhlanguagelist($params, &$smarty)
         } else {
             $selectedtext = '';
         }
-        $languagedropdown .= '<option value="'.pnVarPrepForDisplay($code)."\"$selectedtext>".pnVarPrepForDisplay($text)."</option>\n";
+        $languagedropdown .= '<option value="'.DataUtil::formatForDisplay($code)."\"$selectedtext>".DataUtil::formatForDisplay($text)."</option>\n";
     }
     $languagedropdown .= '</select>';
 

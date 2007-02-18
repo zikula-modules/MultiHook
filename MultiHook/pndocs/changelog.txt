@@ -5,6 +5,7 @@ Version 5.0
    - no more theme changes necessary!
    - fixed [#4147] Warning when upgrading .7x site with latest multihook
    - fixed [#4174] Multihook plugin generates siginficant numbers of file system calls
+   + added [#4105] Fix for Censor functionality (and made it optional via setting)
    + added [#4139] Migrating censor module contents
    
 Version 4.5

@@ -50,6 +50,7 @@ class MultiHook_admin_modifyconfighandler
             pnModSetVar('MultiHook', 'mhshoweditlink',    $data['mhshoweditlink']);
             pnModSetVar('MultiHook', 'itemsperpage',      $data['itemsperpage']);
             pnModSetVar('MultiHook', 'externallinkclass', $data['externallinkclass']);
+            pnModSetVar('MultiHook', 'mhbrutalcensor',    $data['mhbrutalcensor']);
 
             LogUtil::registerStatus(_MH_UPDATEDCONFIG);
         }
