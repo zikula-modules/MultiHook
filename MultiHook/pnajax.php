@@ -44,6 +44,9 @@ function MultiHook_ajax_store()
     $return = '';
 
     // Get parameters from whatever input we need
+    // caution: in the mh_user_dynamic.html template the fields are named
+    // mhnew_* or mhedit_* but the Ajax function that sends the data uses mh_* to 
+    // transmit them.
     $aid       = (int)FormUtil::getPassedValue('mh_aid',      -1, 'POST');
     $short     =      FormUtil::getPassedValue('mh_short',    '', 'POST');
     $long      =      FormUtil::getPassedValue('mh_long',     '', 'POST');

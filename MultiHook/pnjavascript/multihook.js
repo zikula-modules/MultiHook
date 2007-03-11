@@ -114,17 +114,17 @@ function submitmultihook()
     showInfo(savingText, objMHSelection.xpos, objMHSelection.ypos, false);
 
     if((objMHSelection.parentObj != 'undefined') && (objMHSelection.parentObj != null)) {
-        var newtext = "<span id='mh_new_content'>" + $('mh_short').value + "</span>";
-        var oldregexp = eval( '/' + $('mh_short').value + '/g');
+        var newtext = "<span id='mh_new_content'>" + $('mhnew_short').value + "</span>";
+        var oldregexp = eval( '/' + $('mhnew_short').value + '/g');
         objMHSelection.parentObj.update(objMHSelection.parentObj.innerHTML.replace(oldregexp, newtext));
     }
 
     var pars = 'module=MultiHook&func=store' +
-               '&mh_short=' + encodeURIComponent($F('mh_short')) +
-               '&mh_long=' + encodeURIComponent($F('mh_long')) +
-               '&mh_title=' + encodeURIComponent($F('mh_title')) +
-               '&mh_type=' + $F('mh_type') +
-               '&mh_language=' + $F('mh_language');
+               '&mh_short=' + encodeURIComponent($F('mhnew_short')) +
+               '&mh_long=' + encodeURIComponent($F('mhnew_long')) +
+               '&mh_title=' + encodeURIComponent($F('mhnew_title')) +
+               '&mh_type=' + $F('mhnew_type') +
+               '&mh_language=' + $F('mhnew_language');
     var myAjax = new Ajax.Request(
                     'ajax.php',
                     {
@@ -215,11 +215,11 @@ function stopSelection(objEvent)
         if(objMHSelection.text.length != 0) {
 
             var objMultiHook = $('multihook');
-            $('mh_short').value = objMHSelection.text;
-            $('mh_long').value = '';
-            $('mh_title').value = '';
-            setSelect('mh_type', 0);
-            setSelect('mh_language', 'all');
+            $('mhnew_short').value = objMHSelection.text;
+            $('mhnew_long').value = '';
+            $('mhnew_title').value = '';
+            setSelect('mhnew_type', 0);
+            setSelect('mhnew_language', 'all');
 
             objMultiHook.style.left = objMHSelection.xpos + 'px';
             objMultiHook.style.top  = objMHSelection.ypos + 'px';
