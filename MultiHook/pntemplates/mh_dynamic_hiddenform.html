@@ -52,7 +52,6 @@
 <!-- hidden div to show edit form for multihook entries -->
 <div id="multihookedit" style="display: none;"> 
 <form id="multihookedit_form" action="#">
-<input type="hidden" name="mhedit_aid" id="mhedit_aid" value="" />
 <div class="mhclear multihookheader">
     <a onclick="this.parentNode.parentNode.visiblity=hidden;" href="http://noc.postnuke.com/projects/multihook" title="<!--[ $modinfo.name ]--> v<!--[ $modinfo.version ]-->"><strong><!--[ $modinfo.displayname ]--> v<!--[ $modinfo.version ]--></strong></a>
 </div>
@@ -97,6 +96,7 @@
 </div>
 
 <div class="mhclear multihookbuttonarea">    
+    <input type="hidden" name="mhedit_aid" id="mhedit_aid" value="" />
     <button type="submit" class="multihooksubmitbutton" onclick="submiteditmultihook();return false;"><!--[ pnml name='_SUBMIT' ]--></button>
     <button type="reset" class="multihookcancelbutton" onclick="cancelmultihook()"><!--[ pnml name='_CANCEL' ]--></button>
 </div>
