@@ -25,6 +25,7 @@
 function MultiHook_init()
 {
     // create the MultiHook table
+    // the table definition itself is done in pntables.php
     if (!DBUtil::createTable('multihook')) {
         return LogUtil::registerError(_MH_DBCREATETABLEERROR);
     }
@@ -38,7 +39,10 @@ function MultiHook_init()
     pnModSetVar('MultiHook', 'mhshoweditlink', 1);
     
     // collect the needles  
-    // force loading of adminapi
+    // Force loading of adminapi with 3rd parameter set to true. This loads the api although
+    // the module is not really available yet. You as the module author are responsible
+    // for any side effects now, eg. when calling functions that access database tables or use
+    // module vars that have not been set yet.
     pnModAPILoad('MultiHook', 'admin', true);
     pnModAPIFunc('MultiHook', 'admin', 'collectneedles');
     
@@ -105,6 +109,11 @@ function MultiHook_init()
 function MultiHook_upgrade($oldversion)
 {
     // Upgrade dependent on old version number
+    // There is no 
+    // break;
+    // at the end of each case which means that if you start with eg. version 1.1 all
+    // necessary upgrade steps up to the recent version are done.
+    // The recent version usually does not appear as a case here. Same for the default case
     switch($oldversion) {
         case '1.0':
             pnModSetVar('MultiHook', 'mhincodetags', 0);
@@ -118,6 +127,8 @@ function MultiHook_upgrade($oldversion)
             // collecting the needles is done below on every upgrade  
         case '4.0':
         case '4.5':
+            // change the database. DBUtil + ADODB detect the changes on their own
+            // and perform all necessary steps without help from the module author
             if (!DBUtil::changeTable('multihook')) {
                 return LogUtil::registerError(_MH_UPGRADETO50FAILED);
             }
@@ -128,7 +139,10 @@ function MultiHook_upgrade($oldversion)
     // force loading of adminapi
     pnModAPILoad('MultiHook', 'admin', true);
     pnModAPIFunc('MultiHook', 'admin', 'collectneedles');
-    // clear compiled templates
+    // clear compiled templates. This function is new in .8 and ensures that after
+    // an upgrade the new templates will be used without the need to manually
+    // clear the compiled templates.
+    // minor drawback: this clears ALL compiled templates for ALL modules
     pnModAPIFunc('pnRender', 'user', 'clear_compiled');
 
     return true;
@@ -145,6 +159,8 @@ function MultiHook_delete()
     }
 
     // Remove module variables
+    // using pnModDelVar with only one parameter (the module name) automatically
+    // deletes all existing vars in one call
     pnModDelVar('MultiHook');
 
     // Remove module hooks

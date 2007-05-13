@@ -19,6 +19,8 @@
 // Purpose of file:  MultiHook version information
 // ----------------------------------------------------------------------
 
+// the defines used here are defined in pnlang/xxx/version.php
+
 $modversion['name'] = _MH_MODULENAME;
 $modversion['version'] = '5.0';
 $modversion['description'] = _MH_MODULEDESCRIPTION;
