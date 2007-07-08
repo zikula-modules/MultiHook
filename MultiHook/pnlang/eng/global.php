@@ -17,6 +17,7 @@
 // ----------------------------------------------------------------------
 
 // even newer :-)
+define('_MH_NEEDLESOURCE', 'Source');
 define('_MH_CENSORINWORDS', 'Replace illegal words which are parts of other words, eg. replace oo in Google');
 
 define('_MH_GOTOHOMEPAGE', 'visit the MultiHook-project on NOC');
@@ -47,7 +48,7 @@ define('_MH_ABBREVIATION', 'Abbreviations');
 define('_MH_ACRONYM', 'Acronyms');
 define('_MH_ADD','Add item');
 define('_MH_ADDHOOK', 'Activate MultiHook for more modules');
-define('_MH_ADMINTITLE','Links, Abbreviations, Acronyms and Censor');
+define('_MH_ADMINTITLE','Links, Abbreviations, Acronyms, Censor and Needles');
 
 //
 // B

@@ -17,6 +17,7 @@
 // ----------------------------------------------------------------------
 
 // even newer :-)
+define('_MH_NEEDLESOURCE', 'Quelle');
 define('_MH_CENSORINWORDS', 'Zensierte Wörter innerhalb von Begriffen ersetzen, z.B. oo in Google ersetzen');
 
 define('_MH_GOTOHOMEPAGE', 'gehe zur MultiHook-Projektseite im NOC');
@@ -47,7 +48,7 @@ define('_MH_ABBREVIATION', 'Abkürzungen');
 define('_MH_ACRONYM', 'Akronyme');
 define('_MH_ADD', 'Eintrag hinzufügen');
 define('_MH_ADDHOOK', 'Hook für weitere Module aktivieren');
-define('_MH_ADMINTITLE','Links, Abkürzungen, Akronyme und Zensur');
+define('_MH_ADMINTITLE','Links, Abkürzungen, Akronyme, Zensur und Needles');
 
 //
 // C
