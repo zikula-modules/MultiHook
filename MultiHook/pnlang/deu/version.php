@@ -17,6 +17,6 @@
 // ----------------------------------------------------------------------
 
 define('_MH_MODULENAME','MultiHook');
-define('_MH_MODULEDESCRIPTION','Erstellung von abbr- und acronym-Tags und Autolinks');
+define('_MH_MODULEDESCRIPTION','Erstellung von abbr- und acronym-Tags und Autolinks sowie Zensurfunktionen');
 
 ?>
