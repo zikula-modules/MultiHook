@@ -7,7 +7,10 @@ Version 5.0
    - fixed [#4174] Multihook plugin generates siginficant numbers of file system calls
    + added [#4105] Fix for Censor functionality (and made it optional via setting)
    + added [#4139] Migrating censor module contents
-   
+   + added needles_howto.txt
+   + added [#5113] Updated language define
+   + aaded [#5124] Amended module admin title
+      
 Version 4.5
    - implemented censor functions 
    - fixed [#3462] Link to "more-modules" is wrong

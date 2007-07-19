@@ -129,32 +129,42 @@ function MultiHook_adminapi_update($args)
 function MultiHook_adminapi_collectneedles()
 {
     $needles = array();
-    $needledir = 'modules/MultiHook/pnneedleapi/';
-    $dh = opendir($needledir);
-    if($dh) {
-        while($file = readdir($dh)) {
-            if((is_file($needledir . $file)) &&
-                    ($file != '.') &&
-                    ($file != '..') &&
-                    ($file != '.svn') &&
-                    ($file != 'index.html') &&
-                    (stristr($file, '_info.php'))) {
-                Loader::includeOnce($needledir . $file);
-                $needle = str_replace('_info.php', '', $file);
-                $infofunc = 'MultiHook_needleapi_' . $needle . '_info';
-                if(function_exists($infofunc)){
-                    $needleinfo = $infofunc();
-                } else {
-                    $needleinfo['needle']  = _MH_NODESCRIPTIONFOUND;
-                    $needleinfo['module']  = _MH_NOMODULEFOUND;
-                    $needleinfo['inspect'] = false;
+
+    $modtypes = array(2 => 'modules', 3 => 'system'); 
+    // get an array with modinfos of all active modules
+    $allmods = pnModGetAllMods();
+    if(is_array($allmods) && count($allmods)>0) {
+        foreach($allmods as $mod) {
+            $needledir = $modtypes[$mod['type']] . '/' . $mod['directory'] . '/pnneedleapi/';
+            $dh = opendir($needledir);
+            if($dh) {
+                while($file = readdir($dh)) {
+                    if((is_file($needledir . $file)) &&
+                            ($file != '.') &&
+                            ($file != '..') &&
+                            ($file != '.svn') &&
+                            ($file != 'index.html') &&
+                            (stristr($file, '_info.php'))) {
+                        Loader::includeOnce($needledir . $file);
+                        $needle = str_replace('_info.php', '', $file);
+                        $infofunc = $mod['name'] . '_needleapi_' . $needle . '_info';
+                        if(function_exists($infofunc)){
+                            $needleinfo = $infofunc();
+                        } else {
+                            $needleinfo['info']    = _MH_NODESCRIPTIONFOUND;
+                            $needleinfo['module']  = _MH_NOMODULEFOUND;
+                            $needleinfo['inspect'] = false;
+                        }
+                        $needleinfo['needle'] = $needle;
+                        $needleinfo['builtin'] = ($mod['name']=='MultiHook') ? true : false;
+                        $needles[] = $needleinfo;
+                    }
                 }
-                $needles[] = $needleinfo;
+                closedir($dh);
             }
         }
-        closedir($dh);
     } 
-    // store the needlesarray now
+    // store the needles array now
     pnModSetVar('MultiHook', 'needles', $needles);
     return $needles;
 }

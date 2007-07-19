@@ -27,7 +27,7 @@
 function MultiHook_needleapi_photoshare_info()
 {
     $info = array('module'  => 'photoshare', 
-                  'needle'  => 'PHOTOSHARE{A-albumid|P-pictureid|T-pictureid}',
+                  'info'    => 'PHOTOSHARE{A-albumid|P-pictureid|T-pictureid}',
                   'inspect' => false);
     return $info;
 }

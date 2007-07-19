@@ -247,7 +247,7 @@ function MultiHook_userapitransform($text)
         $haveoverlib = pnModAvailable('overlib');
     }
 
-    $needles = @unserialize(pnModGetVar('MultiHook', 'needles'));
+    $needles = pnModGetVar('MultiHook', 'needles');
     if(!is_array($needles)) {
         $needles = array();
     }
@@ -384,6 +384,7 @@ function MultiHook_userapitransform($text)
         } // foreach
     }
     // check for needles
+
     if(count($needles) > 0) {
         foreach($needles as $needle) {
             preg_match_all('/(?<![\/\w@\.:])' . strtoupper($needle['needle']) . '([a-zA-Z0-9_-]*?)(?![\/\w@:-])(?!\.\w)/', $text, $needleresults);
@@ -395,7 +396,7 @@ function MultiHook_userapitransform($text)
                     $search[]      = $search_temp;
                     $replace[]     = md5($search_temp);
                     $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                    $finalreplace[] = pnModAPIFunc('MultiHook', 'needle', strtolower($needle['needle']),
+                    $finalreplace[] = pnModAPIFunc(($needle['builtin'] == true)  ? 'MultiHook' : $needle['module'], 'needle', strtolower($needle['needle']),
                                                array('nid' => $needleresults[1][$ncnt]));
                     unset($search_temp);
                 }

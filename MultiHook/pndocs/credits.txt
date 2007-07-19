@@ -8,3 +8,8 @@ French Translation by Franky Chestnut (webmaster@pnconcept.com)
 Javascript library prototype.js by Sam Stephenson (http://prototype.conio.net/)
 
 Needles based on the needlesets written by Oivind Skau for PagEd.
+
+needles_howto.txt and idea to read needles from 3rd party modules /pnneedleapi folder
+by John Alarcon, along as some language files changes
+
+ 

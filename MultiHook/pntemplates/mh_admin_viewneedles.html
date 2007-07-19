@@ -10,7 +10,8 @@
     <!--[ foreach item=needle from=$needles]-->
         <dt><!--[ $needle.module|pnvarprepfordisplay ]--></dt>
         <dd>
-            <!--[ $needle.needle|pnvarprepfordisplay ]-->
+            <!--[ $needle.info|pnvarprepfordisplay ]-->&nbsp;(<!--[ pnml name='_MH_NEEDLESOURCE' ]-->:&nbsp;
+            <strong><!--[ if $needle.builtin eq true]-->MultiHook<!--[ else ]--><!--[ $needle.module ]--><!--[ /if ]--></strong>)
         </dd>
     <!--[ /foreach ]-->
     </dl>

@@ -27,7 +27,7 @@
 function MultiHook_needleapi_weblink_info()
 {
     $info = array('module'  => 'Web_Links', 
-                  'needle'  => 'WEBLINK{C-weblinkcategoryid|D-weblinkid|L-weblinkid|S}',
+                  'info'    => 'WEBLINK{C-weblinkcategoryid|D-weblinkid|L-weblinkid|S}',
                   'inspect' => false);
     return $info;
 }
