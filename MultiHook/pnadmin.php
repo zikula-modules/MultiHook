@@ -28,7 +28,7 @@ function MultiHook_admin_main()
         return LogUtil::registerPermissionError('index.php');
     }
     
-    $pnr = new pnRender('MultiHook', false);
+    $pnr = pnRender::getInstance('MultiHook', false);
     $hmods = pnModAPIFunc('modules', 'admin', 'gethookedmodules', array('hookmodname' => 'MultiHook'));
     foreach($hmods as $hmod => $dummy) {
         $modid = pnModGetIDFromName($hmod);
@@ -100,7 +100,7 @@ function MultiHook_admin_view()
                      _MH_VIEWILLEGALWORDS );
 
     // Create output object
-    $pnr = new pnRender('MultiHook', false);
+    $pnr = pnRender::getInstance('MultiHook', false);
     $pnr->add_core_data();
     $pnr->assign('abacs', $abacs);
     $pnr->assign('title', $titles[$filter]);
@@ -141,7 +141,7 @@ function MultiHook_admin_viewneedles()
     
     $needles = pnModAPIFunc('MultiHook', 'admin', 'collectneedles');
   
-    $pnr = new pnRender('MultiHook', false);
+    $pnr = pnRender::getInstance('MultiHook', false);
     $pnr->assign('needles', $needles);
     return $pnr->fetch('mh_admin_viewneedles.html');    
 }

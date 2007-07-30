@@ -49,7 +49,7 @@ function MultiHook_themeapi_helper()
     $out = '';
     if(SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
         pnModLangLoad('MultiHook', 'admin');
-        $pnr = new pnRender('MultiHook', false);
+        $pnr = pnRender::getInstance('MultiHook', false);
         $pnr->assign('userlang', pnUserGetLang());
         $pnr->assign('modinfo', pnModGetInfo(pnModGetIDFromName('MultiHook')));
         $out = $pnr->fetch('mh_dynamic_hiddenform.html');

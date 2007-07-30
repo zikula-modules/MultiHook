@@ -55,7 +55,7 @@ function MultiHook_user_main()
                      _MH_VIEWLINKS );
 
     // Create output object
-    $pnr = new pnRender('MultiHook', false);
+    $pnr = pnRender::getInstance('MultiHook', false);
     $pnr->add_core_data();
     $pnr->assign('abacs', $abacs);
     $pnr->assign('title', $titles[$filter]);
