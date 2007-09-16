@@ -19,7 +19,7 @@
 // Purpose of file:  Ajax functions
 // ----------------------------------------------------------------------
 
-include_once('modules/MultiHook/common.php');
+Loader::includeOnce('modules/MultiHook/common.php');
 
 function MultiHook_ajax_read()
 {

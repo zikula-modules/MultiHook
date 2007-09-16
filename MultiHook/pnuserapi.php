@@ -19,7 +19,7 @@
 // Purpose of file:  MultiHook userapi functions
 // ----------------------------------------------------------------------
 
-include_once('modules/MultiHook/common.php');
+Loader::includeOnce('modules/MultiHook/common.php');
 
 /**
  * get all entries

@@ -16,6 +16,6 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-include_once('modules/MultiHook/pnlang/fra/global.php');
+Loader::includeOnce('modules/MultiHook/pnlang/fra/global.php');
 
 ?>
