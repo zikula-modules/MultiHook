@@ -96,4 +96,3 @@ function smarty_function_mhlanguagelist($params, &$smarty)
         return $languagedropdown;
     }
 }
-?>

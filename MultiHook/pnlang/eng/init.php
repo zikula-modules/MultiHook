@@ -22,5 +22,3 @@ define('_MH_DBCREATETABLEERROR','Database create table error');
 define('_MH_DBDELETETABLEERROR','Database delete table error');
 define('_MH_AUTOLINKUPDATESTATUS','%d entries copied from AutoLinks, you can remove this module now.');
 define('_MH_CENSORUPDATESTATUS', '%d lines imported from old Censor module');
-
-?>

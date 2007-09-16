@@ -31,5 +31,3 @@ function MultiHook_needleapi_download_info()
                   'inspect' => false);
     return $info;
 }
-
-?>

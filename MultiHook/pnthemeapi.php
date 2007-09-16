@@ -56,6 +56,3 @@ function MultiHook_themeapi_helper()
     }
     return $out;
 }
-
-
-?>

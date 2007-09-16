@@ -63,5 +63,3 @@ function MultiHook_user_main()
     $pnr->assign('abacscount', $abacscount );
     return $pnr->fetch('mh_user_main.html');
 }
-
-?>

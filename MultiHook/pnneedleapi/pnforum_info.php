@@ -31,5 +31,3 @@ function MultiHook_needleapi_pnforum_info()
                   'inspect' => true);     //reverse lookpup possible, needs MultiHook_needleapi_pnforum_inspect() function
     return $info;
 }
-
-?>

@@ -145,5 +145,3 @@ function MultiHook_admin_viewneedles()
     $pnr->assign('needles', $needles);
     return $pnr->fetch('mh_admin_viewneedles.html');    
 }
-
-?>

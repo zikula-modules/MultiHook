@@ -58,5 +58,3 @@ class MultiHook_admin_modifyconfighandler
     }
 
 }
-
-?>

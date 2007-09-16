@@ -505,5 +505,3 @@ function MultiHook_userapi_censor($args)
     // nothing to do, return original word
     return $args['word'];    
 }
- 
-?>

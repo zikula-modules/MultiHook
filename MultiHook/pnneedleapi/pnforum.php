@@ -121,5 +121,3 @@ function MultiHook_needleapi_pnforum($args)
     return $result;
     
 }
-
-?>

@@ -29,4 +29,3 @@ function smarty_function_multihookhelper($params, &$smarty)
         }         
     }
 }      
-?>

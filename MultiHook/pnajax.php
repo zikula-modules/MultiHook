@@ -176,5 +176,3 @@ function MultiHook_ajax_store()
     AjaxUtil::output($return);
     exit;
 }
-
-?>

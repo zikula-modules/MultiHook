@@ -24,5 +24,3 @@ define('_MH_PS_UNKNOWNTID', 'unbekannter Publikationstyp');
 define('_MH_PS_NOAUTHFORTID', 'keine Berechtigung für diesen Publikationstyp');
 define('_MH_PS_UNKNOWNPID', 'unbekannte Publikation');
 define('_MH_PS_NOAUTHFORPID', 'keine Berechtigung für diese Publikation');
-
-?>

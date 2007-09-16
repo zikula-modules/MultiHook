@@ -49,5 +49,3 @@ function MultiHook_pntables()
     // Return the table information
     return $pntable;
 }
-
-?>

@@ -24,5 +24,3 @@ define('_MH_PS_UNKNOWNTID', 'unknown publication type');
 define('_MH_PS_NOAUTHFORTID', 'no permission for this publication type');
 define('_MH_PS_UNKNOWNPID', 'unknown publication');
 define('_MH_PS_NOAUTHFORPID', 'no permission for this publication');
-
-?>

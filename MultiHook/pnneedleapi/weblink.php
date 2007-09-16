@@ -117,5 +117,3 @@ function MultiHook_needleapi_weblink($args)
     }
     return $result;
 }
-
-?>

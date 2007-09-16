@@ -25,5 +25,3 @@ define('_MH_DL_UNKNOWNCATEGORY', 'unknown category');
 define('_MH_DL_NOAUTHFORCATEGORY', 'no permission for this category');
 define('_MH_DL_UNKNOWNDOWNLOAD', 'unknown download');
 define('_MH_DL_NOAUTHFORDOWNLOAD', 'no permission for this download');
-
-?>

@@ -77,5 +77,3 @@ function MultiHook_needleapi_htmlpage($args)
     return $result;
     
 }
-
-?>

@@ -24,5 +24,3 @@ define('_MH_WL_UNKNOWNCATEGORY', 'unknown category');
 define('_MH_WL_NOAUTHFORCATEGORY', 'no permission for this category');
 define('_MH_WL_UNKNOWNWEBLINK', 'unknown link');
 define('_MH_WL_NOAUTHFORWEBLINK', 'no permission for this link');
-
-?>

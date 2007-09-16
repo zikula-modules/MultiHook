@@ -18,5 +18,3 @@
 
 define('_MH_MODULENAME','MultiHook');
 define('_MH_MODULEDESCRIPTION','Creates xhtml tags for abbreviations, acronyms and autolinks, while providing specific content censorship.');
-
-?>

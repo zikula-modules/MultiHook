@@ -23,5 +23,3 @@ define('_MH_PS_UNKNOWNFOLDER', 'unknown album');
 define('_MH_PS_NOAUTHFORFOLDER', 'no permission for this album');
 define('_MH_PS_UNKNOWNIMAGE', 'unknown image');
 define('_MH_PS_NOAUTHFORIMAGE', 'no permission for this image');
-
-?>

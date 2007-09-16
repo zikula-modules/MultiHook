@@ -98,6 +98,3 @@ function MultiHook_needleapi_pagesetter($args)
     return $result;
 
 }
-
-
-?>

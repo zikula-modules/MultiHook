@@ -221,5 +221,3 @@ function absolute_url($url='')
     }
     return $url;
 }
-  
-?>

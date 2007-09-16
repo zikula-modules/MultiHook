@@ -19,5 +19,3 @@
 define('_MH_COULDNOTREGISTER',   'Erreur : Echec lors de l\'enregistrement de l\'extension MultHook');
 define('_MH_COULDNOTUNREGISTER', 'Erreur : Impossible de supprimer l\'extension MultiHook');
 define('_MH_DBCREATETABLEERROR', 'Erreur lors de la création de la table');
-
-?>

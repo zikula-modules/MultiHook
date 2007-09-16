@@ -20,5 +20,3 @@ define('_MH_HP_NONEEDLEID', 'no needle id');
 define('_MH_HP_NOTAVAILABLE', 'htmlpages not available');
 define('_MH_HP_UNKNOWNPAGE', 'unknown page');
 define('_MH_HP_NOAUTHFORPAGE', 'no permission for this page');
-
-?>

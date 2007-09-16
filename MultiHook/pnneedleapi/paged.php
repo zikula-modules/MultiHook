@@ -83,5 +83,3 @@ function MultiHook_needleapi_paged($args)
     return $result;       
     
 }
-
-?>

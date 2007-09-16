@@ -150,5 +150,3 @@ class MultiHook_admin_edithandler
     }
 
 }
-
-?>

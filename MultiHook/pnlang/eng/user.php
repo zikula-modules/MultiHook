@@ -17,5 +17,3 @@
 // ----------------------------------------------------------------------
 
 Loader::includeOnce('modules/MultiHook/pnlang/eng/global.php');
-
-?>

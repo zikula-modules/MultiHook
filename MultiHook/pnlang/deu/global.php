@@ -165,5 +165,3 @@ define('_MH_WRONGPARAMETER_LONG', 'Keine Langversion oder (im Falle eines Links)
 define('_MH_WRONGPARAMETER_SHORT', 'Kurzbegriff nicht gewählt');
 define('_MH_WRONGPARAMETER_TITLE', 'keine Titel angegeben');
 define('_MH_WRONGPARAMETER_TYPE', 'ungültiger Typ');
-
-?>

@@ -34,4 +34,3 @@ $modversion['contact'] = 'frank.schummertz@landseer-stuttgart.de';
 $modversion['admin'] = 1;
 $modversion['user'] = 1;
 $modversion['securityschema'] = array('MultiHook::' => 'Shorttext::$ID' );
-?>

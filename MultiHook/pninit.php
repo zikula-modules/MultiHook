@@ -214,5 +214,3 @@ function MultiHook_import_CensorList()
         LogUtil::registerStatus(sprintf(_MH_CENSORUPDATESTATUS, $censored));
     }
 }
-
-?>

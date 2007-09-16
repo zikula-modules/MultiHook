@@ -190,5 +190,3 @@ function MultiHook_adminapi_getlinks()
     }
     return $links;
 }
-
-?>

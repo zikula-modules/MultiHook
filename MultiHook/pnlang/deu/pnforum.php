@@ -25,5 +25,3 @@ define('_MH_PNF_UNKNOWNFORUM', 'unbekanntes Forum');
 define('_MH_PNF_NOAUTHFORFORUM', 'keine Berechtigung für dieses Forum');
 define('_MH_PNF_UNKNOWNTOPIC', 'unbekanntes Thema');
 define('_MH_PNF_NOAUTHFORTOPIC', 'keine Berechtigung für dieses Thema');
-
-?>

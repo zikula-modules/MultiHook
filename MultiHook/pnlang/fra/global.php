@@ -138,5 +138,3 @@ define('_MH_WRONGPARAMETER_LONG',   'texte long ou (dans le cas d\'un lien), url
 define('_MH_WRONGPARAMETER_SHORT',  'texte court manquant');
 define('_MH_WRONGPARAMETER_TITLE',  'titre manquant');
 define('_MH_WRONGPARAMETER_TYPE',   'type manquant');
-
-?>

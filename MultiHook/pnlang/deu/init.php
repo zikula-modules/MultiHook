@@ -22,5 +22,3 @@ define('_MH_DBCREATETABLEERROR','Fehler beim Anlegen der Datenbank-Tabelle');
 define('_MH_DBDELETETABLEERROR','Fehler beim Löschen der Datenbank-Tabelle');
 define('_MH_AUTOLINKUPDATESTATUS','%d Einträge aus Autolinks importiert, dieses Modul kann jetzt entfernt werden.');
 define('_MH_CENSORUPDATESTATUS', '%d Einträge aus dem alten Censor-Modul importiert.');
-
-?>

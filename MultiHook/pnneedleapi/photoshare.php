@@ -138,5 +138,3 @@ function MultiHook_needleapi_photoshare($args)
     return $result;
     
 }
-
-?>

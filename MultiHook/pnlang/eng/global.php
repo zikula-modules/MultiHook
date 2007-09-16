@@ -165,5 +165,3 @@ define('_MH_WRONGPARAMETER_LONG', 'no long text or (in case of a link) no url');
 define('_MH_WRONGPARAMETER_SHORT', 'no short text');
 define('_MH_WRONGPARAMETER_TITLE', 'no title');
 define('_MH_WRONGPARAMETER_TYPE', 'no type');
-
-?>
