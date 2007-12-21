@@ -54,9 +54,9 @@ function MultiHook_needleapi_paged($args)
             pnModDBInfoLoad('PagEd');
             switch($type) {
                 case 'P':
-                    $obj = DBUtil::selectObjectByID('paged_titles', $id, 'page_id')
+                    $obj = DBUtil::selectObjectByID('paged_titles', $id, 'page_id');
                     if($obj <> false) {
-                        $url   = DataUtil::formatForDisplay('modules.php?op=modload&name=PagEd&file=index&page_id=' $obj['page_id']);
+                        $url   = DataUtil::formatForDisplay('modules.php?op=modload&name=PagEd&file=index&page_id=' . $obj['page_id']);
                         $title = DataUtil::formatForDisplay($obj['title']);
                         $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
                     } else {
@@ -64,7 +64,7 @@ function MultiHook_needleapi_paged($args)
                     }
                     break;
                 case 'T':
-                    $obj = DBUtil::selectObjectByID('paged_topics', $id, 'topic_id')
+                    $obj = DBUtil::selectObjectByID('paged_topics', $id, 'topic_id');
                     if($obj <> false) {
                         $url   = DataUtil::formatForDisplay('modules.php?op=modload&name=PagEd&file=index&topic_id=' . $obj['topic_id']);
                         $title = DataUtil::formatForDisplay($obj['topic_title']);

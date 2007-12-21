@@ -27,7 +27,7 @@
 function MultiHook_needleapi_paged_info()
 {
     $info = array('module'  => 'PagEd', 
-                  'info'    => 'PAGED{publicationid}',
+                  'info'    => 'PAGED{P-publicationid|T-pagedtopicid}',
                   'inspect' => false);
     return $info;
 }
