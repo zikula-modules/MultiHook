@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: htmlpage.php 161 2007-01-28 17:00:20Z landseer $
 // ----------------------------------------------------------------------
 // LICENSE
 //
@@ -16,5 +16,7 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-define('_MH_MODULENAME','MultiHook');
-define('_MH_MODULEDESCRIPTION','Création d\'étiquette xhtml pour des abbreviations, acronymes et des liens automatiques et fournissant un filtrage de contenu spécifique.');
+define('_MH_HP_NONEEDLEID', 'auncun ID d\'aiguillage');
+define('_MH_HP_NOTAVAILABLE', 'htmlpages n\'est pas disponible');
+define('_MH_HP_UNKNOWNPAGE', 'page inconnue');
+define('_MH_HP_NOAUTHFORPAGE', 'aucun droit pour cette page');

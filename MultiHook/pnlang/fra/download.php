@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: download.php 161 2007-01-28 17:00:20Z landseer $
 // ----------------------------------------------------------------------
 // LICENSE
 //
@@ -16,5 +16,12 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-define('_MH_MODULENAME','MultiHook');
-define('_MH_MODULEDESCRIPTION','Création d\'étiquette xhtml pour des abbreviations, acronymes et des liens automatiques et fournissant un filtrage de contenu spécifique.');
+define('_MH_DL_DL20MINIMUMNEEDED', 'Downloads 2.0 ou plus nécessaire');
+define('_MH_DL_DOWNLOADS', 'téléchargements');
+define('_MH_DL_NONEEDLEID', 'aucun ID d\'aiguillage');
+define('_MH_DL_NOTAVAILABLE', 'Downloads n\'est pas disponible');
+define('_MH_DL_UNKNOWNTYPE', 'paramètre inconnu à la position 1 (C, D, L ou S)');
+define('_MH_DL_UNKNOWNCATEGORY', 'categorie inconnue');
+define('_MH_DL_NOAUTHFORCATEGORY', 'aucun droit pour cette catégorie');
+define('_MH_DL_UNKNOWNDOWNLOAD', 'téléchargement inconnu');
+define('_MH_DL_NOAUTHFORDOWNLOAD', 'aucun droit pour ce téléchargement');

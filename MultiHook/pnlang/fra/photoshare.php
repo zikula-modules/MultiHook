@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: photoshare.php 161 2007-01-28 17:00:20Z landseer $
 // ----------------------------------------------------------------------
 // LICENSE
 //
@@ -16,5 +16,10 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-define('_MH_MODULENAME','MultiHook');
-define('_MH_MODULEDESCRIPTION','Création d\'étiquette xhtml pour des abbreviations, acronymes et des liens automatiques et fournissant un filtrage de contenu spécifique.');
+define('_MH_PS_NONEEDLEID', 'aucun ID d\'aiguillage');
+define('_MH_PS_UNKNOWNTYPE', 'paramètre inconnu à la position 1 (A,P ou T)');
+define('_MH_PS_NOTAVAILABLE', 'Photoshare n\'est pas disponible');
+define('_MH_PS_UNKNOWNFOLDER', 'album inconnu');
+define('_MH_PS_NOAUTHFORFOLDER', 'aucun droit pour cet album');
+define('_MH_PS_UNKNOWNIMAGE', 'image inconnue');
+define('_MH_PS_NOAUTHFORIMAGE', 'aucun droit pour cette image');

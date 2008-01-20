@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: weblink.php 161 2007-01-28 17:00:20Z landseer $
 // ----------------------------------------------------------------------
 // LICENSE
 //
@@ -16,5 +16,11 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-define('_MH_MODULENAME','MultiHook');
-define('_MH_MODULEDESCRIPTION','Création d\'étiquette xhtml pour des abbreviations, acronymes et des liens automatiques et fournissant un filtrage de contenu spécifique.');
+define('_MH_WL_WEBLINKS', 'Liens Web');
+define('_MH_WL_NONEEDLEID', 'aucun ID d\'aiguillage');
+define('_MH_WL_NOTAVAILABLE', 'Web_Links n\'est pas disponible');
+define('_MH_WL_UNKNOWNTYPE', 'paramètre inconnu à la position 1 (C, D, L ou S)');
+define('_MH_WL_UNKNOWNCATEGORY', 'categorie inconnue');
+define('_MH_WL_NOAUTHFORCATEGORY', 'aucun droit pour cette catégotie');
+define('_MH_WL_UNKNOWNWEBLINK', 'lien inconnu');
+define('_MH_WL_NOAUTHFORWEBLINK', 'aucun droit pour ce lien');

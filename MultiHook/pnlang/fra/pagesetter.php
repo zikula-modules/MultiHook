@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: pagesetter.php 161 2007-01-28 17:00:20Z landseer $
 // ----------------------------------------------------------------------
 // LICENSE
 //
@@ -16,5 +16,11 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-define('_MH_MODULENAME','MultiHook');
-define('_MH_MODULEDESCRIPTION','Création d\'étiquette xhtml pour des abbreviations, acronymes et des liens automatiques et fournissant un filtrage de contenu spécifique.');
+define('_MH_PS_PAGESETTER', 'Pagesetter');
+define('_MH_PS_NONEEDLEID', 'aucun ID d\'aiguillage');
+define('_MH_PS_WRONGNEEDLEID', 'ID d\'aiguillage incorrect');
+define('_MH_PS_NOTAVAILABLE', 'Pagesetter n\'est pas disponible');
+define('_MH_PS_UNKNOWNTID', 'type de publication inconnu');
+define('_MH_PS_NOAUTHFORTID', 'aucun droit pour ce type de publication');
+define('_MH_PS_UNKNOWNPID', 'publication inconnue');
+define('_MH_PS_NOAUTHFORPID', 'aucun droit pour cette publication');

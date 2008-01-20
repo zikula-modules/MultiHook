@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: pnforum.php 161 2007-01-28 17:00:20Z landseer $
 // ----------------------------------------------------------------------
 // LICENSE
 //
@@ -16,5 +16,12 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-define('_MH_MODULENAME','MultiHook');
-define('_MH_MODULEDESCRIPTION','Création d\'étiquette xhtml pour des abbreviations, acronymes et des liens automatiques et fournissant un filtrage de contenu spécifique.');
+define('_MH_PNF_NONEEDLEID', 'aucun ID d\'aiguillage');
+define('_MH_PNF_NOTAVAILABLE', 'pnForum  n\'est pas disponible');
+define('_MH_PNF_UNKNOWNTYPE', 'paramètre inconnu à la position 1 (F ou T)');
+define('_MH_PNF_UNKNOWNCATEGORY', 'categorie inconnue');
+define('_MH_PNF_NOAUTHFORCATEGORY', 'aucun droit pour cette catégorie');
+define('_MH_PNF_UNKNOWNFORUM', 'forum inconnu');
+define('_MH_PNF_NOAUTHFORFORUM', 'aucun droit pour ce forum');
+define('_MH_PNF_UNKNOWNTOPIC', 'rubrique inconnue');
+define('_MH_PNF_NOAUTHFORTOPIC', 'aucun droit pour cette rubrique');

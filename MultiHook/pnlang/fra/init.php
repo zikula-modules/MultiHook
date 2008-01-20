@@ -16,6 +16,9 @@
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
 
-define('_MH_COULDNOTREGISTER',   'Erreur : Echec lors de l\'enregistrement de l\'extension MultHook');
-define('_MH_COULDNOTUNREGISTER', 'Erreur : Impossible de supprimer l\'extension MultiHook');
-define('_MH_DBCREATETABLEERROR', 'Erreur lors de la création de la table');
+define('_MH_COULDNOTREGISTER','Erreur: échec à l\'enregistrement de votre MultiHook');
+define('_MH_COULDNOTUNREGISTER','Erreur: impossible d\'effacer MultiHook');
+define('_MH_DBCREATETABLEERROR','Erreur à la création de la table dans la base de données');
+define('_MH_DBDELETETABLEERROR','Erruer à l\'effacement de la table dans la base de données');
+define('_MH_AUTOLINKUPDATESTATUS','%d entrées copiées du module AutoLinks, vous pouvez l\'enlever maintenant.');
+define('_MH_CENSORUPDATESTATUS', '%d lignes importées du module Censor');
