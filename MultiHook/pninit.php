@@ -114,6 +114,12 @@ function MultiHook_upgrade($oldversion)
     // at the end of each case which means that if you start with eg. version 1.1 all
     // necessary upgrade steps up to the recent version are done.
     // The recent version usually does not appear as a case here. Same for the default case
+
+    // change the database. DBUtil + ADODB detect the changes on their own
+    // and perform all necessary steps without help from the module author
+    if (!DBUtil::changeTable('multihook')) {
+        return LogUtil::registerError(_MH_UPGRADETO50FAILED);
+    }
     switch($oldversion) {
         case '1.0':
             pnModSetVar('MultiHook', 'mhincodetags', 0);
@@ -127,12 +133,14 @@ function MultiHook_upgrade($oldversion)
             // collecting the needles is done below on every upgrade  
         case '4.0':
         case '4.5':
-            // change the database. DBUtil + ADODB detect the changes on their own
-            // and perform all necessary steps without help from the module author
-            if (!DBUtil::changeTable('multihook')) {
-                return LogUtil::registerError(_MH_UPGRADETO50FAILED);
-            }
             MultiHook_import_CensorList();
+            // silently remove the old censor hook if it is still present in the system
+            pnModUnregisterHook('item',
+                                'transform',
+                                'API',
+                                'Censor',
+                                'user',
+                                'transform');
             break;
     }
     // collecting needles
