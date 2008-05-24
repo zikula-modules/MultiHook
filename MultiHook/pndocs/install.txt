@@ -1,12 +1,16 @@
 $Id$
 
-Since version 4.0 MultiHook needs the AjaxSupportPackage because the prototype.js used
-here has been removed from the distribution. The reason is simple: I am too lazy to maintain
-the same files in three or four projects each. Now we have one place only.
-You can get the AjaxSupportPackage from
-    http://noc.postnuke.com/frs/?group_id=8
-Install it as documented.
+What is MultiHook?
+------------------
+MultiHook is a transform hook. This means it scaas text for certain keywords and performs actions
+depending on what has been defined for them. You can easily create
+* autolinks, eg. the word MultiHook can always link to the project site in trac
+* abbr + acronym tags, eg. EC gets converted to <abbr title="European Community">EC</abbr>
+* censors, eg. bad words get converted to *****
+* needles (see below for more information this feature and read John's great pndocs/needles_nowto.txt)
 
+Installation
+------------
 Copy the MultiHook folder to your Postnuke's modules folder, regenerate the
 modules list in the admin panel, initialize and activate it.
 For further changes to your theme see the chapter "Ajax support".
@@ -84,17 +88,17 @@ phrases that get replaced by **** (one * for each character). Handling is the sa
 link, abbreviations or acronyms. 
 
 Using PostNuke .8 this is 100% integrated in the MultiHook and replaces the old
-Censor module.
+Censor module. Existing censored words will be converted to MultiHook during the upgrade.
 
 Ajax support
 ------------
 Since version 2.0 MultiHook uses Ajax for easier adding and manipulating of data.
 
 In previous versions of MultiHook you had to make manual changes to
-yiur theme . using PostNuke .8 this is not longer necessary. The core is
-prepared to do eerything automatically when using a Xanthia theme.
+your theme. Using PostNuke .8 this is not longer necessary. The core is
+prepared to do everything automatically when using a Xanthia theme.
  
-If you want to use this feature n other themes, your PostNuke theme has to be prepared for
+If you want to use this feature in other themes, your PostNuke theme has to be prepared for
 this and you have to enable javascript in your browser.
 Copy modules/MultiHook/pntemplates/plugins/function.multihookhelper.php to your
 modules/Xanthia/plugins folder and change your theme templates:

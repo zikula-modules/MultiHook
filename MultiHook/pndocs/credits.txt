@@ -1,11 +1,9 @@
 $Id$
 
-MultiHook written by Frank Schummertz (frank.schummertz@landseer-stuttgart.de) and
+MultiHook written by Frank Schummertz (frank.schummertz@gmail.com) and
 is basing on AutoLinks by Jim McDonald.
 
 French Translation by Franky Chestnut (webmaster@pnconcept.com)
-
-Javascript library prototype.js by Sam Stephenson (http://prototype.conio.net/)
 
 Needles based on the needlesets written by Oivind Skau for PagEd.
 

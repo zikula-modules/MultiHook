@@ -20,7 +20,7 @@
 define('_MH_NEEDLESOURCE', 'Quelle');
 define('_MH_CENSORINWORDS', 'Zensierte Wörter innerhalb von Begriffen ersetzen, z.B. oo in Google ersetzen');
 
-define('_MH_GOTOHOMEPAGE', 'gehe zur MultiHook-Projektseite im NOC');
+define('_MH_GOTOHOMEPAGE', 'gehe zur MultiHook-Projektseite im Trac');
 define('_MH_LONGWITHHINT', 'Langfassung (im Fall eines Links, die Ziel-URL, wird bei unerwünschten Begriffen ignoriert)');
 define('_MH_TITLEWITHHINT', 'Titel (nur bei einem Link notwendig, wird bei unerwünschten Begriffen ignoriert)');
 
