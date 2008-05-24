@@ -19,8 +19,7 @@ function mhinit()
 
 function addMHEventHandlers()
 {
-    var elementid;
-    document.getElementsByClassName('multihookeditlink').each(
+    $$('img.multihookeditlink').each(
         function(editlink, index) {
             elementid = 'editlink_' + index + '_' + editlink.title.split('#')[1];
             editlink.id = elementid;
