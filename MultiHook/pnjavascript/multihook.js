@@ -4,6 +4,8 @@
  *
  */
 
+Event.observe(window, 'load', mhinit, false);
+
 function mhinit()
 {
     objMHSelection = new MHSelection();
@@ -33,7 +35,7 @@ function starteditmultihook(clickevent)
     // set the parent objects id for finding it later
     Event.element(clickevent).parentNode.id = 'mh_update_content';
 
-    showInfo(loadingText, objMHSelection.xpos, objMHSelection.ypos, false);
+    showInfo(mhloadingText, objMHSelection.xpos, objMHSelection.ypos, false);
 
     var pars = 'module=MultiHook&func=read&mh_aid=' + Event.element(clickevent).id.split('_')[2];
     var myAjax = new Ajax.Request(
@@ -73,7 +75,7 @@ function editmultihook(originalRequest)
 function submiteditmultihook()
 {
     $('multihookedit').hide();
-    showInfo(savingText, objMHSelection.xpos, objMHSelection.ypos, false);
+    showInfo(mhsavingText, objMHSelection.xpos, objMHSelection.ypos, false);
 
     var pars = 'module=MultiHook&func=store' +
                '&mh_aid=' + $F('mhedit_aid') +
@@ -110,7 +112,7 @@ function submiteditmultihook_response(originalRequest)
 function submitmultihook()
 {
     $('multihook').hide();
-    showInfo(savingText, objMHSelection.xpos, objMHSelection.ypos, false);
+    showInfo(mhsavingText, objMHSelection.xpos, objMHSelection.ypos, false);
 
     if((objMHSelection.parentObj != 'undefined') && (objMHSelection.parentObj != null)) {
         var newtext = "<span id='mh_new_content'>" + $('mhnew_short').value + "</span>";
