@@ -14,7 +14,7 @@
     download, weblink, news article...any module that has a 
     needle (or needles) included, can use the functionality.
     Of course, they will need the MultiHook module installed in 
-    order to take advantage of this great new feature in PostNuke.
+    order to take advantage of this great new feature in Zikula.
 
     -------------------------------------
     GETTING STARTED

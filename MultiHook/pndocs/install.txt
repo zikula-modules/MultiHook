@@ -11,7 +11,7 @@ depending on what has been defined for them. You can easily create
 
 Installation
 ------------
-Copy the MultiHook folder to your Postnuke's modules folder, regenerate the
+Copy the MultiHook folder to your Zikula's modules folder, regenerate the
 modules list in the admin panel, initialize and activate it.
 For further changes to your theme see the chapter "Ajax support".
 
@@ -45,7 +45,7 @@ abbr, acronym, span.abbr {
 }
 
 is stored in the internal stylesheet mh.css file which will be loaded automatically
-in PostNuke .8.
+in Zikula 1.0.
 
 The abbr tag created will look like this:
 
@@ -87,7 +87,7 @@ Since 4.5 MultiHook is able to replace the .76x module Censor. You can define wo
 phrases that get replaced by **** (one * for each character). Handling is the same as for 
 link, abbreviations or acronyms. 
 
-Using PostNuke .8 this is 100% integrated in the MultiHook and replaces the old
+Using Zikula 1.0 this is 100% integrated in the MultiHook and replaces the old
 Censor module. Existing censored words will be converted to MultiHook during the upgrade.
 
 Ajax support
@@ -95,10 +95,10 @@ Ajax support
 Since version 2.0 MultiHook uses Ajax for easier adding and manipulating of data.
 
 In previous versions of MultiHook you had to make manual changes to
-your theme. Using PostNuke .8 this is not longer necessary. The core is
+your theme. Using Zikula 1.0 this is not longer necessary. The core is
 prepared to do everything automatically when using a Xanthia theme.
  
-If you want to use this feature in other themes, your PostNuke theme has to be prepared for
+If you want to use this feature in other themes, your Zikula theme has to be prepared for
 this and you have to enable javascript in your browser.
 Copy modules/MultiHook/pntemplates/plugins/function.multihookhelper.php to your
 modules/Xanthia/plugins folder and change your theme templates:

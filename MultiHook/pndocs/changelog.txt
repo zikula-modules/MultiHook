@@ -1,7 +1,7 @@
 $Id$
 
 Version 5.0
-   - PostNuke .8 only
+   - Zikula 1.0 only
    - no more theme changes necessary!
    - fixed [#4147] Warning when upgrading .7x site with latest multihook
    - fixed [#4174] Multihook plugin generates siginficant numbers of file system calls
