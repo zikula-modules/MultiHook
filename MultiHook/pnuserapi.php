@@ -54,7 +54,7 @@ function MultiHook_userapi_getall($args)
                            'level'            =>  ACCESS_READ);
 
     pnModDBInfoLoad('MultiHook', 'MultiHook');
-    $pntable =& pnDBGetTables();
+    $pntable = pnDBGetTables();
     $multihookcolumn = $pntable['multihook_column'];
 
     $where = '';
@@ -89,7 +89,7 @@ function MultiHook_userapi_get($args)
     }
 
     pnModDBInfoLoad('MultiHook', 'MultiHook');
-    $pntable =& pnDBGetTables();
+    $pntable = pnDBGetTables();
     $multihookcolumn = $pntable['multihook_column'];
 
     $permfilter[] = array ('realm'            =>  0,
@@ -144,7 +144,7 @@ function MultiHook_userapi_countitems($args)
     }
 
     pnModDBInfoLoad('MultiHook', 'MultiHook');
-    $pntable =& pnDBGetTables();
+    $pntable = pnDBGetTables();
     $multihookcolumn = $pntable['multihook_column'];
 
     $where = '';
