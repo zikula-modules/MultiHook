@@ -20,7 +20,7 @@
 define('_MH_NEEDLESOURCE', 'Source');
 define('_MH_CENSORINWORDS', 'Replace illegal words which are parts of other words, eg. replace oo in Google');
 
-define('_MH_GOTOHOMEPAGE', 'visit the MultiHook-project on Trac');
+define('_MH_GOTOHOMEPAGE', 'visit the MultiHook-project on code.zikula.org');
 define('_MH_LONGWITHHINT', 'Long version (in case of a link the url, ignored for illegal words)');
 define('_MH_TITLEWITHHINT', 'Title (only necessary for a link, ignored for illegal words)');
 

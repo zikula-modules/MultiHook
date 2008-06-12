@@ -4,7 +4,7 @@ What is MultiHook?
 ------------------
 MultiHook is a transform hook. This means it scaas text for certain keywords and performs actions
 depending on what has been defined for them. You can easily create
-* autolinks, eg. the word MultiHook can always link to the project site in trac
+* autolinks, eg. the word MultiHook can always link to the project site at code.zikula.org
 * abbr + acronym tags, eg. EC gets converted to <abbr title="European Community">EC</abbr>
 * censors, eg. bad words get converted to *****
 * needles (see below for more information this feature and read John's great pndocs/needles_nowto.txt)

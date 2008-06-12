@@ -20,7 +20,7 @@
 define('_MH_NEEDLESOURCE', 'Source');
 define('_MH_CENSORINWORDS', 'Remplace des mots interdits contenus dans d\'autres comme remplacer oo dans Google');
 
-define('_MH_GOTOHOMEPAGE', 'rendez visite au projet MultiHook sur le Trac');
+define('_MH_GOTOHOMEPAGE', 'rendez visite au projet MultiHook sur le code.zikula.org');
 define('_MH_LONGWITHHINT', 'Version longue (dans le cas d\'un lien, l\'URL est ignoré pour les mots interdits)');
 define('_MH_TITLEWITHHINT', 'Titre (nécessaire pour un lien, ignoré pour les mots interdits)');
 
