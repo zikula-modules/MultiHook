@@ -1,182 +1,158 @@
 /*
- $Id$
+$Id$
 */
 
 .multihookeditlink {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 #multihook, #multihookedit {
-    width: 230px; 
-    font-size: 10px; 
-    z-index:999; 
-    border: 1px solid #333333; 
-    background: #ffffe5; 
-    padding: 5px; 
-    position: absolute; 
-    left: 0; 
-    top: 0;
+  width: 230px;
+  font-size: 10px;
+  z-index:999;
+  border: 1px solid #333333;
+  background: #ffffe5;
+  padding: 5px;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 .multihookheader {
-    background: #ffffc9; 
-    padding: 2px; 
-    border-bottom: 1px solid #333333; 
-    margin-bottom: 5px;
+  background: #ffffc9;
+  padding: 2px;
+  border-bottom: 1px solid #333333;
+  margin-bottom: 5px;
 }
 
 .multihookbuttonarea {
-    border-top: 1px solid #333333; 
-    padding: 3px;
-    margin-top: 2px;
+  border-top: 1px solid #333333;
+  padding: 3px;
+  margin-top: 2px;
 }
 
 .multihooksubmitbutton {
-    float: left; 
-    border:none;
-    cursor: pointer;
+  float: left;
+  border:none;
+  cursor: pointer;
 }
 
 .multihookcancelbutton {
-    float: right; 
-    border:none;
-    cursor: pointer;
+  float: right;
+  border:none;
+  cursor: pointer;
 }
 
 #multihookinformation {
-    width: 230px;
-    z-index:999; 
-    font-size: 11px; 
-    border: 1px solid #333333; 
-    background: #ffffe5; 
-    position: absolute; 
-    left: 0; 
-    top: 0;
+  width: 230px;
+  z-index:999;
+  font-size: 11px;
+  border: 1px solid #333333;
+  background: #ffffe5;
+  position: absolute;
+  left: 0;
+  top: 0;
 }
 
 #multihookinformationcontent {
-    text-align: center;
-    padding: 3px;
+  text-align: center;
+  padding: 3px;
 }
 
 #multihookinformationclose {
-    border: none;
-    text-align: right; 
-    padding: 2px; 
-    font-size: 9px;
-    margin-top: 1px;
-    float: right;
-    cursor: pointer;
+  border: none;
+  text-align: right;
+  padding: 2px;
+  font-size: 9px;
+  margin-top: 1px;
+  float: right;
+  cursor: pointer;
 }
 
 #multihookindicator {
-    text-align: center;
-    margin: 2px;
+  text-align: center;
+  margin: 2px;
 }
 
 .multihooklabel {
-    float: left;
-    margin: 2px 0;
+  float: left;
+  margin: 2px 0;
 }
 
 .multihookinput {
-    float: right; 
-    margin: 2px 0;
+  float: right;
+  margin: 2px 0;
 }
 .multihookinputreadonly {
-    float: right; 
-    margin: 3px 0;
-    background: #eeeeee;
-}
-
-.mhclear {
-    clear: both;
+  float: right;
+  margin: 3px 0;
+  background: #eeeeee;
 }
 
 /**
- * admin section
- *
- */
+* admin section
+*
+*/
 
 #multihookadmin {
-    clear: both; 
-    padding-top: 2em;
+  /*  padding-top: 2em; */
 }
 
-#multihookadmin dl {
-    float: left;
-}
-    
 #multihookadmin dl dt {
-    clear: both;
-    margin: 3px;
-    float: left; 
-    font-weight: normal;
-    width: 300px;
+  clear:both;
+  display:block;
+  float:left;
+  line-height:2em;
+  margin:0.5em;
+  padding:0;
+  text-align:right;
+  width:40%;
 }
 
 #multihookadmin dl dd {
-    margin: 3px 0;
-    float: left;
+  display:block;
+  float:left;
+  line-height:2em;
+  margin:0.5em;
+  padding:0;
+  text-align:left;
+  width:50%;
 }
 
-#multihookadmin p {
-    margin: 3px 0 3px 30px;
+#multihookadmin .footer {
+  font-size: 0.8em;
+  text-align: center;
+  margin-top: 1em;
 }
 
 /*
- * user section
- *
- */
+* user section
+*
+*/
 
 #mhuser {
-    margin: 3px 0;
+  margin: 3px 0;
 }
 
 #mhuser table {
-    width: 99%;
-    border-collapse: collapse;
+  width: 99%;
+  border-collapse: collapse;
 }
 
 #mhuser table tr {
-    width: 100%;
+  width: 100%;
 }
 
 #mhuser table tr th {
-    background: #eeeeee; 
-    text-align: center; 
+  background: #eeeeee;
+  text-align: center;
 }
 
 #mhuser table tr td {
-    text-align: center; 
+  text-align: center;
 }
 
 .mhselection {
-    text-align: center;
-    margin: 5px 0;
-}
-
-/*
- * clearfix solution
- *
- */
-
-.mhclearfix:after {
-    content: "."; 
-    display: block; 
-    height: 0; 
-    clear: both; 
-    visibility: hidden;
-}
-
-.mhclearfix {display: inline-table;}
-
-/* Hides from IE-mac \*/
-* html .mhclearfix {height: 1%;}
-.mhclearfix {display: block;}
-/* End hide from IE-mac */
-
-/* Overflow-Methode zum Clearen der Float-Umgebungen */
-.mhfloatbox { 
-    overflow:hidden; 
+  text-align: center;
+  margin: 5px 0;
 }

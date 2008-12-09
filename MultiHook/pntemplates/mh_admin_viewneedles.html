@@ -1,23 +1,21 @@
 <!--[* $Id$ *]-->
 
 <!--[ include file=mh_admin_header.html ]-->
+<h3><!--[ pnml name='_MH_VIEWNEEDLES' ]--></h3>
 
-<h2><!--[ pnml name='_MH_VIEWNEEDLES' ]--></h2>
-
-<div class="mhfloatbox">
 <!--[ if $needles ]-->
-    <dl>
+    <dl class="pn-clearfix">
     <!--[ foreach item=needle from=$needles]-->
         <dt><!--[ $needle.module|pnvarprepfordisplay ]--></dt>
         <dd>
-            <!--[ $needle.info|pnvarprepfordisplay ]-->&nbsp;(<!--[ pnml name='_MH_NEEDLESOURCE' ]-->:&nbsp;
-            <strong><!--[ if $needle.builtin eq true]-->MultiHook<!--[ else ]--><!--[ $needle.module ]--><!--[ /if ]--></strong>)
+          <!--[ $needle.info|pnvarprepfordisplay ]-->
+          <br />
+          <em><!--[ pnml name='_MH_NEEDLESOURCE' ]-->: <!--[ if $needle.builtin eq true]-->MultiHook<!--[ else ]--><!--[ $needle.module ]--><!--[ /if ]--></em>
         </dd>
     <!--[ /foreach ]-->
     </dl>
 <!--[ else ]-->
     <h3><!--[ pnml name="_MH_NONEEDLES" ]--></h3>
 <!--[ /if ]-->
-</div>
 
 <!--[ include file=mh_admin_footer.html ]-->

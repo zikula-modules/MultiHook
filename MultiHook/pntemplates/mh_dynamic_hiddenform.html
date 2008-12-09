@@ -3,36 +3,36 @@
 <!-- hidden div to show form for multihook entries -->
 <div id="multihook" style="display: none;"> 
 <form id="multihook_form" action="#">
-<div class="mhclear multihookheader">
+<div class="pn-clearer multihookheader">
     <a onclick="this.parentNode.parentNode.visiblity=hidden;" href="http://code.zikula.org/multihook" title="<!--[ $modinfo.displayname ]--> v<!--[ $modinfo.version ]-->"><strong><!--[ $modinfo.name ]--> v<!--[ $modinfo.version ]--></strong></a>
 </div>
 
 <div>
-<label class="mhclear multihooklabel" for="mhnew_short"><!--[ pnml name='_MH_SHORT' ]-->:</label>
+<label class="pn-clearer multihooklabel" for="mhnew_short"><!--[ pnml name='_MH_SHORT' ]-->:</label>
 <input class="multihookinputreadonly" readonly="readonly" type="text" name="mhnew_short" id="mhnew_short" value="" />
 </div>
 
 <div>
-<label class="mhclear multihooklabel" for="mhnew_long"><!--[ pnml name='_MH_LONG' ]-->:</label>
+<label class="pn-clearer multihooklabel" for="mhnew_long"><!--[ pnml name='_MH_LONG' ]-->:</label>
 <input class="multihookinput" type="text" name="mhnew_long" id="mhnew_long" value="" />
 </div>
 
-<div class="mhclear"><em><!--[ pnml name='_MH_LONGHINT' ]--></em></div>
+<div class="pn-clearer"><em><!--[ pnml name='_MH_LONGHINT' ]--></em></div>
 
 <div>
-<label class="mhclear multihooklabel" for="mhnew_title"><!--[ pnml name='_MH_TITLE' ]-->:</label>
+<label class="pn-clearer multihooklabel" for="mhnew_title"><!--[ pnml name='_MH_TITLE' ]-->:</label>
 <input class="multihookinput" type="text" name="mhnew_title" id="mhnew_title" value="" />
 </div>
 
-<div class="mhclear"><em><!--[ pnml name='_MH_TITLEHINT' ]--></em></div>
+<div class="pn-clearer"><em><!--[ pnml name='_MH_TITLEHINT' ]--></em></div>
 
 <div>
-<label class="mhclear multihooklabel" for="mhnew_language"><!--[ pnml name='_MH_LANGUAGE' ]-->:</label>
+<label class="pn-clearer multihooklabel" for="mhnew_language"><!--[ pnml name='_MH_LANGUAGE' ]-->:</label>
 <span class="multihookinput"><!--[ mhlanguagelist name="mhnew_language" id="mhnew_language" installed=1 selected=$userlang ]--></span>
 </div>
 
 <div>
-<label class="mhclear multihooklabel" for="mhnew_type"><!--[ pnml name='_MH_TYPE' ]-->:</label>
+<label class="pn-clearer multihooklabel" for="mhnew_type"><!--[ pnml name='_MH_TYPE' ]-->:</label>
 <select class="multihookinput" name="mhnew_type" id="mhnew_type">
     <option value="0"><!--[ pnml name='_MH_TYPEABBREVIATION' ]--></option>
     <option value="1"><!--[ pnml name='_MH_TYPEACRONYM' ]--></option>
@@ -41,7 +41,7 @@
 </select>
 </div>
 
-<div class="mhclear multihookbuttonarea">    
+<div class="pn-clearer multihookbuttonarea">    
     <button type="submit" class="multihooksubmitbutton" onclick="submitmultihook();return false;"><!--[ pnml name='_SUBMIT' ]--></button>
     <button type="reset" class="multihookcancelbutton" onclick="cancelmultihook()"><!--[ pnml name='_CANCEL' ]--></button>
 </div>
@@ -52,36 +52,36 @@
 <!-- hidden div to show edit form for multihook entries -->
 <div id="multihookedit" style="display: none;"> 
 <form id="multihookedit_form" action="#">
-<div class="mhclear multihookheader">
+<div class="pn-clearer multihookheader">
     <a onclick="this.parentNode.parentNode.visiblity=hidden;" href="http://code.zikula.org/multihook" title="<!--[ $modinfo.name ]--> v<!--[ $modinfo.version ]-->"><strong><!--[ $modinfo.displayname ]--> v<!--[ $modinfo.version ]--></strong></a>
 </div>
 
 <div>
-<label class="mhclear multihooklabel" for="mhedit_short"><!--[ pnml name='_MH_SHORT' ]-->:</label>
+<label class="pn-clearer multihooklabel" for="mhedit_short"><!--[ pnml name='_MH_SHORT' ]-->:</label>
 <input class="multihookinput" readonly="readonly" type="text" name="mhedit_short" id="mhedit_short" value="" />
 </div>
 
 <div>
-<label class="mhclear multihooklabel" for="mhedit_long"><!--[ pnml name='_MH_LONG' ]-->:</label>
+<label class="pn-clearer multihooklabel" for="mhedit_long"><!--[ pnml name='_MH_LONG' ]-->:</label>
 <input class="multihookinput" type="text" name="mhedit_long" id="mhedit_long" value="" />
 </div>
 
-<div class="mhclear"><em><!--[ pnml name='_MH_LONGHINT' ]--></em></div>
+<div class="pn-clearer"><em><!--[ pnml name='_MH_LONGHINT' ]--></em></div>
 
 <div>
-<label class="mhclear multihooklabel" for="mhedit_title"><!--[ pnml name='_MH_TITLE' ]-->:</label>
+<label class="pn-clearer multihooklabel" for="mhedit_title"><!--[ pnml name='_MH_TITLE' ]-->:</label>
 <input class="multihookinput" type="text" name="mhedit_title" id="mhedit_title" value="" />
 </div>
 
-<div class="mhclear"><em><!--[ pnml name='_MH_TITLEHINT' ]--></em></div>
+<div class="pn-clearer"><em><!--[ pnml name='_MH_TITLEHINT' ]--></em></div>
 
 <div>
-<label class="mhclear multihooklabel" for="mhedit_language"><!--[ pnml name='_MH_LANGUAGE' ]-->:</label>
+<label class="pn-clearer multihooklabel" for="mhedit_language"><!--[ pnml name='_MH_LANGUAGE' ]-->:</label>
 <span class="multihookinput"><!--[ mhlanguagelist name="mhedit_language" id="mhedit_language" installed=1 selected=$userlang ]--></span>
 </div>
 
 <div>
-<label class="mhclear multihooklabel" for="mhedit_type"><!--[ pnml name='_MH_TYPE' ]-->:</label>
+<label class="pn-clearer multihooklabel" for="mhedit_type"><!--[ pnml name='_MH_TYPE' ]-->:</label>
 <select class="multihookinput" name="mhedit_type" id="mhedit_type">
     <option value="0"><!--[ pnml name='_MH_TYPEABBREVIATION' ]--></option>
     <option value="1"><!--[ pnml name='_MH_TYPEACRONYM' ]--></option>
@@ -91,11 +91,11 @@
 </div>
 
 <div>
-<label class="mhclear multihooklabel" for="mhedit_delete"><!--[ pnml name='_MH_DELETE' ]-->:</label>
+<label class="pn-clearer multihooklabel" for="mhedit_delete"><!--[ pnml name='_MH_DELETE' ]-->:</label>
 <input class="multihookinput" type="checkbox" name="mhedit_delete" id="mhedit_delete" value="1" />
 </div>
 
-<div class="mhclear multihookbuttonarea">    
+<div class="pn-clearer multihookbuttonarea">    
     <input type="hidden" name="mhedit_aid" id="mhedit_aid" value="" />
     <button type="submit" class="multihooksubmitbutton" onclick="submiteditmultihook();return false;"><!--[ pnml name='_SUBMIT' ]--></button>
     <button type="reset" class="multihookcancelbutton" onclick="cancelmultihook()"><!--[ pnml name='_CANCEL' ]--></button>

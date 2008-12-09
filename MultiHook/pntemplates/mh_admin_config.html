@@ -1,43 +1,42 @@
 <!--[* $Id$ *]-->
 
 <!--[ include file=mh_admin_header.html ]-->
-
-<h2><!--[ pnml name='_MH_MODIFYCONFIG' ]--></h2>
-
 <!--[ pnform ]-->
-<div>
-    <div class="mhfloatbox">
-        <!--[ pnformvalidationsummary ]-->
-        <dl class="mhclearfix">
-            <dt><!--[ pnformlabel for="abacfirst" text='_MH_ABACFIRST' ]--></dt>
-            <dd><!--[ pnformcheckbox id="abacfirst" checked=$pncore.MultiHook.abacfirst ]--></dd>
-            
-            <dt><!--[ pnformlabel for="externallinkclass" text='_MH_EXTERNALLINKCLASS' ]--></dt>
-            <dd><!--[ pnformtextinput size="20" maxLength="40" id="externallinkclass" text=$pncore.MultiHook.externallinkclass ]--></dd>
-            
-            <dt><!--[ pnformlabel for="itemsperpage" text='_MH_ITEMSPERPAGE' ]--></dt>
-            <dd><!--[ pnformintinput id="itemsperpage" text=$pncore.MultiHook.itemsperpage ]--></dd>
-            
-            <dt><!--[ pnformlabel for="mhincodetags" text='_MH_MHINCODETAGS' ]--></dt>
-            <dd><!--[ pnformcheckbox id="mhincodetags" checked=$pncore.MultiHook.mhincodetags ]--></dd>
-            
-            <dt><!--[ pnformlabel for="mhlinktitle" text='_MH_REPLACELINKWITHTITLE' ]--></dt>
-            <dd><!--[ pnformcheckbox id="mhlinktitle" checked=$pncore.MultiHook.mhlinktitle ]--></dd>
-            
-            <dt><!--[ pnformlabel for="mhreplaceabbr" text='_MH_REPLACEABBREVIATIONS' ]--></dt>
-            <dd><!--[ pnformcheckbox id="mhreplaceabbr" checked=$pncore.MultiHook.mhreplaceabbr ]--></dd>
-            
-            <dt><!--[ pnformlabel for="mhshoweditlink" text='_MH_SHOWEDITLINK' ]--></dt>
-            <dd><!--[ pnformcheckbox id="mhshoweditlink" checked=$pncore.MultiHook.mhshoweditlink ]--></dd>
+<!--[ pnformvalidationsummary ]-->
 
-            <dt><!--[ pnformlabel for="mhbrutalcensor" text='_MH_CENSORINWORDS' ]--></dt>
-            <dd><!--[ pnformcheckbox id="mhbrutalcensor" checked=$pncore.MultiHook.mhbrutalcensor ]--></dd>
-        </dl>
-    </div>
-    <p>
-      <!--[pnformbutton id="submit" commandName="submit" text="_MH_UPDATECONFIG"]-->
-    </p>
+<fieldset>
+  <legend><!--[ pnml name='_MH_MODIFYCONFIG' ]--></legend>
+  <dl class="pn-clearfix">
+    <dt><!--[ pnformlabel for="abacfirst" text='_MH_ABACFIRST' ]--></dt>
+    <dd><!--[ pnformcheckbox id="abacfirst" checked=$pncore.MultiHook.abacfirst ]--></dd>
+
+    <dt><!--[ pnformlabel for="externallinkclass" text='_MH_EXTERNALLINKCLASS' ]--></dt>
+    <dd><!--[ pnformtextinput size="20" maxLength="40" id="externallinkclass" text=$pncore.MultiHook.externallinkclass ]--></dd>
+
+    <dt><!--[ pnformlabel for="itemsperpage" text='_MH_ITEMSPERPAGE' ]--></dt>
+    <dd><!--[ pnformintinput id="itemsperpage" text=$pncore.MultiHook.itemsperpage ]--></dd>
+
+    <dt><!--[ pnformlabel for="mhincodetags" text='_MH_MHINCODETAGS' ]--></dt>
+    <dd><!--[ pnformcheckbox id="mhincodetags" checked=$pncore.MultiHook.mhincodetags ]--></dd>
+
+    <dt><!--[ pnformlabel for="mhlinktitle" text='_MH_REPLACELINKWITHTITLE' ]--></dt>
+    <dd><!--[ pnformcheckbox id="mhlinktitle" checked=$pncore.MultiHook.mhlinktitle ]--></dd>
+
+    <dt><!--[ pnformlabel for="mhreplaceabbr" text='_MH_REPLACEABBREVIATIONS' ]--></dt>
+    <dd><!--[ pnformcheckbox id="mhreplaceabbr" checked=$pncore.MultiHook.mhreplaceabbr ]--></dd>
+
+    <dt><!--[ pnformlabel for="mhshoweditlink" text='_MH_SHOWEDITLINK' ]--></dt>
+    <dd><!--[ pnformcheckbox id="mhshoweditlink" checked=$pncore.MultiHook.mhshoweditlink ]--></dd>
+
+    <dt><!--[ pnformlabel for="mhbrutalcensor" text='_MH_CENSORINWORDS' ]--></dt>
+    <dd><!--[ pnformcheckbox id="mhbrutalcensor" checked=$pncore.MultiHook.mhbrutalcensor ]--></dd>
+  </dl>
+</fieldset>
+
+<div class="pn-formrow pn-formbuttons">
+  <!--[pnformbutton id="submit" commandName="submit" text="_MH_UPDATECONFIG"]-->
 </div>
+
 <!--[ /pnform ]-->
 
 <!--[ include file=mh_admin_footer.html ]-->
