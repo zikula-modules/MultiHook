@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: pnforum.php 177 2007-09-16 11:00:53Z landseer $
 // ----------------------------------------------------------------------
 // LICENSE
 //
@@ -15,19 +15,9 @@
 //
 // To read the license please visit http://www.gnu.org/copyleft/gpl.html
 // ----------------------------------------------------------------------
-// Original Author of file: Frank Schummertz
-// Purpose of file:  MultiHook needle API
-// ----------------------------------------------------------------------
 
-/**
- * pnforum needle info
- * @param none
- * @return string with short usage description
- */
-function MultiHook_needleapi_pnforum_info()
-{
-    $info = array('module'  => 'Dizkus', // module name
-                  'info'    => 'PNFORUM{F-forumid|T-topicid}',   // possible needles  
-                  'inspect' => true);     //reverse lookpup possible, needs MultiHook_needleapi_pnforum_inspect() function
-    return $info;
-}
+define('_MH_TRAC_NONEEDLEID', 'keine NeedleID');
+define('_MH_TRAC_TICKETLINKNAME', 'Ticket #%ticket% (%project%-project)');
+define('_MH_TRAC_CHANGESETLINKNAME', 'Changeset #%changeset% (%project%-project)');
+define('_MH_TRAC_TICKETLINKTITLE', 'click here to see ticket #%ticket% of the %project%-project');
+define('_MH_TRAC_CHANGESETLINKTITLE', 'click here to see changeset #%changeset% of the %project%-project');

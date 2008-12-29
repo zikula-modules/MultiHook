@@ -42,7 +42,7 @@ function MultiHook_needleapi_pnforum($args)
             // not in cache array
             // set the default
             $cache[$nid] = $result;
-            if(pnModAvailable('pnForum')) {
+            if(pnModAvailable('Dizkus')) {
                 
                 // nid is like F_## or T_##
                 $temp = explode('-', $nid);
@@ -52,15 +52,15 @@ function MultiHook_needleapi_pnforum($args)
                     $id   = $temp[1];
                 }
                 
-                Loader::includeOnce('modules/pnForum/common.php');
-                pnModDBInfoLoad('pnForum');
+                Loader::includeOnce('modules/Dizkus/common.php');
+                pnModDBInfoLoad('Dizkus');
                 $dbconn =& pnDBGetConn(true);
                 $pntable =& pnDBGetTables();
         
                 switch($type) {
                     case 'F':
-                        $tblforums = $pntable['pnforum_forums'];
-                        $colforums = $pntable['pnforum_forums_column'];
+                        $tblforums = $pntable['dizkus_forums'];
+                        $colforums = $pntable['dizkus_forums_column'];
                         
                         $sql = 'SELECT ' . $colforums['forum_name'] . ',
                                        ' . $colforums['cat_id'] . '
@@ -97,7 +97,7 @@ function MultiHook_needleapi_pnforum($args)
                         if($dbconn->ErrorNo()==0 && !$result->EOF) {
                             list($title, $forum_id, $cat_id) = $res->fields;
                             if(allowedtoreadcategoryandforum($cat_id, $forum_id)) {
-                                $url   = DataUtil::formatForDisplay(pnModURL('pnForum', 'user', 'viewtopic', array('topic' => $id)));
+                                $url   = DataUtil::formatForDisplay(pnModURL('Dizkus', 'user', 'viewtopic', array('topic' => $id)));
                                 $title = DataUtil::formatForDisplay($title);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
                             } else {

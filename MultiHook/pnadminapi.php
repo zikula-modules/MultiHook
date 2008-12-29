@@ -165,10 +165,21 @@ function MultiHook_adminapi_collectneedles()
                 }
             }
         }
+        // sort needles by needle name
+        uasort($needles, 'cmp_needleorder');
     } 
     // store the needles array now
     pnModSetVar('MultiHook', 'needles', $needles);
     return $needles;
+}
+
+/**
+ * sorting needles by module name
+ *
+ */
+function cmp_needleorder ($a, $b)
+{
+    return $a['module'] > $b['module'];
 }
 
 /**

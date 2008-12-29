@@ -1,5 +1,5 @@
 <?php
-// $Id$
+// $Id: pnforum_info.php 179 2007-12-21 20:02:05Z landseer $
 // ----------------------------------------------------------------------
 // LICENSE
 //
@@ -20,14 +20,14 @@
 // ----------------------------------------------------------------------
 
 /**
- * pnforum needle info
+ * changeset needle info
  * @param none
  * @return string with short usage description
  */
-function MultiHook_needleapi_pnforum_info()
+function MultiHook_needleapi_changeset_info()
 {
-    $info = array('module'  => 'Dizkus', // module name
-                  'info'    => 'PNFORUM{F-forumid|T-topicid}',   // possible needles  
+    $info = array('module'  => 'MultiHook', // module name
+                  'info'    => 'CHANGESET-{projectname-changesetid}',   // possible needles  
                   'inspect' => true);     //reverse lookpup possible, needs MultiHook_needleapi_pnforum_inspect() function
     return $info;
 }
