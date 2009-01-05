@@ -35,8 +35,8 @@ function MultiHook_needleapi_ticket($args)
         $parts = explode('-', $args['nid']);
         $project = DataUtil::formatForDisplay(strtolower($parts[1]));
         $ticket = (int)DataUtil::formatForDisplay($parts[2]);
-        $displayproject = ($project == 'core') ? 'Zikula' : $project;
-        $result = '<a href="http://code.zikula.org/' . $project . '/ticket/' . $ticket . '" title="' . pnML('_MH_TRAC_TICKETLINKTITLE', array('ticket' => $ticket, 'project' => $displayproject )) . '">' . pnML('_MH_TRAC_TICKETLINKNAME', array('ticket' => $ticket, 'project' => $project )) . '</a>'; 
+        $displayproject = (strtolower($project) == 'core') ? 'Zikula' : $project;
+        $result = '<a href="http://code.zikula.org/' . $project . '/ticket/' . $ticket . '" title="' . pnML('_MH_TRAC_TICKETLINKTITLE', array('ticket' => $ticket, 'project' => $displayproject )) . '">' . pnML('_MH_TRAC_TICKETLINKNAME', array('ticket' => $ticket, 'project' => $displayproject )) . '</a>'; 
     } else {
         $result = _MH_TRAC_NONEEDLEID;
     } 

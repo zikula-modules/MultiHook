@@ -35,8 +35,8 @@ function MultiHook_needleapi_changeset($args)
         $parts = explode('-', $args['nid']);
         $project = DataUtil::formatForDisplay(strtolower($parts[1]));
         $changeset = (int)DataUtil::formatForDisplay($parts[2]);
-        $displayproject = ($project == 'core') ? 'Zikula' : $project;
-        $result = '<a href="http://code.zikula.org/' . $project . '/ticket/' . $ticket . '" title="' . pnML('_MH_TRAC_CHANGESETLINKTITLE', array('changeset' => $changeset, 'project' => $displayproject )) . '">' . pnML('_MH_TRAC_CHANGESETLINKNAME', array('changeset' => $changeset, 'project' => $project )) . '</a>'; 
+        $displayproject = (strtolower($project) == 'core') ? 'Zikula' : $project;
+        $result = '<a href="http://code.zikula.org/' . $project . '/changeset/' . $changeset . '" title="' . pnML('_MH_TRAC_CHANGESETLINKTITLE', array('changeset' => $changeset, 'project' => $displayproject )) . '">' . pnML('_MH_TRAC_CHANGESETLINKNAME', array('changeset' => $changeset, 'project' => $displayproject )) . '</a>'; 
     } else {
         $result = _MH_TRAC_NONEEDLEID;
     } 
