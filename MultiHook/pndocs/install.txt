@@ -16,7 +16,7 @@ modules list in the admin panel, initialize and activate it.
 For further changes to your theme see the chapter "Ajax support".
 
 Do not forget to activate the MultiHook for the modules you want to use it with, like
-pnForum or Pagesetter. The main admin panel shows for which modules the MultiHook is activated. 
+pnForum or Content. The main admin panel shows for which modules the MultiHook is activated. 
 
 If present, the links stored in AutoLinks will be copied to the MultiHook
 tables.
@@ -76,8 +76,8 @@ the path to the image file is relative to the place of the css file used. Withou
 the a:hover the image would disappear in IE when the mouse is over the link
 (sigh, again IE..).
 
-Make sure that your target links are absolute, not relative. Linking to www.pn-cms.de will lead to
-http://www.yourdomain.com/www.pn-cms.de although the a-tag looks correct in the page source.
+Make sure that your target links are absolute, not relative. Linking to www.zikula.de will lead to
+http://www.yourdomain.com/www.zikula.de although the a-tag looks correct in the page source.
 This is not a bug in MultiHook, but the normal behaviour if a browser does not reckognize a fully
 qualified url.
 
@@ -98,23 +98,6 @@ In previous versions of MultiHook you had to make manual changes to
 your theme. Using Zikula 1.0 this is not longer necessary. The core is
 prepared to do everything automatically when using a Xanthia theme.
  
-If you want to use this feature in other themes, your Zikula theme has to be prepared for
-this and you have to enable javascript in your browser.
-Copy modules/MultiHook/pntemplates/plugins/function.multihookhelper.php to your
-modules/Xanthia/plugins folder and change your theme templates:
-
-<... some code ...>
-<link rel="stylesheet" type="text/css" href="modules/MultiHook/pnstyle/style.css" />
-</head>
-<body>
-<... lots of code ...>
-<!--[ multihookhelper ]-->
-</body>
-</html>
-
-The multihookhelper plugin adds the necessary javascript and hidden divs if the users has min.
-ACCESS_ADD permissions for MultiHook.
-
 In non-Xanthiathemes (legacy, AT...) you can call
 
     $multihookhelper = pnModAPIFunc('MultiHook', 'theme', 'helper'));
@@ -146,47 +129,65 @@ in the system. This rescans the pnneedleapi folder. Now the new needles are read
 
 These needles are shipped with MultiHook:
 
-DOWNLOAD{C-downloadcategoryid|D-downloadid|L-downloadid|S} 
+DOWNLOADC-downloadcategoryid
+DOWNLOADD-downloadid
+DOWNLOADL-downloadid
+DOWNLOADS 
 -> links to a download category, the download details or directly to the download 
-HTMLPAGE{pid}
+
+HTMLPAGEpid
 -> links to the htmlpages page pid
-PAGED{P-publicationid|T-topicid}
+
+PAGEDP-publicationid
+PAGEDT-topicid
 -> links to the PagEd article or a list of articles of the given topic
-PAGESETTER{tid}
+
+PAGESETTERtid
 -> links to the list of all publications of publication type tid
-PAGESETTER{tid}-{pid} 
+PAGESETTERtid-pid 
 -> links to the Pagesetter publication with publication type tid 
    and publication pid
-PHOTOSHARE{A-albumid|P-pictureid|T-pictureid}
+
+PHOTOSHAREA-albumid
+PHOTOSHAREP-pictureid
+PHOTOSHARET-pictureid
 -> links to an album, an image or a thumbnail with a link to the full size
    image. In case of P its also possible to add addtional parameter for the
    width and height to be used. So you can resize the output:
    PHOTOSHAREP-3-200-150 will result in an image with width=200 and height=150
-PNFORUM{F-forumid|T-topicid} 
+
+PNFORUMF-forumid
+PNFORUMT-topicid} 
 -> links to a forum or topic
-WEBLINK{C-weblinkcategoryid|D-weblinkid|L-weblinkid|S} 
+-> Dizkus needles will be a part of Dizkus 3.0
+
+WEBLINKC-weblinkcategoryid
+WEBLINKD-weblinkid
+WEBLINKL-weblinkid
+WEBLINKS 
 -> links to a web links category, the web links details or directly to the link 
 
-Replace {description} with the data, | means "or".
-E.g. {P-pictureid} should be used like P-123 for picture 123
+http://support.zikula.de
+-> yes, this is a needle too, it will make urls clickable, works with http, https, ftp and mailto urls
 
-
-The needles will be searched in upper case only:
-HTMLPAGE12 will be found while
-htmlpage12 won't. 
+Since MultiHook 5.1 the needles are not case sensitive any longer:
+HTMLPAGE12 will produce the same result as htmlpage12 
 
 Writing new needles (for developers only)
 -----------------------------------------
 A needle consists of two simple functions stored in two files, see the MultiHook/pnneedleapi/
-folder. 
+folder. It is also possible to store them in the needleapi-folder or any other modules. The 
+"Collect Needles" option in the admin panel will scan all existing modules for such a subfolder and 
+remember the needles found there.
 
-modulename_info.php 
+needlename_info.php 
 -> contains MultiHook_needleapi_moulename_info(), which returns an array 
    containing the modulename and a string of how to use the needle.
-modulename.php
+needlename.php
 -> contains MultiHook_needleapi_modulename(), which does the real work and returns
-   the replacement string. It gets the needle id passed as $nid. The needle id is the
-   part after the uppercase needlename, in PNFORUMF-1 the F-1 is the needle id. 
+   the replacement string. It gets the needle id passed as $nid and the needlename itself in $needle. 
+   The needle id is the part after the needlename, in PNFORUMF-1 the F-1 is the needle id and PNFORUM
+   is the needlename. 
    Parsing and acting on the results is your part as developer ;-)
 
 The modulename must not necessarily be a real module name, you can use this to for different
@@ -196,5 +197,6 @@ showlistofitems.php/showlistofitems_info.php to show a list (SHOWLIST###)
 showitem.php/showitem_info.php show one item (SHOWITEM###)
 for the same module. 
 
-You are encouraged to use some caching mechanism in order to avoid consecutive SQL calls.
+You are encouraged to use some caching mechanism in order to avoid consecutive SQL calls. Heave a look at the
+existing needle to learn more about the idea.
 

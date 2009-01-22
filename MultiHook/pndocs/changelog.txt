@@ -1,5 +1,12 @@
 $Id$
 
+Version 5.1
+   + added needle for http, https, ftp and mailto
+   - some bugfixes
+   - lots of css adjustments for lame browsers
+   * no more support for IE6, it may work or not, tickets concerning problems with this 
+     browser will be closed as "wontfix"
+   
 Version 5.0
    - Zikula 1.0 only
    - no more theme changes necessary!
