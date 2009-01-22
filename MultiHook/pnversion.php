@@ -22,7 +22,7 @@
 // the defines used here are defined in pnlang/xxx/version.php
 
 $modversion['name'] = _MH_MODULENAME;
-$modversion['version'] = '5.0';
+$modversion['version'] = '5.1';
 $modversion['description'] = _MH_MODULEDESCRIPTION;
 $modversion['credits'] = 'pndocs/credits.txt';
 $modversion['help'] = 'pndocs/help.txt';

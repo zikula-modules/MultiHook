@@ -141,13 +141,15 @@ function MultiHook_upgrade($oldversion)
                                 'Censor',
                                 'user',
                                 'transform');
+       case '5.0':
+            // nothing to do right now
             break;
     }
     // collecting needles
     // force loading of adminapi
     pnModAPILoad('MultiHook', 'admin', true);
     pnModAPIFunc('MultiHook', 'admin', 'collectneedles');
-    // clear compiled templates. This function is new in .8 and ensures that after
+    // clear compiled templates. This function is new in Zikula and ensures that after
     // an upgrade the new templates will be used without the need to manually
     // clear the compiled templates.
     // minor drawback: this clears ALL compiled templates for ALL modules
