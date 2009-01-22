@@ -89,42 +89,6 @@ $Id$
   background: #eeeeee;
 }
 
-/**
-* admin section
-*
-*/
-
-#multihookadmin {
-  /*  padding-top: 2em; */
-}
-
-#multihookadmin dl dt {
-  clear:both;
-  display:block;
-  float:left;
-  line-height:2em;
-  margin:0.5em;
-  padding:0;
-  text-align:right;
-  width:40%;
-}
-
-#multihookadmin dl dd {
-  display:block;
-  float:left;
-  line-height:2em;
-  margin:0.5em;
-  padding:0;
-  text-align:left;
-  width:50%;
-}
-
-#multihookadmin .footer {
-  font-size: 0.8em;
-  text-align: center;
-  margin-top: 1em;
-}
-
 /*
 * user section
 *
@@ -157,20 +121,40 @@ $Id$
   margin: 5px 0;
 }
 
+/*******************************************************************************/
+/* Administration / Preferences
+/*******************************************************************************/
 
-
-
-/*---------------------------------------------------------*/
-/* Workaround: Clearfix-Modifikation for all IE-Versions   */
-/*
-** IE7 - x
-*/
-.pn-clearfix { display: inline-block; }
-/*
-** IE5.x/Win - x
-** IE6 - x
-*/
-* html .pn-clearfix { height: 1%; }
-.pn-clearfix { display: block; }
-
-/*--------------------------------------------------------*/
+#multihookadmin dl.configrow {
+  margin:0.5em;
+  min-height:0;
+}
+#multihookadmin dl.configrow dt {
+  clear:left;
+  float:left;
+  margin:0;
+  padding:0.5em 0;
+  text-align:right;
+  width:30%;
+}
+#multihookadmin dl.configrow dd {
+  margin:0 0 0 33%;
+  padding:0.5em 0;
+  text-align:left;
+}
+#multihookadmin dl.configrow dd:after {
+  content: ".";
+  display:block;
+  clear:left;
+  height:0;
+  visibility:hidden;
+}
+#multihookadmin dl.configrow dd div.pn-informationmsg {
+  margin-left:0;
+  margin-right:0;
+}
+#multihookadmin  .footer {
+  font-size: 0.8em;
+  text-align: center;
+  margin-top: 1em;
+}
