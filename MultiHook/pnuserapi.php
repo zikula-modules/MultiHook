@@ -176,7 +176,7 @@ function MultiHook_userapi_transform($args)
             $transformed[] = MultiHook_userapitransform($text);
         }
     } else {
-        $transformed = MultiHook_userapitransform($text);
+        $transformed = MultiHook_userapitransform($args['extrainfo']);
     }
 
     return $transformed;
@@ -260,7 +260,14 @@ function MultiHook_userapitransform($text)
     $currenturl = pnGetCurrentURL();
     $currenturi = pnGetCurrentURI();
 
-    // Step 0 - move all bbcode with [code][/code] out of the way
+    // Step 0 - remove areas that should not be changed, eg. for the pndebug plugin
+    //          those areas are marked with <!--raw-->some hml<!--/raw-->
+    $rawcount = preg_match_all("/<!--raw-->(.*)<!--\/raw-->/Usi", $text, $raws);
+    for($i=0; $i < $rawcount; $i++) {
+        $text = substr_replace($text, " MULTIHOOKRAWREPLACEMENT{$i} ", strpos($text, $raws[0][$i]), strlen($raws[0][$i]));
+    }
+
+    // Step 1 - move all bbcode with [code][/code] out of the way
     //          if MultiHook is configured accordingly
     if($mhincodetags==false) {
         // if we are faster than pn_bbcode, we will have to remove the code tags
@@ -279,31 +286,31 @@ function MultiHook_userapitransform($text)
         }
     }
 
-    // Step 1 - move all links out of the text and replace them with placeholders
+    // Step 2 - move all links out of the text and replace them with placeholders
     $tagcount = preg_match_all('/<a(.*)>(.*)<\/a>/siU', $text, $tags);
     for ($i = 0; $i < $tagcount; $i++) {
         $text = preg_replace('/(' . preg_quote($tags[0][$i], '/') . ')/', " MULTIHOOKTAGREPLACEMENT{$i} ", $text, 1);
     }
 
-    // Step 2 - remove all html tags, we do not want to change them!!
+    // Step 3 - remove all html tags, we do not want to change them!!
     $htmlcount = preg_match_all("/<(?:[^\"\']+?|.+?(?:\"|\').*?(?:\"|\')?.*?)*?>/si", $text, $html);
     for ($i=0; $i < $htmlcount; $i++) {
         $text = preg_replace('/(' . preg_quote($html[0][$i], '/') . ')/', " MULTIHOOKHTMLREPLACEMENT{$i} ", $text, 1);
     }
 
-    // Step 3 - move all bbcode with [url][/url] out of the way
+    // Step 4 - move all bbcode with [url][/url] out of the way
     $urlcount = preg_match_all("#\[url(.*)\](.*)\[\/url\]#siU", $text, $urls);
     for($i=0; $i < $urlcount; $i++) {
         $text = preg_replace('/(' . preg_quote($urls[0][$i], '/') . ')/', " MULTIHOOKURLREPLACEMENT{$i} ", $text, 1);
     }
 
-    // Step 4 - move all urls starting with http:// etc. out of the way
+    // Step 5 - move all urls starting with http:// etc. out of the way
     $linkcount = preg_match_all("/(http|https|ftp|ftps|news)\:\/\/([a-zA-Z0-9\-\._]+[\.]{1}[a-zA-Z]{2,6})(\/[a-zA-Z0-9\-\.\?\,\'\/\\\+&%\$#_=~]+)?/siU", $text, $links);
     for($i=0; $i < $linkcount; $i++) {
         $text = preg_replace('/(' . preg_quote($links[0][$i], '/') . ')/', " MULTIHOOKLINKREPLACEMENT{$i} ", $text, 1);
     }
 
-    // Step 5 - move hilite hook additions out of the text
+    // Step 6 - move hilite hook additions out of the text
     $hilitecount = preg_match_all("/<!--hilite-->(.*)<!--\/hilite-->/siU", $text, $hilite);
     for($i=0; $i < $hilitecount; $i++) {
         $text = preg_replace('/(' . preg_quote($hilite[0][$i], '/') . ')/', " MULTIHOOKHILITEREPLACEMENT{$i} ", $text, 1);
@@ -383,28 +390,40 @@ function MultiHook_userapitransform($text)
             }
         } // foreach
     }
-    // check for needles
 
+    for ($i = 0; $i < $linkcount; $i++) {
+        $text = preg_replace("/ MULTIHOOKLINKREPLACEMENT{$i} /", $links[0][$i], $text, 1);
+    }
+
+    // check for needles
     if(count($needles) > 0) {
-        foreach($needles as $needle) {
-            preg_match_all('/(?<![\/\w@\.:])' . strtoupper($needle['needle']) . '([a-zA-Z0-9_-]*?)(?![\/\w@:-])(?!\.\w)/', $text, $needleresults);
-            if(is_array($needleresults) && count($needleresults[0])>0) {
-                // complete needle in $needleresults[0], needle id in $needleresults[1]
-                // both are arrays!
-                for($ncnt = 0; $ncnt<count($needleresults[0]); $ncnt++) {
-                    $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($needleresults[0][$ncnt], '/'). ')(?![\/\w@:-])(?!\.\w)/';
-                    $search[]      = $search_temp;
-                    $replace[]     = md5($search_temp);
-                    $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                    $finalreplace[] = pnModAPIFunc(($needle['builtin'] == true)  ? 'MultiHook' : $needle['module'], 'needle', strtolower($needle['needle']),
-                                               array('nid' => $needleresults[1][$ncnt]));
-                    unset($search_temp);
+        foreach($needles as $singleneedle) {
+            //preg_match_all('/(?<![\/\w@\.:])' . $needle['needle'] . '([a-zA-Z0-9_-]*?)(?![\/\w@:-])(?!\.\w)/', $text, $needleresults);
+            if (!is_array($singleneedle['needle'])) {
+                $singleneedle['needle'] = array($singleneedle['needle']);
+            }
+            foreach($singleneedle['needle'] as $needle) {
+                preg_match_all('/(?<![\/\w@\.:])' . preg_quote($needle, '/') .           '([a-zA-Z0-9\.\/:_-]*?)(?![\/\w@:-])(?!\.\w)/i', $text, $needleresults);
+                //preg_match_all('/(?<![\/\w@\.:])' . preg_quote($needle['needle'], '/') . '([a-zA-Z0-9\.\/:_-]*?)(?![\/\w@:-])(?!\.\w)/i', $text, $needleresults);
+                if(is_array($needleresults) && count($needleresults[0])>0) {
+                    // complete needle in $needleresults[0], needle id in $needleresults[1]
+                    // both are arrays!
+                    for($ncnt = 0; $ncnt<count($needleresults[0]); $ncnt++) {
+                        $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($needleresults[0][$ncnt], '/'). ')(?![\/\w@:-])(?!\.\w)/';
+                        $search[]      = $search_temp;
+                        $replace[]     = md5($search_temp);
+                        $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
+                        $finalreplace[] = pnModAPIFunc(($singleneedle['builtin'] == true)  ? 'MultiHook' : $singleneedle['module'], 'needle', strtolower($singleneedle['function']),
+                                                   array('nid'    => $needleresults[1][$ncnt],
+                                                         'needle' => $needle));
+                        unset($search_temp);
+                    }
                 }
             }
         }
     }
 
-    // Step 6 - the main replacements
+    // Step 7 - the main replacements
     if($onlyonce==true) {
         $text = preg_replace($search, $replace, $text, 1);
         $text = preg_replace($finalsearch, $finalreplace, $text, 1);
@@ -413,17 +432,18 @@ function MultiHook_userapitransform($text)
         $text = preg_replace($finalsearch, $finalreplace, $text);
     }
 
-    // Step 7 - replace the spaces we munged in preparation of step 6
+    // Step 8 - replace the spaces we munged in preparation of step 6
     $text = str_replace('MULTIHOOKTEMPORARY', '', $text);
 
-    // Step 8-12 - replace the tags that we removed before
+    // Step 9-15 - replace the tags that we removed before
     for ($i = 0; $i < $hilitecount; $i++) {
         $text = preg_replace("/ MULTIHOOKHILITEREPLACEMENT{$i} /", $hilite[0][$i], $text, 1);
     }
-
+/*
     for ($i = 0; $i < $linkcount; $i++) {
         $text = preg_replace("/ MULTIHOOKLINKREPLACEMENT{$i} /", $links[0][$i], $text, 1);
     }
+*/
     for ($i = 0; $i < $urlcount; $i++) {
         $text = preg_replace("/ MULTIHOOKURLREPLACEMENT{$i} /", $urls[0][$i], $text, 1);
     }
@@ -444,6 +464,10 @@ function MultiHook_userapitransform($text)
             $text = str_replace(" MULTIHOOKCODE1REPLACEMENT{$i} ", $codes1[0][$i], $text);
             //$text = preg_replace("/ MULTIHOOKCODE1REPLACEMENT{$i} /", $codes1[0][$i], $text, 1);
         }
+    }
+
+    for ($i = 0; $i < $rawcount; $i++) {
+        $text = str_replace(" MULTIHOOKRAWREPLACEMENT{$i} ", $raws[0][$i], $text);
     }
 
     // Remove our padding from the string..
