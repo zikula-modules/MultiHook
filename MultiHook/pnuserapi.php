@@ -334,7 +334,7 @@ function MultiHook_userapitransform($text)
 
             if($tmp['type']==0) {
                 // 0 = Abbreviation
-                $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:])(?!\.\w)/i';
+                $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@])(?!\.\w)/i';
                 $search[]      = $search_temp;
                 $replace[]     = md5($search_temp);
                 $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
@@ -342,7 +342,7 @@ function MultiHook_userapitransform($text)
                 unset($search_temp);
             } else if($tmp['type']==1) {
                 // 1 = Acronym
-                $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:])(?!\.\w)/i';
+                $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@])(?!\.\w)/i';
                 $search[]      = $search_temp;
                 $replace[]     = md5($search_temp);
                 $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
@@ -355,7 +355,7 @@ function MultiHook_userapitransform($text)
                     // if short beginns with a single ' we need another regexp to not check for \w
                     // this enables autolinks for german deppenapostrophs :-)
                     if($tmp['short'][0] == '\'') {
-                        $search_temp = '/(?<![\/@\.:-])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:-])(?!\.\w)/i';
+                        $search_temp = '/(?<![\/@\.:-])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@-])(?!\.\w)/i';
                     } else {
                         $search_temp = '/(?<![\/\w@\.:-])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:-])(?!\.\w)/i';
                     }
@@ -368,7 +368,7 @@ function MultiHook_userapitransform($text)
             } else if($tmp['type']==3) {
                 // original censored word
                 if($brutalcensor == false) {
-                    $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@:])(?!\.\w)/i';
+                    $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($tmp['short'], '/'). ')(?![\/\w@])(?!\.\w)/i';
                 } else {
                     $search_temp = '/(?)(' . preg_quote($tmp['short'], '/') . ')(?)/i';
                 }
@@ -380,7 +380,7 @@ function MultiHook_userapitransform($text)
                 // Common replacements
                 $mungedword = preg_replace($leetsearch, $leetreplace, $tmp['short']);
                 if ($mungedword != $tmp['short']) {
-                    $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($mungedword, '/'). ')(?![\/\w@:])(?!\.\w)/i';
+                    $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($mungedword, '/'). ')(?![\/\w@])(?!\.\w)/i';
                     $search[]      = $search_temp;
                     $replace[]     = md5($search_temp);
                     $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
