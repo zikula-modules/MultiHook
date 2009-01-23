@@ -56,6 +56,7 @@
         
         FUNCTION: ModName_needleapi_somename($args)
         ARGUMENT: INT   - $nid      - needle id.
+        ARGUMENT: STR   - $needle   - needle name.
         RETURNED: STR	- $result 	- replacement value for the needle.
     
     These 2 files/functions comprise the entire needle.  In case you haven't

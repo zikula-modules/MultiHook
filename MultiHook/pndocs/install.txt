@@ -170,14 +170,16 @@ WEBLINKS
 http://support.zikula.de
 -> yes, this is a needle too, it will make urls clickable, works with http, https, ftp and mailto urls
 
-Since MultiHook 5.1 the needles are not case sensitive any longer:
-HTMLPAGE12 will produce the same result as htmlpage12 
+Per default the needles will be searched in upper case only:
+HTMLPAGE12 will be found while
+htmlpage12 won't. 
+The only exclusion from this rule is the http needle which also works lower case.
 
 Writing new needles (for developers only)
 -----------------------------------------
 A needle consists of two simple functions stored in two files, see the MultiHook/pnneedleapi/
 folder. It is also possible to store them in the needleapi-folder or any other modules. The 
-"Collect Needles" option in the admin panel will scan all existing modules for such a subfolder and 
+"Needles" option in the admin panel will scan all existing modules for such a subfolder and 
 remember the needles found there.
 
 needlename_info.php 

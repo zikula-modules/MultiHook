@@ -26,10 +26,11 @@
  */
 function MultiHook_needleapi_http_info()
 {
-    $info = array('module'  => 'MultiHook', // module name
-                  'info'    => 'http://www.example.com',   // possible needles  
-                  'inspect' => true,
-                  'needle'  => array('http://', 'https://', 'ftp://', 'mailto://'),
-                  'function'=> 'http'); 
+    $info = array('module'        => 'MultiHook', // module name
+                  'info'          => 'http://www.example.com',   // possible needles  
+                  'inspect'       => true,
+                  'needle'        => array('http://', 'https://', 'ftp://', 'mailto://'),
+                  'function'      => 'http',
+                  'casesensitive' => false); 
     return $info;
 }

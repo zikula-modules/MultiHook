@@ -152,9 +152,9 @@ function MultiHook_adminapi_collectneedles()
                             if(function_exists($infofunc)){
                                 $needleinfo = $infofunc();
                             } else {
-                                $needleinfo['info']    = _MH_NODESCRIPTIONFOUND;
-                                $needleinfo['module']  = _MH_NOMODULEFOUND;
-                                $needleinfo['inspect'] = false;
+                                $needleinfo['info']          = _MH_NODESCRIPTIONFOUND;
+                                $needleinfo['module']        = _MH_NOMODULEFOUND;
+                                $needleinfo['inspect']       = false;
                             }
                             // check if the needle_info sets the 'needle' value
                             // if not, use the needle name
@@ -165,6 +165,11 @@ function MultiHook_adminapi_collectneedles()
                             // if not, use the needle name
                             if (!array_key_exists('function', $needleinfo)) {
                                 $needleinfo['function'] = $needle;
+                            }
+                            // check if the needle_info sets the 'casesensitive' value
+                            // if not, set it to true
+                            if (!array_key_exists('casesensitive', $needleinfo)) {
+                                $needleinfo['casesensitive'] = true;
                             }
                             $needleinfo['builtin'] = ($mod['name']=='MultiHook') ? true : false;
                             $needles[] = $needleinfo;
