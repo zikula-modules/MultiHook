@@ -37,6 +37,8 @@ function MultiHook_init()
     pnModSetVar('MultiHook', 'mhlinktitle', 0);
     pnModSetVar('MultiHook', 'mhreplaceabbr', 0);
     pnModSetVar('MultiHook', 'mhshoweditlink', 1);
+    pnModSetVar('MultiHook', 'mhbrutalcensor', 0);
+    pnModSetVar('MultiHook', 'mhrelaxedcensoring', 0);
     
     // collect the needles  
     // Force loading of adminapi with 3rd parameter set to true. This loads the api although
@@ -133,6 +135,7 @@ function MultiHook_upgrade($oldversion)
             // collecting the needles is done below on every upgrade  
         case '4.0':
         case '4.5':
+            pnModSetVar('MultiHook', 'mhbrutalcensor', 0);
             MultiHook_import_CensorList();
             // silently remove the old censor hook if it is still present in the system
             pnModUnregisterHook('item',
@@ -142,7 +145,7 @@ function MultiHook_upgrade($oldversion)
                                 'user',
                                 'transform');
        case '5.0':
-            // nothing to do right now
+            pnModSetVar('MultiHook', 'mhrelaxedcensoring', 0);
             break;
     }
     // collecting needles

@@ -242,12 +242,17 @@ function MultiHook_userapitransform($text)
         $brutalcensor = (pnModGetVar('MultiHook', 'mhbrutalcensor')==1) ? true : false;
     }
 
+    static $relaxedcensoring;
+    if(!isset($relaxedcensoring)) {
+        $relaxedcensoring = (pnModGetVar('MultiHook', 'mhrelaxedcensoring')==1) ? true : false;
+    }
+
     static $haveoverlib;
     if(!isset($haveoverlib)) {
         $haveoverlib = pnModAvailable('overlib');
     }
 
-    $needles = pnModGetVar('MultiHook', 'needles');
+    $needles = pnModGetVar('MultiHook', 'needles', array());
     if(!is_array($needles)) {
         $needles = array();
     }
@@ -270,13 +275,13 @@ function MultiHook_userapitransform($text)
     // Step 1 - move all bbcode with [code][/code] out of the way
     //          if MultiHook is configured accordingly
     if($mhincodetags==false) {
-        // if we are faster than pn_bbcode, we will have to remove the code tags
+        // if we are faster than bbcode, we will have to remove the code tags
         $codecount1 = preg_match_all("/\[code(.*)\](.*)\[\/code\]/siU", $text, $codes1);
         for($i=0; $i < $codecount1; $i++) {
             $text = str_replace($codes1[0][$i], " MULTIHOOKCODE1REPLACEMENT{$i} ", $text);
             //$text = preg_replace('/(' . preg_quote($codes1[0][$i], '/') . ')/', " MULTIHOOKCODE1REPLACEMENT{$i} ", $text, 1);
         }
-        // but pn_bbode may have been faster than we are,. To avoid any problems its embraces the
+        // but pbbcode may have been faster than we are,. To avoid any problems its embraces the
         // replaced code tags with <!--code--> and <!--/code-->
         // this is what we are taking care of now
         $codecount2 = preg_match_all("/<!--code-->(.*)<!--\/code-->/siU", $text, $codes2);
@@ -375,7 +380,7 @@ function MultiHook_userapitransform($text)
                 $search[]      = $search_temp;
                 $replace[]     = md5($search_temp);
                 $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                $finalreplace[] = create_censor($tmp, $mhadmin, $mhshoweditlink, $haveoverlib);
+                $finalreplace[] = create_censor($tmp, $mhadmin, $mhshoweditlink, $haveoverlib, $relaxedcensoring);
                 
                 // Common replacements
                 $mungedword = preg_replace($leetsearch, $leetreplace, $tmp['short']);
@@ -384,7 +389,7 @@ function MultiHook_userapitransform($text)
                     $search[]      = $search_temp;
                     $replace[]     = md5($search_temp);
                     $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                    $finalreplace[] = create_censor($tmp, $mhadmin, $mhshoweditlink, $haveoverlib);
+                    $finalreplace[] = create_censor($tmp, $mhadmin, $mhshoweditlink, $haveoverlib, $relaxedcensoring);
                 }
                 unset($search_temp);
             }

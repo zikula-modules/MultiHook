@@ -43,14 +43,15 @@ class MultiHook_admin_modifyconfighandler
                 return false;
             }
             $data = $pnRender->pnFormGetValues();
-            pnModSetVar('MultiHook', 'abacfirst',         $data['abacfirst']);
-            pnModSetVar('MultiHook', 'mhincodetags',      $data['mhincodetags']);
-            pnModSetVar('MultiHook', 'mhlinktitle',       $data['mhlinktitle']);
-            pnModSetVar('MultiHook', 'mhreplaceabbr',     $data['mhreplaceabbr']);
-            pnModSetVar('MultiHook', 'mhshoweditlink',    $data['mhshoweditlink']);
-            pnModSetVar('MultiHook', 'itemsperpage',      $data['itemsperpage']);
-            pnModSetVar('MultiHook', 'externallinkclass', $data['externallinkclass']);
-            pnModSetVar('MultiHook', 'mhbrutalcensor',    $data['mhbrutalcensor']);
+            pnModSetVar('MultiHook', 'abacfirst',          $data['abacfirst']);
+            pnModSetVar('MultiHook', 'mhincodetags',       $data['mhincodetags']);
+            pnModSetVar('MultiHook', 'mhlinktitle',        $data['mhlinktitle']);
+            pnModSetVar('MultiHook', 'mhreplaceabbr',      $data['mhreplaceabbr']);
+            pnModSetVar('MultiHook', 'mhshoweditlink',     $data['mhshoweditlink']);
+            pnModSetVar('MultiHook', 'itemsperpage',       $data['itemsperpage']);
+            pnModSetVar('MultiHook', 'externallinkclass',  $data['externallinkclass']);
+            pnModSetVar('MultiHook', 'mhbrutalcensor',     $data['mhbrutalcensor']);
+            pnModSetVar('MultiHook', 'mhrelaxedcensoring', $data['mhrelaxedcensoring']);
 
             LogUtil::registerStatus(_MH_UPDATEDCONFIG);
         }

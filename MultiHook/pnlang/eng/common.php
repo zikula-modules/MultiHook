@@ -17,6 +17,8 @@
 // ----------------------------------------------------------------------
 
 // even newer :-)
+define('_MH_RELAXEDCENSORING', 'Do not replace first and last letter when censoring words with more than two chars');
+
 define('_MH_NEEDLESOURCE', 'Source');
 define('_MH_CENSORINWORDS', 'Replace illegal words which are parts of other words, eg. replace oo in Google');
 

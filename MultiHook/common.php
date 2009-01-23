@@ -123,11 +123,17 @@ function create_link($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=
     return $replace_temp;
 }
 
-function create_censor($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false)
+function create_censor($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false, $relaxedcensoring=false)
 {
     extract($abac);
 
-    $replace_temp = str_repeat('*', strlen($abac['short']));
+    $len = strlen($abac['short']);
+    $replace_temp = str_repeat('*', $len);
+    if ($relaxedcensoring == true && $len > 2) {
+        $replace_temp[0]= $abac['short'][0]; 
+        $id = strlen($replace_temp)-1; 
+        $replace_temp[$id]= $abac['short'][$len-1];
+    }
 
     if($mhadmin==true && $mhshoweditlink==true) {
         $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/pnimages/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . DataUtil::formatForDisplay(_EDIT) . ': ' . $short . ' (' . DataUtil::formatForDisplay(_MH_CENSOR) . ') #' . $aid . '" />' . '</span>';

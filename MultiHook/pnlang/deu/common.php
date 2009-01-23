@@ -17,6 +17,8 @@
 // ----------------------------------------------------------------------
 
 // even newer :-)
+define('_MH_RELAXEDCENSORING', 'Beim Zensieren von Worten mit mehr als zwei Buchstaben Länge den ersten und letzten Buchstaben nicht ersetzen');
+
 define('_MH_NEEDLESOURCE', 'Quelle');
 define('_MH_CENSORINWORDS', 'Zensierte Wörter innerhalb von Begriffen ersetzen, z.B. oo in Google ersetzen');
 
