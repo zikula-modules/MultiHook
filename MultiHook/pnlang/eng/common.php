@@ -17,30 +17,9 @@
 // ----------------------------------------------------------------------
 
 // even newer :-)
+define('_MH_CASESENSITIVE', 'Case sensitive');
+define('_MH_NEEDLESHINT', 'The curly brackets indicate the beginning and the end of the parameters and don\'t have to be used in the needle, the pipe symbol | indicates different options you can use.'); 
 define('_MH_RELAXEDCENSORING', 'Do not replace first and last letter when censoring words with more than two chars');
-
-define('_MH_NEEDLESOURCE', 'Source');
-define('_MH_CENSORINWORDS', 'Replace illegal words which are parts of other words, eg. replace oo in Google');
-
-define('_MH_GOTOHOMEPAGE', 'visit the MultiHook-project on code.zikula.org');
-define('_MH_LONGWITHHINT', 'Long version (in case of a link the url, ignored for illegal words)');
-define('_MH_TITLEWITHHINT', 'Title (only necessary for a link, ignored for illegal words)');
-
-define('_MH_FAVORITES', 'Favorites');
-define('_MH_NEEDLES', 'Needles');
-define('_MH_NOTHOOKED', '** MultiHook is not used with any module **');
-define('_MH_LINKS', 'Links');
-define('_MH_UPGRADETO50FAILED', 'Upgrade to 5.0 failed');
-define('_MH_CENSOR', 'Censor');
-define('_MH_VIEWILLEGALWORDS', 'Illegal words');
-
-// new
-define('_MH_ISHOOKEDWITH', 'Actually Multihook is used with the following modules');
-define('_MH_START','Start');
-define('_MH_EXISTSINDB', ' already exists in database');
-define('_MH_NONEEDLES', 'No Needles found');
-define('_MH_NODESCRIPTIONFOUND', 'no description found');
-define('_MH_NEEDLEDATAERROR', 'Error reading reading needle data for \'%s\' or module \'%s\' is not active');
 
 //
 // A
@@ -67,21 +46,35 @@ define('_MH_DELETED','Entry deleted');
 define('_MH_DELETEFAILED','Database deletion of entry failed');
 
 //
+// C
+//
+define('_MH_CENSOR', 'Censor');
+define('_MH_CENSORINWORDS', 'Replace illegal words which are parts of other words, eg. replace oo in Google');
+
+//
 // E
 //
 define('_MH_ERRORREADINGDATA', 'Error reading data');
+define('_MH_EXISTSINDB', ' already exists in database');
 define('_MH_EXTERNALLINK', '(external link)');
 define('_MH_EXTERNALLINKCLASS', 'CSS-Classdefinition for external links');
+
+//
+// F
+//
+define('_MH_FAVORITES', 'Favorites');
 
 //
 // G
 //
 define('_MH_GLOSSARY', 'Glossary');
+define('_MH_GOTOHOMEPAGE', 'visit the MultiHook-project on code.zikula.org');
 
 //
 // I
 //
 define('_MH_ITEMSPERPAGE', 'Items per page in admin view');
+define('_MH_ISHOOKEDWITH', 'Actually Multihook is used with the following modules');
 
 //
 // L
@@ -89,10 +82,12 @@ define('_MH_ITEMSPERPAGE', 'Items per page in admin view');
 define('_MH_LANGUAGE','Language');
 define('_MH_LANGUAGEEMPTY', 'missing language');
 define('_MH_LINK', 'Links');
+define('_MH_LINKS', 'Links');
 define('_MH_LOADINGDATA', 'loading data...');
 define('_MH_LONG','Long version');
 define('_MH_LONGEMPTY', 'missing long text');
 define('_MH_LONGHINT', '(in case of a link the url, ignored for illegal words)');
+define('_MH_LONGWITHHINT', 'Long version (in case of a link the url, ignored for illegal words)');
 
 //
 // M
@@ -103,9 +98,15 @@ define('_MH_MODIFYCONFIG','Modify Configuration');
 //
 // N
 //
+define('_MH_NEEDLEDATAERROR', 'Error reading reading needle data for \'%s\' or module \'%s\' is not active');
+define('_MH_NEEDLES', 'Needles');
+define('_MH_NEEDLESOURCE', 'Source');
 define('_MH_NOAUTH', 'No permissions for the MultiHook module');
+define('_MH_NODESCRIPTIONFOUND', 'no description found');
 define('_MH_NOITEMS','No entries present');
+define('_MH_NONEEDLES', 'No Needles found');
 define('_MH_NOSUCHITEM','Error no such item exists');
+define('_MH_NOTHOOKED', '** MultiHook is not used with any module **');
 
 //
 // O
@@ -128,6 +129,7 @@ define('_MH_SHORT','Short version');
 define('_MH_SHORTEMPTY', 'missing short text');
 define('_MH_SHOWEDITLINK', 'Show edit link');
 define('_MH_SHOWME','Show');
+define('_MH_START','Start');
 
 //
 // T
@@ -135,6 +137,7 @@ define('_MH_SHOWME','Show');
 define('_MH_TITLE','Title');
 define('_MH_TITLEEMPTY', 'missing title text');
 define('_MH_TITLEHINT', '(only necessary for a link, ignored for illegal words)');
+define('_MH_TITLEWITHHINT', 'Title (only necessary for a link, ignored for illegal words)');
 define('_MH_TYPE','Type');
 define('_MH_TYPEABBREVIATION', 'Abbreviation');
 define('_MH_TYPEACRONYM', 'Acronym');
@@ -150,12 +153,14 @@ define('_MH_UPDATECONFIG', 'Update Configuration');
 define('_MH_UPDATED','Entry updated');
 define('_MH_UPDATEDCONFIG', 'Configuration updated');
 define('_MH_UPDATEFAILED','Database update of entry failed');
+define('_MH_UPGRADETO50FAILED', 'Upgrade to 5.0 failed');
 
 //
 // V
 //
 define('_MH_VIEWABBR','View abbreviations');
 define('_MH_VIEWACRONYMS','View acronyms');
+define('_MH_VIEWILLEGALWORDS', 'Illegal words');
 define('_MH_VIEWLINKS','View links');
 define('_MH_VIEWNEEDLES', 'View needles');
 define('_MH_VIEWCENSOR', 'View censored words');

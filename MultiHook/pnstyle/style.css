@@ -142,6 +142,10 @@ $Id$
   padding:0.5em 0;
   text-align:left;
 }
+#multihookadmin dl.configrow dd em {
+    display: block;
+}
+
 #multihookadmin dl.configrow dd:after {
   content: ".";
   display:block;

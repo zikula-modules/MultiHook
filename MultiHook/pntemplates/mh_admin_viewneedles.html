@@ -5,13 +5,14 @@
 <br class="pn-clearer" />
 
 <!--[ if $needles ]-->
+    <p><!--[ pnml name="_MH_NEEDLESHINT" ]--></p>
     <dl class="configrow">
     <!--[ foreach item=needle from=$needles]-->
         <dt><!--[ $needle.module|pnvarprepfordisplay ]--></dt>
         <dd>
           <!--[ $needle.info|pnvarprepfordisplay ]-->
-          <br />
           <em><!--[ pnml name='_MH_NEEDLESOURCE' ]-->: <!--[ if $needle.builtin eq true]-->MultiHook<!--[ else ]--><!--[ $needle.module ]--><!--[ /if ]--></em>
+          <em><!--[ pnml name='_MH_CASESENSITIVE' ]-->: <!--[ if $needle.casesensitive eq true]--><!--[ pnml name="_YES" ]--><!--[ else ]--><!--[ pnml name="_NO" ]--><!--[ /if ]--></em>
         </dd>
     <!--[ /foreach ]-->
     </dl>
