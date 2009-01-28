@@ -22,6 +22,7 @@
 /**
  * changeset needle
  * @param $args['nid'] needle id
+ * @param $args['needle'] the needle itself
  * @return array()
  */
 function MultiHook_needleapi_http($args)

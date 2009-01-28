@@ -403,14 +403,12 @@ function MultiHook_userapitransform($text)
     // check for needles
     if(count($needles) > 0) {
         foreach($needles as $singleneedle) {
-            //preg_match_all('/(?<![\/\w@\.:])' . $needle['needle'] . '([a-zA-Z0-9_-]*?)(?![\/\w@:-])(?!\.\w)/', $text, $needleresults);
             if (!is_array($singleneedle['needle'])) {
                 $singleneedle['needle'] = array($singleneedle['needle']);
             }
             $regexpmodifier = (isset($singleneedle['casesensitive']) && $singleneedle['casesensitive'] == false) ? 'i' : '';
             foreach($singleneedle['needle'] as $needle) {
-                preg_match_all('/(?<![\/\w@\.:])' . preg_quote(strtoupper($needle), '/') .           '([a-zA-Z0-9\.\/:_-]*?)(?![\/\w@:-])(?!\.\w)/' . $regexpmodifier, $text, $needleresults);
-                //preg_match_all('/(?<![\/\w@\.:])' . preg_quote($needle['needle'], '/') . '([a-zA-Z0-9\.\/:_-]*?)(?![\/\w@:-])(?!\.\w)/i', $text, $needleresults);
+                preg_match_all('/(?<![\/\w@\.:])' . preg_quote(strtoupper($needle), '/') . '([a-zA-Z0-9\.\?\/&:=_-]*?)(?![\/\?\w&@:=_-])(?!\.\w)/' . $regexpmodifier, $text, $needleresults);
                 if(is_array($needleresults) && count($needleresults[0])>0) {
                     // complete needle in $needleresults[0], needle id in $needleresults[1]
                     // both are arrays!
