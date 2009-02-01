@@ -55,8 +55,9 @@ So it will work on IE and not break Mozilla or other Gecko based browsers.
 
 External Links
 --------------
-MultiHook can add special markup for external links. For this feature you can (and
-should) specify a css class in the configuration, e.g. externallink.
+MultiHook can add special markup for external links it creates while processing autolinks or needles. 
+For this feature you can (and should) specify a css class in the configuration, e.g. externallink.
+Links that have not been created with MultiHook will not get this addition.
 
 The css declaration in mh.css looks like:
 
@@ -70,6 +71,9 @@ a:hover.externallink {
     font-size: 11px;
     background: url('../../../modules/MultiHook/pnimages/extlink.gif') no-repeat bottom left;
 }
+
+In this case you configure "externallink" (without quotes) as css class for external links in 
+the MultiHook settings.
 
 This adds the image extlink.gif to the left of the created link. Please note that
 the path to the image file is relative to the place of the css file used. Without

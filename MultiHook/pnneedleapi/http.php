@@ -30,7 +30,17 @@ function MultiHook_needleapi_http($args)
     // simple replacement, no need to cache anything
     if (isset($args['nid']) && !empty($args['nid'])) {
         $url = DataUtil::formatForDisplay($args['needle'] . $args['nid']);
-        $result = '<a href="' . $url . '">' . $url . '</a>'; 
+
+        if(stristr(pnGetBaseURL(), $url) === false) {
+            $externallinkclass =pnModGetVar('MultiHook', 'externallinkclass', '');
+            if(!empty($externallinkclass)) {
+                $extclass = "class=\"$externallinkclass\"";
+            }
+        } else {
+            $extclass = '';
+        }
+
+        $result = '<a ' . $extclass . ' href="' . $url . '">' . $url . '</a>'; 
         return $result;
     } 
     return $args['nid'];   
