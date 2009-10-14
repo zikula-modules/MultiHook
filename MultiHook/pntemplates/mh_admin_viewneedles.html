@@ -1,23 +1,22 @@
 <!--[* $Id$ *]-->
 
 <!--[ include file=mh_admin_header.html ]-->
-<h3><!--[ pnml name='_MH_VIEWNEEDLES' ]--></h3>
-<br class="pn-clearer" />
+<h2><!--[ pnml name='_MH_VIEWNEEDLES' ]--></h2>
 
 <!--[ if $needles ]-->
-    <p><!--[ pnml name="_MH_NEEDLESHINT" ]--></p>
-    <dl class="configrow">
+<p class="z-informationmsg"><!--[ pnml name="_MH_NEEDLESHINT" ]--></p>
+<dl>
     <!--[ foreach item=needle from=$needles]-->
-        <dt><!--[ $needle.module|pnvarprepfordisplay ]--></dt>
-        <dd>
-          <!--[ $needle.info|pnvarprepfordisplay ]-->
-          <em><!--[ pnml name='_MH_NEEDLESOURCE' ]-->: <!--[ if $needle.builtin eq true]-->MultiHook<!--[ else ]--><!--[ $needle.module ]--><!--[ /if ]--></em>
-          <em><!--[ pnml name='_MH_CASESENSITIVE' ]-->: <!--[ if $needle.casesensitive eq true]--><!--[ pnml name="_YES" ]--><!--[ else ]--><!--[ pnml name="_NO" ]--><!--[ /if ]--></em>
-        </dd>
+    <dt><!--[ $needle.module|pnvarprepfordisplay ]--></dt>
+    <dd>
+        <!--[ $needle.info|pnvarprepfordisplay ]-->
+        <em><!--[ pnml name='_MH_NEEDLESOURCE' ]-->: <!--[ if $needle.builtin eq true]-->MultiHook<!--[ else ]--><!--[ $needle.module ]--><!--[ /if ]--></em>
+        <em><!--[ pnml name='_MH_CASESENSITIVE' ]-->: <!--[ if $needle.casesensitive eq true]--><!--[ pnml name="_YES" ]--><!--[ else ]--><!--[ pnml name="_NO" ]--><!--[ /if ]--></em>
+    </dd>
     <!--[ /foreach ]-->
-    </dl>
+</dl>
 <!--[ else ]-->
-    <h3><!--[ pnml name="_MH_NONEEDLES" ]--></h3>
+<h3><!--[ pnml name="_MH_NONEEDLES" ]--></h3>
 <!--[ /if ]-->
 
 <!--[ include file=mh_admin_footer.html ]-->

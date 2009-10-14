@@ -17,11 +17,11 @@
 // ----------------------------------------------------------------------
 
 define('_MH_PNF_NONEEDLEID', 'keine NeedleID');
-define('_MH_PNF_NOTAVAILABLE', 'pnForum ist nicht verfügbar');
+define('_MH_PNF_NOTAVAILABLE', 'pnForum ist nicht verfÃ¼gbar');
 define('_MH_PNF_UNKNOWNTYPE', 'unbekannter Parameter an Pos.1 (F oder T)');
 define('_MH_PNF_UNKNOWNCATEGORY', 'unbekannte Kategorie');
-define('_MH_PNF_NOAUTHFORCATEGORY', 'keine Berechtigung für diese Kategorie');
+define('_MH_PNF_NOAUTHFORCATEGORY', 'keine Berechtigung fÃ¼r diese Kategorie');
 define('_MH_PNF_UNKNOWNFORUM', 'unbekanntes Forum');
-define('_MH_PNF_NOAUTHFORFORUM', 'keine Berechtigung für dieses Forum');
+define('_MH_PNF_NOAUTHFORFORUM', 'keine Berechtigung fÃ¼r dieses Forum');
 define('_MH_PNF_UNKNOWNTOPIC', 'unbekanntes Thema');
-define('_MH_PNF_NOAUTHFORTOPIC', 'keine Berechtigung für dieses Thema');
+define('_MH_PNF_NOAUTHFORTOPIC', 'keine Berechtigung fÃ¼r dieses Thema');

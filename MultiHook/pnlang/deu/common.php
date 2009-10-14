@@ -17,25 +17,25 @@
 // ----------------------------------------------------------------------
 
 // even newer :-)
-define('_MH_CASESENSITIVE', 'Groß-/Kleinschreibung beachten');
-define('_MH_NEEDLESHINT', 'Die geschweiften Klammern geben Anfang und Ende der Needleparameter an und dürfen nicht mit eingegeben werden, ebenso wie das Pipesymbol |, das die verschiedenen Optionen der Needle trennt.'); 
-define('_MH_RELAXEDCENSORING', 'Beim Zensieren von Worten mit mehr als zwei Buchstaben Länge den ersten und letzten Buchstaben nicht ersetzen');
+define('_MH_CASESENSITIVE', 'GroÃŸ-/Kleinschreibung beachten');
+define('_MH_NEEDLESHINT', 'Die geschweiften Klammern geben Anfang und Ende der Needleparameter an und dÃ¼rfen nicht mit eingegeben werden, ebenso wie das Pipesymbol |, das die verschiedenen Optionen der Needle trennt.'); 
+define('_MH_RELAXEDCENSORING', 'Beim Zensieren von Worten mit mehr als zwei Buchstaben LÃ¤nge den ersten und letzten Buchstaben nicht ersetzen');
 
 //
 // A
 //
-define('_MH_ABACFIRST', 'Gefundene Einträge nur jeweils einmal im Text ersetzen');
-define('_MH_ABBREVIATION', 'Abkürzungen');
+define('_MH_ABACFIRST', 'Gefundene EintrÃ¤ge nur jeweils einmal im Text ersetzen');
+define('_MH_ABBREVIATION', 'AbkÃ¼rzungen');
 define('_MH_ACRONYM', 'Akronyme');
-define('_MH_ADD', 'Eintrag hinzufügen');
-define('_MH_ADDHOOK', 'Hook für weitere Module aktivieren');
-define('_MH_ADMINTITLE','Links, Abkürzungen, Akronyme, Zensur und Needles');
+define('_MH_ADD', 'Eintrag hinzufÃ¼gen');
+define('_MH_ADDHOOK', 'Hook fÃ¼r weitere Module aktivieren');
+define('_MH_ADMINTITLE','Links, AbkÃ¼rzungen, Akronyme, Zensur und Needles');
 
 //
 // C
 //
 define('_MH_CENSOR', 'Zensur');
-define('_MH_CENSORINWORDS', 'Zensierte Wörter innerhalb von Begriffen ersetzen, z.B. oo in Google ersetzen');
+define('_MH_CENSORINWORDS', 'Zensierte WÃ¶rter innerhalb von Begriffen ersetzen, z.B. oo in Google ersetzen');
 define('_MH_CREATE', 'Erstellen');
 define('_MH_CREATED', 'Eintrag erstellt');
 define('_MH_CREATEFAILED','Anlegen des Eintrags fehlgeschlagen');
@@ -43,9 +43,9 @@ define('_MH_CREATEFAILED','Anlegen des Eintrags fehlgeschlagen');
 //
 // D
 //
-define('_MH_DELETE', 'Eintrag löschen');
-define('_MH_DELETED', 'Eintrag gelöscht');
-define('_MH_DELETEFAILED','Löschen des Eintrags fehlgeschlagen');
+define('_MH_DELETE', 'Eintrag lÃ¶schen');
+define('_MH_DELETED', 'Eintrag gelÃ¶scht');
+define('_MH_DELETEFAILED','LÃ¶schen des Eintrags fehlgeschlagen');
 
 //
 // E
@@ -53,7 +53,7 @@ define('_MH_DELETEFAILED','Löschen des Eintrags fehlgeschlagen');
 define('_MH_ERRORREADINGDATA', 'Fehler beim Einlesen');
 define('_MH_EXISTSINDB', 'bereits in der Datenbank vorhanden');
 define('_MH_EXTERNALLINK', '(externer Link)');
-define('_MH_EXTERNALLINKCLASS', 'CSS-Klasse für externe Links');
+define('_MH_EXTERNALLINKCLASS', 'CSS-Klasse fÃ¼r externe Links');
 
 //
 // F
@@ -69,7 +69,7 @@ define('_MH_GOTOHOMEPAGE', 'gehe zur MultiHook-Projektseite im code.zikula.org')
 //
 // I
 //
-define('_MH_ITEMSPERPAGE', 'Anzahl der Einträge pro Seite in der Adminanzeige');
+define('_MH_ITEMSPERPAGE', 'Anzahl der EintrÃ¤ge pro Seite in der Adminanzeige');
 define('_MH_ISHOOKEDWITH', 'Der Multihook wird mit folgenden Modulen verwendet');
 
 //
@@ -82,8 +82,8 @@ define('_MH_LINKS', 'Links');
 define('_MH_LOADINGDATA', 'lade Daten...');
 define('_MH_LONG','Langfassung');
 define('_MH_LONGEMPTY', 'Langfassung fehlt');
-define('_MH_LONGHINT', '(im Fall eines Links, die Ziel-URL, wird bei unerwünschten Begriffen ignoriert)');
-define('_MH_LONGWITHHINT', 'Langfassung (im Fall eines Links, die Ziel-URL, wird bei unerwünschten Begriffen ignoriert)');
+define('_MH_LONGHINT', '(im Fall eines Links, die Ziel-URL, wird bei unerwÃ¼nschten Begriffen ignoriert)');
+define('_MH_LONGWITHHINT', 'Langfassung (im Fall eines Links, die Ziel-URL, wird bei unerwÃ¼nschten Begriffen ignoriert)');
 
 //
 // M
@@ -94,12 +94,12 @@ define('_MH_MODIFYCONFIG', 'Konfiguration modifizieren');
 //
 // N
 //
-define('_MH_NEEDLEDATAERROR', 'Fehler beim Einlesen der Needledaten für \'%s\' oder Modul \'%s\' nicht aktiv');
+define('_MH_NEEDLEDATAERROR', 'Fehler beim Einlesen der Needledaten fÃ¼r \'%s\' oder Modul \'%s\' nicht aktiv');
 define('_MH_NEEDLES', 'Needles');
 define('_MH_NEEDLESOURCE', 'Quelle');
-define('_MH_NOAUTH', 'Keine Berechtigung für das Multihook Modul');
+define('_MH_NOAUTH', 'Keine Berechtigung fÃ¼r das Multihook Modul');
 define('_MH_NODESCRIPTIONFOUND', 'keine Beschreibung vorhanden');
-define('_MH_NOITEMS', 'Keine Einträge vorhanden');
+define('_MH_NOITEMS', 'Keine EintrÃ¤ge vorhanden');
 define('_MH_NONEEDLES', 'Keine Needles gefunden');
 define('_MH_NOSUCHITEM', 'Unbekannter Eintrag nicht vorhanden');
 define('_MH_NOTHOOKED', '** der MultiHook wird zur Zeit von keinem Modul verwendet **');
@@ -112,15 +112,15 @@ define('_MH_OPTIONS', 'Optionen');
 //
 // R
 //
-define('_MH_REPLACEABBREVIATIONS', 'Abkürzungen duch Langtext ersetzen');
+define('_MH_REPLACEABBREVIATIONS', 'AbkÃ¼rzungen duch Langtext ersetzen');
 define('_MH_REPLACELINKWITHTITLE', 'Links durch Titel ersetzen');
 
 //
 // S
 //
 define('_MH_SAVINGDATA', 'speichere Daten...');
-define('_MH_SELECT','Auswählen');
-define('_MH_SELECTFAILED','MultiHook: Select auf die Datenbank fehlgeschlagen - bitte Admin verständigen');
+define('_MH_SELECT','AuswÃ¤hlen');
+define('_MH_SELECTFAILED','MultiHook: Select auf die Datenbank fehlgeschlagen - bitte Admin verstÃ¤ndigen');
 define('_MH_SHORT','Kurz');
 define('_MH_SHORTEMPTY', 'Kurzform fehlt');
 define('_MH_SHOWEDITLINK', 'Link zum Editieren anzeigen');
@@ -132,13 +132,13 @@ define('_MH_START','Start');
 //
 define('_MH_TITLE','Titel');
 define('_MH_TITLEEMPTY', 'Titel fehlt');
-define('_MH_TITLEHINT', '(nur bei einem Link notwendig, wird bei unerwünschten Begriffen ignoriert)');
-define('_MH_TITLEWITHHINT', 'Titel (nur bei einem Link notwendig, wird bei unerwünschten Begriffen ignoriert)');
+define('_MH_TITLEHINT', '(nur bei einem Link notwendig, wird bei unerwÃ¼nschten Begriffen ignoriert)');
+define('_MH_TITLEWITHHINT', 'Titel (nur bei einem Link notwendig, wird bei unerwÃ¼nschten Begriffen ignoriert)');
 define('_MH_TYPE','Typ');
-define('_MH_TYPEABBREVIATION', 'Abkürzung');
+define('_MH_TYPEABBREVIATION', 'AbkÃ¼rzung');
 define('_MH_TYPEACRONYM', 'Akronym');
 define('_MH_TYPENEEDLES', 'Needle');
-define('_MH_TYPEILLEGALWORD', 'Unerwünschter Begriff');
+define('_MH_TYPEILLEGALWORD', 'UnerwÃ¼nschter Begriff');
 define('_MH_TYPEEMPTY', 'Typ fehlt');
 define('_MH_TYPELINK', 'Link');
 
@@ -154,17 +154,17 @@ define('_MH_UPGRADETO50FAILED', 'Upgrade auf 5.0 fehlgeschlagen');
 //
 // V
 //
-define('_MH_VIEWABBR','Abkürzungsliste');
+define('_MH_VIEWABBR','AbkÃ¼rzungsliste');
 define('_MH_VIEWACRONYMS','Akronymliste');
-define('_MH_VIEWILLEGALWORDS', 'Unerwünschte Begriffe');
+define('_MH_VIEWILLEGALWORDS', 'UnerwÃ¼nschte Begriffe');
 define('_MH_VIEWLINKS','Linkliste');
 define('_MH_VIEWNEEDLES', 'Needleliste');
-define('_MH_VIEWCENSOR', 'Liste der unerwünschten Begriffe');
+define('_MH_VIEWCENSOR', 'Liste der unerwÃ¼nschten Begriffe');
 
 //
 // W
 //
 define('_MH_WRONGPARAMETER_LONG', 'Keine Langversion oder (im Falle eines Links) keine URL angegeben');
-define('_MH_WRONGPARAMETER_SHORT', 'Kurzbegriff nicht gewählt');
+define('_MH_WRONGPARAMETER_SHORT', 'Kurzbegriff nicht gewÃ¤hlt');
 define('_MH_WRONGPARAMETER_TITLE', 'keine Titel angegeben');
-define('_MH_WRONGPARAMETER_TYPE', 'ungültiger Typ');
+define('_MH_WRONGPARAMETER_TYPE', 'ungÃ¼ltiger Typ');

@@ -1,44 +1,60 @@
 <!--[* $Id$ *]-->
 
 <!--[ include file=mh_admin_header.html ]-->
-<br class="pn-clearer" />
-<!--[ pnform ]-->
+
+<!--[ pnform cssClass="z-form"]-->
 <!--[ pnformvalidationsummary ]-->
 
 <fieldset>
-  <legend><!--[ pnml name='_MH_MODIFYCONFIG' ]--></legend>
-  <dl class="configrow">
-    <dt><!--[ pnformlabel for="abacfirst" text='_MH_ABACFIRST' ]--></dt>
-    <dd><!--[ pnformcheckbox id="abacfirst" checked=$pncore.MultiHook.abacfirst ]--></dd>
+    <legend><!--[ pnml name='_MH_MODIFYCONFIG' ]--></legend>
+    <div class="z-formrow">
+        <!--[ pnformlabel for="abacfirst" text='_MH_ABACFIRST' ]-->
+        <!--[ pnformcheckbox id="abacfirst" checked=$pncore.MultiHook.abacfirst ]-->
+    </div>
 
-    <dt><!--[ pnformlabel for="externallinkclass" text='_MH_EXTERNALLINKCLASS' ]--></dt>
-    <dd><!--[ pnformtextinput size="20" maxLength="40" id="externallinkclass" text=$pncore.MultiHook.externallinkclass ]--></dd>
+    <div class="z-formrow">
+        <!--[ pnformlabel for="externallinkclass" text='_MH_EXTERNALLINKCLASS' ]-->
+        <!--[ pnformtextinput size="20" maxLength="40" id="externallinkclass" text=$pncore.MultiHook.externallinkclass ]-->
+    </div>
 
-    <dt><!--[ pnformlabel for="itemsperpage" text='_MH_ITEMSPERPAGE' ]--></dt>
-    <dd><!--[ pnformintinput id="itemsperpage" text=$pncore.MultiHook.itemsperpage ]--></dd>
+    <div class="z-formrow">
+        <!--[ pnformlabel for="itemsperpage" text='_MH_ITEMSPERPAGE' ]-->
+        <!--[ pnformintinput id="itemsperpage" text=$pncore.MultiHook.itemsperpage ]-->
+    </div>
 
-    <dt><!--[ pnformlabel for="mhincodetags" text='_MH_MHINCODETAGS' ]--></dt>
-    <dd><!--[ pnformcheckbox id="mhincodetags" checked=$pncore.MultiHook.mhincodetags ]--></dd>
+    <div class="z-formrow">
+        <!--[ pnformlabel for="mhincodetags" text='_MH_MHINCODETAGS' ]-->
+        <!--[ pnformcheckbox id="mhincodetags" checked=$pncore.MultiHook.mhincodetags ]-->
+    </div>
 
-    <dt><!--[ pnformlabel for="mhlinktitle" text='_MH_REPLACELINKWITHTITLE' ]--></dt>
-    <dd><!--[ pnformcheckbox id="mhlinktitle" checked=$pncore.MultiHook.mhlinktitle ]--></dd>
+    <div class="z-formrow">
+        <!--[ pnformlabel for="mhlinktitle" text='_MH_REPLACELINKWITHTITLE' ]-->
+        <!--[ pnformcheckbox id="mhlinktitle" checked=$pncore.MultiHook.mhlinktitle ]-->
+    </div>
 
-    <dt><!--[ pnformlabel for="mhreplaceabbr" text='_MH_REPLACEABBREVIATIONS' ]--></dt>
-    <dd><!--[ pnformcheckbox id="mhreplaceabbr" checked=$pncore.MultiHook.mhreplaceabbr ]--></dd>
+    <div class="z-formrow">
+        <!--[ pnformlabel for="mhreplaceabbr" text='_MH_REPLACEABBREVIATIONS' ]-->
+        <!--[ pnformcheckbox id="mhreplaceabbr" checked=$pncore.MultiHook.mhreplaceabbr ]-->
+    </div>
 
-    <dt><!--[ pnformlabel for="mhshoweditlink" text='_MH_SHOWEDITLINK' ]--></dt>
-    <dd><!--[ pnformcheckbox id="mhshoweditlink" checked=$pncore.MultiHook.mhshoweditlink ]--></dd>
+    <div class="z-formrow">
+        <!--[ pnformlabel for="mhshoweditlink" text='_MH_SHOWEDITLINK' ]-->
+        <!--[ pnformcheckbox id="mhshoweditlink" checked=$pncore.MultiHook.mhshoweditlink ]-->
+    </div>
 
-    <dt><!--[ pnformlabel for="mhbrutalcensor" text='_MH_CENSORINWORDS' ]--></dt>
-    <dd><!--[ pnformcheckbox id="mhbrutalcensor" checked=$pncore.MultiHook.mhbrutalcensor ]--></dd>
+    <div class="z-formrow">
+        <!--[ pnformlabel for="mhbrutalcensor" text='_MH_CENSORINWORDS' ]-->
+        <!--[ pnformcheckbox id="mhbrutalcensor" checked=$pncore.MultiHook.mhbrutalcensor ]-->
+    </div>
 
-    <dt><!--[ pnformlabel for="mhrelaxedcensoring" text='_MH_RELAXEDCENSORING' ]--></dt>
-    <dd><!--[ pnformcheckbox id="mhrelaxedcensoring" checked=$pncore.MultiHook.mhrelaxedcensoring ]--></dd>
-  </dl>
+    <div class="z-formrow">
+        <!--[ pnformlabel for="mhrelaxedcensoring" text='_MH_RELAXEDCENSORING' ]-->
+        <!--[ pnformcheckbox id="mhrelaxedcensoring" checked=$pncore.MultiHook.mhrelaxedcensoring ]-->
+    </div>
 </fieldset>
 
-<div class="pn-formrow pn-formbuttons">
-  <!--[pnformbutton id="submit" commandName="submit" text="_MH_UPDATECONFIG"]-->
+<div class="z-formbuttons">
+    <!--[pnformbutton id="submit" commandName="submit" text="_MH_UPDATECONFIG"]-->
 </div>
 
 <!--[ /pnform ]-->

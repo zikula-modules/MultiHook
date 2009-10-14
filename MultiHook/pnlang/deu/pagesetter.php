@@ -19,8 +19,8 @@
 define('_MH_PS_PAGESETTER', 'Pagesetter');
 define('_MH_PS_NONEEDLEID', 'keine NeedleID');
 define('_MH_PS_WRONGNEEDLEID', 'falsche NeedleID');
-define('_MH_PS_NOTAVAILABLE', 'Pagesetter ist nicht verfügbar');
+define('_MH_PS_NOTAVAILABLE', 'Pagesetter ist nicht verfÃ¼gbar');
 define('_MH_PS_UNKNOWNTID', 'unbekannter Publikationstyp');
-define('_MH_PS_NOAUTHFORTID', 'keine Berechtigung für diesen Publikationstyp');
+define('_MH_PS_NOAUTHFORTID', 'keine Berechtigung fÃ¼r diesen Publikationstyp');
 define('_MH_PS_UNKNOWNPID', 'unbekannte Publikation');
-define('_MH_PS_NOAUTHFORPID', 'keine Berechtigung für diese Publikation');
+define('_MH_PS_NOAUTHFORPID', 'keine Berechtigung fÃ¼r diese Publikation');

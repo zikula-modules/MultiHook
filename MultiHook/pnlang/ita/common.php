@@ -12,7 +12,7 @@ define('_MH_NEEDLESOURCE', 'Sorgente');
 define('_MH_CENSORINWORDS', 'Sostituisci le parole non permesse anche quando sono parte di altre parole, es. sostituisci oo i Google');
 
 define('_MH_GOTOHOMEPAGE', 'visita il progetto MultiHook su code.zikula.org');
-define('_MH_LONGWITHHINT', 'Versione estesa (solo per i link, verr‡ ignorata per le parole non permesse)');
+define('_MH_LONGWITHHINT', 'Versione estesa (solo per i link, verr√† ignorata per le parole non permesse)');
 define('_MH_TITLEWITHHINT', 'Titolo (necessario solo per i link, ignorato per le parole non permesse)');
 
 define('_MH_FAVORITES', 'Favoriti');
@@ -24,12 +24,12 @@ define('_MH_CENSOR', 'Censura');
 define('_MH_VIEWILLEGALWORDS', 'Parole non permesse');
 
 // new
-define('_MH_ISHOOKEDWITH', 'Attualmente MultiHook Ë utilizzato dai seguenti moduli');
+define('_MH_ISHOOKEDWITH', 'Attualmente MultiHook √® utilizzato dai seguenti moduli');
 define('_MH_START','Pagina Iniziale');
-define('_MH_EXISTSINDB', ' gi‡ presente nel database');
+define('_MH_EXISTSINDB', ' gi√† presente nel database');
 define('_MH_NONEEDLES', 'Nessun Needles trovato');
 define('_MH_NODESCRIPTIONFOUND', 'nessuna descrizione trovata');
-define('_MH_NEEDLEDATAERROR', 'Errore durante la lettura dei needle per \'%s\' oppure il modulo \'%s\' non Ë attivo');
+define('_MH_NEEDLEDATAERROR', 'Errore durante la lettura dei needle per \'%s\' oppure il modulo \'%s\' non √® attivo');
 
 //
 // A
@@ -81,7 +81,7 @@ define('_MH_LINK', 'Link');
 define('_MH_LOADINGDATA', 'caricamento dati...');
 define('_MH_LONG','Versione estesa');
 define('_MH_LONGEMPTY', 'testo esteso mancante');
-define('_MH_LONGHINT', '(solo in caso di link, verr‡ ignorato per le parole illegali)');
+define('_MH_LONGHINT', '(solo in caso di link, verr√† ignorato per le parole illegali)');
 
 //
 // M
@@ -123,7 +123,7 @@ define('_MH_SHOWME','Mostra');
 //
 define('_MH_TITLE','Titolo');
 define('_MH_TITLEEMPTY', 'Testo del titolo mancante');
-define('_MH_TITLEHINT', '(necessario solo per i link, verr‡ ignorato per le parole non permesse)');
+define('_MH_TITLEHINT', '(necessario solo per i link, verr√† ignorato per le parole non permesse)');
 define('_MH_TYPE','Tipo');
 define('_MH_TYPEABBREVIATION', 'Abbreviazione');
 define('_MH_TYPEACRONYM', 'Acronimo');

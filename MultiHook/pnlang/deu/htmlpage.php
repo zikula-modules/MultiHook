@@ -17,6 +17,6 @@
 // ----------------------------------------------------------------------
 
 define('_MH_HP_NONEEDLEID', 'keine NeedleID');
-define('_MH_HP_NOTAVAILABLE', 'htmlpages ist nicht verfügbar');
+define('_MH_HP_NOTAVAILABLE', 'htmlpages ist nicht verfÃ¼gbar');
 define('_MH_HP_UNKNOWNPAGE', 'unbekannte Seite');
-define('_MH_HP_NOAUTHFORPAGE', 'keine Berechtigung für diese Seite');
+define('_MH_HP_NOAUTHFORPAGE', 'keine Berechtigung fÃ¼r diese Seite');

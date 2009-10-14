@@ -18,8 +18,8 @@
 
 define('_MH_PS_NONEEDLEID', 'keine NeedleID');
 define('_MH_PS_UNKNOWNTYPE', 'unbekannter Parameter an Pos.1 (A,P oder T)');
-define('_MH_PS_NOTAVAILABLE', 'Photoshare ist nicht verfügbar');
+define('_MH_PS_NOTAVAILABLE', 'Photoshare ist nicht verfÃ¼gbar');
 define('_MH_PS_UNKNOWNFOLDER', 'unbekanntes Album');
-define('_MH_PS_NOAUTHFORFOLDER', 'keine Berechtigung für dieses Album');
+define('_MH_PS_NOAUTHFORFOLDER', 'keine Berechtigung fÃ¼r dieses Album');
 define('_MH_PS_UNKNOWNIMAGE', 'unbekanntes Bild');
-define('_MH_PS_NOAUTHFORIMAGE', 'keine Berechtigung für dieses Bild');
+define('_MH_PS_NOAUTHFORIMAGE', 'keine Berechtigung fÃ¼r dieses Bild');

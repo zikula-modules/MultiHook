@@ -1,54 +1,55 @@
 <!--[* $Id$ *]-->
 
-<!--[ pngetstatusmsg ]--><br />
 <h2><!--[ pnml name='_MH_GLOSSARY' ]--></h2>
 
+<!--[insert name="getstatusmsg"]-->
+
 <div id="mhuser">
-    
-<form action="<!--[ pnmodurl modname=MultiHook func=main ]-->" method="post">
-<div class="mhselection">
-    <select name="filter">
-    <option value="-1" <!--[ if $filter eq -1 ]-->selected="selected"<!--[ /if ]-->><!--[ pnml name='_MH_SELECT' ]--></option>
-    <option value="0" <!--[ if $filter eq 0 ]-->selected="selected"<!--[ /if ]-->><!--[ pnml name='_MH_VIEWABBR' ]--></option>
-    <option value="1" <!--[ if $filter eq 1 ]-->selected="selected"<!--[ /if ]-->><!--[ pnml name='_MH_VIEWACRONYMS' ]--></option>
-    <option value="2" <!--[ if $filter eq 2 ]-->selected="selected"<!--[ /if ]-->><!--[ pnml name='_MH_VIEWLINKS' ]--></option>
-    </select>
-    <input type="submit" name="submit" value="<!--[ pnml name='_MH_SHOWME' ]-->" />
-</div>
-</form>
 
-<!--[ pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars=filter shift=1 ]-->
-<table cellpadding="0">
-    <tr>
-        <th><!--[ pnml name='_MH_SHORT' ]--></th>
-        <th><!--[ pnml name='_MH_LONG' ]--></th>
-        <th><!--[ pnml name='_MH_TITLE' ]--></th>
-    </tr>
-    <!--[ foreach item=abac from=$abacs ]-->
-    <tr>
-        <td>
-            <!--[ $abac.short ]-->
-        </td>
-        <td>
-            <!--[ $abac.long ]-->
-        </td>
-        <td>
-            <!--[ if $abac.type eq 2 ]-->
+    <form class="z-form z-linear" action="<!--[ pnmodurl modname=MultiHook func=main ]-->" method="post">
+        <fieldset class="mhselection">
+            <select name="filter">
+                <option value="-1" <!--[ if $filter eq -1 ]-->selected="selected"<!--[ /if ]-->><!--[ pnml name='_MH_SELECT' ]--></option>
+                <option value="0" <!--[ if $filter eq 0 ]-->selected="selected"<!--[ /if ]-->><!--[ pnml name='_MH_VIEWABBR' ]--></option>
+                <option value="1" <!--[ if $filter eq 1 ]-->selected="selected"<!--[ /if ]-->><!--[ pnml name='_MH_VIEWACRONYMS' ]--></option>
+                <option value="2" <!--[ if $filter eq 2 ]-->selected="selected"<!--[ /if ]-->><!--[ pnml name='_MH_VIEWLINKS' ]--></option>
+            </select>
+            <input type="submit" name="submit" value="<!--[ pnml name='_MH_SHOWME' ]-->" />
+        </fieldset>
+    </form>
+
+    <!--[ pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars=filter shift=1 ]-->
+    <table cellpadding="0">
+        <tr>
+            <th><!--[ pnml name='_MH_SHORT' ]--></th>
+            <th><!--[ pnml name='_MH_LONG' ]--></th>
+            <th><!--[ pnml name='_MH_TITLE' ]--></th>
+        </tr>
+        <!--[ foreach item=abac from=$abacs ]-->
+        <tr>
+            <td>
+                <!--[ $abac.short ]-->
+            </td>
+            <td>
+                <!--[ $abac.long ]-->
+            </td>
+            <td>
+                <!--[ if $abac.type eq 2 ]-->
                 <a title="<!--[ $abac.title ]-->" href="<!--[ $abac.long ]-->"><!--[ $abac.title ]--></a>
-            <!--[ else ]-->
+                <!--[ else ]-->
                 <!--[ $abac.title ]-->
-            <!--[ /if ]-->
-        </td>
-    </tr>
-    <!--[ foreachelse ]-->
-    <tr>
-        <td colspan="3">
-            <!--[ pnml name='_MH_NOITEMS' ]-->
-        </td>
-    </tr>
-    <!--[ /foreach ]-->
-</table>
+                <!--[ /if ]-->
+            </td>
+        </tr>
+        <!--[ foreachelse ]-->
+        <tr>
+            <td colspan="3">
+                <!--[ pnml name='_MH_NOITEMS' ]-->
+            </td>
+        </tr>
+        <!--[ /foreach ]-->
+    </table>
 
-<!--[ pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars=filter shift=1 ]-->
+    <!--[ pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars=filter shift=1 ]-->
 
 </div>

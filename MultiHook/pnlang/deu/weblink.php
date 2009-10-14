@@ -18,9 +18,9 @@
 
 define('_MH_WL_WEBLINKS', 'Weblinks');
 define('_MH_WL_NONEEDLEID', 'keine NeedleID');
-define('_MH_WL_NOTAVAILABLE', 'Web_Links ist nicht verfügbar');
+define('_MH_WL_NOTAVAILABLE', 'Web_Links ist nicht verfÃ¼gbar');
 define('_MH_WL_UNKNOWNTYPE', 'unbekannter Parameter an Pos.1 (C, D, L oder S)');
 define('_MH_WL_UNKNOWNCATEGORY', 'unbekannte Kategorie');
-define('_MH_WL_NOAUTHFORCATEGORY', 'keine Berechtigung für diese Kategorie');
+define('_MH_WL_NOAUTHFORCATEGORY', 'keine Berechtigung fÃ¼r diese Kategorie');
 define('_MH_WL_UNKNOWNWEBLINK', 'unbekannter Link');
-define('_MH_WL_NOAUTHFORWEBLINK', 'keine Berechtigung für diesen Link');
+define('_MH_WL_NOAUTHFORWEBLINK', 'keine Berechtigung fÃ¼r diesen Link');

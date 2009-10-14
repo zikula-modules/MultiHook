@@ -1,10 +1,10 @@
 <!--[* $Id$ *]-->
 
 <!--[ include file=mh_admin_header.html ]-->
-<h3><!--[ $title ]--></h3>
+<h2><!--[ $title ]--></h2>
 
 <!--[ pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars="filter" filter=$filter]-->
-<table class="pn-admintable">
+<table class="z-admintable">
   <thead>
     <tr>
       <th><!--[ pnml name='_MH_SHORT' ]--></th>
@@ -16,7 +16,7 @@
   </thead>
   <tbody>
     <!--[ foreach item=abac from=$abacs ]-->
-    <tr class="<!--[cycle values="pn-odd,pn-even" name=abacs]-->">
+    <tr class="<!--[cycle values="z-odd,z-even" name=abacs]-->">
       <td>
         <!--[ if $abac.edit == true ]-->
         <a title="<!--[ pnml name='_EDIT' ]-->" href="<!--[ pnmodurl modname=MultiHook type=admin func=edit aid=$abac.aid ]-->"><!--[ $abac.short ]--></a>

@@ -19,9 +19,9 @@
 define('_MH_DL_DL20MINIMUMNEEDED', 'Downloads 2.0 nicht gefunden');
 define('_MH_DL_DOWNLOADS', 'Downloads');
 define('_MH_DL_NONEEDLEID', 'keine NeedleID');
-define('_MH_DL_NOTAVAILABLE', 'Downloads ist nicht verfügbar');
+define('_MH_DL_NOTAVAILABLE', 'Downloads ist nicht verfÃ¼gbar');
 define('_MH_DL_UNKNOWNTYPE', 'unbekannter Parameter an Pos.1 (C, D, L oder S)');
 define('_MH_DL_UNKNOWNCATEGORY', 'unbekannte Kategorie');
-define('_MH_DL_NOAUTHFORCATEGORY', 'keine Berechtigung für diese Kategorie');
+define('_MH_DL_NOAUTHFORCATEGORY', 'keine Berechtigung fÃ¼r diese Kategorie');
 define('_MH_DL_UNKNOWNDOWNLOAD', 'unbekannter Download');
-define('_MH_DL_NOAUTHFORDOWNLOAD', 'keine Berechtigung für diesen Download');
+define('_MH_DL_NOAUTHFORDOWNLOAD', 'keine Berechtigung fÃ¼r diesen Download');
