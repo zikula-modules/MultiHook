@@ -25,6 +25,7 @@ class MultiHook_admin_edithandler
 
     function initialize(&$pnRender)
     {
+        $dom = ZLanguage::getModuleDomain('MultiHook');
         $this->aid = (int)FormUtil::getPassedValue('aid', -1, 'GETPOST');
         $pnRender->caching = false;
         $pnRender->add_core_data();
@@ -43,7 +44,7 @@ class MultiHook_admin_edithandler
                                  array('aid' => $this->aid));
         
             if ($abac == false) {
-                return LogUtil::registerError(_MH_NOSUCHITEM, pnModURL('MultiHook', 'admin', 'main'));
+                return LogUtil::registerError(__('Error no such item exists', $dom), pnModURL('MultiHook', 'admin', 'main'));
             }
             // set permission flags
             $abac['edit'] = false;
@@ -60,10 +61,10 @@ class MultiHook_admin_edithandler
         
         }
 
-        $items = array( array('text' => _MH_TYPEABBREVIATION, 'value' => 0),
-                        array('text' => _MH_TYPEACRONYM,      'value' => 1),
-                        array('text' => _MH_TYPELINK,         'value' => 2),
-                        array('text' => _MH_TYPEILLEGALWORD,  'value' => 3) );
+        $items = array( array('text' => __('Abbreviation', $dom), 'value' => 0),
+                        array('text' => __('Acronym', $dom),      'value' => 1),
+                        array('text' => __('Link', $dom),         'value' => 2),
+                        array('text' => __('Illegal word', $dom),  'value' => 3) );
  
         $pnRender->assign('items', $items); // Supply items
         $pnRender->assign('abac', $abac);
@@ -74,6 +75,7 @@ class MultiHook_admin_edithandler
 
     function handleCommand(&$pnRender, &$args)
     {
+        $dom = ZLanguage::getModuleDomain('MultiHook');
         // Security check
         if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
             return LogUtil::registerPermissionError(pnModURL('MultiHook', 'admin', 'main'));
@@ -91,9 +93,9 @@ class MultiHook_admin_edithandler
                                  'delete',
                                  array('aid' => $data['aid']))) {
                     // Success
-                    LogUtil::registerStatus(_MH_DELETED);
+                    LogUtil::registerStatus(__('Entry deleted', $dom));
                 } else {
-                    LogUtil::registerError(_MH_DELETEFAILED);
+                    LogUtil::registerError(__('Database deletion of entry failed', $dom));
                 }
                 return pnRedirect(pnModURL('MultiHook', 'admin', 'view', array('filter' => $data['type'])));
             }
@@ -101,12 +103,12 @@ class MultiHook_admin_edithandler
             // no deletion, further checks needed
             if(empty($data['short'])) {
                 $ifield = & $pnRender->pnFormGetPluginById('mh_short');
-                $ifield->setError(DataUtil::formatForDisplay(_MH_SHORTEMPTY));
+                $ifield->setError(DataUtil::formatForDisplay(__('missing short text', $dom)));
                 $ok = false;
             }
             if(empty($data['long']) && ($data['type']<>3)) {
                 $ifield = & $pnRender->pnFormGetPluginById('mh_long');
-                $ifield->setError(DataUtil::formatForDisplay(_MH_LONGEMPTY));
+                $ifield->setError(DataUtil::formatForDisplay(__('missing long text', $dom)));
                 $ok = false;
             }
             if(($data['type']<0) || ($data['type']>3)) {
@@ -116,7 +118,7 @@ class MultiHook_admin_edithandler
             }
             if($data['type']==2 && empty($data['title'])) {
                 $ifield = & $pnRender->pnFormGetPluginById('mh_title');
-                $ifield->setError(DataUtil::formatForDisplay(_MH_TITLEEMPTY));
+                $ifield->setError(DataUtil::formatForDisplay(__('missing title text', $dom)));
                 $ok = false;
             }
             
@@ -132,16 +134,16 @@ class MultiHook_admin_edithandler
             if($data['aid'] == -1) {
                 if(pnModAPIFunc('MultiHook', 'admin', 'create', $data) <> false) {
                     // Success
-                    LogUtil::registerStatus( _MH_CREATED);
+                    LogUtil::registerStatus( __('Entry created', $dom));
                 } else {
                     LogUtil::registerError(_MH_CREATEDFAILED);
                 }
             } else {
                 if(pnModAPIFunc('MultiHook', 'admin', 'update', $data) <> false) {
                     // Success
-                    LogUtil::registerStatus(_MH_UPDATED);
+                    LogUtil::registerStatus(__('Entry updated', $dom));
                 } else {
-                    LogUtil::registerError(_MH_UPDATEFAILED);
+                    LogUtil::registerError(__('Database update of entry failed', $dom));
                 }
             }
 

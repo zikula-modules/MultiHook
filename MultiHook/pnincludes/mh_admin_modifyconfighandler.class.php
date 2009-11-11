@@ -34,6 +34,7 @@ class MultiHook_admin_modifyconfighandler
 
     function handleCommand(&$pnRender, &$args)
     {
+        $dom = ZLanguage::getModuleDomain('MultiHook');
         // Security check
         if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
             return LogUtil::registerPermissionError(pnModURL('MultiHook', 'admin', 'main'));
@@ -53,7 +54,7 @@ class MultiHook_admin_modifyconfighandler
             pnModSetVar('MultiHook', 'mhbrutalcensor',     $data['mhbrutalcensor']);
             pnModSetVar('MultiHook', 'mhrelaxedcensoring', $data['mhrelaxedcensoring']);
 
-            LogUtil::registerStatus(_MH_UPDATEDCONFIG);
+            LogUtil::registerStatus(__('Configuration updated', $dom));
         }
         return true;
     }
