@@ -1,22 +1,22 @@
 <!--[* $Id$ *]-->
 
-<!--[ include file=mh_admin_header.html ]-->
-<h2><!--[ pnml name='_MH_VIEWNEEDLES' ]--></h2>
+<!--[include file=mh_admin_header.html]-->
+<h2><!--[gt text='View needles']--></h2>
 
-<!--[ if $needles ]-->
-<p class="z-informationmsg"><!--[ pnml name="_MH_NEEDLESHINT" ]--></p>
+<!--[if $needles]-->
+<p class="z-informationmsg"><!--[gt text="The curly brackets indicate the beginning and the end of the parameters and don't have to be used in the needle, the pipe symbol | indicates different options you can use."]--></p>
 <dl>
-    <!--[ foreach item=needle from=$needles]-->
-    <dt><!--[ $needle.module|pnvarprepfordisplay ]--></dt>
+    <!--[foreach item=needle from=$needles]-->
+    <dt><!--[$needle.module|pnvarprepfordisplay]--></dt>
     <dd>
-        <!--[ $needle.info|pnvarprepfordisplay ]-->
-        <em><!--[ pnml name='_MH_NEEDLESOURCE' ]-->: <!--[ if $needle.builtin eq true]-->MultiHook<!--[ else ]--><!--[ $needle.module ]--><!--[ /if ]--></em>
-        <em><!--[ pnml name='_MH_CASESENSITIVE' ]-->: <!--[ if $needle.casesensitive eq true]--><!--[ pnml name="_YES" ]--><!--[ else ]--><!--[ pnml name="_NO" ]--><!--[ /if ]--></em>
+        <!--[$needle.info|pnvarprepfordisplay]-->
+        <em><!--[gt text='Source']-->: <!--[if $needle.builtin eq true]-->MultiHook<!--[else]--><!--[$needle.module]--><!--[/if]--></em>
+        <em><!--[gt text='Case sensitive']-->: <!--[if $needle.casesensitive eq true]--><!--[gt text="Yes"]--><!--[else]--><!--[gt text="No"]--><!--[/if]--></em>
     </dd>
-    <!--[ /foreach ]-->
+    <!--[/foreach]-->
 </dl>
-<!--[ else ]-->
-<h3><!--[ pnml name="_MH_NONEEDLES" ]--></h3>
-<!--[ /if ]-->
+<!--[else]-->
+<h3><!--[gt text="No Needles found"]--></h3>
+<!--[/if]-->
 
-<!--[ include file=mh_admin_footer.html ]-->
+<!--[include file=mh_admin_footer.html]-->

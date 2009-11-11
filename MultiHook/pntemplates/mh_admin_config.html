@@ -1,62 +1,62 @@
 <!--[* $Id$ *]-->
 
-<!--[ include file=mh_admin_header.html ]-->
+<!--[include file=mh_admin_header.html]-->
 
-<!--[ pnform cssClass="z-form"]-->
-<!--[ pnformvalidationsummary ]-->
+<!--[pnform cssclass="z-form"]-->
+<!--[pnformvalidationsummary]-->
 
 <fieldset>
-    <legend><!--[ pnml name='_MH_MODIFYCONFIG' ]--></legend>
+    <legend><!--[gt text='Modify Configuration']--></legend>
     <div class="z-formrow">
-        <!--[ pnformlabel for="abacfirst" text='_MH_ABACFIRST' ]-->
-        <!--[ pnformcheckbox id="abacfirst" checked=$pncore.MultiHook.abacfirst ]-->
+        <!--[pnformlabel for="abacfirst" __text='Only replace first occurence per text']-->
+        <!--[pnformcheckbox id="abacfirst" checked=$pncore.MultiHook.abacfirst]-->
     </div>
 
     <div class="z-formrow">
-        <!--[ pnformlabel for="externallinkclass" text='_MH_EXTERNALLINKCLASS' ]-->
-        <!--[ pnformtextinput size="20" maxLength="40" id="externallinkclass" text=$pncore.MultiHook.externallinkclass ]-->
+        <!--[pnformlabel for="externallinkclass" __text='CSS-Classdefinition for external links']-->
+        <!--[pnformtextinput size="20" maxlength="40" id="externallinkclass" __text=$pncore.MultiHook.externallinkclass]-->
     </div>
 
     <div class="z-formrow">
-        <!--[ pnformlabel for="itemsperpage" text='_MH_ITEMSPERPAGE' ]-->
-        <!--[ pnformintinput id="itemsperpage" text=$pncore.MultiHook.itemsperpage ]-->
+        <!--[pnformlabel for="itemsperpage" __text='Items per page in admin view']-->
+        <!--[pnformintinput id="itemsperpage" __text=$pncore.MultiHook.itemsperpage]-->
     </div>
 
     <div class="z-formrow">
-        <!--[ pnformlabel for="mhincodetags" text='_MH_MHINCODETAGS' ]-->
-        <!--[ pnformcheckbox id="mhincodetags" checked=$pncore.MultiHook.mhincodetags ]-->
+        <!--[pnformlabel for="mhincodetags" __text='Use MultiHook inside [code][/code]']-->
+        <!--[pnformcheckbox id="mhincodetags" checked=$pncore.MultiHook.mhincodetags]-->
     </div>
 
     <div class="z-formrow">
-        <!--[ pnformlabel for="mhlinktitle" text='_MH_REPLACELINKWITHTITLE' ]-->
-        <!--[ pnformcheckbox id="mhlinktitle" checked=$pncore.MultiHook.mhlinktitle ]-->
+        <!--[pnformlabel for="mhlinktitle" __text='Replace links with title']-->
+        <!--[pnformcheckbox id="mhlinktitle" checked=$pncore.MultiHook.mhlinktitle]-->
     </div>
 
     <div class="z-formrow">
-        <!--[ pnformlabel for="mhreplaceabbr" text='_MH_REPLACEABBREVIATIONS' ]-->
-        <!--[ pnformcheckbox id="mhreplaceabbr" checked=$pncore.MultiHook.mhreplaceabbr ]-->
+        <!--[pnformlabel for="mhreplaceabbr" __text='Replace abbreviations with long text']-->
+        <!--[pnformcheckbox id="mhreplaceabbr" checked=$pncore.MultiHook.mhreplaceabbr]-->
     </div>
 
     <div class="z-formrow">
-        <!--[ pnformlabel for="mhshoweditlink" text='_MH_SHOWEDITLINK' ]-->
-        <!--[ pnformcheckbox id="mhshoweditlink" checked=$pncore.MultiHook.mhshoweditlink ]-->
+        <!--[pnformlabel for="mhshoweditlink" __text='Show edit link']-->
+        <!--[pnformcheckbox id="mhshoweditlink" checked=$pncore.MultiHook.mhshoweditlink]-->
     </div>
 
     <div class="z-formrow">
-        <!--[ pnformlabel for="mhbrutalcensor" text='_MH_CENSORINWORDS' ]-->
-        <!--[ pnformcheckbox id="mhbrutalcensor" checked=$pncore.MultiHook.mhbrutalcensor ]-->
+        <!--[pnformlabel for="mhbrutalcensor" __text='Replace illegal words which are parts of other words, eg. replace oo in Google']-->
+        <!--[pnformcheckbox id="mhbrutalcensor" checked=$pncore.MultiHook.mhbrutalcensor]-->
     </div>
 
     <div class="z-formrow">
-        <!--[ pnformlabel for="mhrelaxedcensoring" text='_MH_RELAXEDCENSORING' ]-->
-        <!--[ pnformcheckbox id="mhrelaxedcensoring" checked=$pncore.MultiHook.mhrelaxedcensoring ]-->
+        <!--[pnformlabel for="mhrelaxedcensoring" __text='Do not replace first and last letter when censoring words with more than two chars']-->
+        <!--[pnformcheckbox id="mhrelaxedcensoring" checked=$pncore.MultiHook.mhrelaxedcensoring]-->
     </div>
 </fieldset>
 
 <div class="z-formbuttons">
-    <!--[pnformbutton id="submit" commandName="submit" text="_MH_UPDATECONFIG"]-->
+    <!--[pnformbutton id="submit" commandname="submit" __text="Update Configuration"]-->
 </div>
 
-<!--[ /pnform ]-->
+<!--[/pnform]-->
 
-<!--[ include file=mh_admin_footer.html ]-->
+<!--[include file=mh_admin_footer.html]-->

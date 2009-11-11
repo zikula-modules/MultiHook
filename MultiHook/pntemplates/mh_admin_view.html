@@ -1,42 +1,42 @@
 <!--[* $Id$ *]-->
 
-<!--[ include file=mh_admin_header.html ]-->
-<h2><!--[ $title ]--></h2>
+<!--[include file=mh_admin_header.html]-->
+<h2><!--[$title]--></h2>
 
-<!--[ pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars="filter" filter=$filter]-->
+<!--[pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars="filter" filter=$filter]-->
 <table class="z-admintable">
   <thead>
     <tr>
-      <th><!--[ pnml name='_MH_SHORT' ]--></th>
-      <th><!--[ pnml name='_MH_LONG' ]--></th>
-      <th><!--[ pnml name='_MH_TITLE' ]--></th>
-      <th><!--[ pnml name='_MH_LANGUAGE' ]--></th>
-      <th><!--[ pnml name='_OPTIONS' ]--></th>
+      <th><!--[gt text='Short version']--></th>
+      <th><!--[gt text='Long version']--></th>
+      <th><!--[gt text='Title']--></th>
+      <th><!--[gt text='Language']--></th>
+      <th><!--[gt text='Options']--></th>
     </tr>
   </thead>
   <tbody>
-    <!--[ foreach item=abac from=$abacs ]-->
+    <!--[foreach item=abac from=$abacs]-->
     <tr class="<!--[cycle values="z-odd,z-even" name=abacs]-->">
       <td>
-        <!--[ if $abac.edit == true ]-->
-        <a title="<!--[ pnml name='_EDIT' ]-->" href="<!--[ pnmodurl modname=MultiHook type=admin func=edit aid=$abac.aid ]-->"><!--[ $abac.short ]--></a>
-        <!--[ else ]-->
-        <!--[ $abac.short ]-->
-        <!--[ /if ]-->
+        <!--[if $abac.edit == true]-->
+        <a title="<!--[gt text='Edit']-->" href="<!--[pnmodurl modname=MultiHook type=admin func=edit aid=$abac.aid]-->"><!--[$abac.short]--></a>
+        <!--[else]-->
+        <!--[$abac.short]-->
+        <!--[/if]-->
       </td>
-      <td><!--[ $abac.long|truncate:30 ]--></td>
-      <td><!--[ $abac.title|truncate:30 ]--></td>
-      <td><!--[ $abac.language ]--></td>
-      <td><a title="<!--[ pnml name='_EDIT' ]-->" href="<!--[ pnmodurl modname=MultiHook type=admin func=edit aid=$abac.aid ]-->"><!--[pnimg modname=core src='xedit.gif' set=icons/extrasmall ]--></a></td>
+      <td><!--[$abac.long|truncate:30]--></td>
+      <td><!--[$abac.title|truncate:30]--></td>
+      <td><!--[$abac.language]--></td>
+      <td><a title="<!--[gt text='Edit']-->" href="<!--[pnmodurl modname=MultiHook type=admin func=edit aid=$abac.aid]-->"><!--[pnimg modname='core' src='xedit.gif' set='icons/extrasmall']--></a></td>
     </tr>
-    <!--[ foreachelse ]-->
+    <!--[foreachelse]-->
     <tr>
-      <td colspan="5"><!--[ pnml name='_MH_NOITEMS' ]--></td>
+      <td colspan="5"><!--[gt text='No entries present']--></td>
     </tr>
-    <!--[ /foreach ]-->
+    <!--[/foreach]-->
   </tbody>
 </table>
 
-<!--[ pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars="filter" filter=$filter]-->
+<!--[pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars="filter" filter=$filter]-->
 
-<!--[ include file=mh_admin_footer.html ]-->
+<!--[include file=mh_admin_footer.html]-->

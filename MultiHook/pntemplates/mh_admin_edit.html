@@ -1,45 +1,45 @@
 <!--[* $Id$ *]-->
 
-<!--[ include file=mh_admin_header.html ]-->
+<!--[include file=mh_admin_header.html]-->
 
-<!--[ pnform cssClass="z-form"]-->
-<!--[ pnformvalidationsummary ]-->
+<!--[pnform cssclass="z-form"]-->
+<!--[pnformvalidationsummary]-->
 
 <fieldset>
-    <legend><!--[ pnml name='_MH_ADD' ]--></legend>
+    <legend><!--[gt text='Add item']--></legend>
     <div class="z-formrow">
-        <!--[ pnformlabel for="mh_short" text='_MH_SHORT' ]-->
-        <!--[ pnformtextinput id="mh_short" dataField="short" text=$abac.short size="40" maxLength="60" ]-->
+        <!--[pnformlabel for="mh_short" __text='Short version']-->
+        <!--[pnformtextinput id="mh_short" datafield="short" __text=$abac.short size="40" maxlength="60"]-->
     </div>
     <div class="z-formrow">
-        <!--[ pnformlabel for="mh_long" text='_MH_LONGWITHHINT' ]-->
-        <!--[ pnformtextinput id="mh_long" dataField="long" text=$abac.long size="40" maxLength="200" ]-->
+        <!--[pnformlabel for="mh_long" __text='Long version (in case of a link the url, ignored for illegal words)']-->
+        <!--[pnformtextinput id="mh_long" datafield="long" __text=$abac.long size="40" maxlength="200"]-->
     </div>
     <div class="z-formrow">
-        <!--[ pnformlabel for="mh_title" text='_MH_TITLEWITHHINT' ]-->
-        <!--[ pnformtextinput id="mh_title" dataField="title" text=$abac.title size="40" maxLength="200" ]-->
+        <!--[pnformlabel for="mh_title" __text='Title (only necessary for a link, ignored for illegal words)']-->
+        <!--[pnformtextinput id="mh_title" datafield="title" __text=$abac.title size="40" maxlength="200"]-->
     </div>
     <div class="z-formrow">
-        <!--[ pnformlabel for="mh_type" text='_MH_TYPE' ]-->
-        <!--[ pnformdropdownlist id="mh_type" dataField="type" items=$items selectedValue=$abac.type ]-->
+        <!--[pnformlabel for="mh_type" __text='Type']-->
+        <!--[pnformdropdownlist id="mh_type" datafield="type" items=$items selectedvalue=$abac.type]-->
     </div>
     <div class="z-formrow">
-        <!--[ pnformlabel for="mh_language" text='_MH_LANGUAGE' ]-->
-        <!--[ pnformlanguageselector id="mh_language" dataField="language" selectedValue=$abac.language ]-->
+        <!--[pnformlabel for="mh_language" __text='Language']-->
+        <!--[pnformlanguageselector id="mh_language" datafield="language" selectedvalue=$abac.language]-->
     </div>
-    <!--[ if $abac.delete == true ]-->
+    <!--[if $abac.delete == true]-->
     <div class="z-formrow">
-        <!--[ pnformlabel for="mh_delete" text='_MH_DELETE' ]-->
-        <!--[ pnformcheckbox id="mh_delete" value="1" ]-->
+        <!--[pnformlabel for="mh_delete" __text='Delete entry']-->
+        <!--[pnformcheckbox id="mh_delete" value="1"]-->
     </div>
-    <!--[ /if ]-->
+    <!--[/if]-->
 </fieldset>
 
 <div class="z-formbuttons">
-    <!--[pnformbutton id="submit" commandName="submit" text="_SUBMIT"]-->
-    <!--[pnformbutton commandName="cancel" text="_CANCEL"]-->
+    <!--[pnformbutton id="submit" commandname="submit" __text="Submit"]-->
+    <!--[pnformbutton commandname="cancel" __text="Cancel"]-->
 </div>
 
-<!--[ /pnform ]-->
+<!--[/pnform]-->
 
-<!--[ include file=mh_admin_footer.html ]-->
+<!--[include file=mh_admin_footer.html]-->

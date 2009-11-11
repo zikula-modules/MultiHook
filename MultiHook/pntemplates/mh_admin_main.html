@@ -1,16 +1,16 @@
 <!--[* $Id$ *]-->
 
-<!--[ include file=mh_admin_header.html ]-->
-<h2><!--[ pnml name="_MH_START"]--></h2>
+<!--[include file=mh_admin_header.html]-->
+<h2><!--[gt text="Start"]--></h2>
 
-<strong><!--[ pnml name="_MH_ISHOOKEDWITH"]-->:</strong>
+<strong><!--[gt text="Actually Multihook is used with the following modules"]-->:</strong>
 <ul>
-    <!--[ foreach item=mod from=$hookedmodules ]-->
-    <li><a href="<!--[ pnmodurl modname=modules type=admin func=hooks id=$mod.id ]-->" title="<!--[ $mod.description ]-->"><!--[ $mod.displayname ]--></a></li>
-    <!--[ foreachelse ]-->
-    <li style="list-style-type: none;"><!--[ pnml name="_MH_NOTHOOKED" ]--></li>
-    <!--[ /foreach ]-->
+    <!--[foreach item=mod from=$hookedmodules]-->
+    <li><a href="<!--[pnmodurl modname=modules type=admin func=hooks id=$mod.id]-->" title="<!--[$mod.description]-->"><!--[$mod.displayname]--></a></li>
+    <!--[foreachelse]-->
+    <li style="list-style-type: none;"><!--[gt text="** MultiHook is not used with any module **"]--></li>
+    <!--[/foreach]-->
 </ul>
-<p><a href="<!--[ pnmodurl modname=modules type=admin func=main ]-->" title="<!--[ pnml name="_MH_ADDHOOK" ]-->"><!--[ pnml name="_MH_ADDHOOK" ]--></a></p>
-<!--[ include file=mh_admin_footer.html ]-->
+<p><a href="<!--[pnmodurl modname=modules type=admin func=main]-->" title="<!--[gt text="Activate MultiHook for more modules"]-->"><!--[gt text="Activate MultiHook for more modules"]--></a></p>
+<!--[include file=mh_admin_footer.html]-->
 
