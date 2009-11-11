@@ -27,7 +27,7 @@ function MultiHook_admin_main()
     if(!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError('index.php');
     }
-    
+
     $pnr = pnRender::getInstance('MultiHook', false);
     $hmods = pnModAPIFunc('modules', 'admin', 'gethookedmodules', array('hookmodname' => 'MultiHook'));
     foreach($hmods as $hmod => $dummy) {
@@ -66,6 +66,7 @@ function MultiHook_admin_edit($args)
  */
 function MultiHook_admin_view()
 {
+    $dom = ZLanguage::getModuleDomain('MultiHook');
     if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError(pnModURL('MultiHook', 'admin', 'main'));
     }
@@ -94,9 +95,9 @@ function MultiHook_admin_view()
             }
         }
     }
-    $titles = array( _MH_VIEWABBR,
-                     _MH_VIEWACRONYMS,
-                     _MH_VIEWLINKS,
+    $titles = array( __('View abbreviations', $dom),
+                     __('View acronyms', $dom),
+                     __('View links', $dom),
                      _MH_VIEWILLEGALWORDS );
 
     // Create output object
@@ -118,7 +119,7 @@ function MultiHook_admin_modifyconfig()
     if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError(pnModURL('MultiHook', 'admin', 'main'));
     }
-    
+
     Loader::requireOnce('modules/MultiHook/pnincludes/mh_admin_modifyconfighandler.class.php');
 
     // Create output object
@@ -138,10 +139,10 @@ function MultiHook_admin_viewneedles()
     if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError(pnModURL('MultiHook', 'admin', 'main'));
     }
-    
+
     $needles = pnModAPIFunc('MultiHook', 'admin', 'collectneedles');
-  
+
     $pnr = pnRender::getInstance('MultiHook', false);
     $pnr->assign('needles', $needles);
-    return $pnr->fetch('mh_admin_viewneedles.html');    
+    return $pnr->fetch('mh_admin_viewneedles.html');
 }

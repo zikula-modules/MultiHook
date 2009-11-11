@@ -24,10 +24,11 @@
  */
 function MultiHook_init()
 {
+    $dom = ZLanguage::getModuleDomain('MultiHook');
     // create the MultiHook table
     // the table definition itself is done in pntables.php
     if (!DBUtil::createTable('multihook')) {
-        return LogUtil::registerError(_MH_DBCREATETABLEERROR);
+        return LogUtil::registerError(__('Database create table error', $dom));
     }
 
     // Set up module variables
@@ -39,15 +40,15 @@ function MultiHook_init()
     pnModSetVar('MultiHook', 'mhshoweditlink', 1);
     pnModSetVar('MultiHook', 'mhbrutalcensor', 0);
     pnModSetVar('MultiHook', 'mhrelaxedcensoring', 0);
-    
-    // collect the needles  
+
+    // collect the needles
     // Force loading of adminapi with 3rd parameter set to true. This loads the api although
     // the module is not really available yet. You as the module author are responsible
     // for any side effects now, eg. when calling functions that access database tables or use
     // module vars that have not been set yet.
     pnModAPILoad('MultiHook', 'admin', true);
     pnModAPIFunc('MultiHook', 'admin', 'collectneedles');
-    
+
     // Set up module hooks
     if (!pnModRegisterHook('item',
                            'transform',
@@ -55,7 +56,7 @@ function MultiHook_init()
                            'MultiHook',
                            'user',
                            'transform')) {
-        return LogUtil::registerError(_MH_COULDNOTREGISTER);
+        return LogUtil::registerError(__('Error failed to register your MultHook', $dom));
     }
 
     // import autolinks if available
@@ -95,12 +96,12 @@ function MultiHook_init()
                     }
                 }
             }
-            LogUtil::registerStatus(sprintf(_MH_AUTOLINKUPDATESTATUS, $imported));
+            LogUtil::registerStatus(sprintf(__('%d entries copied from AutoLinks, you can remove this module now.', $dom), $imported));
         }
     }
-    
+
     MultiHook_import_CensorList();
-    
+
     // Initialisation successful
     return true;
 }
@@ -110,8 +111,9 @@ function MultiHook_init()
  */
 function MultiHook_upgrade($oldversion)
 {
+    $dom = ZLanguage::getModuleDomain('MultiHook');
     // Upgrade dependent on old version number
-    // There is no 
+    // There is no
     // break;
     // at the end of each case which means that if you start with eg. version 1.1 all
     // necessary upgrade steps up to the recent version are done.
@@ -120,7 +122,7 @@ function MultiHook_upgrade($oldversion)
     // change the database. DBUtil + ADODB detect the changes on their own
     // and perform all necessary steps without help from the module author
     if (!DBUtil::changeTable('multihook')) {
-        return LogUtil::registerError(_MH_UPGRADETO50FAILED);
+        return LogUtil::registerError(__('Upgrade to 5.0 failed', $dom));
     }
     switch($oldversion) {
         case '1.0':
@@ -132,7 +134,7 @@ function MultiHook_upgrade($oldversion)
             pnModSetVar('MultiHook', 'mhshoweditlink', 1);
         case '2.0':
         case '3.0':
-            // collecting the needles is done below on every upgrade  
+            // collecting the needles is done below on every upgrade
         case '4.0':
         case '4.5':
             pnModSetVar('MultiHook', 'mhbrutalcensor', 0);
@@ -146,7 +148,7 @@ function MultiHook_upgrade($oldversion)
                                 'transform');
        case '5.0':
             pnModSetVar('MultiHook', 'mhrelaxedcensoring', 0);
-            break;
+
     }
     // collecting needles
     // force loading of adminapi
@@ -166,9 +168,10 @@ function MultiHook_upgrade($oldversion)
  */
 function MultiHook_delete()
 {
+    $dom = ZLanguage::getModuleDomain('MultiHook');
     // drop the table
     if (!DBUtil::dropTable('multihook')) {
-        return LogUtil::registerError(_MH_DBDELETETABLEERROR);
+        return LogUtil::registerError(__('Database delete table error', $dom));
     }
 
     // Remove module variables
@@ -183,7 +186,7 @@ function MultiHook_delete()
                              'MultiHook',
                              'user',
                              'transform')) {
-        return LogUtil::registerError(_MH_COULDNOTUNREGISTER);
+        return LogUtil::registerError(__('Error unable to remove MultiHook', $dom));
     }
 
     // Deletion successful
@@ -197,10 +200,11 @@ function MultiHook_delete()
  */
 function MultiHook_import_CensorList()
 {
+    $dom = ZLanguage::getModuleDomain('MultiHook');
     // import Censor list if available
     $censoredwords = pnConfigGetVar('CensorList');
     $censored = 0;
-    if(is_array($censoredwords) && count($censoredwords) <> 0) { 
+    if(is_array($censoredwords) && count($censoredwords) <> 0) {
         pnModAPILoad('MultiHook', 'user', true);
         $mhs = pnModAPIFunc('MultiHook', 'user', 'getall', array('filter' => 2));
         // get the short's only
@@ -224,6 +228,6 @@ function MultiHook_import_CensorList()
                 }
             }
         }
-        LogUtil::registerStatus(sprintf(_MH_CENSORUPDATESTATUS, $censored));
+        LogUtil::registerStatus(__f('%d lines imported from old Censor module', $censored, $dom));
     }
 }

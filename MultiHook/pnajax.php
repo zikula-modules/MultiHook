@@ -40,12 +40,13 @@ function MultiHook_ajax_read()
 
 function MultiHook_ajax_store()
 {
+    $dom = ZLanguage::getModuleDomain('MultiHook');
     $error = '';
     $return = '';
 
     // Get parameters from whatever input we need
     // caution: in the mh_user_dynamic.html template the fields are named
-    // mhnew_* or mhedit_* but the Ajax function that sends the data uses mh_* to 
+    // mhnew_* or mhedit_* but the Ajax function that sends the data uses mh_* to
     // transmit them.
     $aid       = (int)FormUtil::getPassedValue('mh_aid',      -1, 'POST');
     $short     =      FormUtil::getPassedValue('mh_short',    '', 'POST');
@@ -72,10 +73,10 @@ function MultiHook_ajax_store()
                              array('aid' => $aid))) {
                 $return = $abac['short'];
             } else {
-                $error = _MH_DELETEFAILED;
+                $error = __('Database deletion of entry failed', $dom);
             }
         } else {
-            $error = _MH_NOAUTH;
+            $error = __('No permissions for the MultiHook module', $dom);
         }
     } else {
         $mode = '';
@@ -85,7 +86,7 @@ function MultiHook_ajax_store()
             $check_abac = pnModAPIFunc('MultiHook', 'user', 'get',
                                        array('short' => $short));
             if(!is_bool($check_abac)) {
-                AjaxUtil::error("'$short' " . _MH_EXISTSINDB);
+                AjaxUtil::error("'$short' " . __(' already exists in database', $dom));
             }
         }
         if(is_array($abac) && SecurityUtil::checkPermission('MultiHook::', $abac['short'] . '::' . $abac['aid'], ACCESS_EDIT)) {
@@ -94,7 +95,7 @@ function MultiHook_ajax_store()
         unset($abac);
 
         if(empty($mode)) {
-            $error = _MH_NOAUTH;
+            $error = __('No permissions for the MultiHook module', $dom);
         } else {
             if(empty($short)) {
                 $error = _MH_WRONGPARAMETER_SHORT . '<br />';
@@ -157,10 +158,10 @@ function MultiHook_ajax_store()
             } else {
                 switch($mode) {
                     case 'create':
-                        $error = _MH_CREATEFAILED;
+                        $error = __('Error: entry creation failed', $dom);
                         break;
                     case 'update':
-                        $error = _MH_UPDATEFAILED;
+                        $error = __('Database update of entry failed', $dom);
                         break;
                     default:
                         // we should not get here....

@@ -21,9 +21,13 @@
 
 // the defines used here are defined in pnlang/xxx/version.php
 
-$modversion['name'] = _MH_MODULENAME;
-$modversion['version'] = '5.1';
-$modversion['description'] = _MH_MODULEDESCRIPTION;
+$dom = ZLanguage::getModuleDomain('MultiHook');
+$modversion['name'] = __('MultiHook', $dom);
+$modversion['version'] = '5.2';
+$modversion['description'] = __('Creates xhtml tags for abbreviations, acronyms and autolinks, while providing specific content censorship.', $dom);
+$modversion['displayname'] = __('MultiHook', $dom);
+//! module url should be lowercase without spaces and different to displayname
+$modversion['url'] = __('multihook', $dom);
 $modversion['credits'] = 'pndocs/credits.txt';
 $modversion['help'] = 'pndocs/help.txt';
 $modversion['changelog'] = 'pndocs/changelog.txt';

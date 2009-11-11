@@ -26,13 +26,14 @@
  */
 function MultiHook_themeapi_preparetheme()
 {
+    $dom = ZLanguage::getModuleDomain('MultiHook');
     if(SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
         PageUtil::addVar('stylesheet', ThemeUtil::getModuleStyleSheet('MultiHook'));
         PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
         PageUtil::addVar('javascript', 'javascript/ajax/effects.js');
         PageUtil::addVar('javascript', 'javascript/ajax/dragdrop.js');
         PageUtil::addVar('javascript', 'modules/MultiHook/pnjavascript/multihook.js');
-        PageUtil::addVar('rawtext', '<script type="text/javascript">var mhloadingText = "' . DataUtil::formatForDisplay(_MH_LOADINGDATA) .'"; var mhsavingText = "' . DataUtil::formatForDisplay(_MH_SAVINGDATA) . '";</script>');
+        PageUtil::addVar('rawtext', '<script type="text/javascript">var mhloadingText = "' . DataUtil::formatForDisplay(__('loading data...', $dom)) .'"; var mhsavingText = "' . DataUtil::formatForDisplay(__('saving data...', $dom)) . '";</script>');
     }
     return true;
 }

@@ -32,6 +32,7 @@ Loader::includeOnce('modules/MultiHook/common.php');
  */
 function MultiHook_userapi_getall($args)
 {
+    $dom = ZLanguage::getModuleDomain('MultiHook');
     // Optional arguments
     if (!isset($args['startnum']) || !is_numeric($args['startnum'])) {
         $args['startnum'] = 0;
@@ -70,7 +71,7 @@ function MultiHook_userapi_getall($args)
 
     $abacs = DBUtil::selectObjectArray('multihook', $where, $orderby, (int)$args['startnum'], (int)$args['numitems'], '', $permfilter);
     if ($abacs === false) {
-        return LogUtil::registerError(_MH_SELECTFAILED);
+        return LogUtil::registerError(__('MultiHook: Select failed, please contact the webmaster', $dom));
     }
     return $abacs;
 }
@@ -84,6 +85,7 @@ function MultiHook_userapi_getall($args)
  */
 function MultiHook_userapi_get($args)
 {
+    $dom = ZLanguage::getModuleDomain('MultiHook');
     if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_READ)) {
         return LogUtil::registerPermissionError();
     }
@@ -125,9 +127,9 @@ function MultiHook_userapi_get($args)
             return LogUtil::registerError(_MODARGSERROR . ' in MultiHook_userapi_get() [short]');
         }
     } else {
-        return LogUtil::registerError (_MODARGSERROR);
+        return LogUtil::registerError (__('Error! Could not do what you wanted. Please check your input.', $dom));
     }
-    
+
     return $abac;
 }
 
@@ -206,7 +208,7 @@ function MultiHook_userapitransform($text)
 
     // pad it with a space so we can distinguish between FALSE and matching the 1st char (index 0).
     $text = ' '  . $text;
-    
+
     // add stylesheet
     PageUtil::addVar('stylesheet', 'modules/MultiHook/pnstyle/mh.css');
 
@@ -381,7 +383,7 @@ function MultiHook_userapitransform($text)
                 $replace[]     = md5($search_temp);
                 $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
                 $finalreplace[] = create_censor($tmp, $mhadmin, $mhshoweditlink, $haveoverlib, $relaxedcensoring);
-                
+
                 // Common replacements
                 $mungedword = preg_replace($leetsearch, $leetreplace, $tmp['short']);
                 if ($mungedword != $tmp['short']) {
@@ -495,13 +497,13 @@ function MultiHook_userapi_censor($args)
     static $finalsearch;
     static $finalreplace;
     static $beenherebefore;
-    
-    if(empty($beenherebefore)) { 
-        $beenherebefore = true;   
+
+    if(empty($beenherebefore)) {
+        $beenherebefore = true;
         // deal with munded words (leet speak)
         $leetsearch  = array('o', 'e', 'a', 'i');
         $leetreplace = array('0', '3', '@', '1');
-        
+
         $censoredwords = pnModAPIFunc('MultiHook', 'user', 'getall', array('filter' => 3));
         foreach($censoredwords as $tmp) {
             // original censored word
@@ -510,7 +512,7 @@ function MultiHook_userapi_censor($args)
             $replace[]     = md5($search_temp);
             $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
             $finalreplace[] = create_censor($tmp, false, false, false);
-            
+
             // Common replacements
             $mungedword = str_replace($leetsearch, $leetreplace, strtolower($tmp['short']));
             if ($mungedword != $tmp['short']) {
@@ -531,5 +533,5 @@ function MultiHook_userapi_censor($args)
         return $word;
     }
     // nothing to do, return original word
-    return $args['word'];    
+    return $args['word'];
 }
