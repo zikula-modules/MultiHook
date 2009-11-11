@@ -29,21 +29,21 @@ function MultiHook_needleapi_htmlpage($args)
     // Get arguments from argument array
     $nid = $args['nid'];
     unset($args);
-    
+
     // cache the results
     static $cache;
     if(!isset($cache)) {
         $cache = array();
-    } 
+    }
 
-    pnModLangLoad('MultiHook', 'htmlpage');
+    $dom = ZLanguage::getModuleDomain('MultiHook');
     if(!empty($nid)) {
         if(!isset($cache[$nid])) {
             // not in cache array
 
             if(pnModAvailable('htmlpages')) {
                 // nid is the pid
-                
+
                 pnModDBInfoLoad('htmlpages');
                 $pntable = pnDBGetTables();
 
@@ -55,9 +55,9 @@ function MultiHook_needleapi_htmlpage($args)
                                        'instance_middle'  =>  '',
                                        'instance_right'   =>  'pid',
                                        'level'            =>  ACCESS_READ);
-                
+
                 $obj = DBUtil::selectObjectByID('htmlpages', $nid, 'pid', null, $permFilter);
-                
+
                 if($obj <> false) {
                     $url   = DataUtil::formatForDisplay(pnModURL('htmlpages', 'user', 'display', array('pid' => $nid)));
                     $title = DataUtil::formatForDisplay($obj['title']);
@@ -65,15 +65,15 @@ function MultiHook_needleapi_htmlpage($args)
                 } else {
                     $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_HP_UNKNOWNPAGE . ' (' . $nid . ')') . '</em>';
                 }
-        
+
             } else {
-                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_HP_NOTAVAILABLE) . '</em>';
+                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('htmlpages not available', $dom)) . '</em>';
             }
         }
         $result = $cache[$nid];
     } else {
-        $result = '<em>' . DataUtil::formatForDisplay(_MH_HP_NONEEDLEID) . '</em>';
+        $result = '<em>' . DataUtil::formatForDisplay(__('no needle id', $dom)) . '</em>';
     }
     return $result;
-    
+
 }

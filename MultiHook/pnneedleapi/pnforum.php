@@ -26,24 +26,24 @@
  */
 function MultiHook_needleapi_pnforum($args)
 {
+    $dom = ZLanguage::getModuleDomain('MultiHook');
     // Get arguments from argument array
     $nid = $args['nid'];
     unset($args);
-    
+
     // cache the results
     static $cache;
     if(!isset($cache)) {
         $cache = array();
-    } 
+    }
 
-    pnModLangLoad('MultiHook', 'pnforum');
     if(!empty($nid)) {
         if(!isset($cache[$nid])) {
             // not in cache array
             // set the default
             $cache[$nid] = $result;
             if(pnModAvailable('Dizkus')) {
-                
+
                 // nid is like F_## or T_##
                 $temp = explode('-', $nid);
                 $type = '';
@@ -51,17 +51,17 @@ function MultiHook_needleapi_pnforum($args)
                     $type = $temp[0];
                     $id   = $temp[1];
                 }
-                
+
                 Loader::includeOnce('modules/Dizkus/common.php');
                 pnModDBInfoLoad('Dizkus');
                 $dbconn =& pnDBGetConn(true);
                 $pntable =& pnDBGetTables();
-        
+
                 switch($type) {
                     case 'F':
                         $tblforums = $pntable['dizkus_forums'];
                         $colforums = $pntable['dizkus_forums_column'];
-                        
+
                         $sql = 'SELECT ' . $colforums['forum_name'] . ',
                                        ' . $colforums['cat_id'] . '
                                 FROM   ' . $tblforums . '
@@ -85,10 +85,10 @@ function MultiHook_needleapi_pnforum($args)
                         $coltopics = $pntable['pnforum_topics_column'];
                         $tblforums = $pntable['pnforum_forums'];
                         $colforums = $pntable['pnforum_forums_column'];
-                        
+
                         $sql = 'SELECT    ' . $coltopics['topic_title'] . ',
                                           ' . $coltopics['forum_id'] . ',
-                                          ' . $colforums['cat_id'] . ' 
+                                          ' . $colforums['cat_id'] . '
                                 FROM      ' . $tbltopics . '
                                 LEFT JOIN ' . $tblforums . '
                                 ON        ' . $colforums['forum_id'] . '=' . $coltopics['forum_id'] . '
@@ -108,16 +108,16 @@ function MultiHook_needleapi_pnforum($args)
                         }
                         break;
                     default:
-                        $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PNF_UNKNOWNTYPE) . '</em>';
+                        $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('unknown parameter at pos.1 (F or T)', $dom)) . '</em>';
                 }
             } else {
-                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PNF_NOTAVAILABLE) . '</em>';
-            }    
+                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('pnForum not available', $dom)) . '</em>';
+            }
         }
         $result = $cache[$nid];
     } else {
-        $result = '<em>' . DataUtil::formatForDisplay(_MH_PNF_NONEEDLEID) . '</em>';
+        $result = '<em>' . DataUtil::formatForDisplay(__('no needle id', $dom)) . '</em>';
     }
     return $result;
-    
+
 }

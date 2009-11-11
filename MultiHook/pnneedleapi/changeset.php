@@ -26,7 +26,7 @@
  */
 function MultiHook_needleapi_changeset($args)
 {
-    pnModLangLoad('MultiHook', 'trac');
+    $dom = ZLanguage::getModuleDomain('MultiHook');
     // simple replacement, no need to cache anything
     if (isset($args['nid']) && !empty($args['nid'])) {
         if (substr($args['nid'], 0, 1) != '-') {
@@ -36,9 +36,9 @@ function MultiHook_needleapi_changeset($args)
         $project = DataUtil::formatForDisplay(strtolower($parts[1]));
         $changeset = (int)DataUtil::formatForDisplay($parts[2]);
         $displayproject = (strtolower($project) == 'core') ? 'Zikula' : $project;
-        $result = '<a href="http://code.zikula.org/' . $project . '/changeset/' . $changeset . '" title="' . pnML('_MH_TRAC_CHANGESETLINKTITLE', array('changeset' => $changeset, 'project' => $displayproject )) . '">' . pnML('_MH_TRAC_CHANGESETLINKNAME', array('changeset' => $changeset, 'project' => $displayproject )) . '</a>'; 
+        $result = '<a href="http://code.zikula.org/' . $project . '/changeset/' . $changeset . '" title="' . __f('click here to see changeset #%1$s of the %2$s-project', array($changeset, $displayproject)) . '">' . __f('Changeset #%1$s (%2$s-project)', array($changeset, $displayproject)) . '</a>';
     } else {
-        $result = _MH_TRAC_NONEEDLEID;
-    } 
-    return $result;   
+        $result = __('keine NeedleID', $dom);
+    }
+    return $result;
 }

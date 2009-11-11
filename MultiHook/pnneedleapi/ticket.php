@@ -25,8 +25,8 @@
  * @return array()
  */
 function MultiHook_needleapi_ticket($args)
-{    
-    pnModLangLoad('MultiHook', 'trac');
+{
+    $dom = ZLanguage::getModuleDomain('MultiHook');
     // simple replacement, no need to cache anything
     if (isset($args['nid']) && !empty($args['nid'])) {
         if (substr($args['nid'], 0, 1) != '-') {
@@ -36,9 +36,9 @@ function MultiHook_needleapi_ticket($args)
         $project = DataUtil::formatForDisplay(strtolower($parts[1]));
         $ticket = (int)DataUtil::formatForDisplay($parts[2]);
         $displayproject = (strtolower($project) == 'core') ? 'Zikula' : $project;
-        $result = '<a href="http://code.zikula.org/' . $project . '/ticket/' . $ticket . '" title="' . pnML('_MH_TRAC_TICKETLINKTITLE', array('ticket' => $ticket, 'project' => $displayproject )) . '">' . pnML('_MH_TRAC_TICKETLINKNAME', array('ticket' => $ticket, 'project' => $displayproject )) . '</a>'; 
+        $result = '<a href="http://code.zikula.org/' . $project . '/ticket/' . $ticket . '" title="' . __f('click here to see ticket #%1%s of the %2$s-project', array($ticket, $displayproject )) . '">' . __f('Ticket #%1$s (%2$s-project)', array($ticket, $displayproject )) . '</a>';
     } else {
-        $result = _MH_TRAC_NONEEDLEID;
-    } 
-    return $result;   
+        $result = __('keine NeedleID', $dom);
+    }
+    return $result;
 }

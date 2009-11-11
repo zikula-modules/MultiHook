@@ -34,9 +34,9 @@ function MultiHook_needleapi_download($args)
     static $cache;
     if(!isset($cache)) {
         $cache = array();
-    } 
+    }
 
-    pnModLangLoad('MultiHook', 'download');
+    $dom = ZLanguage::getModuleDomain('MultiHook');
     if(!empty($nid)) {
         if(!isset($cache[$nid])) {
             // not in cache array
@@ -53,7 +53,7 @@ function MultiHook_needleapi_download($args)
                         $type = $temp[0];
                         $id   = $temp[1];
                     }
-                    
+
                     pnModDBInfoLoad('Downloads', 'Downloads');
                     switch($type) {
                         case 'C':
@@ -77,10 +77,10 @@ function MultiHook_needleapi_download($args)
                             $dl20downloadinfo = pnModAPIFunc('Downloads','user','get_download_info',
                         									  array('lid' => $id,
                         									  		'cid' => 0,
-                        									  		'sort_active' => false, 
-                        									  		'sortby' => 0,  
-                        									  		'cclause' => 0,  
-                        									  		'get_by_cid' => false, 
+                        									  		'sort_active' => false,
+                        									  		'sortby' => 0,
+                        									  		'cclause' => 0,
+                        									  		'get_by_cid' => false,
                         									  		'get_by_lid' => true,
                         											'get_by_date' => false,
                         											'sort_date' => 0));
@@ -102,22 +102,22 @@ function MultiHook_needleapi_download($args)
                             break;
                         case 'S':
                             // link to main page
-                            $cache[$nid] = '<a href="index.php?name=Downloads" title="' . DataUtil::formatForDisplay(_MH_DL_DOWNLOADS) . '">' . DataUtil::formatForDisplay(_MH_DL_DOWNLOADS) . '</a>';
+                            $cache[$nid] = '<a href="index.php?name=Downloads" title="' . DataUtil::formatForDisplay(__('downloads', $dom)) . '">' . DataUtil::formatForDisplay(__('downloads', $dom)) . '</a>';
                             break;
                         default:
-                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_DL_UNKNOWNTYPE) . '</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('unknown parameter at pos.1 (C, D, L or S)', $dom)) . '</em>';
                     }
                 } else {
                     // no Downloads 2.0 or later
-                    $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_DL_DL20MINIMUMNEEDED) . '</em>';
+                    $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Downloads 2.0 or later needed', $dom)) . '</em>';
                 }
             } else {
-                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_DL_NOTAVAILABLE) . '</em>';
+                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Downloads not available', $dom)) . '</em>';
             }
         }
         $result = $cache[$nid];
     } else {
-        $result = '<em>' . DataUtil::formatForDisplay(_MH_DL_NONEEDLEID) . '</em>';
+        $result = '<em>' . DataUtil::formatForDisplay(__('no needle id', $dom)) . '</em>';
     }
     return $result;
 }

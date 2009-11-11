@@ -26,6 +26,7 @@
  */
 function MultiHook_needleapi_weblink($args)
 {
+    $dom = ZLanguage::getModuleDomain('MultiHook');
     // Get arguments from argument array
     $nid = $args['nid'];
     unset($args);
@@ -34,9 +35,8 @@ function MultiHook_needleapi_weblink($args)
     static $cache;
     if(!isset($cache)) {
         $cache = array();
-    } 
+    }
 
-    pnModLangLoad('MultiHook', 'weblink');
     if(!empty($nid)) {
         if(!isset($cache[$nid])) {
             // not in cache array
@@ -48,16 +48,16 @@ function MultiHook_needleapi_weblink($args)
                     $type = $temp[0];
                     $id   = $temp[1];
                 }
-            
+
                 pnModDBInfoLoad('Web_Links');
                 $dbconn =& pnDBGetConn(true);
                 $pntable =& pnDBGetTables();
-                
+
                 switch($type) {
                     case 'C':
                         $tblwlcats = $pntable['links_categories'];
                         $colwlcats = $pntable['links_categories_column'];
-                        
+
                         $sql = 'SELECT ' . $colwlcats['title'] . ', ' . $colwlcats['cdescription'] . ' FROM ' . $tblwlcats . ' WHERE ' . $colwlcats['cat_id'] . '=' . pnVarPrepForStore($id);
                         $res = $dbconn->Execute($sql);
                         if($dbconn->ErrorNo()==0 && !$res->EOF) {
@@ -78,7 +78,7 @@ function MultiHook_needleapi_weblink($args)
                     case 'L':
                         $tblwls = $pntable['links_links'];
                         $colwls = $pntable['links_links_column'];
-                        
+
                         $sql = 'SELECT ' . $colwls['title'] . ', ' . $colwls['description'] . ' FROM ' . $tblwls . ' WHERE ' . $colwls['lid'] . '=' . pnVarPrepForStore($id);
                         $res = $dbconn->Execute($sql);
                         if($dbconn->ErrorNo()==0 && !$res->EOF) {
@@ -102,18 +102,18 @@ function MultiHook_needleapi_weblink($args)
                         break;
                     case 'S':
                         // show link to main page
-                        $cache[$nid] = '<a href="index.php?name=Web_Links" title="' . DataUtil::formatForDisplay(_MH_WL_WEBLINKS) . '">' . DataUtil::formatForDisplay(_MH_WL_WEBLINKS) . '</a>';
+                        $cache[$nid] = '<a href="index.php?name=Web_Links" title="' . DataUtil::formatForDisplay(__('weblinks', $dom)) . '">' . DataUtil::formatForDisplay(__('weblinks', $dom)) . '</a>';
                         break;
                     default:
-                        $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_WL_UNKNOWNTYPE) . '</em>';
+                        $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('unknown parameter at pos.1 (C, D, L or S)', $dom)) . '</em>';
                 }
             } else {
-                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_WL_NOTAVAILABLE) . '</em>';
+                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Web_Links not available', $dom)) . '</em>';
             }
         }
         $result = $cache[$nid];
     } else {
-        $result = '<em>' . DataUtil::formatForDisplay(_MH_WL_NONEEDLEID) . '</em>';
+        $result = '<em>' . DataUtil::formatForDisplay(__('no needle id', $dom)) . '</em>';
     }
     return $result;
 }

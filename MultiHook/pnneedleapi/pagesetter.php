@@ -33,9 +33,9 @@ function MultiHook_needleapi_pagesetter($args)
     static $cache;
     if(!isset($cache)) {
         $cache = array();
-    } 
+    }
 
-    pnModLangLoad('MultiHook', 'pagesetter');
+    $dom = ZLanguage::getModuleDomain('MultiHook');
     if(!empty($nid)) {
         if(!isset($cache[$nid])) {
             // not in cache array
@@ -50,11 +50,11 @@ function MultiHook_needleapi_pagesetter($args)
                                                      'admin',
                                                      'getPubTypeInfo',
                                                      array('tid' => $temp[0]));
-                            
+
                             if(is_array($pubInfo)) {
                                 $url = DataUtil::formatForDisplay(pnModURL('pagesetter', 'user', 'view', array('tid' => $temp[0])));
                                 $pubtitle = DataUtil::formatForDisplay($pubInfo['publication']['title']);
-                                $pubdesc  = DataUtil::formatForDisplay($pubInfo['publication']['description']); 
+                                $pubdesc  = DataUtil::formatForDisplay($pubInfo['publication']['description']);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $pubdesc . '">' . $pubtitle . '</a>';
                             } else {
                                 $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_UNKNOWNTID . ' (' . $temp[0] . ')') . '</em>';
@@ -87,13 +87,13 @@ function MultiHook_needleapi_pagesetter($args)
                         }
                         break;
                     default:
-                        $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_WRONGNEEDLEID) . '</em>';
+                        $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('wrong needle id', $dom)) . '</em>';
                 }
             }
         }
         $result = $cache[$nid];
     } else {
-        $result = '<em>' . DataUtil::formatForDisplay(_MH_PS_NONEEDLEID) . '</em>';
+        $result = '<em>' . DataUtil::formatForDisplay(__('no needle id', $dom)) . '</em>';
     }
     return $result;
 

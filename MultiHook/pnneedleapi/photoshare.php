@@ -26,24 +26,23 @@
  */
 function MultiHook_needleapi_photoshare($args)
 {
+    $dom = ZLanguage::getModuleDomain('MultiHook');
     // Get arguments from argument array
     $nid = $args['nid'];
     unset($args);
-    
+
     // cache the results
     static $cache;
     if(!isset($cache)) {
         $cache = array();
-    } 
+    }
 
-    // load language defines from pnlang/xxx/photoshare.php
-    pnModLangLoad('MultiHook', 'photoshare');
     if(!empty($nid)) {
         if(!isset($cache[$nid])) {
             // not in cache array
             if(pnModAvailable('photoshare')) {
                 pnModLoad('photoshare', 'user');
-                
+
                 // nid is like type_albumid, type_imageid or type_imageid_width_height
                 $temp = explode('-', $nid);
                 $type = '';
@@ -63,7 +62,7 @@ function MultiHook_needleapi_photoshare($args)
                         $type = '';
                     }
                 }
-                
+
                 switch($type) {
                     case 'A':
                         // show link to folder,display folder name
@@ -89,7 +88,7 @@ function MultiHook_needleapi_photoshare($args)
                     case 'T':
                         // show thumbnail with link to fullsize image
                         // not in cache array
-                        $image = pnModAPIFunc('photoshare', 'show', 'get_image_info', 
+                        $image = pnModAPIFunc('photoshare', 'show', 'get_image_info',
                                               array('imageID' => $id));
                         if(is_array($image) && isset($image['id'])) {
                             if(photoshareAccessImage($id, photoshareAccessRequirementView, '')) {
@@ -105,7 +104,7 @@ function MultiHook_needleapi_photoshare($args)
                                     if(isset($align)) {
                                         // validity checks have been done before
                                         $cache[$nid] = '<span style="float: ' . $align . '">'. $cache[$nid] . '</span>';
-                                    }    
+                                    }
                                 } else {
                                     // Thumbnail
                                     $fullurl   = DataUtil::formatForDisplay(pnModURL('photoshare', 'user', 'viewimage', array('iid' => $id)));
@@ -124,17 +123,17 @@ function MultiHook_needleapi_photoshare($args)
                         $cache[$nid] = '<span style="clear: both;">&nbsp;</span>';
                         break;
                     default:
-                        $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_UNKNOWNTYPE) . '</em>';
-                        
+                        $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('unkown parameter at pos 1 (A,P or T)', $dom)) . '</em>';
+
                 }
             } else {
-                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_NOTAVAILABLE) . '</em>';
+                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Pagesetter not available', $dom)) . '</em>';
             }
         }
         $result = $cache[$nid];
     } else {
-        $result = '<em>' . DataUtil::formatForDisplay(_MH_PS_NONEEDLEID) . '</em>';
+        $result = '<em>' . DataUtil::formatForDisplay(__('no needle id', $dom)) . '</em>';
     }
     return $result;
-    
+
 }

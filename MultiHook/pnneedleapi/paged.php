@@ -28,16 +28,17 @@ function MultiHook_needleapi_paged($args)
 {
     // Get arguments from argument array
     $nid = $args['nid'];
-    unset($args); 
-    
+    unset($args);
+
     // cache the results
     static $cache;
     if(!isset($cache)) {
         $cache = array();
-    } 
+    }
 
+    $dom = ZLanguage::getModuleDomain('MultiHook');
     // set the default for errors of all kind
-    $result = '<em title="' . DataUtil::formatForDisplay(sprintf(_MH_NEEDLEDATAERROR, $nid, 'PagEd')) . '">PAGED' . $nid . '</em>';
+    $result = '<em title="' . DataUtil::formatForDisplay(__f('Error reading reading needle data for \'%1$s\' or module \'%2$s\' is not active', array($nid, 'PagEd'), $dom)) . '">PAGED' . $nid . '</em>';
     if(!isset($cache[$nid])) {
         // not in cache array
         // set the default
@@ -50,7 +51,7 @@ function MultiHook_needleapi_paged($args)
                 $type = $temp[0];
                 $id   = $temp[1];
             }
-    
+
             pnModDBInfoLoad('PagEd');
             switch($type) {
                 case 'P':
@@ -80,6 +81,6 @@ function MultiHook_needleapi_paged($args)
         }
         $result = $cache[$nid];
     }
-    return $result;       
-    
+    return $result;
+
 }
