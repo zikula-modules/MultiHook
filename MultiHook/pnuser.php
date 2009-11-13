@@ -28,6 +28,7 @@
 function MultiHook_user_main()
 {
     $dom = ZLanguage::getModuleDomain('MultiHook');
+
     // Get parameters from whatever input we need
     $startnum = (int)FormUtil::getPassedValue('startnum', 0, 'GETPOST');
     $filter   = (int)FormUtil::getPassedValue('filter', -1, 'GETPOST');
@@ -53,7 +54,7 @@ function MultiHook_user_main()
     }
     $titles = array( __('View abbreviations', $dom),
                      __('View acronyms', $dom),
-                     _MH_VIEWLINKS );
+                     __('View links', $dom));
 
     // Create output object
     $pnr = pnRender::getInstance('MultiHook', false);

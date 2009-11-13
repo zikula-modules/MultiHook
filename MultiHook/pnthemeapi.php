@@ -27,6 +27,7 @@
 function MultiHook_themeapi_preparetheme()
 {
     $dom = ZLanguage::getModuleDomain('MultiHook');
+
     if(SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
         PageUtil::addVar('stylesheet', ThemeUtil::getModuleStyleSheet('MultiHook'));
         PageUtil::addVar('javascript', 'javascript/ajax/prototype.js');
@@ -50,9 +51,9 @@ function MultiHook_themeapi_helper()
 {
     $out = '';
     if(SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
-        pnModLangLoad('MultiHook', 'admin');
+        $dom = ZLanguage::getModuleDomain('MultiHook');
         $pnr = pnRender::getInstance('MultiHook', false);
-        $pnr->assign('userlang', pnUserGetLang());
+        $pnr->assign('userlang', ZLanguage::getLanguageCode());
         $pnr->assign('modinfo', pnModGetInfo(pnModGetIDFromName('MultiHook')));
         $out = $pnr->fetch('mh_dynamic_hiddenform.html');
     }

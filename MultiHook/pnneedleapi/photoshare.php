@@ -77,10 +77,10 @@ function MultiHook_needleapi_photoshare($args)
                                 $title = DataUtil::formatForDisplay($folder['title']);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_NOAUTHFORFOLDER . ' (' . $id . ')') . '</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No auth for folder', $dom) . ' (' . $id . ')') . '</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_UNKNOWNFOLDER .  ' (' . $id . ')') . '</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unkown folder', $dom) .  ' (' . $id . ')') . '</em>';
                         }
                         break;
                     case 'P':
@@ -113,10 +113,10 @@ function MultiHook_needleapi_photoshare($args)
                                     $cache[$nid] = '<a href="' . $fullurl . '" title="' . $title . '"><img src="' . $thumburl . '" alt="' . $title . '" /></a>';
                                 }
                             } else {
-                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_NOAUTHFORIMAGE . ' (' . $id . ')') . '</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No auth for photoshare image', $dom) . ' (' . $id . ')') . '</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_UNKNOWNIMAGE .  ' (' . $id . ')') . '</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unkown photoshare image', $dom) .  ' (' . $id . ')') . '</em>';
                         }
                         break;
                     case 'C':

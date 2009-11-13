@@ -23,6 +23,8 @@ Loader::includeOnce('modules/MultiHook/common.php');
 
 function MultiHook_ajax_read()
 {
+    $dom = ZLanguage::getModuleDomain('MultiHook');
+
     $error = '';
     $return = '';
 
@@ -33,7 +35,7 @@ function MultiHook_ajax_read()
         AjaxUtil::output($abac);
         exit;
     } else {
-        AjaxUtil::error(_MH_ERRORREADINGDATA . ' (aid=' . $aid . ')', '404 Not found');
+        AjaxUtil::error(__('Error! Could not read data', $dom) . ' (aid=' . $aid . ')', '404 Not found');
     }
     // we should never get here
 }
@@ -41,6 +43,7 @@ function MultiHook_ajax_read()
 function MultiHook_ajax_store()
 {
     $dom = ZLanguage::getModuleDomain('MultiHook');
+
     $error = '';
     $return = '';
 
@@ -56,9 +59,9 @@ function MultiHook_ajax_store()
     $delete    =      FormUtil::getPassedValue('mh_delete',   '', 'POST');
     $language  =      FormUtil::getPassedValue('mh_language', '', 'POST');
 
-    $short    = trim(DataUtil::convertFromUTF8(urldecode($short)));
-    $long     = trim(DataUtil::convertFromUTF8(urldecode($long)));
-    $title    = trim(DataUtil::convertFromUTF8(urldecode($title)));
+    $short    = trim(urldecode($short));
+    $long     = trim(urldecode($long));
+    $title    = trim(urldecode($title));
     $language = trim($language);
 
     // get the entry (needed for permission checks)
@@ -73,10 +76,10 @@ function MultiHook_ajax_store()
                              array('aid' => $aid))) {
                 $return = $abac['short'];
             } else {
-                $error = __('Database deletion of entry failed', $dom);
+                $error = __('Error! Database deletion of entry failed', $dom);
             }
         } else {
-            $error = __('No permissions for the MultiHook module', $dom);
+            $error = __('Error! No permissions for the MultiHook module', $dom);
         }
     } else {
         $mode = '';
@@ -95,30 +98,31 @@ function MultiHook_ajax_store()
         unset($abac);
 
         if(empty($mode)) {
-            $error = __('No permissions for the MultiHook module', $dom);
+            $error = __('Error! No permissions for the MultiHook module', $dom);
         } else {
             if(empty($short)) {
-                $error = _MH_WRONGPARAMETER_SHORT . '<br />';
+                $error = __('no short text', $dom) . '<br />';
+                
             }
             switch($type) {
                 case '0': // abbr
                 case '1': // acronym
                     if(empty($long)) {
-                        $error .= _MH_WRONGPARAMETER_LONG . '<br />';
+                        $error .= __('no long text or (in case of a link) no url', $dom) . '<br />';
                     }
                     break;
                 case '2': // link
                     if(empty($long)) {
-                        $error .= _MH_WRONGPARAMETER_LONG . '<br />';
+                        $error .= __('no long text or (in case of a link) no url', $dom) . '<br />';
                     }
                     if(empty($title)) {
-                        $error .= _MH_WRONGPARAMETER_TITLE . '<br />';
+                        $error .= __('no title', $dom) . '<br />';
                     }
                     break;
                 case '3': // illegal word
                     break;
                 default:
-                    $error = _MH_WRONGPARAMETER_TYPE . ' (' . $type . ')<br />';
+                    $error = __('no type', $dom) . ' (' . $type . ')<br />';
             }
             AjaxUtil::error($error);
 
@@ -153,19 +157,19 @@ function MultiHook_ajax_store()
                             //  we cannot get here, type has been checked before already
                     }
                 } else {
-                    $error = _MH_ERRORREADINGDATA . ' (aid=' . $aid . ')';
+                    $error = __('Error! Could not read data', $dom) . ' (aid=' . $aid . ')';
                 }
             } else {
                 switch($mode) {
                     case 'create':
-                        $error = __('Error: entry creation failed', $dom);
+                        $error = __('Error! Entry creation failed', $dom);
                         break;
                     case 'update':
-                        $error = __('Database update of entry failed', $dom);
+                        $error = __('Error! Database update of entry failed', $dom);
                         break;
                     default:
                         // we should not get here....
-                        $error = 'internal error: invalid mode parameter';
+                        $error = 'Internal error! Invalid mode parameter';
                 }
             }
         }

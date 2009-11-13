@@ -32,6 +32,7 @@
 function MultiHook_adminapi_create($args)
 {
     $dom = ZLanguage::getModuleDomain('MultiHook');
+
     // Security check
     if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
         return LogUtil::registerPermissionError();
@@ -44,12 +45,12 @@ function MultiHook_adminapi_create($args)
         (!isset($args['title'])) ||
         (!isset($args['type'])) ||
         (!isset($args['language']))) {
-        return LogUtil::registerError(_MODARGSERROR . ' in MultiHook_adminapi_create()');
+        return LogUtil::registerArgsError();
     }
 
     $obj = DBUtil::insertObject($args, 'multihook', 'aid');
     if($obj == false) {
-        return LogUtil::registerError(__('Error: entry creation failed', $dom));
+        return LogUtil::registerError(__('Error: Entry creation failed', $dom));
     }
     pnModCallHooks('item', 'create', $obj['aid'], 'aid');
     return $obj['aid'];
@@ -64,6 +65,7 @@ function MultiHook_adminapi_create($args)
 function MultiHook_adminapi_delete($args)
 {
     $dom = ZLanguage::getModuleDomain('MultiHook');
+
     // Security check
     if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError();
@@ -71,12 +73,12 @@ function MultiHook_adminapi_delete($args)
 
     // Argument check
     if (!isset($args['aid'])) {
-        return LogUtil::registerError(_MODARGSERROR . ' in MultiHook_adminapi_delete() [aid]');
+        return LogUtil::registerArgsError();
     }
 
     $res = DBUtil::deleteObjectByID ('multihook', (int)$args['aid'], 'aid');
     if($res==false) {
-        return LogUtil::registerError(__('Database deletion of entry failed', $dom));
+        return LogUtil::registerError(__('Error! Database deletion of entry failed', $dom));
     }
 
     // Let any hooks know that we have deleted a abbr
@@ -112,7 +114,7 @@ function MultiHook_adminapi_update($args)
         (!isset($args['long'])) ||
         (!isset($args['type'])) ||
         (!isset($args['language']))) {
-        return LogUtil::registerError(_MODARGSERROR . ' in MultiHook_adminapi_update()');
+        return LogUtil::registerArgsError();
     }
 
     $res = DBUtil::updateObject($args, 'multihook', '', 'aid');
@@ -157,7 +159,7 @@ function MultiHook_adminapi_collectneedles()
                                 $needleinfo = $infofunc();
                             } else {
                                 $needleinfo['info']          = __('no description found', $dom);
-                                $needleinfo['module']        = _MH_NOMODULEFOUND;
+                                $needleinfo['module']        = __('no module found', $dom);
                                 $needleinfo['inspect']       = false;
                             }
                             // check if the needle_info sets the 'needle' value
@@ -218,7 +220,7 @@ function MultiHook_adminapi_getlinks()
         $links[] = array('url' => pnModURL('MultiHook', 'admin', 'view', array('filter' => 2)), 'text' => __('Links', $dom), 'title' => __('View links', $dom));
         $links[] = array('url' => pnModURL('MultiHook', 'admin', 'view', array('filter' => 3)), 'text' => __('Censor', $dom), 'title' => __('View censored words', $dom));
         $links[] = array('url' => pnModURL('MultiHook', 'admin', 'viewneedles'), 'text' => __('Needles', $dom), 'title' => __('View needles', $dom));
-        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'modifyconfig'), 'text' => __('Modify Configuration', $dom));
+        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'modifyconfig'), 'text' => __('Settings', $dom));
     }
     return $links;
 }

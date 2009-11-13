@@ -93,29 +93,6 @@ $Id$
 * user section
 *
 */
-
-#mhuser {
-  margin: 3px 0;
-}
-
-#mhuser table {
-  width: 99%;
-  border-collapse: collapse;
-}
-
-#mhuser table tr {
-  width: 100%;
-}
-
-#mhuser table tr th {
-  background: #eeeeee;
-  text-align: center;
-}
-
-#mhuser table tr td {
-  text-align: center;
-}
-
 .mhselection {
   text-align: center;
   margin: 5px 0;

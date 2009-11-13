@@ -2,24 +2,24 @@
 
 <!--[include file=mh_admin_header.html]-->
 
-<!--[pnform cssclass="z-form"]-->
+<!--[pnform cssClass="z-form"]-->
 <!--[pnformvalidationsummary]-->
 
 <fieldset>
-    <legend><!--[gt text='Modify Configuration']--></legend>
+    <legend><!--[gt text='General Settings']--></legend>
     <div class="z-formrow">
         <!--[pnformlabel for="abacfirst" __text='Only replace first occurence per text']-->
         <!--[pnformcheckbox id="abacfirst" checked=$pncore.MultiHook.abacfirst]-->
     </div>
 
     <div class="z-formrow">
-        <!--[pnformlabel for="externallinkclass" __text='CSS-Classdefinition for external links']-->
-        <!--[pnformtextinput size="20" maxlength="40" id="externallinkclass" __text=$pncore.MultiHook.externallinkclass]-->
+        <!--[pnformlabel for="externallinkclass" __text='CSS class definition for external links']-->
+        <!--[pnformtextinput size="20" maxLength="40" id="externallinkclass" text=$pncore.MultiHook.externallinkclass]-->
     </div>
 
     <div class="z-formrow">
         <!--[pnformlabel for="itemsperpage" __text='Items per page in admin view']-->
-        <!--[pnformintinput id="itemsperpage" __text=$pncore.MultiHook.itemsperpage]-->
+        <!--[pnformintinput id="itemsperpage" text=$pncore.MultiHook.itemsperpage]-->
     </div>
 
     <div class="z-formrow">
@@ -54,7 +54,7 @@
 </fieldset>
 
 <div class="z-formbuttons">
-    <!--[pnformbutton id="submit" commandname="submit" __text="Update Configuration"]-->
+    <!--[pnformbutton id="submit" commandName="submit" __text="Update Configuration"]-->
 </div>
 
 <!--[/pnform]-->

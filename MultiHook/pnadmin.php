@@ -67,6 +67,7 @@ function MultiHook_admin_edit($args)
 function MultiHook_admin_view()
 {
     $dom = ZLanguage::getModuleDomain('MultiHook');
+
     if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
         return LogUtil::registerPermissionError(pnModURL('MultiHook', 'admin', 'main'));
     }
@@ -98,7 +99,7 @@ function MultiHook_admin_view()
     $titles = array( __('View abbreviations', $dom),
                      __('View acronyms', $dom),
                      __('View links', $dom),
-                     _MH_VIEWILLEGALWORDS );
+                     __('Illegal words', $dom));
 
     // Create output object
     $pnr = pnRender::getInstance('MultiHook', false);

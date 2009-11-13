@@ -33,6 +33,7 @@ Loader::includeOnce('modules/MultiHook/common.php');
 function MultiHook_userapi_getall($args)
 {
     $dom = ZLanguage::getModuleDomain('MultiHook');
+
     // Optional arguments
     if (!isset($args['startnum']) || !is_numeric($args['startnum'])) {
         $args['startnum'] = 0;
@@ -86,6 +87,7 @@ function MultiHook_userapi_getall($args)
 function MultiHook_userapi_get($args)
 {
     $dom = ZLanguage::getModuleDomain('MultiHook');
+
     if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_READ)) {
         return LogUtil::registerPermissionError();
     }
@@ -107,10 +109,10 @@ function MultiHook_userapi_get($args)
             // Get item
             $abac = DBUtil::selectObjectByID('multihook', $args['aid'], 'aid', null, $permfilter, null, false);
             if($abac == false) {
-                return LogUtil::registerError (_MH_SELECTFAILED . '(aid=' . $args['aid'] . ')');
+                return LogUtil::registerError(__('MultiHook: Select failed, please contact the webmaster', $dom));
             }
         } else {
-            return LogUtil::registerError(_MODARGSERROR . ' in MultiHook_userapi_get() [aid]');
+            return LogUtil::registerArgsError();
         }
     } else if(isset($args['short'])) {
         if(!empty($args['short'])) {
@@ -124,7 +126,7 @@ function MultiHook_userapi_get($args)
                 return false;
             }
         } else {
-            return LogUtil::registerError(_MODARGSERROR . ' in MultiHook_userapi_get() [short]');
+            return LogUtil::registerArgsError();
         }
     } else {
         return LogUtil::registerError (__('Error! Could not do what you wanted. Please check your input.', $dom));
@@ -168,7 +170,7 @@ function MultiHook_userapi_transform($args)
 {
     // Argument check
     if (!isset($args['extrainfo'])) {
-        return LogUtil::registerError(_MODARGSERROR . ' in MultiHook_userapi_transform() [extrainfo]');
+        return LogUtil::registerArgsError();
         return;
     }
 

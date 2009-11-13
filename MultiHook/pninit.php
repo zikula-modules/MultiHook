@@ -149,7 +149,13 @@ function MultiHook_upgrade($oldversion)
        case '5.0':
             pnModSetVar('MultiHook', 'mhrelaxedcensoring', 0);
 
+       case '5.1':
+           MultiHook_upgrade_updateMultiHookLanguages();
+
+       case '5.2':
+           // future upgrade routines
     }
+
     // collecting needles
     // force loading of adminapi
     pnModAPILoad('MultiHook', 'admin', true);
@@ -230,4 +236,24 @@ function MultiHook_import_CensorList()
         }
         LogUtil::registerStatus(__f('%d lines imported from old Censor module', $censored, $dom));
     }
+}
+
+function MultiHook_upgrade_updateMultiHookLanguages()
+{
+    $obj = DBUtil::selectObjectArray('multihook');
+
+    if (count($obj) == 0) {
+        // nothing to do
+        return;
+    }
+
+    foreach ($obj as $itemid) {
+        // translate l3 -> l2
+        if ($l2 = ZLanguage::translateLegacyCode($itemid['language'])) {
+            $itemid['language'] = $l2;
+        }
+        DBUtil::updateObject($itemid, 'multihook', '', 'aid', true);
+    }
+
+    return true;
 }

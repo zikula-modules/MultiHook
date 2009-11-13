@@ -37,6 +37,7 @@ function MultiHook_needleapi_download($args)
     }
 
     $dom = ZLanguage::getModuleDomain('MultiHook');
+
     if(!empty($nid)) {
         if(!isset($cache[$nid])) {
             // not in cache array
@@ -66,10 +67,10 @@ function MultiHook_needleapi_download($args)
                                     $desc  = DataUtil::formatForDisplay($dl20categoryinfo['description']);
                                     $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
                                 } else {
-                                    $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_DL_UNKNOWNCATEGORY . ' (' . $id . ')') .'</em>';
+                                    $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unkown category', $dom) . ' (' . $id . ')') .'</em>';
                                 }
                             } else {
-                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_DL_NOAUTHFORCATEGORY . ' (' . $id . ')') .'</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No auth for category', $dom) . ' (' . $id . ')') .'</em>';
                             }
                             break;
                         case 'D':
@@ -97,7 +98,7 @@ function MultiHook_needleapi_download($args)
                                 $desc  = DataUtil::formatForDisplay($dl20downloadinfo[0]['description']);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_DL_UNKNOWNDOWNLOAD . ' (' . $id . ')') . '</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('unkown download', $dom) . ' (' . $id . ')') . '</em>';
                             }
                             break;
                         case 'S':

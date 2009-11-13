@@ -57,10 +57,10 @@ function MultiHook_needleapi_pagesetter($args)
                                 $pubdesc  = DataUtil::formatForDisplay($pubInfo['publication']['description']);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $pubdesc . '">' . $pubtitle . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_UNKNOWNTID . ' (' . $temp[0] . ')') . '</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unkown pagesetter tid', $dom) . ' (' . $temp[0] . ')') . '</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_NOAUTHFORTID . ' (' . $temp[0] . ')') . '</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No auth for pagesetter tid', $dom) . ' (' . $temp[0] . ')') . '</em>';
                         }
                         break;
                     case 2:
@@ -80,10 +80,10 @@ function MultiHook_needleapi_pagesetter($args)
                                 $pubtitle = DataUtil::formatForDisplay($pub['title']);
                                 $cache[$nid] = '<a href="' . DataUtil::formatForDisplay($url) . '" title="' . $pubtitle . '">' . $pubtitle . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_UNKNOWNPID . ' (' . $nid . ')') . '</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unkown pagesetter pid', $dom) . ' (' . $nid . ')') . '</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_PS_NOAUTHFORPID . ' (' . $nid . ')') . '</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No auth for pagesetter pid', $dom) . ' (' . $nid . ')') . '</em>';
                         }
                         break;
                     default:

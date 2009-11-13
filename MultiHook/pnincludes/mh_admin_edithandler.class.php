@@ -44,7 +44,7 @@ class MultiHook_admin_edithandler
                                  array('aid' => $this->aid));
         
             if ($abac == false) {
-                return LogUtil::registerError(__('Error no such item exists', $dom), pnModURL('MultiHook', 'admin', 'main'));
+                return LogUtil::registerError(__('Error! No such item exists', $dom), pnModURL('MultiHook', 'admin', 'main'));
             }
             // set permission flags
             $abac['edit'] = false;
@@ -95,7 +95,7 @@ class MultiHook_admin_edithandler
                     // Success
                     LogUtil::registerStatus(__('Entry deleted', $dom));
                 } else {
-                    LogUtil::registerError(__('Database deletion of entry failed', $dom));
+                    LogUtil::registerError(__('Error! Database deletion of entry failed', $dom));
                 }
                 return pnRedirect(pnModURL('MultiHook', 'admin', 'view', array('filter' => $data['type'])));
             }
@@ -113,7 +113,7 @@ class MultiHook_admin_edithandler
             }
             if(($data['type']<0) || ($data['type']>3)) {
                 $ifield = & $pnRender->pnFormGetPluginById('mh_type');
-                $ifield->setError(DataUtil::formatForDisplay(_MH_TYPEEMPTY . "($type)"));
+                $ifield->setError(DataUtil::formatForDisplay(__('missing type text', $dom)));
                 $ok = false;
             }
             if($data['type']==2 && empty($data['title'])) {
@@ -136,14 +136,14 @@ class MultiHook_admin_edithandler
                     // Success
                     LogUtil::registerStatus( __('Entry created', $dom));
                 } else {
-                    LogUtil::registerError(_MH_CREATEDFAILED);
+                    LogUtil::registerError(__('Error! Database creation of entry failed', $dom));
                 }
             } else {
                 if(pnModAPIFunc('MultiHook', 'admin', 'update', $data) <> false) {
                     // Success
                     LogUtil::registerStatus(__('Entry updated', $dom));
                 } else {
-                    LogUtil::registerError(__('Database update of entry failed', $dom));
+                    LogUtil::registerError(__('Error! Database update of entry failed', $dom));
                 }
             }
 

@@ -2,30 +2,32 @@
 
 <!--[include file=mh_admin_header.html]-->
 
-<!--[pnform cssclass="z-form"]-->
+<!--[pnform cssClass="z-form"]-->
 <!--[pnformvalidationsummary]-->
 
 <fieldset>
     <legend><!--[gt text='Add item']--></legend>
     <div class="z-formrow">
         <!--[pnformlabel for="mh_short" __text='Short version']-->
-        <!--[pnformtextinput id="mh_short" datafield="short" __text=$abac.short size="40" maxlength="60"]-->
+        <!--[pnformtextinput id="mh_short" dataField="short" text=$abac.short size="40" maxLength="60"]-->
     </div>
     <div class="z-formrow">
-        <!--[pnformlabel for="mh_long" __text='Long version (in case of a link the url, ignored for illegal words)']-->
-        <!--[pnformtextinput id="mh_long" datafield="long" __text=$abac.long size="40" maxlength="200"]-->
+        <!--[pnformlabel for="mh_long" __text='Long version']-->
+        <!--[pnformtextinput id="mh_long" dataField="long" text=$abac.long size="40" maxLength="200"]-->
+        <em class="z-sub z-formnote"><!--[gt text="(in case of a link the url, ignored for illegal words)"]--></em>
     </div>
     <div class="z-formrow">
-        <!--[pnformlabel for="mh_title" __text='Title (only necessary for a link, ignored for illegal words)']-->
-        <!--[pnformtextinput id="mh_title" datafield="title" __text=$abac.title size="40" maxlength="200"]-->
+        <!--[pnformlabel for="mh_title" __text='Title']-->
+        <!--[pnformtextinput id="mh_title" dataField="title" text=$abac.title size="40" maxLength="200"]-->
+        <em class="z-sub z-formnote"><!--[gt text="(only necessary for a link, ignored for illegal words)"]--></em>
     </div>
     <div class="z-formrow">
         <!--[pnformlabel for="mh_type" __text='Type']-->
-        <!--[pnformdropdownlist id="mh_type" datafield="type" items=$items selectedvalue=$abac.type]-->
+        <!--[pnformdropdownlist id="mh_type" dataField="type" items=$items selectedValue=$abac.type]-->
     </div>
     <div class="z-formrow">
         <!--[pnformlabel for="mh_language" __text='Language']-->
-        <!--[pnformlanguageselector id="mh_language" datafield="language" selectedvalue=$abac.language]-->
+        <!--[pnformlanguageselector id="mh_language" dataField="language" selectedValue=$abac.language]-->
     </div>
     <!--[if $abac.delete == true]-->
     <div class="z-formrow">
@@ -36,8 +38,8 @@
 </fieldset>
 
 <div class="z-formbuttons">
-    <!--[pnformbutton id="submit" commandname="submit" __text="Submit"]-->
-    <!--[pnformbutton commandname="cancel" __text="Cancel"]-->
+    <!--[pnformbutton id="submit" commandName="submit" __text="Submit"]-->
+    <!--[pnformbutton commandName="cancel" __text="Cancel"]-->
 </div>
 
 <!--[/pnform]-->

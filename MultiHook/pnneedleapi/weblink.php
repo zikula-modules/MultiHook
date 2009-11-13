@@ -68,10 +68,10 @@ function MultiHook_needleapi_weblink($args)
                                 $desc  = DataUtil::formatForDisplay($desc);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_WL_NOAUTHFORCATEGORY . ' (' . $id . ')') .'</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No auth for weblink category', $dom) . ' (' . $id . ')') .'</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_DL_UNKNOWNCATEGORY . ' (' . $id . ')') .'</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unkown welink category', $dom) . ' (' . $id . ')') .'</em>';
                         }
                         break;
                     case 'D':
@@ -94,10 +94,10 @@ function MultiHook_needleapi_weblink($args)
                                 $desc  = DataUtil::formatForDisplay($desc);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_WL_NOAUTHFORWEBLINK . ' (' . $id . ')') .'</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No auth for weblink', $dom) . ' (' . $id . ')') .'</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_DL_UNKNOWNWEBLINK . ' (' . $id . ')') .'</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unkown weblink', $dom) . ' (' . $id . ')') .'</em>';
                         }
                         break;
                     case 'S':

@@ -22,6 +22,7 @@
 // the defines used here are defined in pnlang/xxx/version.php
 
 $dom = ZLanguage::getModuleDomain('MultiHook');
+
 $modversion['name'] = __('MultiHook', $dom);
 $modversion['version'] = '5.2';
 $modversion['description'] = __('Creates xhtml tags for abbreviations, acronyms and autolinks, while providing specific content censorship.', $dom);

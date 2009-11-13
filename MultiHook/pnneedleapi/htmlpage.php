@@ -63,7 +63,7 @@ function MultiHook_needleapi_htmlpage($args)
                     $title = DataUtil::formatForDisplay($obj['title']);
                     $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
                 } else {
-                    $cache[$nid] = '<em>' . DataUtil::formatForDisplay(_MH_HP_UNKNOWNPAGE . ' (' . $nid . ')') . '</em>';
+                    $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unkown page', $dom) . ' (' . $nid . ')') . '</em>';
                 }
 
             } else {
