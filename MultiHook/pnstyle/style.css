@@ -3,90 +3,57 @@ $Id$
 */
 
 .multihookeditlink {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 #multihook, #multihookedit {
-  width: 230px;
-  font-size: 10px;
-  z-index:999;
-  border: 1px solid #333333;
-  background: #ffffe5;
-  padding: 5px;
-  position: absolute;
-  left: 0;
-  top: 0;
+    /*width: 230px;*/
+    font-size: 10px;
+    z-index:999;
+    border: 1px solid #333333;
+    background: #ffffe5;
+    padding: 5px;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 .multihookheader {
-  background: #ffffc9;
-  padding: 2px;
-  border-bottom: 1px solid #333333;
-  margin-bottom: 5px;
-}
-
-.multihookbuttonarea {
-  border-top: 1px solid #333333;
-  padding: 3px;
-  margin-top: 2px;
-}
-
-.multihooksubmitbutton {
-  float: left;
-  border:none;
-  cursor: pointer;
-}
-
-.multihookcancelbutton {
-  float: right;
-  border:none;
-  cursor: pointer;
+    background: #ffffc9;
+    padding: 2px;
+    border-bottom: 1px solid #333333;
+    margin-bottom: 5px;
 }
 
 #multihookinformation {
-  width: 230px;
-  z-index:999;
-  font-size: 11px;
-  border: 1px solid #333333;
-  background: #ffffe5;
-  position: absolute;
-  left: 0;
-  top: 0;
+    /*width: 230px;*/
+    z-index:999;
+    font-size: 11px;
+    border: 1px solid #333333;
+    background: #ffffe5;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 #multihookinformationcontent {
-  text-align: center;
-  padding: 3px;
+    text-align: center;
+    padding: 3px;
 }
 
 #multihookinformationclose {
-  border: none;
-  text-align: right;
-  padding: 2px;
-  font-size: 9px;
-  margin-top: 1px;
-  float: right;
-  cursor: pointer;
+    border: none;
+    text-align: right;
+    padding: 2px;
+    font-size: 9px;
+    margin-top: 1px;
+    float: right;
+    cursor: pointer;
 }
 
 #multihookindicator {
-  text-align: center;
-  margin: 2px;
-}
-
-.multihooklabel {
-  float: left;
-  margin: 2px 0;
-}
-
-.multihookinput {
-  float: right;
-  margin: 2px 0;
-}
-.multihookinputreadonly {
-  float: right;
-  margin: 3px 0;
-  background: #eeeeee;
+    text-align: center;
+    margin: 2px;
 }
 
 /*
@@ -94,7 +61,17 @@ $Id$
 *
 */
 .mhselection {
-  text-align: center;
-  margin: 5px 0;
+    text-align: center;
+    margin: 5px 0;
+}
+
+#multihookedit_form,
+#multihook_form {
+    margin:0;
+    padding:0;
+}
+#multihook_form button,
+#multihookedit_form button {
+    border: 1px solid #666;
 }
 

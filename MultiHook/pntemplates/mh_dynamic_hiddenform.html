@@ -2,38 +2,36 @@
 
 <!-- hidden div to show form for multihook entries -->
 <div id="multihook" style="display: none;">
-    <form id="multihook_form" action="#">
-        <div class="z-clearer multihookheader">
+    <form id="multihook_form" class="z-form" action="#">
+        <div class="z-formrow multihookheader">
             <a onclick="this.parentNode.parentNode.visiblity=hidden;" href="http://code.zikula.org/multihook" title="<!--[$modinfo.displayname]--> v<!--[$modinfo.version]-->"><strong><!--[$modinfo.name]--> v<!--[$modinfo.version]--></strong></a>
         </div>
 
-        <div>
-            <label class="z-clearer multihooklabel" for="mhnew_short"><!--[gt text='Short version' domain='module_multihook']-->:</label>
-            <input class="multihookinputreadonly" readonly="readonly" type="text" name="mhnew_short" id="mhnew_short" value="" />
+        <div class="z-formrow">
+            <label for="mhnew_short"><!--[gt text='Short version' domain='module_multihook']--></label>
+            <input readonly="readonly" type="text" name="mhnew_short" id="mhnew_short" value="" />
         </div>
 
-        <div>
-            <label class="z-clearer multihooklabel" for="mhnew_long"><!--[gt text='Long version' domain='module_multihook']-->:</label>
-            <input class="multihookinput" type="text" name="mhnew_long" id="mhnew_long" value="" />
+        <div class="z-formrow">
+            <label for="mhnew_long"><!--[gt text='Long version' domain='module_multihook']--></label>
+            <input type="text" name="mhnew_long" id="mhnew_long" value="" />
+            <em class="z-sub z-formnote"><!--[gt text='(in case of a link the url, ignored for illegal words)' domain='module_multihook']--></em>
         </div>
 
-        <div class="z-clearer"><em><!--[gt text='(in case of a link the url, ignored for illegal words)' domain='module_multihook']--></em></div>
-
-        <div>
-            <label class="z-clearer multihooklabel" for="mhnew_title"><!--[gt text='Title' domain='module_multihook']-->:</label>
-            <input class="multihookinput" type="text" name="mhnew_title" id="mhnew_title" value="" />
+        <div class="z-formrow">
+            <label for="mhnew_title"><!--[gt text='Title' domain='module_multihook']--></label>
+            <input type="text" name="mhnew_title" id="mhnew_title" value="" />
+            <em class="z-sub z-formnote"><!--[gt text='(only necessary for a link, ignored for illegal words)' domain='module_multihook']--></em>
         </div>
 
-        <div class="z-clearer"><em><!--[gt text='(only necessary for a link, ignored for illegal words)' domain='module_multihook']--></em></div>
-
-        <div>
-            <label class="z-clearer multihooklabel" for="mhnew_language"><!--[gt text='Language' domain='module_multihook']-->:</label>
-            <span class="multihookinput"><!--[mhlanguagelist name="mhnew_language" id="mhnew_language" installed=1 selected=$userlang]--></span>
+        <div class="z-formrow">
+            <label for="mhnew_language"><!--[gt text='Language' domain='module_multihook']--></label>
+            <span><!--[mhlanguagelist name="mhnew_language" id="mhnew_language" installed=1 selected=$userlang]--></span>
         </div>
 
-        <div>
-            <label class="z-clearer multihooklabel" for="mhnew_type"><!--[gt text='Type' domain='module_multihook']-->:</label>
-            <select class="multihookinput" name="mhnew_type" id="mhnew_type">
+        <div class="z-formrow">
+            <label for="mhnew_type"><!--[gt text='Type' domain='module_multihook']--></label>
+            <select name="mhnew_type" id="mhnew_type">
                 <option value="0"><!--[gt text='Abbreviation' domain='module_multihook']--></option>
                 <option value="1"><!--[gt text='Acronym' domain='module_multihook']--></option>
                 <option value="2"><!--[gt text='Link' domain='module_multihook']--></option>
@@ -41,9 +39,9 @@
             </select>
         </div>
 
-        <div class="z-clearer multihookbuttonarea">
-            <button type="submit" class="multihooksubmitbutton" onclick="submitmultihook();return false;"><!--[gt text='Submit' domain='module_multihook']--></button>
-            <button type="reset" class="multihookcancelbutton" onclick="cancelmultihook()"><!--[gt text='Cancel' domain='module_multihook']--></button>
+        <div class="z-formbuttons">
+            <button type="submit" onclick="submitmultihook();return false;"><!--[gt text='Submit' domain='module_multihook']--></button>
+            <button type="reset" onclick="cancelmultihook()"><!--[gt text='Cancel' domain='module_multihook']--></button>
         </div>
     </form>
 </div>
@@ -51,38 +49,36 @@
 
 <!-- hidden div to show edit form for multihook entries -->
 <div id="multihookedit" style="display: none;">
-    <form id="multihookedit_form" action="#">
-        <div class="z-clearer multihookheader">
+    <form id="multihookedit_form" class="z-form" action="#">
+        <div class="z-formrow multihookheader">
             <a onclick="this.parentNode.parentNode.visiblity=hidden;" href="http://code.zikula.org/multihook" title="<!--[$modinfo.name]--> v<!--[$modinfo.version]-->"><strong><!--[$modinfo.displayname]--> v<!--[$modinfo.version]--></strong></a>
         </div>
 
-        <div>
-            <label class="z-clearer multihooklabel" for="mhedit_short"><!--[gt text='Short version' domain='module_multihook']-->:</label>
-            <input class="multihookinput" readonly="readonly" type="text" name="mhedit_short" id="mhedit_short" value="" />
+        <div class="z-formrow">
+            <label for="mhedit_short"><!--[gt text='Short version' domain='module_multihook']--></label>
+            <input readonly="readonly" type="text" name="mhedit_short" id="mhedit_short" value="" />
         </div>
 
-        <div>
-            <label class="z-clearer multihooklabel" for="mhedit_long"><!--[gt text='Long version' domain='module_multihook']-->:</label>
-            <input class="multihookinput" type="text" name="mhedit_long" id="mhedit_long" value="" />
+        <div class="z-formrow">
+            <label for="mhedit_long"><!--[gt text='Long version' domain='module_multihook']--></label>
+            <input type="text" name="mhedit_long" id="mhedit_long" value="" />
+            <em class="z-sub z-formnote"><!--[gt text='(in case of a link the url, ignored for illegal words)' domain='module_multihook']--></em>
         </div>
 
-        <div class="z-clearer"><em><!--[gt text='(in case of a link the url, ignored for illegal words)' domain='module_multihook']--></em></div>
-
-        <div>
-            <label class="z-clearer multihooklabel" for="mhedit_title"><!--[gt text='Title' domain='module_multihook']-->:</label>
-            <input class="multihookinput" type="text" name="mhedit_title" id="mhedit_title" value="" />
+        <div class="z-formrow">
+            <label for="mhedit_title"><!--[gt text='Title' domain='module_multihook']--></label>
+            <input type="text" name="mhedit_title" id="mhedit_title" value="" />
+            <em class="z-sub z-formnote"><!--[gt text='(only necessary for a link, ignored for illegal words)' domain='module_multihook']--></em>
         </div>
 
-        <div class="z-clearer"><em><!--[gt text='(only necessary for a link, ignored for illegal words)' domain='module_multihook']--></em></div>
-
-        <div>
-            <label class="z-clearer multihooklabel" for="mhedit_language"><!--[gt text='Language' domain='module_multihook']-->:</label>
-            <span class="multihookinput"><!--[mhlanguagelist name="mhedit_language" id="mhedit_language" installed=1 selected=$userlang]--></span>
+        <div class="z-formrow">
+            <label for="mhedit_language"><!--[gt text='Language' domain='module_multihook']--></label>
+            <span><!--[mhlanguagelist name="mhedit_language" id="mhedit_language" installed=1 selected=$userlang]--></span>
         </div>
 
-        <div>
-            <label class="z-clearer multihooklabel" for="mhedit_type"><!--[gt text='Type' domain='module_multihook']-->:</label>
-            <select class="multihookinput" name="mhedit_type" id="mhedit_type">
+        <div class="z-formrow">
+            <label for="mhedit_type"><!--[gt text='Type' domain='module_multihook']--></label>
+            <select name="mhedit_type" id="mhedit_type">
                 <option value="0"><!--[gt text='Abbreviation' domain='module_multihook']--></option>
                 <option value="1"><!--[gt text='Acronym' domain='module_multihook']--></option>
                 <option value="2"><!--[gt text='Link' domain='module_multihook']--></option>
@@ -90,15 +86,15 @@
             </select>
         </div>
 
-        <div>
-            <label class="z-clearer multihooklabel" for="mhedit_delete"><!--[gt text='Delete entry' domain='module_multihook']-->:</label>
-            <input class="multihookinput" type="checkbox" name="mhedit_delete" id="mhedit_delete" value="1" />
+        <div class="z-formrow">
+            <label for="mhedit_delete"><!--[gt text='Delete entry' domain='module_multihook']--></label>
+            <input type="checkbox" name="mhedit_delete" id="mhedit_delete" value="1" />
         </div>
 
-        <div class="z-clearer multihookbuttonarea">
+        <div class="z-formbuttons">
             <input type="hidden" name="mhedit_aid" id="mhedit_aid" value="" />
-            <button type="submit" class="multihooksubmitbutton" onclick="submiteditmultihook();return false;"><!--[gt text='Submit' domain='module_multihook']--></button>
-            <button type="reset" class="multihookcancelbutton" onclick="cancelmultihook()"><!--[gt text='Cancel' domain='module_multihook']--></button>
+            <button type="submit" onclick="submiteditmultihook();return false;"><!--[gt text='Submit' domain='module_multihook']--></button>
+            <button type="reset" onclick="cancelmultihook()"><!--[gt text='Cancel' domain='module_multihook']--></button>
         </div>
     </form>
 </div>
