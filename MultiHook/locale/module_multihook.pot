@@ -1,0 +1,582 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Zikula 1.2.x\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2009-11-16 14:06+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: pnadmin.php:89 pnuser.php:45 pnadminapi.php:208
+#: pntemplates/mh_user_main.html:13
+msgid "View abbreviations"
+msgstr ""
+
+#: pnadmin.php:90 pnuser.php:46 pnadminapi.php:209
+#: pntemplates/mh_user_main.html:14
+msgid "View acronyms"
+msgstr ""
+
+#: pnadmin.php:91 pnuser.php:47 pnadminapi.php:210
+#: pntemplates/mh_user_main.html:15
+msgid "View links"
+msgstr ""
+
+#: pnadmin.php:92
+msgid "Illegal words"
+msgstr ""
+
+#: pnajax.php:28 pnajax.php:150
+msgid "Error! Could not read data."
+msgstr ""
+
+#: pnajax.php:69 pnincludes/mh_admin_edithandler.class.php:88
+msgid "Error! Database deletion of entry failed."
+msgstr ""
+
+#: pnajax.php:72 pnajax.php:91
+msgid "Error! No permissions for the MultiHook module."
+msgstr ""
+
+#: pnajax.php:82
+msgid " already exists in database."
+msgstr ""
+
+#: pnajax.php:94
+msgid "no short text"
+msgstr ""
+
+#: pnajax.php:101 pnajax.php:106
+msgid "no long text or (in case of a link) no url"
+msgstr ""
+
+#: pnajax.php:109
+msgid "no title"
+msgstr ""
+
+#: pnajax.php:115
+msgid "no type"
+msgstr ""
+
+#: pnajax.php:155
+msgid "Error! Entry creation failed."
+msgstr ""
+
+#: pnajax.php:158 pnincludes/mh_admin_edithandler.class.php:136
+msgid "Error! Database update of entry failed."
+msgstr ""
+
+#: pnversion.php:16
+msgid ""
+"Creates xhtml tags for abbreviations, acronyms and autolinks, while "
+"providing specific content censorship."
+msgstr ""
+
+#: pnversion.php:17
+msgid "MultiHook"
+msgstr ""
+
+#. ! module url should be lowercase without spaces and different to displayname
+#: pnversion.php:19
+msgid "multihook"
+msgstr ""
+
+#: common.php:29 common.php:39 pnadminapi.php:208
+msgid "Abbreviations"
+msgstr ""
+
+#: common.php:39 common.php:62 common.php:112 common.php:130
+#: pntemplates/mh_admin_view.html:23 pntemplates/mh_admin_view.html:31
+msgid "Edit"
+msgstr ""
+
+#: common.php:56 common.php:62 pnadminapi.php:209
+msgid "Acronyms"
+msgstr ""
+
+#: common.php:112 pnadminapi.php:210
+msgid "Links"
+msgstr ""
+
+#: common.php:130 pnadminapi.php:211
+msgid "Censor"
+msgstr ""
+
+#: pnthemeapi.php:27
+msgid "Loading data..."
+msgstr ""
+
+#: pnthemeapi.php:27
+msgid "Saving data..."
+msgstr ""
+
+#: pnuserapi.php:65 pnuserapi.php:102
+msgid "Error! Database selection failed. Please contact the webmaster."
+msgstr ""
+
+#: pnneedleapi/download.php:60
+msgid "Unkown category"
+msgstr ""
+
+#: pnneedleapi/download.php:63
+msgid "No auth for category"
+msgstr ""
+
+#: pnneedleapi/download.php:91
+msgid "unkown download"
+msgstr ""
+
+#: pnneedleapi/download.php:96
+msgid "downloads"
+msgstr ""
+
+#: pnneedleapi/download.php:99 pnneedleapi/weblink.php:98
+msgid "unknown parameter at pos.1 (C, D, L or S)"
+msgstr ""
+
+#: pnneedleapi/download.php:103
+msgid "Downloads 2.0 or later needed"
+msgstr ""
+
+#: pnneedleapi/download.php:106
+msgid "Downloads not available"
+msgstr ""
+
+#: pnneedleapi/download.php:111 pnneedleapi/pagesetter.php:86
+#: pnneedleapi/photoshare.php:125 pnneedleapi/weblink.php:106
+#: pnneedleapi/changeset.php:31 pnneedleapi/ticket.php:31
+#: pnneedleapi/htmlpage.php:65
+msgid "no needle id"
+msgstr ""
+
+#: pnneedleapi/pagesetter.php:50
+msgid "Unkown pagesetter tid"
+msgstr ""
+
+#: pnneedleapi/pagesetter.php:53
+msgid "No auth for pagesetter tid"
+msgstr ""
+
+#: pnneedleapi/pagesetter.php:73
+msgid "Unkown pagesetter pid"
+msgstr ""
+
+#: pnneedleapi/pagesetter.php:76
+msgid "No auth for pagesetter pid"
+msgstr ""
+
+#: pnneedleapi/pagesetter.php:80
+msgid "wrong needle id"
+msgstr ""
+
+#: pnneedleapi/paged.php:31
+#, php-format
+msgid ""
+"Error reading reading needle data for '%1$s' or module '%2$s' is not active"
+msgstr ""
+
+#: pnneedleapi/photoshare.php:70
+msgid "No auth for folder"
+msgstr ""
+
+#: pnneedleapi/photoshare.php:73
+msgid "Unkown folder"
+msgstr ""
+
+#: pnneedleapi/photoshare.php:106
+msgid "No auth for photoshare image"
+msgstr ""
+
+#: pnneedleapi/photoshare.php:109
+msgid "Unkown photoshare image"
+msgstr ""
+
+#: pnneedleapi/photoshare.php:116
+msgid "unkown parameter at pos 1 (A,P or T)"
+msgstr ""
+
+#: pnneedleapi/photoshare.php:120
+msgid "Pagesetter not available"
+msgstr ""
+
+#: pnneedleapi/weblink.php:61
+msgid "No auth for weblink category"
+msgstr ""
+
+#: pnneedleapi/weblink.php:64
+msgid "Unkown welink category"
+msgstr ""
+
+#: pnneedleapi/weblink.php:87
+msgid "No auth for weblink"
+msgstr ""
+
+#: pnneedleapi/weblink.php:90
+msgid "Unkown weblink"
+msgstr ""
+
+#: pnneedleapi/weblink.php:95
+msgid "weblinks"
+msgstr ""
+
+#: pnneedleapi/weblink.php:101
+msgid "Web_Links not available"
+msgstr ""
+
+#: pnneedleapi/changeset.php:29
+#, php-format
+msgid "click here to see changeset #%1$s of the %2$s-project"
+msgstr ""
+
+#: pnneedleapi/changeset.php:29
+#, php-format
+msgid "Changeset #%1$s (%2$s-project)"
+msgstr ""
+
+#: pnneedleapi/ticket.php:29
+msgid "click here to see ticket #%1%s of the %2$s-project"
+msgstr ""
+
+#: pnneedleapi/ticket.php:29
+#, php-format
+msgid "Ticket #%1$s (%2$s-project)"
+msgstr ""
+
+#: pnneedleapi/htmlpage.php:56
+msgid "Unkown page"
+msgstr ""
+
+#: pnneedleapi/htmlpage.php:60
+msgid "htmlpages not available"
+msgstr ""
+
+#: pnincludes/mh_admin_modifyconfighandler.class.php:47
+msgid "Configuration updated"
+msgstr ""
+
+#: pnincludes/mh_admin_edithandler.class.php:37
+msgid "Error! No such item exists."
+msgstr ""
+
+#: pnincludes/mh_admin_edithandler.class.php:54
+#: pntemplates/mh_dynamic_hiddenform.html:35
+#: pntemplates/mh_dynamic_hiddenform.html:82
+msgid "Abbreviation"
+msgstr ""
+
+#: pnincludes/mh_admin_edithandler.class.php:55
+#: pntemplates/mh_dynamic_hiddenform.html:36
+#: pntemplates/mh_dynamic_hiddenform.html:83
+msgid "Acronym"
+msgstr ""
+
+#: pnincludes/mh_admin_edithandler.class.php:56
+#: pntemplates/mh_dynamic_hiddenform.html:37
+#: pntemplates/mh_dynamic_hiddenform.html:84
+msgid "Link"
+msgstr ""
+
+#: pnincludes/mh_admin_edithandler.class.php:57
+#: pntemplates/mh_dynamic_hiddenform.html:38
+#: pntemplates/mh_dynamic_hiddenform.html:85
+msgid "Illegal word"
+msgstr ""
+
+#: pnincludes/mh_admin_edithandler.class.php:86
+msgid "Done! Entry deleted."
+msgstr ""
+
+#: pnincludes/mh_admin_edithandler.class.php:96
+msgid "missing short text"
+msgstr ""
+
+#: pnincludes/mh_admin_edithandler.class.php:101
+msgid "missing long text"
+msgstr ""
+
+#: pnincludes/mh_admin_edithandler.class.php:106
+msgid "missing type text"
+msgstr ""
+
+#: pnincludes/mh_admin_edithandler.class.php:111
+msgid "missing title text"
+msgstr ""
+
+#: pnincludes/mh_admin_edithandler.class.php:127
+msgid "Done! Entry created."
+msgstr ""
+
+#: pnincludes/mh_admin_edithandler.class.php:129
+msgid "Error! Database creation of entry failed."
+msgstr ""
+
+#: pnincludes/mh_admin_edithandler.class.php:134
+msgid "Done! Entry updated."
+msgstr ""
+
+#: pnadminapi.php:43
+msgid "Error: Entry creation failed"
+msgstr ""
+
+#: pnadminapi.php:71
+msgid "Error! Database deletion of entry failed"
+msgstr ""
+
+#: pnadminapi.php:112
+msgid "Database update of entry failed"
+msgstr ""
+
+#: pnadminapi.php:151
+msgid "no description found"
+msgstr ""
+
+#: pnadminapi.php:152
+msgid "no module found"
+msgstr ""
+
+#: pnadminapi.php:206
+msgid "Start"
+msgstr ""
+
+#: pnadminapi.php:207 pntemplates/mh_admin_edit.html:4
+msgid "Add item"
+msgstr ""
+
+#: pnadminapi.php:211
+msgid "View censored words"
+msgstr ""
+
+#: pnadminapi.php:212
+msgid "Needles"
+msgstr ""
+
+#: pnadminapi.php:212 pntemplates/mh_admin_viewneedles.html:4
+msgid "View needles"
+msgstr ""
+
+#: pnadminapi.php:213 pntemplates/mh_admin_header.html:10
+#: pntemplates/mh_admin_config.html:4
+msgid "Settings"
+msgstr ""
+
+#: pninit.php:21
+msgid "Error! Database create table error"
+msgstr ""
+
+#: pninit.php:49
+msgid "Error! Failed to register your MultHook"
+msgstr ""
+
+#: pninit.php:89 pninit.php:227
+#, php-format
+msgid "%s entries copied from AutoLinks, you can remove this module now."
+msgstr ""
+
+#: pninit.php:115
+msgid "Error! Upgrade to 5.0 failed"
+msgstr ""
+
+#: pninit.php:170
+msgid "Error! Database delete table error"
+msgstr ""
+
+#: pninit.php:185
+msgid "Error! Unable to remove MultiHook"
+msgstr ""
+
+#: pntemplates/mh_admin_main.html:5
+msgid "Actually Multihook is used with the following modules"
+msgstr ""
+
+#: pntemplates/mh_admin_main.html:10 pntemplates/mh_admin_viewneedles.html:11
+msgid "Module"
+msgstr ""
+
+#: pntemplates/mh_admin_main.html:11
+msgid "Displayname"
+msgstr ""
+
+#: pntemplates/mh_admin_main.html:12 pntemplates/mh_admin_view.html:15
+msgid "Options"
+msgstr ""
+
+#: pntemplates/mh_admin_main.html:21
+msgid "Hook settings"
+msgstr ""
+
+#: pntemplates/mh_admin_main.html:25
+msgid "MultiHook is not used with any module"
+msgstr ""
+
+#: pntemplates/mh_admin_main.html:27
+msgid "Activate MultiHook for more modules"
+msgstr ""
+
+#: pntemplates/mh_admin_header.html:5
+msgid "Links, Abbreviations, Acronyms, Censor and Needles"
+msgstr ""
+
+#: pntemplates/mh_admin_footer.html:4
+msgid "Visit the MultiHook-project"
+msgstr ""
+
+#: pntemplates/mh_admin_config.html:10
+msgid "General Settings"
+msgstr ""
+
+#: pntemplates/mh_admin_config.html:12
+msgid "Only replace first occurence per text"
+msgstr ""
+
+#: pntemplates/mh_admin_config.html:17
+msgid "CSS class definition for external links"
+msgstr ""
+
+#: pntemplates/mh_admin_config.html:22
+msgid "Items per page in admin view"
+msgstr ""
+
+#: pntemplates/mh_admin_config.html:27
+msgid "Use MultiHook inside [code][/code]"
+msgstr ""
+
+#: pntemplates/mh_admin_config.html:32
+msgid "Replace links with title"
+msgstr ""
+
+#: pntemplates/mh_admin_config.html:37
+msgid "Replace abbreviations with long text"
+msgstr ""
+
+#: pntemplates/mh_admin_config.html:42
+msgid "Show edit link"
+msgstr ""
+
+#: pntemplates/mh_admin_config.html:47
+msgid ""
+"Replace illegal words which are parts of other words, eg. replace oo in "
+"Google"
+msgstr ""
+
+#: pntemplates/mh_admin_config.html:52
+msgid ""
+"Do not replace first and last letter when censoring words with more than two "
+"chars"
+msgstr ""
+
+#: pntemplates/mh_admin_config.html:58
+msgid "Update Configuration"
+msgstr ""
+
+#: pntemplates/mh_dynamic_hiddenform.html:11
+#: pntemplates/mh_dynamic_hiddenform.html:58 pntemplates/mh_user_main.html:25
+#: pntemplates/mh_admin_view.html:11 pntemplates/mh_admin_edit.html:17
+msgid "Short version"
+msgstr ""
+
+#: pntemplates/mh_dynamic_hiddenform.html:16
+#: pntemplates/mh_dynamic_hiddenform.html:63 pntemplates/mh_user_main.html:26
+#: pntemplates/mh_admin_view.html:12 pntemplates/mh_admin_edit.html:21
+msgid "Long version"
+msgstr ""
+
+#: pntemplates/mh_dynamic_hiddenform.html:18
+#: pntemplates/mh_dynamic_hiddenform.html:65 pntemplates/mh_admin_edit.html:23
+msgid "(in case of a link the url, ignored for illegal words)"
+msgstr ""
+
+#: pntemplates/mh_dynamic_hiddenform.html:22
+#: pntemplates/mh_dynamic_hiddenform.html:69 pntemplates/mh_user_main.html:27
+#: pntemplates/mh_admin_view.html:13 pntemplates/mh_admin_edit.html:26
+msgid "Title"
+msgstr ""
+
+#: pntemplates/mh_dynamic_hiddenform.html:24
+#: pntemplates/mh_dynamic_hiddenform.html:71 pntemplates/mh_admin_edit.html:28
+msgid "(only necessary for a link, ignored for illegal words)"
+msgstr ""
+
+#: pntemplates/mh_dynamic_hiddenform.html:28
+#: pntemplates/mh_dynamic_hiddenform.html:75 pntemplates/mh_admin_view.html:14
+#: pntemplates/mh_admin_edit.html:35
+msgid "Language"
+msgstr ""
+
+#: pntemplates/mh_dynamic_hiddenform.html:33
+#: pntemplates/mh_dynamic_hiddenform.html:80 pntemplates/mh_admin_edit.html:31
+msgid "Type"
+msgstr ""
+
+#: pntemplates/mh_dynamic_hiddenform.html:43
+#: pntemplates/mh_dynamic_hiddenform.html:96 pntemplates/mh_admin_edit.html:47
+msgid "Submit"
+msgstr ""
+
+#: pntemplates/mh_dynamic_hiddenform.html:44
+#: pntemplates/mh_dynamic_hiddenform.html:97 pntemplates/mh_admin_edit.html:48
+msgid "Cancel"
+msgstr ""
+
+#: pntemplates/mh_dynamic_hiddenform.html:90 pntemplates/mh_admin_edit.html:40
+msgid "Delete entry"
+msgstr ""
+
+#: pntemplates/mh_user_main.html:3
+msgid "Glossary"
+msgstr ""
+
+#: pntemplates/mh_user_main.html:12
+msgid "Select"
+msgstr ""
+
+#: pntemplates/mh_user_main.html:17
+msgid "Show"
+msgstr ""
+
+#: pntemplates/mh_user_main.html:44 pntemplates/mh_admin_view.html:35
+msgid "No entries present"
+msgstr ""
+
+#: pntemplates/mh_admin_edit.html:6
+msgid "Edit item"
+msgstr ""
+
+#: pntemplates/mh_admin_viewneedles.html:6
+msgid ""
+"The curly brackets indicate the beginning and the end of the parameters and "
+"don't have to be used in the needle, the pipe symbol | indicates different "
+"options you can use."
+msgstr ""
+
+#: pntemplates/mh_admin_viewneedles.html:12
+msgid "Usage"
+msgstr ""
+
+#: pntemplates/mh_admin_viewneedles.html:13
+msgid "Source"
+msgstr ""
+
+#: pntemplates/mh_admin_viewneedles.html:14
+msgid "Case sensitive"
+msgstr ""
+
+#: pntemplates/mh_admin_viewneedles.html:23
+msgid "Yes"
+msgstr ""
+
+#: pntemplates/mh_admin_viewneedles.html:23
+msgid "No"
+msgstr ""
+
+#: pntemplates/mh_admin_viewneedles.html:27
+msgid "No Needles found"
+msgstr ""

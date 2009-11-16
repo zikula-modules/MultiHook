@@ -25,7 +25,7 @@ function MultiHook_ajax_read()
         AjaxUtil::output($abac);
         exit;
     } else {
-        AjaxUtil::error(__('Error! Could not read data', $dom) . ' (aid=' . $aid . ')', '404 Not found');
+        AjaxUtil::error(__('Error! Could not read data.', $dom) . ' (aid=' . $aid . ')', '404 Not found');
     }
     // we should never get here
 }
@@ -66,10 +66,10 @@ function MultiHook_ajax_store()
                              array('aid' => $aid))) {
                 $return = $abac['short'];
             } else {
-                $error = __('Error! Database deletion of entry failed', $dom);
+                $error = __('Error! Database deletion of entry failed.', $dom);
             }
         } else {
-            $error = __('Error! No permissions for the MultiHook module', $dom);
+            $error = __('Error! No permissions for the MultiHook module.', $dom);
         }
     } else {
         $mode = '';
@@ -79,7 +79,7 @@ function MultiHook_ajax_store()
             $check_abac = pnModAPIFunc('MultiHook', 'user', 'get',
                                        array('short' => $short));
             if(!is_bool($check_abac)) {
-                AjaxUtil::error("'$short' " . __(' already exists in database', $dom));
+                AjaxUtil::error("'$short' " . __(' already exists in database.', $dom));
             }
         }
         if(is_array($abac) && SecurityUtil::checkPermission('MultiHook::', $abac['short'] . '::' . $abac['aid'], ACCESS_EDIT)) {
@@ -88,7 +88,7 @@ function MultiHook_ajax_store()
         unset($abac);
 
         if(empty($mode)) {
-            $error = __('Error! No permissions for the MultiHook module', $dom);
+            $error = __('Error! No permissions for the MultiHook module.', $dom);
         } else {
             if(empty($short)) {
                 $error = __('no short text', $dom) . '<br />';
@@ -147,19 +147,19 @@ function MultiHook_ajax_store()
                             //  we cannot get here, type has been checked before already
                     }
                 } else {
-                    $error = __('Error! Could not read data', $dom) . ' (aid=' . $aid . ')';
+                    $error = __('Error! Could not read data.', $dom) . ' (aid=' . $aid . ')';
                 }
             } else {
                 switch($mode) {
                     case 'create':
-                        $error = __('Error! Entry creation failed', $dom);
+                        $error = __('Error! Entry creation failed.', $dom);
                         break;
                     case 'update':
-                        $error = __('Error! Database update of entry failed', $dom);
+                        $error = __('Error! Database update of entry failed.', $dom);
                         break;
                     default:
                         // we should not get here....
-                        $error = 'Internal error! Invalid mode parameter';
+                        $error = 'Internal error! Invalid mode parameter.';
                 }
             }
         }

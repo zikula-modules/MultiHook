@@ -86,7 +86,7 @@ function MultiHook_init()
                     }
                 }
             }
-            LogUtil::registerStatus(sprintf(__('%d entries copied from AutoLinks, you can remove this module now.', $dom), $imported));
+            LogUtil::registerStatus(__f('%s entries copied from AutoLinks. You can remove this module now.', $imported, $dom));
         }
     }
 
@@ -224,7 +224,7 @@ function MultiHook_import_CensorList()
                 }
             }
         }
-        LogUtil::registerStatus(__f('%d lines imported from old Censor module', $censored, $dom));
+        LogUtil::registerStatus(__f('%s entries copied from Censor. You can remove this module now.', $censored, $dom));
     }
 }
 

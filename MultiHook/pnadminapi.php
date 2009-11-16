@@ -40,7 +40,7 @@ function MultiHook_adminapi_create($args)
 
     $obj = DBUtil::insertObject($args, 'multihook', 'aid');
     if($obj == false) {
-        return LogUtil::registerError(__('Error: Entry creation failed', $dom));
+        return LogUtil::registerError(__('Error! Entry creation failed', $dom));
     }
     pnModCallHooks('item', 'create', $obj['aid'], 'aid');
     return $obj['aid'];

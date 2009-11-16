@@ -1,12 +1,18 @@
 <!--[* $Id$ *]-->
-
 <!--[include file=mh_admin_header.html]-->
+<!--[if $abac.short eq '']-->
+<!--[gt text='Add item' assign='templatetitle']-->
+<!--[else]-->
+<!--[gt text='Edit item' assign='templatetitle']-->
+<!--[/if]-->
+
+<h2><!--[$templatetitle]--></h2>
 
 <!--[pnform cssClass="z-form"]-->
 <!--[pnformvalidationsummary]-->
 
 <fieldset>
-    <legend><!--[gt text='Add item']--></legend>
+    <legend><!--[$templatetitle]--></legend>
     <div class="z-formrow">
         <!--[pnformlabel for="mh_short" __text='Short version']-->
         <!--[pnformtextinput id="mh_short" dataField="short" text=$abac.short size="40" maxLength="60"]-->

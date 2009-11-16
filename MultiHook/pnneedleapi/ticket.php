@@ -28,7 +28,7 @@ function MultiHook_needleapi_ticket($args)
         $displayproject = (strtolower($project) == 'core') ? 'Zikula' : $project;
         $result = '<a href="http://code.zikula.org/' . $project . '/ticket/' . $ticket . '" title="' . __f('click here to see ticket #%1%s of the %2$s-project', array($ticket, $displayproject )) . '">' . __f('Ticket #%1$s (%2$s-project)', array($ticket, $displayproject )) . '</a>';
     } else {
-        $result = __('keine NeedleID', $dom);
+        $result = __('no needle id', $dom);
     }
     return $result;
 }

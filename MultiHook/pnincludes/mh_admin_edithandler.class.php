@@ -34,7 +34,7 @@ class MultiHook_admin_edithandler
                                  array('aid' => $this->aid));
         
             if ($abac == false) {
-                return LogUtil::registerError(__('Error! No such item exists', $dom), pnModURL('MultiHook', 'admin', 'main'));
+                return LogUtil::registerError(__('Error! No such item exists.', $dom), pnModURL('MultiHook', 'admin', 'main'));
             }
             // set permission flags
             $abac['edit'] = false;
@@ -83,9 +83,9 @@ class MultiHook_admin_edithandler
                                  'delete',
                                  array('aid' => $data['aid']))) {
                     // Success
-                    LogUtil::registerStatus(__('Done! Entry deleted', $dom));
+                    LogUtil::registerStatus(__('Done! Entry deleted.', $dom));
                 } else {
-                    LogUtil::registerError(__('Error! Database deletion of entry failed', $dom));
+                    LogUtil::registerError(__('Error! Database deletion of entry failed.', $dom));
                 }
                 return pnRedirect(pnModURL('MultiHook', 'admin', 'view', array('filter' => $data['type'])));
             }
@@ -117,23 +117,23 @@ class MultiHook_admin_edithandler
             }
 
             if(empty($data['language'])) {
-                $data['language'] = __('All', $dom);
+                $data['language'] = 'All';
             }
 
             // The API function is called
             if($data['aid'] == -1) {
                 if(pnModAPIFunc('MultiHook', 'admin', 'create', $data) <> false) {
                     // Success
-                    LogUtil::registerStatus(__('Done! Entry created', $dom));
+                    LogUtil::registerStatus(__('Done! Entry created.', $dom));
                 } else {
-                    LogUtil::registerError(__('Error! Database creation of entry failed', $dom));
+                    LogUtil::registerError(__('Error! Database creation of entry failed.', $dom));
                 }
             } else {
                 if(pnModAPIFunc('MultiHook', 'admin', 'update', $data) <> false) {
                     // Success
-                    LogUtil::registerStatus(__('Done! Entry updated', $dom));
+                    LogUtil::registerStatus(__('Done! Entry updated.', $dom));
                 } else {
-                    LogUtil::registerError(__('Error! Database update of entry failed', $dom));
+                    LogUtil::registerError(__('Error! Database update of entry failed.', $dom));
                 }
             }
 
