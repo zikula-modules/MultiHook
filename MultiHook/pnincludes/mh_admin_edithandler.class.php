@@ -1,23 +1,13 @@
 <?php
-// $Id$
-// ----------------------------------------------------------------------
-// LICENSE
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License (GPL)
-// as published by the Free Software Foundation; either version 2
-// of the License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// To read the license please visit http://www.gnu.org/copyleft/gpl.html
-// ----------------------------------------------------------------------
-// Original Author of file: Frank Schummertz
-// Purpose of file:  MultiHook administration display functions
-// ----------------------------------------------------------------------
+/**
+ * Multihook
+ *
+ * @copyright (c) 2001-now, Multihook Development Team
+ * @link http://code.zikula.org/multihook
+ * @version $Id$
+ * @license GNU/GPL - http://www.gnu.org/copyleft/gpl.html
+ * @package Multihook
+ */
 
 class MultiHook_admin_edithandler
 {
@@ -36,7 +26,7 @@ class MultiHook_admin_edithandler
                            'long'  => '',
                            'title' => '',
                            'type'  => 0,
-                           'language' => pnUserGetLang() );
+                           'language' => ZLanguage::getLanguageCode() );
         } else {
             $abac = pnModAPIFunc('MultiHook',
                                  'user',
@@ -93,7 +83,7 @@ class MultiHook_admin_edithandler
                                  'delete',
                                  array('aid' => $data['aid']))) {
                     // Success
-                    LogUtil::registerStatus(__('Entry deleted', $dom));
+                    LogUtil::registerStatus(__('Done! Entry deleted', $dom));
                 } else {
                     LogUtil::registerError(__('Error! Database deletion of entry failed', $dom));
                 }
@@ -127,21 +117,21 @@ class MultiHook_admin_edithandler
             }
 
             if(empty($data['language'])) {
-                $data['language'] = 'All';
+                $data['language'] = __('All', $dom);
             }
 
             // The API function is called
             if($data['aid'] == -1) {
                 if(pnModAPIFunc('MultiHook', 'admin', 'create', $data) <> false) {
                     // Success
-                    LogUtil::registerStatus( __('Entry created', $dom));
+                    LogUtil::registerStatus(__('Done! Entry created', $dom));
                 } else {
                     LogUtil::registerError(__('Error! Database creation of entry failed', $dom));
                 }
             } else {
                 if(pnModAPIFunc('MultiHook', 'admin', 'update', $data) <> false) {
                     // Success
-                    LogUtil::registerStatus(__('Entry updated', $dom));
+                    LogUtil::registerStatus(__('Done! Entry updated', $dom));
                 } else {
                     LogUtil::registerError(__('Error! Database update of entry failed', $dom));
                 }

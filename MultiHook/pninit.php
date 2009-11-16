@@ -1,23 +1,13 @@
 <?php
-// $Id$
-// ----------------------------------------------------------------------
-// LICENSE
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License (GPL)
-// as published by the Free Software Foundation; either version 2
-// of the License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// To read the license please visit http://www.gnu.org/copyleft/gpl.html
-// ----------------------------------------------------------------------
-// Original Author of file: Frank Schummertz
-// Purpose of file:  Initialisation functions for MultiHook
-// ----------------------------------------------------------------------
+/**
+ * Multihook
+ *
+ * @copyright (c) 2001-now, Multihook Development Team
+ * @link http://code.zikula.org/multihook
+ * @version $Id$
+ * @license GNU/GPL - http://www.gnu.org/copyleft/gpl.html
+ * @package Multihook
+ */
 
 /**
  * initialise the MultiHook module
@@ -28,7 +18,7 @@ function MultiHook_init()
     // create the MultiHook table
     // the table definition itself is done in pntables.php
     if (!DBUtil::createTable('multihook')) {
-        return LogUtil::registerError(__('Database create table error', $dom));
+        return LogUtil::registerError(__('Error! Database create table error', $dom));
     }
 
     // Set up module variables
@@ -56,7 +46,7 @@ function MultiHook_init()
                            'MultiHook',
                            'user',
                            'transform')) {
-        return LogUtil::registerError(__('Error failed to register your MultHook', $dom));
+        return LogUtil::registerError(__('Error! Failed to register your MultHook', $dom));
     }
 
     // import autolinks if available
@@ -122,7 +112,7 @@ function MultiHook_upgrade($oldversion)
     // change the database. DBUtil + ADODB detect the changes on their own
     // and perform all necessary steps without help from the module author
     if (!DBUtil::changeTable('multihook')) {
-        return LogUtil::registerError(__('Upgrade to 5.0 failed', $dom));
+        return LogUtil::registerError(__('Error! Upgrade to 5.0 failed', $dom));
     }
     switch($oldversion) {
         case '1.0':
@@ -177,7 +167,7 @@ function MultiHook_delete()
     $dom = ZLanguage::getModuleDomain('MultiHook');
     // drop the table
     if (!DBUtil::dropTable('multihook')) {
-        return LogUtil::registerError(__('Database delete table error', $dom));
+        return LogUtil::registerError(__('Error! Database delete table error', $dom));
     }
 
     // Remove module variables
@@ -192,7 +182,7 @@ function MultiHook_delete()
                              'MultiHook',
                              'user',
                              'transform')) {
-        return LogUtil::registerError(__('Error unable to remove MultiHook', $dom));
+        return LogUtil::registerError(__('Error! Unable to remove MultiHook', $dom));
     }
 
     // Deletion successful

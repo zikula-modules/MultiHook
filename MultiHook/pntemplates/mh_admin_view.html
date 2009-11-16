@@ -4,6 +4,7 @@
 <h2><!--[$title]--></h2>
 
 <!--[pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars="filter" filter=$filter]-->
+
 <table class="z-admintable">
   <thead>
     <tr>
@@ -19,14 +20,14 @@
     <tr class="<!--[cycle values="z-odd,z-even" name=abacs]-->">
       <td>
         <!--[if $abac.edit == true]-->
-        <a title="<!--[gt text='Edit']-->" href="<!--[pnmodurl modname=MultiHook type=admin func=edit aid=$abac.aid]-->"><!--[$abac.short]--></a>
+        <a title="<!--[gt text='Edit']-->" href="<!--[pnmodurl modname=MultiHook type=admin func=edit aid=$abac.aid]-->"><!--[$abac.short|default:"&nbsp;"]--></a>
         <!--[else]-->
-        <!--[$abac.short]-->
+        <!--[$abac.short|default:"&nbsp;"]-->
         <!--[/if]-->
       </td>
-      <td><!--[$abac.long|truncate:30]--></td>
-      <td><!--[$abac.title|truncate:30]--></td>
-      <td><!--[$abac.language]--></td>
+      <td><!--[$abac.long|truncate:30|default:"&nbsp;"]--></td>
+      <td><!--[$abac.title|truncate:30|default:"&nbsp;"]--></td>
+      <td><!--[$abac.language|default:"&nbsp;"]--></td>
       <td><a title="<!--[gt text='Edit']-->" href="<!--[pnmodurl modname=MultiHook type=admin func=edit aid=$abac.aid]-->"><!--[pnimg modname='core' src='xedit.gif' set='icons/extrasmall']--></a></td>
     </tr>
     <!--[foreachelse]-->

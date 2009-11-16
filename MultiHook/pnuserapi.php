@@ -1,23 +1,13 @@
 <?php
-// $Id$
-// ----------------------------------------------------------------------
-// LICENSE
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License (GPL)
-// as published by the Free Software Foundation; either version 2
-// of the License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// To read the license please visit http://www.gnu.org/copyleft/gpl.html
-// ----------------------------------------------------------------------
-// Original Author of file: Frank Schummertz
-// Purpose of file:  MultiHook userapi functions
-// ----------------------------------------------------------------------
+/**
+ * Multihook
+ *
+ * @copyright (c) 2001-now, Multihook Development Team
+ * @link http://code.zikula.org/multihook
+ * @version $Id$
+ * @license GNU/GPL - http://www.gnu.org/copyleft/gpl.html
+ * @package Multihook
+ */
 
 Loader::includeOnce('modules/MultiHook/common.php');
 
@@ -72,7 +62,7 @@ function MultiHook_userapi_getall($args)
 
     $abacs = DBUtil::selectObjectArray('multihook', $where, $orderby, (int)$args['startnum'], (int)$args['numitems'], '', $permfilter);
     if ($abacs === false) {
-        return LogUtil::registerError(__('MultiHook: Select failed, please contact the webmaster', $dom));
+        return LogUtil::registerError(__('Error! DB-Select failed. Please contact the webmaster', $dom));
     }
     return $abacs;
 }
@@ -109,7 +99,7 @@ function MultiHook_userapi_get($args)
             // Get item
             $abac = DBUtil::selectObjectByID('multihook', $args['aid'], 'aid', null, $permfilter, null, false);
             if($abac == false) {
-                return LogUtil::registerError(__('MultiHook: Select failed, please contact the webmaster', $dom));
+                return LogUtil::registerError(__('Error! DB-Select failed. Please contact the webmaster', $dom));
             }
         } else {
             return LogUtil::registerArgsError();

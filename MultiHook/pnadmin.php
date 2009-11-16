@@ -1,23 +1,13 @@
 <?php
-// $Id$
-// ----------------------------------------------------------------------
-// LICENSE
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License (GPL)
-// as published by the Free Software Foundation; either version 2
-// of the License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// To read the license please visit http://www.gnu.org/copyleft/gpl.html
-// ----------------------------------------------------------------------
-// Original Author of file: Frank Schummertz
-// Purpose of file:  MultiHook administration display functions
-// ----------------------------------------------------------------------
+/**
+ * Multihook
+ *
+ * @copyright (c) 2001-now, Multihook Development Team
+ * @link http://code.zikula.org/multihook
+ * @version $Id$
+ * @license GNU/GPL - http://www.gnu.org/copyleft/gpl.html
+ * @package Multihook
+ */
 
 /**
  * the main administration function
@@ -28,7 +18,7 @@ function MultiHook_admin_main()
         return LogUtil::registerPermissionError('index.php');
     }
 
-    $pnr = pnRender::getInstance('MultiHook', false);
+    $render = & pnRender::getInstance('MultiHook', false);
     $hmods = pnModAPIFunc('modules', 'admin', 'gethookedmodules', array('hookmodname' => 'MultiHook'));
     foreach($hmods as $hmod => $dummy) {
         $modid = pnModGetIDFromName($hmod);
@@ -36,8 +26,8 @@ function MultiHook_admin_main()
         $moddata['id'] = $modid;
         $hookedmodules[] = $moddata;
     }
-    $pnr->assign('hookedmodules', $hookedmodules);
-    return $pnr->fetch("mh_admin_main.html");
+    $render ->assign('hookedmodules', $hookedmodules);
+    return $render ->fetch("mh_admin_main.html");
 }
 
 /**
@@ -102,13 +92,12 @@ function MultiHook_admin_view()
                      __('Illegal words', $dom));
 
     // Create output object
-    $pnr = pnRender::getInstance('MultiHook', false);
-    $pnr->add_core_data();
-    $pnr->assign('abacs', $abacs);
-    $pnr->assign('title', $titles[$filter]);
-    $pnr->assign('filter', $filter);
-    $pnr->assign('abacscount', pnModAPIFunc('MultiHook', 'user', 'countitems', array('filter' => $filter)));
-    return $pnr->fetch('mh_admin_view.html');
+    $render = & pnRender::getInstance('MultiHook', false, null, true);
+    $render->assign('abacs', $abacs);
+    $render->assign('title', $titles[$filter]);
+    $render->assign('filter', $filter);
+    $render->assign('abacscount', pnModAPIFunc('MultiHook', 'user', 'countitems', array('filter' => $filter)));
+    return $render->fetch('mh_admin_view.html');
 }
 
 /**
@@ -143,7 +132,7 @@ function MultiHook_admin_viewneedles()
 
     $needles = pnModAPIFunc('MultiHook', 'admin', 'collectneedles');
 
-    $pnr = pnRender::getInstance('MultiHook', false);
-    $pnr->assign('needles', $needles);
-    return $pnr->fetch('mh_admin_viewneedles.html');
+    $render = & pnRender::getInstance('MultiHook', false);
+    $render->assign('needles', $needles);
+    return $render->fetch('mh_admin_viewneedles.html');
 }

@@ -1,23 +1,13 @@
 <?php
-// $Id$
-// ----------------------------------------------------------------------
-// LICENSE
-//
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License (GPL)
-// as published by the Free Software Foundation; either version 2
-// of the License, or (at your option) any later version.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// To read the license please visit http://www.gnu.org/copyleft/gpl.html
-// ----------------------------------------------------------------------
-// Original Author of file: Frank Schummertz
-// Purpose of file:  MultiHook theme functions
-// ----------------------------------------------------------------------
+/**
+ * Multihook
+ *
+ * @copyright (c) 2001-now, Multihook Development Team
+ * @link http://code.zikula.org/multihook
+ * @version $Id$
+ * @license GNU/GPL - http://www.gnu.org/copyleft/gpl.html
+ * @package Multihook
+ */
 
 /**
  * preparetheme
@@ -34,11 +24,10 @@ function MultiHook_themeapi_preparetheme()
         PageUtil::addVar('javascript', 'javascript/ajax/effects.js');
         PageUtil::addVar('javascript', 'javascript/ajax/dragdrop.js');
         PageUtil::addVar('javascript', 'modules/MultiHook/pnjavascript/multihook.js');
-        PageUtil::addVar('rawtext', '<script type="text/javascript">var mhloadingText = "' . DataUtil::formatForDisplay(__('loading data...', $dom)) .'"; var mhsavingText = "' . DataUtil::formatForDisplay(__('saving data...', $dom)) . '";</script>');
+        PageUtil::addVar('rawtext', '<script type="text/javascript">var mhloadingText = "' . DataUtil::formatForDisplay(__('Loading data...', $dom)) .'"; var mhsavingText = "' . DataUtil::formatForDisplay(__('Saving data...', $dom)) . '";</script>');
     }
     return true;
 }
-
 
 /**
  * helper
@@ -52,10 +41,10 @@ function MultiHook_themeapi_helper()
     $out = '';
     if(SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADD)) {
         $dom = ZLanguage::getModuleDomain('MultiHook');
-        $pnr = pnRender::getInstance('MultiHook', false);
-        $pnr->assign('userlang', ZLanguage::getLanguageCode());
-        $pnr->assign('modinfo', pnModGetInfo(pnModGetIDFromName('MultiHook')));
-        $out = $pnr->fetch('mh_dynamic_hiddenform.html');
+        $render = pnRender::getInstance('MultiHook', false);
+        $render->assign('userlang', ZLanguage::getLanguageCode());
+        $render->assign('modinfo', pnModGetInfo(pnModGetIDFromName('MultiHook')));
+        $out = $render->fetch('mh_dynamic_hiddenform.html');
     }
     return $out;
 }
