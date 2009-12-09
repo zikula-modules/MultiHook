@@ -7,9 +7,9 @@
 <!--[pnformvalidationsummary]-->
 
 <fieldset>
-    <legend><!--[gt text='General Settings']--></legend>
+    <legend><!--[gt text='General settings']--></legend>
     <div class="z-formrow">
-        <!--[pnformlabel for="abacfirst" __text='Only replace first occurence per text']-->
+        <!--[pnformlabel for="abacfirst" __text='Only replace first instance of items in text']-->
         <!--[pnformcheckbox id="abacfirst" checked=$pncore.MultiHook.abacfirst]-->
     </div>
 
@@ -19,12 +19,12 @@
     </div>
 
     <div class="z-formrow">
-        <!--[pnformlabel for="itemsperpage" __text='Items per page in admin view']-->
+        <!--[pnformlabel for="itemsperpage" __text='Items per page in admin interface']-->
         <!--[pnformintinput id="itemsperpage" text=$pncore.MultiHook.itemsperpage]-->
     </div>
 
     <div class="z-formrow">
-        <!--[pnformlabel for="mhincodetags" __text='Use MultiHook inside [code][/code]']-->
+        <!--[pnformlabel for="mhincodetags" __text='Use MultiHook inside [code][/code] tags']-->
         <!--[pnformcheckbox id="mhincodetags" checked=$pncore.MultiHook.mhincodetags]-->
     </div>
 
@@ -44,18 +44,18 @@
     </div>
 
     <div class="z-formrow">
-        <!--[pnformlabel for="mhbrutalcensor" __text='Replace illegal words which are parts of other words, eg. replace oo in Google']-->
+        <!--[pnformlabel for="mhbrutalcensor" __text='Replace censored words when they are part of other words']-->
         <!--[pnformcheckbox id="mhbrutalcensor" checked=$pncore.MultiHook.mhbrutalcensor]-->
     </div>
 
     <div class="z-formrow">
-        <!--[pnformlabel for="mhrelaxedcensoring" __text='Do not replace first and last letter when censoring words with more than two chars']-->
+        <!--[pnformlabel for="mhrelaxedcensoring" __text='Do not replace first and last letter when censoring words with more than two characters']-->
         <!--[pnformcheckbox id="mhrelaxedcensoring" checked=$pncore.MultiHook.mhrelaxedcensoring]-->
     </div>
 </fieldset>
 
 <div class="z-formbuttons">
-    <!--[pnformbutton id="submit" commandName="submit" __text="Update Configuration"]-->
+    <!--[pnformbutton id="submit" commandName="submit" __text="Save"]-->
 </div>
 
 <!--[/pnform]-->

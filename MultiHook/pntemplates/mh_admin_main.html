@@ -2,14 +2,14 @@
 
 <!--[include file=mh_admin_header.html]-->
 
-<h2><!--[gt text="Actually Multihook is used with the following modules"]--></h2>
+<h2><!--[gt text="Client modules list"]--></h2>
 
 <table class="z-admintable">
     <thead>
         <tr>
             <th><!--[gt text="Module"]--></th>
-            <th><!--[gt text="Displayname"]--></th>
-            <th><!--[gt text="Options"]--></th>
+            <th><!--[gt text="Display name"]--></th>
+            <th><!--[gt text="Actions"]--></th>
         </tr>
     </thead>
     <tbody>
@@ -22,7 +22,7 @@
             </td>
         </tr>
         <!--[foreachelse]-->
-        <tr class="z-admintableempty"><td colspan="3"><!--[gt text="MultiHook is not used with any module"]--></td></tr>
+        <tr class="z-admintableempty"><td colspan="3"><!--[gt text="MultiHook is not currently used by any module."]--></td></tr>
         <!--[/foreach]-->
         <tr class="z-admintableempty z-sub"><td colspan="3"><a href="<!--[pnmodurl modname=modules type=admin func=main]-->" title="<!--[gt text="Activate MultiHook for more modules"]-->"><!--[gt text="Activate MultiHook for more modules"]--></a></td></tr>
     </tbody>

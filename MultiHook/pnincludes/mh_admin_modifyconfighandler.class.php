@@ -44,7 +44,7 @@ class MultiHook_admin_modifyconfighandler
             pnModSetVar('MultiHook', 'mhbrutalcensor',     $data['mhbrutalcensor']);
             pnModSetVar('MultiHook', 'mhrelaxedcensoring', $data['mhrelaxedcensoring']);
 
-            LogUtil::registerStatus(__('Configuration updated', $dom));
+            LogUtil::registerStatus(__('Done! Saved your settings changes.', $dom));
         }
         return true;
     }

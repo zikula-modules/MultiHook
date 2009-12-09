@@ -13,8 +13,8 @@ $dom = ZLanguage::getModuleDomain('MultiHook');
 
 $modversion['name']             = 'MultiHook';
 $modversion['version']          = '5.2';
-$modversion['description']      = __('Creates xhtml tags for abbreviations, acronyms and autolinks, while providing specific content censorship.', $dom);
-$modversion['displayname']      = __('MultiHook', $dom);
+$modversion['description']      = __('Provides a hooked module that generates XHTML tags for abbreviations, acronyms and automatically-generated links in content from other modules, and enables censorship of specified words and phrases in the content of modules to which it is hooked.', $dom);
+$modversion['displayname']      = __('MultiHook content filters', $dom);
 //! module url should be lowercase without spaces and different to displayname
 $modversion['url']              = __('multihook', $dom);
 $modversion['credits']          = 'pndocs/credits.txt';

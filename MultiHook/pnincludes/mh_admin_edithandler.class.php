@@ -54,7 +54,7 @@ class MultiHook_admin_edithandler
         $items = array( array('text' => __('Abbreviation', $dom), 'value' => 0),
                         array('text' => __('Acronym', $dom),      'value' => 1),
                         array('text' => __('Link', $dom),         'value' => 2),
-                        array('text' => __('Illegal word', $dom),  'value' => 3) );
+                        array('text' => __('Censored word', $dom),  'value' => 3) );
  
         $pnRender->assign('items', $items); // Supply items
         $pnRender->assign('abac', $abac);
@@ -85,7 +85,7 @@ class MultiHook_admin_edithandler
                     // Success
                     LogUtil::registerStatus(__('Done! Entry deleted.', $dom));
                 } else {
-                    LogUtil::registerError(__('Error! Database deletion of entry failed.', $dom));
+                    LogUtil::registerError(__('Error! Could not delete entry from database.', $dom));
                 }
                 return pnRedirect(pnModURL('MultiHook', 'admin', 'view', array('filter' => $data['type'])));
             }
@@ -126,14 +126,14 @@ class MultiHook_admin_edithandler
                     // Success
                     LogUtil::registerStatus(__('Done! Entry created.', $dom));
                 } else {
-                    LogUtil::registerError(__('Error! Database creation of entry failed.', $dom));
+                    LogUtil::registerError(__('Error! Could not create entry in database.', $dom));
                 }
             } else {
                 if(pnModAPIFunc('MultiHook', 'admin', 'update', $data) <> false) {
                     // Success
                     LogUtil::registerStatus(__('Done! Entry updated.', $dom));
                 } else {
-                    LogUtil::registerError(__('Error! Database update of entry failed.', $dom));
+                    LogUtil::registerError(__('Error! Could not save changes to database.', $dom));
                 }
             }
 

@@ -26,9 +26,9 @@ function MultiHook_needleapi_ticket($args)
         $project = DataUtil::formatForDisplay(strtolower($parts[1]));
         $ticket = (int)DataUtil::formatForDisplay($parts[2]);
         $displayproject = (strtolower($project) == 'core') ? 'Zikula' : $project;
-        $result = '<a href="http://code.zikula.org/' . $project . '/ticket/' . $ticket . '" title="' . __f('click here to see ticket #%1%s of the %2$s-project', array($ticket, $displayproject )) . '">' . __f('Ticket #%1$s (%2$s-project)', array($ticket, $displayproject )) . '</a>';
+        $result = '<a href="http://code.zikula.org/' . $project . '/ticket/' . $ticket . '" title="' . __f('Click here to see ticket #%1%s of the %2$s project', array($ticket, $displayproject )) . '">' . __f('Ticket #%1$s (%2$s project)', array($ticket, $displayproject )) . '</a>';
     } else {
-        $result = __('no needle id', $dom);
+        $result = __('No needle ID', $dom);
     }
     return $result;
 }

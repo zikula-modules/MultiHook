@@ -62,7 +62,7 @@ function MultiHook_userapi_getall($args)
 
     $abacs = DBUtil::selectObjectArray('multihook', $where, $orderby, (int)$args['startnum'], (int)$args['numitems'], '', $permfilter);
     if ($abacs === false) {
-        return LogUtil::registerError(__('Error! Database selection failed. Please contact the webmaster.', $dom));
+        return LogUtil::registerError(__('Error! Could not select database. Please contact the site administrator.', $dom));
     }
     return $abacs;
 }
@@ -99,7 +99,7 @@ function MultiHook_userapi_get($args)
             // Get item
             $abac = DBUtil::selectObjectByID('multihook', $args['aid'], 'aid', null, $permfilter, null, false);
             if($abac == false) {
-                return LogUtil::registerError(__('Error! Database selection failed. Please contact the webmaster.', $dom));
+                return LogUtil::registerError(__('Error! Could not select database. Please contact the site administrator.', $dom));
             }
         } else {
             return LogUtil::registerArgsError();

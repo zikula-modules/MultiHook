@@ -10,9 +10,9 @@
         <fieldset class="mhselection">
             <select name="filter">
                 <option value="-1" <!--[if $filter eq -1]-->selected="selected"<!--[/if]-->><!--[gt text='Select' domain='module_multihook']--></option>
-                <option value="0" <!--[if $filter eq 0]-->selected="selected"<!--[/if]-->><!--[gt text='View abbreviations' domain='module_multihook']--></option>
-                <option value="1" <!--[if $filter eq 1]-->selected="selected"<!--[/if]-->><!--[gt text='View acronyms' domain='module_multihook']--></option>
-                <option value="2" <!--[if $filter eq 2]-->selected="selected"<!--[/if]-->><!--[gt text='View links' domain='module_multihook']--></option>
+                <option value="0" <!--[if $filter eq 0]-->selected="selected"<!--[/if]-->><!--[gt text='Abbreviations list' domain='module_multihook']--></option>
+                <option value="1" <!--[if $filter eq 1]-->selected="selected"<!--[/if]-->><!--[gt text='Acronyms list' domain='module_multihook']--></option>
+                <option value="2" <!--[if $filter eq 2]-->selected="selected"<!--[/if]-->><!--[gt text='Links list' domain='module_multihook']--></option>
             </select>
             <input type="submit" name="submit" value="<!--[gt text='Show' domain='module_multihook']-->" />
         </fieldset>
@@ -41,7 +41,7 @@
                 </td>
             </tr>
             <!--[foreachelse]-->
-            <tr class="z-datatableempty"><td colspan="3"><!--[gt text='No entries present' domain='module_multihook']--></td></tr>
+            <tr class="z-datatableempty"><td colspan="3"><!--[gt text='There are currently no entries.' domain='module_multihook']--></td></tr>
             <!--[/foreach]-->
         </tbody>
     </table>

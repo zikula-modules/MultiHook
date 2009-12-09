@@ -86,10 +86,10 @@ function MultiHook_admin_view()
             }
         }
     }
-    $titles = array( __('View abbreviations', $dom),
-                     __('View acronyms', $dom),
-                     __('View links', $dom),
-                     __('Illegal words', $dom));
+    $titles = array( __('Abbreviations list', $dom),
+                     __('Acronyms list', $dom),
+                     __('Links list', $dom),
+                     __('Censored words list', $dom));
 
     // Create output object
     $render = & pnRender::getInstance('MultiHook', false, null, true);

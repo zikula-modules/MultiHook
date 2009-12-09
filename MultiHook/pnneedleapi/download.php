@@ -57,10 +57,10 @@ function MultiHook_needleapi_download($args)
                                     $desc  = DataUtil::formatForDisplay($dl20categoryinfo['description']);
                                     $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
                                 } else {
-                                    $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unkown category', $dom) . ' (' . $id . ')') .'</em>';
+                                    $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unknown category', $dom) . ' (' . $id . ')') .'</em>';
                                 }
                             } else {
-                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No auth for category', $dom) . ' (' . $id . ')') .'</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No authorisation for category', $dom) . ' (' . $id . ')') .'</em>';
                             }
                             break;
                         case 'D':
@@ -88,7 +88,7 @@ function MultiHook_needleapi_download($args)
                                 $desc  = DataUtil::formatForDisplay($dl20downloadinfo[0]['description']);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('unkown download', $dom) . ' (' . $id . ')') . '</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('unknown download', $dom) . ' (' . $id . ')') . '</em>';
                             }
                             break;
                         case 'S':
@@ -96,7 +96,7 @@ function MultiHook_needleapi_download($args)
                             $cache[$nid] = '<a href="index.php?name=Downloads" title="' . DataUtil::formatForDisplay(__('downloads', $dom)) . '">' . DataUtil::formatForDisplay(__('downloads', $dom)) . '</a>';
                             break;
                         default:
-                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('unknown parameter at pos.1 (C, D, L or S)', $dom)) . '</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unknown parameter at pos.1 (C, D, L or S)', $dom)) . '</em>';
                     }
                 } else {
                     // no Downloads 2.0 or later
@@ -108,7 +108,7 @@ function MultiHook_needleapi_download($args)
         }
         $result = $cache[$nid];
     } else {
-        $result = '<em>' . DataUtil::formatForDisplay(__('no needle id', $dom)) . '</em>';
+        $result = '<em>' . DataUtil::formatForDisplay(__('No needle ID', $dom)) . '</em>';
     }
     return $result;
 }

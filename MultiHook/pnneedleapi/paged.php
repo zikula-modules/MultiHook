@@ -28,7 +28,7 @@ function MultiHook_needleapi_paged($args)
 
     $dom = ZLanguage::getModuleDomain('MultiHook');
     // set the default for errors of all kind
-    $result = '<em title="' . DataUtil::formatForDisplay(__f('Error reading reading needle data for \'%1$s\' or module \'%2$s\' is not active', array($nid, 'PagEd'), $dom)) . '">PAGED' . $nid . '</em>';
+    $result = '<em title="' . DataUtil::formatForDisplay(__f('Error! Could not read needle data for \'%1$s\' or module \'%2$s\' is not active.', array($nid, 'PagEd'), $dom)) . '">PAGED' . $nid . '</em>';
     if(!isset($cache[$nid])) {
         // not in cache array
         // set the default

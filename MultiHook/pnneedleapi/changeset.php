@@ -26,9 +26,9 @@ function MultiHook_needleapi_changeset($args)
         $project = DataUtil::formatForDisplay(strtolower($parts[1]));
         $changeset = (int)DataUtil::formatForDisplay($parts[2]);
         $displayproject = (strtolower($project) == 'core') ? 'Zikula' : $project;
-        $result = '<a href="http://code.zikula.org/' . $project . '/changeset/' . $changeset . '" title="' . __f('click here to see changeset #%1$s of the %2$s-project', array($changeset, $displayproject)) . '">' . __f('Changeset #%1$s (%2$s-project)', array($changeset, $displayproject)) . '</a>';
+        $result = '<a href="http://code.zikula.org/' . $project . '/changeset/' . $changeset . '" title="' . __f('Click here to see change set #%1$s of the %2$s project', array($changeset, $displayproject)) . '">' . __f('Change set #%1$s (%2$s project)', array($changeset, $displayproject)) . '</a>';
     } else {
-        $result = __('no needle id', $dom);
+        $result = __('No needle ID', $dom);
     }
     return $result;
 }

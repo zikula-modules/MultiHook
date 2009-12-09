@@ -40,7 +40,7 @@ function MultiHook_adminapi_create($args)
 
     $obj = DBUtil::insertObject($args, 'multihook', 'aid');
     if($obj == false) {
-        return LogUtil::registerError(__('Error! Entry creation failed', $dom));
+        return LogUtil::registerError(__('Error! Could not create new entry.', $dom));
     }
     pnModCallHooks('item', 'create', $obj['aid'], 'aid');
     return $obj['aid'];
@@ -68,7 +68,7 @@ function MultiHook_adminapi_delete($args)
 
     $res = DBUtil::deleteObjectByID ('multihook', (int)$args['aid'], 'aid');
     if($res==false) {
-        return LogUtil::registerError(__('Error! Database deletion of entry failed', $dom));
+        return LogUtil::registerError(__('Error! Could not delete entry from database.', $dom));
     }
 
     // Let any hooks know that we have deleted a abbr
@@ -109,7 +109,7 @@ function MultiHook_adminapi_update($args)
 
     $res = DBUtil::updateObject($args, 'multihook', '', 'aid');
     if($res == false) {
-        return LogUtil::registerError(__('Database update of entry failed', $dom));
+        return LogUtil::registerError(__('Error! Could not save changes to database.', $dom));
     }
     return $args['aid'];
 }
@@ -148,8 +148,8 @@ function MultiHook_adminapi_collectneedles()
                             if(function_exists($infofunc)){
                                 $needleinfo = $infofunc();
                             } else {
-                                $needleinfo['info']          = __('no description found', $dom);
-                                $needleinfo['module']        = __('no module found', $dom);
+                                $needleinfo['info']          = __('No description found.', $dom);
+                                $needleinfo['module']        = __('No module found.', $dom);
                                 $needleinfo['inspect']       = false;
                             }
                             // check if the needle_info sets the 'needle' value
@@ -203,13 +203,13 @@ function MultiHook_adminapi_getlinks()
     $dom = ZLanguage::getModuleDomain('MultiHook');
     $links = array();
     if (SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
-        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'main'), 'text' => __('Start', $dom));
-        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'edit', array('aid' => -1)), 'text' => __('Add item', $dom));
-        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'view', array('filter' => 0)), 'text' => __('Abbreviations', $dom), 'title' => __('View abbreviations', $dom));
-        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'view', array('filter' => 1)), 'text' => __('Acronyms', $dom), 'title' => __('View acronyms', $dom));
-        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'view', array('filter' => 2)), 'text' => __('Links', $dom), 'title' => __('View links', $dom));
-        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'view', array('filter' => 3)), 'text' => __('Censor', $dom), 'title' => __('View censored words', $dom));
-        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'viewneedles'), 'text' => __('Needles', $dom), 'title' => __('View needles', $dom));
+        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'main'), 'text' => __('Client modules list', $dom));
+        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'edit', array('aid' => -1)), 'text' => __('Create new item', $dom));
+        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'view', array('filter' => 0)), 'text' => __('Abbreviations list', $dom), 'title' => __('Abbreviations list', $dom));
+        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'view', array('filter' => 1)), 'text' => __('Acronyms list', $dom), 'title' => __('Acronyms list', $dom));
+        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'view', array('filter' => 2)), 'text' => __('Links list', $dom), 'title' => __('Links list', $dom));
+        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'view', array('filter' => 3)), 'text' => __('Censored words list', $dom), 'title' => __('Censored words list', $dom));
+        $links[] = array('url' => pnModURL('MultiHook', 'admin', 'viewneedles'), 'text' => __('Needles list', $dom), 'title' => __('Needles list', $dom));
         $links[] = array('url' => pnModURL('MultiHook', 'admin', 'modifyconfig'), 'text' => __('Settings', $dom));
     }
     return $links;

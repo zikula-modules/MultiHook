@@ -66,10 +66,10 @@ function MultiHook_ajax_store()
                              array('aid' => $aid))) {
                 $return = $abac['short'];
             } else {
-                $error = __('Error! Database deletion of entry failed.', $dom);
+                $error = __('Error! Could not delete entry from database.', $dom);
             }
         } else {
-            $error = __('Error! No permissions for the MultiHook module.', $dom);
+            $error = __('Error! Permissions not granted for the MultiHook module.', $dom);
         }
     } else {
         $mode = '';
@@ -88,7 +88,7 @@ function MultiHook_ajax_store()
         unset($abac);
 
         if(empty($mode)) {
-            $error = __('Error! No permissions for the MultiHook module.', $dom);
+            $error = __('Error! Permissions not granted for the MultiHook module.', $dom);
         } else {
             if(empty($short)) {
                 $error = __('no short text', $dom) . '<br />';
@@ -98,18 +98,18 @@ function MultiHook_ajax_store()
                 case '0': // abbr
                 case '1': // acronym
                     if(empty($long)) {
-                        $error .= __('no long text or (in case of a link) no url', $dom) . '<br />';
+                        $error .= __('no long text or (in case of a link) no URL', $dom) . '<br />';
                     }
                     break;
                 case '2': // link
                     if(empty($long)) {
-                        $error .= __('no long text or (in case of a link) no url', $dom) . '<br />';
+                        $error .= __('no long text or (in case of a link) no URL', $dom) . '<br />';
                     }
                     if(empty($title)) {
                         $error .= __('no title', $dom) . '<br />';
                     }
                     break;
-                case '3': // illegal word
+                case '3': // censored word
                     break;
                 default:
                     $error = __('no type', $dom) . ' (' . $type . ')<br />';
@@ -141,7 +141,7 @@ function MultiHook_ajax_store()
                         case '2':  // link
                             $return = create_link($abac, $mhadmin, $mhshoweditlink, $haveoverlib);
                             break;
-                        case '3':  // illegal word
+                        case '3':  // censored word
                             $return = create_censor($abac, $mhadmin, $mhshoweditlink, $haveoverlib);
                         default:
                             //  we cannot get here, type has been checked before already
@@ -152,10 +152,10 @@ function MultiHook_ajax_store()
             } else {
                 switch($mode) {
                     case 'create':
-                        $error = __('Error! Entry creation failed.', $dom);
+                        $error = __('Error! Could not create new entry.', $dom);
                         break;
                     case 'update':
-                        $error = __('Error! Database update of entry failed.', $dom);
+                        $error = __('Error! Could not save changes to database.', $dom);
                         break;
                     default:
                         // we should not get here....

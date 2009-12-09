@@ -18,7 +18,7 @@ function MultiHook_init()
     // create the MultiHook table
     // the table definition itself is done in pntables.php
     if (!DBUtil::createTable('multihook')) {
-        return LogUtil::registerError(__('Error! Database create table error', $dom));
+        return LogUtil::registerError(__('Error! Could not create database table.', $dom));
     }
 
     // Set up module variables
@@ -46,7 +46,7 @@ function MultiHook_init()
                            'MultiHook',
                            'user',
                            'transform')) {
-        return LogUtil::registerError(__('Error! Failed to register your MultHook', $dom));
+        return LogUtil::registerError(__('Error! Could not register MultHook.', $dom));
     }
 
     // import autolinks if available
@@ -86,7 +86,7 @@ function MultiHook_init()
                     }
                 }
             }
-            LogUtil::registerStatus(__f('%s entries copied from AutoLinks. You can remove this module now.', $imported, $dom));
+            LogUtil::registerStatus(__f('%s entries copied from AutoLinks. You can now remove the AutoLinks module.', $imported, $dom));
         }
     }
 
@@ -112,7 +112,7 @@ function MultiHook_upgrade($oldversion)
     // change the database. DBUtil + ADODB detect the changes on their own
     // and perform all necessary steps without help from the module author
     if (!DBUtil::changeTable('multihook')) {
-        return LogUtil::registerError(__('Error! Upgrade to 5.0 failed', $dom));
+        return LogUtil::registerError(__('Error! Upgrade to 5.0 failed.', $dom));
     }
     switch($oldversion) {
         case '1.0':
@@ -167,7 +167,7 @@ function MultiHook_delete()
     $dom = ZLanguage::getModuleDomain('MultiHook');
     // drop the table
     if (!DBUtil::dropTable('multihook')) {
-        return LogUtil::registerError(__('Error! Database delete table error', $dom));
+        return LogUtil::registerError(__('Error! Could not delete table from database.', $dom));
     }
 
     // Remove module variables
@@ -182,7 +182,7 @@ function MultiHook_delete()
                              'MultiHook',
                              'user',
                              'transform')) {
-        return LogUtil::registerError(__('Error! Unable to remove MultiHook', $dom));
+        return LogUtil::registerError(__('Error! Could not remove MultiHook.', $dom));
     }
 
     // Deletion successful
@@ -224,7 +224,7 @@ function MultiHook_import_CensorList()
                 }
             }
         }
-        LogUtil::registerStatus(__f('%s entries copied from Censor. You can remove this module now.', $censored, $dom));
+        LogUtil::registerStatus(__f('%s entries copied from Censor. You can now remove the Censor module.', $censored, $dom));
     }
 }
 

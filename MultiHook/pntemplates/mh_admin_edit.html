@@ -1,7 +1,7 @@
 <!--[* $Id$ *]-->
 <!--[include file=mh_admin_header.html]-->
 <!--[if $abac.short eq '']-->
-<!--[gt text='Add item' assign='templatetitle']-->
+<!--[gt text='Create new item' assign='templatetitle']-->
 <!--[else]-->
 <!--[gt text='Edit item' assign='templatetitle']-->
 <!--[/if]-->
@@ -12,7 +12,13 @@
 <!--[pnformvalidationsummary]-->
 
 <fieldset>
-    <legend><!--[$templatetitle]--></legend>
+    <legend>
+    <!--[if $abac.short eq '']-->
+         <!--[gt text='New item']-->
+      <!--[else]-->
+         <!--[gt text='Item to edit']-->
+      <!--[/if]-->
+    </legend>
     <div class="z-formrow">
         <!--[pnformlabel for="mh_short" __text='Short version']-->
         <!--[pnformtextinput id="mh_short" dataField="short" text=$abac.short size="40" maxLength="60"]-->
@@ -20,12 +26,12 @@
     <div class="z-formrow">
         <!--[pnformlabel for="mh_long" __text='Long version']-->
         <!--[pnformtextinput id="mh_long" dataField="long" text=$abac.long size="40" maxLength="200"]-->
-        <em class="z-sub z-formnote"><!--[gt text="(in case of a link the url, ignored for illegal words)"]--></em>
+        <em class="z-sub z-formnote"><!--[gt text="(The URL, in the case of a link; ignored for censored words)"]--></em>
     </div>
     <div class="z-formrow">
         <!--[pnformlabel for="mh_title" __text='Title']-->
         <!--[pnformtextinput id="mh_title" dataField="title" text=$abac.title size="40" maxLength="200"]-->
-        <em class="z-sub z-formnote"><!--[gt text="(only necessary for a link, ignored for illegal words)"]--></em>
+        <em class="z-sub z-formnote"><!--[gt text="(Only necessary for a link; ignored for censored words)"]--></em>
     </div>
     <div class="z-formrow">
         <!--[pnformlabel for="mh_type" __text='Type']-->
@@ -44,7 +50,7 @@
 </fieldset>
 
 <div class="z-formbuttons">
-    <!--[pnformbutton id="submit" commandName="submit" __text="Submit"]-->
+    <!--[pnformbutton id="submit" commandName="submit" __text="Save"]-->
     <!--[pnformbutton commandName="cancel" __text="Cancel"]-->
 </div>
 

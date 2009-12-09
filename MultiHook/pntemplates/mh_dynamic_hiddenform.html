@@ -15,13 +15,13 @@
         <div class="z-formrow">
             <label for="mhnew_long"><!--[gt text='Long version' domain='module_multihook']--></label>
             <input type="text" name="mhnew_long" id="mhnew_long" value="" />
-            <em class="z-sub z-formnote"><!--[gt text='(in case of a link the url, ignored for illegal words)' domain='module_multihook']--></em>
+            <em class="z-sub z-formnote"><!--[gt text='(The URL, in the case of a link; ignored for censored words)' domain='module_multihook']--></em>
         </div>
 
         <div class="z-formrow">
             <label for="mhnew_title"><!--[gt text='Title' domain='module_multihook']--></label>
             <input type="text" name="mhnew_title" id="mhnew_title" value="" />
-            <em class="z-sub z-formnote"><!--[gt text='(only necessary for a link, ignored for illegal words)' domain='module_multihook']--></em>
+            <em class="z-sub z-formnote"><!--[gt text='(Only necessary for a link; ignored for censored words)' domain='module_multihook']--></em>
         </div>
 
         <div class="z-formrow">
@@ -35,12 +35,12 @@
                 <option value="0"><!--[gt text='Abbreviation' domain='module_multihook']--></option>
                 <option value="1"><!--[gt text='Acronym' domain='module_multihook']--></option>
                 <option value="2"><!--[gt text='Link' domain='module_multihook']--></option>
-                <option value="3"><!--[gt text='Illegal word' domain='module_multihook']--></option>
+                <option value="3"><!--[gt text='Censored word' domain='module_multihook']--></option>
             </select>
         </div>
 
         <div class="z-formbuttons">
-            <button type="submit" onclick="submitmultihook();return false;"><!--[gt text='Submit' domain='module_multihook']--></button>
+            <button type="submit" onclick="submitmultihook();return false;"><!--[gt text='Save' domain='module_multihook']--></button>
             <button type="reset" onclick="cancelmultihook()"><!--[gt text='Cancel' domain='module_multihook']--></button>
         </div>
     </form>
@@ -62,13 +62,13 @@
         <div class="z-formrow">
             <label for="mhedit_long"><!--[gt text='Long version' domain='module_multihook']--></label>
             <input type="text" name="mhedit_long" id="mhedit_long" value="" />
-            <em class="z-sub z-formnote"><!--[gt text='(in case of a link the url, ignored for illegal words)' domain='module_multihook']--></em>
+            <em class="z-sub z-formnote"><!--[gt text='(The URL, in the case of a link; ignored for censored words)' domain='module_multihook']--></em>
         </div>
 
         <div class="z-formrow">
             <label for="mhedit_title"><!--[gt text='Title' domain='module_multihook']--></label>
             <input type="text" name="mhedit_title" id="mhedit_title" value="" />
-            <em class="z-sub z-formnote"><!--[gt text='(only necessary for a link, ignored for illegal words)' domain='module_multihook']--></em>
+            <em class="z-sub z-formnote"><!--[gt text='(Only necessary for a link; ignored for censored words)' domain='module_multihook']--></em>
         </div>
 
         <div class="z-formrow">
@@ -82,7 +82,7 @@
                 <option value="0"><!--[gt text='Abbreviation' domain='module_multihook']--></option>
                 <option value="1"><!--[gt text='Acronym' domain='module_multihook']--></option>
                 <option value="2"><!--[gt text='Link' domain='module_multihook']--></option>
-                <option value="3"><!--[gt text='Illegal word' domain='module_multihook']--></option>
+                <option value="3"><!--[gt text='Censored word' domain='module_multihook']--></option>
             </select>
         </div>
 
@@ -93,7 +93,7 @@
 
         <div class="z-formbuttons">
             <input type="hidden" name="mhedit_aid" id="mhedit_aid" value="" />
-            <button type="submit" onclick="submiteditmultihook();return false;"><!--[gt text='Submit' domain='module_multihook']--></button>
+            <button type="submit" onclick="submiteditmultihook();return false;"><!--[gt text='Save' domain='module_multihook']--></button>
             <button type="reset" onclick="cancelmultihook()"><!--[gt text='Cancel' domain='module_multihook']--></button>
         </div>
     </form>

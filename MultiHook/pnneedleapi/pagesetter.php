@@ -47,10 +47,10 @@ function MultiHook_needleapi_pagesetter($args)
                                 $pubdesc  = DataUtil::formatForDisplay($pubInfo['publication']['description']);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $pubdesc . '">' . $pubtitle . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unkown pagesetter tid', $dom) . ' (' . $temp[0] . ')') . '</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unknown Pagesetter TID', $dom) . ' (' . $temp[0] . ')') . '</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No auth for pagesetter tid', $dom) . ' (' . $temp[0] . ')') . '</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No authorisation for Pagesetter TID', $dom) . ' (' . $temp[0] . ')') . '</em>';
                         }
                         break;
                     case 2:
@@ -70,20 +70,20 @@ function MultiHook_needleapi_pagesetter($args)
                                 $pubtitle = DataUtil::formatForDisplay($pub['title']);
                                 $cache[$nid] = '<a href="' . DataUtil::formatForDisplay($url) . '" title="' . $pubtitle . '">' . $pubtitle . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unkown pagesetter pid', $dom) . ' (' . $nid . ')') . '</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unknown Pagesetter PID', $dom) . ' (' . $nid . ')') . '</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No auth for pagesetter pid', $dom) . ' (' . $nid . ')') . '</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No authorisation for Pagesetter PID', $dom) . ' (' . $nid . ')') . '</em>';
                         }
                         break;
                     default:
-                        $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('wrong needle id', $dom)) . '</em>';
+                        $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Incorrect needle ID', $dom)) . '</em>';
                 }
             }
         }
         $result = $cache[$nid];
     } else {
-        $result = '<em>' . DataUtil::formatForDisplay(__('no needle id', $dom)) . '</em>';
+        $result = '<em>' . DataUtil::formatForDisplay(__('No needle ID', $dom)) . '</em>';
     }
     return $result;
 

@@ -58,10 +58,10 @@ function MultiHook_needleapi_weblink($args)
                                 $desc  = DataUtil::formatForDisplay($desc);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No auth for weblink category', $dom) . ' (' . $id . ')') .'</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No authorisation for Web link category', $dom) . ' (' . $id . ')') .'</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unkown welink category', $dom) . ' (' . $id . ')') .'</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unknown Web link category', $dom) . ' (' . $id . ')') .'</em>';
                         }
                         break;
                     case 'D':
@@ -84,10 +84,10 @@ function MultiHook_needleapi_weblink($args)
                                 $desc  = DataUtil::formatForDisplay($desc);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No auth for weblink', $dom) . ' (' . $id . ')') .'</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No authorisation for Web link', $dom) . ' (' . $id . ')') .'</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unkown weblink', $dom) . ' (' . $id . ')') .'</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unknown Web link', $dom) . ' (' . $id . ')') .'</em>';
                         }
                         break;
                     case 'S':
@@ -95,7 +95,7 @@ function MultiHook_needleapi_weblink($args)
                         $cache[$nid] = '<a href="index.php?name=Web_Links" title="' . DataUtil::formatForDisplay(__('weblinks', $dom)) . '">' . DataUtil::formatForDisplay(__('weblinks', $dom)) . '</a>';
                         break;
                     default:
-                        $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('unknown parameter at pos.1 (C, D, L or S)', $dom)) . '</em>';
+                        $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unknown parameter at pos.1 (C, D, L or S)', $dom)) . '</em>';
                 }
             } else {
                 $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Web_Links not available', $dom)) . '</em>';
@@ -103,7 +103,7 @@ function MultiHook_needleapi_weblink($args)
         }
         $result = $cache[$nid];
     } else {
-        $result = '<em>' . DataUtil::formatForDisplay(__('no needle id', $dom)) . '</em>';
+        $result = '<em>' . DataUtil::formatForDisplay(__('No needle ID', $dom)) . '</em>';
     }
     return $result;
 }

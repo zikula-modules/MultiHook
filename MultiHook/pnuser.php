@@ -42,9 +42,9 @@ function MultiHook_user_main()
         $abacscount = 0;
         $filter = -1;
     }
-    $titles = array( __('View abbreviations', $dom),
-                     __('View acronyms', $dom),
-                     __('View links', $dom));
+    $titles = array( __('Abbreviations list', $dom),
+                     __('Acronyms list', $dom),
+                     __('Links list', $dom));
 
     // Create output object
     $render = & pnRender::getInstance('MultiHook', false, null, true);

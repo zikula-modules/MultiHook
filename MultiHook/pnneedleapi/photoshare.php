@@ -67,10 +67,10 @@ function MultiHook_needleapi_photoshare($args)
                                 $title = DataUtil::formatForDisplay($folder['title']);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
                             } else {
-                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No auth for folder', $dom) . ' (' . $id . ')') . '</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No authorisation for folder', $dom) . ' (' . $id . ')') . '</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unkown folder', $dom) .  ' (' . $id . ')') . '</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unknown folder', $dom) .  ' (' . $id . ')') . '</em>';
                         }
                         break;
                     case 'P':
@@ -103,17 +103,17 @@ function MultiHook_needleapi_photoshare($args)
                                     $cache[$nid] = '<a href="' . $fullurl . '" title="' . $title . '"><img src="' . $thumburl . '" alt="' . $title . '" /></a>';
                                 }
                             } else {
-                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No auth for photoshare image', $dom) . ' (' . $id . ')') . '</em>';
+                                $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('No authorisation for photoshare image', $dom) . ' (' . $id . ')') . '</em>';
                             }
                         } else {
-                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unkown photoshare image', $dom) .  ' (' . $id . ')') . '</em>';
+                            $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unknown photoshare image', $dom) .  ' (' . $id . ')') . '</em>';
                         }
                         break;
                     case 'C':
                         $cache[$nid] = '<span style="clear: both;">&nbsp;</span>';
                         break;
                     default:
-                        $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('unkown parameter at pos 1 (A,P or T)', $dom)) . '</em>';
+                        $cache[$nid] = '<em>' . DataUtil::formatForDisplay(__('Unknown parameter at pos 1 (A,P or T)', $dom)) . '</em>';
 
                 }
             } else {
@@ -122,7 +122,7 @@ function MultiHook_needleapi_photoshare($args)
         }
         $result = $cache[$nid];
     } else {
-        $result = '<em>' . DataUtil::formatForDisplay(__('no needle id', $dom)) . '</em>';
+        $result = '<em>' . DataUtil::formatForDisplay(__('No needle ID', $dom)) . '</em>';
     }
     return $result;
 
