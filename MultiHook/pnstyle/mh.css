@@ -1,12 +1,12 @@
-// $Id$
+/*  $Id$ */
 
-// IE6 fix
+/* IE6 fix */
 abbr, acronym, span.abbr {
     cursor: help;
     border-bottom: 1px dashed #000;
 }
 
-// accessbility only hack, adds a (external link) in an a-tag
+/*  accessbility only hack, adds a (external link) in an a-tag */
 .mhacconly {
     position: absolute;
     left: -10000px;
