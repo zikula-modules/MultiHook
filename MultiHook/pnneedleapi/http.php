@@ -21,13 +21,12 @@ function MultiHook_needleapi_http($args)
     if (isset($args['nid']) && !empty($args['nid'])) {
         $url = DataUtil::formatForDisplay($args['needle'] . $args['nid']);
 
+        $extclass = '';
         if(stristr(pnGetBaseURL(), $url) === false) {
             $externallinkclass =pnModGetVar('MultiHook', 'externallinkclass', '');
             if(!empty($externallinkclass)) {
                 $extclass = "class=\"$externallinkclass\"";
             }
-        } else {
-            $extclass = '';
         }
 
         $result = '<a ' . $extclass . ' href="' . $url . '">' . $url . '</a>'; 
