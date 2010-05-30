@@ -94,9 +94,6 @@ function MultiHook_adminapi_update($args)
         return LogUtil::registerPermissionError();
     }
 
-    // Get arguments from argument array
-    //extract($args);
-
     // Argument check
     if ((!isset($args['aid'])) ||
         (!isset($args['short'])) ||

@@ -11,17 +11,17 @@
 
 function create_abbr($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false)
 {
-    extract($abac);
     $dom = ZLanguage::getModuleDomain('MultiHook');
     static $mhreplaceabbr;
     if(!isset($mhreplaceabbr)) {
         $mhreplaceabbr = (pnModGetVar('MultiHook', 'mhreplaceabbr')==1) ? true : false;
     }
 
-    $xhtmllang = get_xhtml_language($language);
+    $xhtmllang = get_xhtml_language($abac['language']);
 
-    $long  = DataUtil::formatForDisplayHTML($long);
-    $short = DataUtil::formatForDisplayHTML($short);
+    $long  = DataUtil::formatForDisplayHTML($abac['long']);
+    $short = DataUtil::formatForDisplayHTML($abac['short']);
+    $aid   = DataUtil::formatForDisplayHTML($abac['aid']);
 
     $replace_temp = '';
     if($mhreplaceabbr==false) {
@@ -45,12 +45,12 @@ function create_abbr($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=
 
 function create_acronym($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false)
 {
-    extract($abac);
     $dom = ZLanguage::getModuleDomain('MultiHook');
-    $long  = DataUtil::formatForDisplayHTML($long);
-    $short = DataUtil::formatForDisplayHTML($short);
+    $long  = DataUtil::formatForDisplayHTML($abac['long']);
+    $short = DataUtil::formatForDisplayHTML($abac['short']);
+    $aid   = DataUtil::formatForDisplayHTML($abac['aid']);
 
-    $xhtmllang = get_xhtml_language($language);
+    $xhtmllang = get_xhtml_language($abac['language']);
 
     if($haveoverlib) {
         $replace_temp = '<acronym '.$xhtmllang.' onmouseover="return overlib(\'' . $long . '\', CAPTION, \'' . DataUtil::formatForDisplay(__('Acronyms', $dom)) . ': '. $short .'\', ' . overlib_params() . ')" onmouseout="return nd();">' . $short . '</acronym>';
@@ -67,7 +67,6 @@ function create_acronym($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverl
 
 function create_link($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false)
 {
-    extract($abac);
     $dom = ZLanguage::getModuleDomain('MultiHook');
     static $mhlinktitle;
     static $externallinkclass;
@@ -79,21 +78,20 @@ function create_link($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=
         $externallinkclass =pnModGetVar('MultiHook', 'externallinkclass');
     }
 
-    if(preg_match("/(^http:\/\/)/", $long_original)==1) {
+    $extclass = '';
+    $accessebilityhack = '';
+    if(preg_match("/(^http:\/\/)/", $abac['long'])==1) {
         if(!empty($externallinkclass)) {
             $extclass = "class=\"$externallinkclass\"";
         }
         $accessebilityhack = ''; // not working yet: <span class="mhacconly"> ' . DataUtil::formatForDisplay(__('(external link)', $dom)) . '</span>';
-    } else {
-        $extclass = '';
-        $accessebilityhack = '';
     }
 
     // prepare url
-    $long = DataUtil::formatForDisplay($long);
-    $aid  = DataUtil::formatForDisplay($aid);
-    $short = DataUtil::formatForDisplayHTML($short);
-    $title = DataUtil::formatForDisplayHTML($title);
+    $long = DataUtil::formatForDisplay($abac['long']);
+    $aid  = DataUtil::formatForDisplay($abac['aid']);
+    $short = DataUtil::formatForDisplayHTML($abac['short']);
+    $title = DataUtil::formatForDisplayHTML($abac['title']);
 
     if($mhlinktitle==false) {
         if($haveoverlib) {
@@ -116,7 +114,6 @@ function create_link($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=
 
 function create_censor($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverlib=false, $relaxedcensoring=false)
 {
-    extract($abac);
     $dom = ZLanguage::getModuleDomain('MultiHook');
     $len = strlen($abac['short']);
     $replace_temp = str_repeat('*', $len);
@@ -126,6 +123,9 @@ function create_censor($abac, $mhadmin=false, $mhshoweditlink=false, $haveoverli
         $replace_temp[$id]= $abac['short'][$len-1];
     }
 
+    $short = DataUtil::formatForDisplay($abac['short']);
+    $aid   = DataUtil::formatForDisplay($abac['aid']);
+    
     if($mhadmin==true && $mhshoweditlink==true) {
         $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/pnimages/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . DataUtil::formatForDisplay(__('Edit', $dom)) . ': ' . $short . ' (' . DataUtil::formatForDisplay(__('Censor', $dom)) . ') #' . $aid . '" />' . '</span>';
     }

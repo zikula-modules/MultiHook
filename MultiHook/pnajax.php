@@ -54,6 +54,8 @@ function MultiHook_ajax_store()
     $title    = trim(urldecode($title));
     $language = trim($language);
 
+    $abac = null;
+    
     // get the entry (needed for permission checks)
     if($aid <> -1) {
         $abac = pnModAPIFunc('MultiHook', 'user', 'get',
