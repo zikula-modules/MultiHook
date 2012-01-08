@@ -4,7 +4,7 @@
  *
  * @copyright (c) 2001-now, Multihook Development Team
  * @link http://code.zikula.org/multihook
- * @version $Id$
+ * @version $Id: changeset.php 221 2009-12-09 07:46:02Z herr.vorragend $
  * @license GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  * @package Multihook
  */

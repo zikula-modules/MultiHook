@@ -1,0 +1,27 @@
+/*  $Id: mh.css 223 2009-12-11 18:57:24Z Landseer $ */
+
+/* IE6 fix */
+abbr, acronym, span.abbr {
+    cursor: help;
+    border-bottom: 1px dashed #000;
+}
+
+/*  accessbility only hack, adds a (external link) in an a-tag */
+.mhacconly {
+    position: absolute;
+    left: -10000px;
+    top: -10000px;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    display: inline;
+}
+
+a.externallink {
+    padding-left:  14px;
+    background: url('../../../modules/MultiHook/pnimages/extlink.gif') no-repeat 0 50%;
+}
+a:hover.externallink {
+    padding-left:  14px;
+    background: url('../../../modules/MultiHook/pnimages/extlink.gif') no-repeat 0 50%;
+}

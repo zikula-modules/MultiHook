@@ -4,7 +4,7 @@
  *
  * @copyright (c) 2001-now, Multihook Development Team
  * @link http://code.zikula.org/multihook
- * @version $Id$
+ * @version $Id: photoshare.php 221 2009-12-09 07:46:02Z herr.vorragend $
  * @license GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  * @package Multihook
  */
@@ -30,8 +30,8 @@ function MultiHook_needleapi_photoshare($args)
     if(!empty($nid)) {
         if(!isset($cache[$nid])) {
             // not in cache array
-            if(pnModAvailable('photoshare')) {
-                pnModLoad('photoshare', 'user');
+            if(ModUtil::available('photoshare')) {
+                ModUtil::load('photoshare', 'user');
 
                 // nid is like type_albumid, type_imageid or type_imageid_width_height
                 $temp = explode('-', $nid);
@@ -57,13 +57,13 @@ function MultiHook_needleapi_photoshare($args)
                     case 'A':
                         // show link to folder,display folder name
                         // not in cache array
-                        $folder =  pnModAPIFunc('photoshare',
+                        $folder =  ModUtil::apiFunc('photoshare',
                                                 'user',
                                                 'get_folder_info',
                                                 array('folderID' => $id) );
                         if(is_array($folder)) {
                             if(photoshareAccessFolder($id, photoshareAccessRequirementView, '')) {
-                                $url   = DataUtil::formatForDisplay(pnModURL('photoshare', 'user', 'showimages', array('fid' => $id)));
+                                $url   = DataUtil::formatForDisplay(ModUtil::url('photoshare', 'user', 'showimages', array('fid' => $id)));
                                 $title = DataUtil::formatForDisplay($folder['title']);
                                 $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
                             } else {
@@ -78,13 +78,13 @@ function MultiHook_needleapi_photoshare($args)
                     case 'T':
                         // show thumbnail with link to fullsize image
                         // not in cache array
-                        $image = pnModAPIFunc('photoshare', 'show', 'get_image_info',
+                        $image = ModUtil::apiFunc('photoshare', 'show', 'get_image_info',
                                               array('imageID' => $id));
                         if(is_array($image) && isset($image['id'])) {
                             if(photoshareAccessImage($id, photoshareAccessRequirementView, '')) {
                                 if($type=='P') {
                                     // Picture
-                                    $url   = DataUtil::formatForDisplay(pnModURL('photoshare', 'user', 'viewimage', array('iid' => $id)));
+                                    $url   = DataUtil::formatForDisplay(ModUtil::url('photoshare', 'user', 'viewimage', array('iid' => $id)));
                                     $title = DataUtil::formatForDisplay($image['title']);
                                     $widthheight = '';
                                     if(isset($width) && isset($height)) {
@@ -97,7 +97,7 @@ function MultiHook_needleapi_photoshare($args)
                                     }
                                 } else {
                                     // Thumbnail
-                                    $fullurl   = DataUtil::formatForDisplay(pnModURL('photoshare', 'user', 'viewimage', array('iid' => $id)));
+                                    $fullurl   = DataUtil::formatForDisplay(ModUtil::url('photoshare', 'user', 'viewimage', array('iid' => $id)));
                                     $thumburl = $fullurl . '&amp;thumbnail=1';
                                     $title = DataUtil::formatForDisplay($image['title']);
                                     $cache[$nid] = '<a href="' . $fullurl . '" title="' . $title . '"><img src="' . $thumburl . '" alt="' . $title . '" /></a>';

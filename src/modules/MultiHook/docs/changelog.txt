@@ -1,0 +1,79 @@
+$Id: changelog.txt 215 2009-11-13 15:56:04Z herr.vorragend $
+Version 5.3
+   + Zikula 1.3.0 only
+   + Upgrades from version 5.2 only, upgades from previous versions are not possible because of API changes in the core
+     This also means that the import of old AutoLinks module and old censored words has been removed as well!
+
+Version 5.1
+   + added needle for http, https, ftp and mailto
+   - some bugfixes
+   - lots of css adjustments for lame browsers
+   * no more support for IE6, it may work or not, tickets concerning problems with this 
+     browser will be closed as "wontfix"
+   
+Version 5.0
+   - Zikula 1.0 only
+   - no more theme changes necessary!
+   - fixed [#4147] Warning when upgrading .7x site with latest multihook
+   - fixed [#4174] Multihook plugin generates siginficant numbers of file system calls
+   + added [#4105] Fix for Censor functionality (and made it optional via setting)
+   + added [#4139] Migrating censor module contents
+   + added needles_howto.txt
+   + added [#5113] Updated language define
+   + aaded [#5124] Amended module admin title
+      
+Version 4.5
+   - implemented censor functions 
+   - fixed [#3462] Link to "more-modules" is wrong
+   - fixed [#3461] Link for Needle: DOWNLOADD is wrong
+
+Version 4.0
+   - added PagEd-like needles
+   - removed prototype.js from distribution, you need to install the AjaxSupportPackage 
+     from http://noc.postnuke.com/frs/?group_id=8 to get full Ajax support in MultiHook now
+
+Version 3.0
+*** important: prototype.js must now be copied to /javascript/ajax!!!!!
+*** please read the install.txt for more information!
+   - prototype.js updated to 1.5.0_rc0
+   - xhtml/wcag fixes
+   - fixed encoding of strings in javascript to enable usage of special chars in urls etc.
+   - fixed _MODARGSERROR in pnuserapi.php when editing an item (same as bug #2957)
+   - fixed bug in templates (IE....)
+   - fixed bug: class for external links
+   - fixed bug #2676 multiple autolinks possible
+   - fixed bug #2947 xhtml validation of new/modify/modifyconfig templates
+   - fixed bug #3007 preg_replace error in Multihook at community.postnuke.com
+   - added FR #2677 copy paste damaged - using CTRL now as modifier to show the popup when selecting text
+   - added FR #2971 Don't link to current URL
+
+Version 2.0
+   - added Ajax support for adding and manipulating entries, uses prototype.js
+     (http://prototype.conio.net/, docs at http://www.sergiopereira.com/articles/prototype.js.html)
+     Refer to the install.txt for more information and necessary change to your theme!
+   - french defines (credits to Franky Chestnut, webmaster@pnconcept.com)
+
+Version 1.4
+*** This version needs PostNuke .760 or later! ***
+   - minor layout changes in admin panel
+   - fixed problem with MySQL 5 table creation
+   - added link to edit abbreviations, acronyms and links (needs admin permissions) next to the
+     abbr, acronym or link created
+   - all internal urls are now created as absolute urls
+
+Version 1.3
+   - minor fixes and updates
+   - basic support for overlib (needs the overlib module being installed)
+
+Version 1.2  20 July 2005
+   - minor fixes
+   - returning immediatey when useragent is a known bot
+   - option to replace links with titles and abbreviations with long versions
+
+Version 1.1  25 December 2004
+   - minor fixes
+   - better compatibility with pn_* hooks
+   - language field now used for language definition, e.g. as lang="en" xml:lang="en"
+
+Version 1.0  7 October 2004
+   - initial version

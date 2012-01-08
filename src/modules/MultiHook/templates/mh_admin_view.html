@@ -1,0 +1,43 @@
+{* $Id: mh_admin_view.html 221 2009-12-09 07:46:02Z herr.vorragend $ *}
+
+{include file=mh_admin_header.html}
+<h2>{$title}</h2>
+
+{pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars="filter" filter=$filter}
+
+<table class="z-admintable">
+  <thead>
+    <tr>
+      <th>{gt text='Short version'}</th>
+      <th>{gt text='Long version'}</th>
+      <th>{gt text='Title'}</th>
+      <th>{gt text='Language'}</th>
+      <th>{gt text='Actions'}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {foreach item=abac from=$abacs}
+    <tr class="{cycle values="z-odd,z-even" name=abacs}">
+      <td>
+        {if $abac.edit == true}
+        <a title="{gt text='Edit'}" href="{modurl modname=MultiHook type=admin func=edit aid=$abac.aid}">{$abac.short|default:"&nbsp;"}</a>
+        {else}
+        {$abac.short|default:"&nbsp;"}
+        {/if}
+      </td>
+      <td>{$abac.long|truncate:30|default:"&nbsp;"}</td>
+      <td>{$abac.title|truncate:30|default:"&nbsp;"}</td>
+      <td>{$abac.language|default:"&nbsp;"}</td>
+      <td><a title="{gt text='Edit'}" href="{modurl modname=MultiHook type=admin func=edit aid=$abac.aid}">{img modname='core' src='xedit.png' set='icons/extrasmall'}</a></td>
+    </tr>
+    {foreachelse}
+    <tr class="z-admintableempty">
+      <td colspan="5">{gt text='There are currently no entries.'}</td>
+    </tr>
+    {/foreach}
+  </tbody>
+</table>
+
+{pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars="filter" filter=$filter}
+
+{include file=mh_admin_footer.html}

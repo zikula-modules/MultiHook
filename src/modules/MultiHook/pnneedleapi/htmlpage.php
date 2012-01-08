@@ -4,7 +4,7 @@
  *
  * @copyright (c) 2001-now, Multihook Development Team
  * @link http://code.zikula.org/multihook
- * @version $Id$
+ * @version $Id: htmlpage.php 221 2009-12-09 07:46:02Z herr.vorragend $
  * @license GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  * @package Multihook
  */
@@ -31,11 +31,11 @@ function MultiHook_needleapi_htmlpage($args)
         if(!isset($cache[$nid])) {
             // not in cache array
 
-            if(pnModAvailable('htmlpages')) {
+            if(ModUtil::available('htmlpages')) {
                 // nid is the pid
 
-                pnModDBInfoLoad('htmlpages');
-                $pntable = pnDBGetTables();
+                ModUtil::dbInfoLoad('htmlpages');
+                $pntable = DBUtil::getTables();
 
                 $permfilter[] = array ('realm'            =>  0,
                                        'component_left'   =>  'htmlpages',
@@ -49,7 +49,7 @@ function MultiHook_needleapi_htmlpage($args)
                 $obj = DBUtil::selectObjectByID('htmlpages', $nid, 'pid', null, $permFilter);
 
                 if($obj <> false) {
-                    $url   = DataUtil::formatForDisplay(pnModURL('htmlpages', 'user', 'display', array('pid' => $nid)));
+                    $url   = DataUtil::formatForDisplay(ModUtil::url('htmlpages', 'user', 'display', array('pid' => $nid)));
                     $title = DataUtil::formatForDisplay($obj['title']);
                     $cache[$nid] = '<a href="' . $url . '" title="' . $title . '">' . $title . '</a>';
                 } else {

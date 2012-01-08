@@ -4,7 +4,7 @@
  *
  * @copyright (c) 2001-now, Multihook Development Team
  * @link http://code.zikula.org/multihook
- * @version $Id$
+ * @version $Id: download.php 221 2009-12-09 07:46:02Z herr.vorragend $
  * @license GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  * @package Multihook
  */
@@ -31,8 +31,8 @@ function MultiHook_needleapi_download($args)
     if(!empty($nid)) {
         if(!isset($cache[$nid])) {
             // not in cache array
-            if(pnModAvailable('Downloads')) {
-                $modinfo = pnModGetInfo(pnModGetIDFromName('Downloads'));
+            if(ModUtil::available('Downloads')) {
+                $modinfo = ModUtil::getInfo(ModUtil::getIdFromName('Downloads'));
                 // check for the version of the Downloads module
                 // if >=2.0 -> true
                 // if  <2.0 -> false - not supported in MultiHook 5.0 or later!
@@ -45,14 +45,14 @@ function MultiHook_needleapi_download($args)
                         $id   = $temp[1];
                     }
 
-                    pnModDBInfoLoad('Downloads', 'Downloads');
+                    ModUtil::dbInfoLoad('Downloads', 'Downloads');
                     switch($type) {
                         case 'C':
                             if(SecurityUtil::checkPermission('Downloads::Category', $id . '::', ACCESS_READ)) {
-                                $dl20categoryinfo = pnModAPIFunc('Downloads', 'user', 'category_info',
+                                $dl20categoryinfo = ModUtil::apiFunc('Downloads', 'user', 'category_info',
                                                                  array('cid' => $id));
                                 if(is_array($dl20categoryinfo)) {
-                                    $url   = DataUtil::formatForDisplay(pnModURL('Downloads', 'user', 'view', array('cid' => $id)));
+                                    $url   = DataUtil::formatForDisplay(ModUtil::url('Downloads', 'user', 'view', array('cid' => $id)));
                                     $title = DataUtil::formatForDisplay($dl20categoryinfo['title']);
                                     $desc  = DataUtil::formatForDisplay($dl20categoryinfo['description']);
                                     $cache[$nid] = '<a href="' . $url . '" title="' . $desc . '">' . $title . '</a>';
@@ -65,7 +65,7 @@ function MultiHook_needleapi_download($args)
                             break;
                         case 'D':
                         case 'L':
-                            $dl20downloadinfo = pnModAPIFunc('Downloads','user','get_download_info',
+                            $dl20downloadinfo = ModUtil::apiFunc('Downloads','user','get_download_info',
                         									  array('lid' => $id,
                         									  		'cid' => 0,
                         									  		'sort_active' => false,
@@ -77,10 +77,10 @@ function MultiHook_needleapi_download($args)
                         											'sort_date' => 0));
                             if(is_array($dl20downloadinfo) && count($dl20downloadinfo)>0) {
                                 // securedownload (==captcha) is enabled we cannot use type=L, we have to force D instead
-                                if($type=='D' || pnModGetVar('downloads', 'securedownload')=='yes') {
-                                    $url = pnModURL('Downloads', 'user', 'display', array('lid' => $id));
+                                if($type=='D' || ModUtil::getVar('downloads', 'securedownload')=='yes') {
+                                    $url = ModUtil::url('Downloads', 'user', 'display', array('lid' => $id));
                                 } else {
-                                    $url = pnModURL('Downloads', 'user', 'prep_hand_out', array('lid'    => $id,
+                                    $url = ModUtil::url('Downloads', 'user', 'prep_hand_out', array('lid'    => $id,
                                                                                                 'authid' => SecurityUtil::generateAuthKey('Downloads')));
                                 }
                                 $url   = DataUtil::formatForDisplay($url);

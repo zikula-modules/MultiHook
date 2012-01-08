@@ -1,0 +1,13 @@
+$Id: credits.txt 215 2009-11-13 15:56:04Z herr.vorragend $
+
+MultiHook written by Frank Schummertz (frank.schummertz@gmail.com) and
+is basing on AutoLinks by Jim McDonald.
+
+French Translation by Franky Chestnut (webmaster@pnconcept.com)
+
+Needles based on the needlesets written by Oivind Skau for PagEd.
+
+needles_howto.txt and idea to read needles from 3rd party modules /pnneedleapi folder
+by John Alarcon, along as some language files changes
+
+ 

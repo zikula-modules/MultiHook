@@ -1,0 +1,51 @@
+{* $Id: mh_user_main.html 221 2009-12-09 07:46:02Z herr.vorragend $ *}
+
+<h2>{gt text='Glossary' domain='module_multihook'}</h2>
+
+{insert name="getstatusmsg"}
+
+<div id="mhuser">
+
+    <form class="z-form z-linear" action="{modurl modname=MultiHook func=main}" method="post">
+        <fieldset class="mhselection">
+            <select name="filter">
+                <option value="-1" {if $filter eq -1}selected="selected"{/if}>{gt text='Select' domain='module_multihook'}</option>
+                <option value="0" {if $filter eq 0}selected="selected"{/if}>{gt text='Abbreviations list' domain='module_multihook'}</option>
+                <option value="1" {if $filter eq 1}selected="selected"{/if}>{gt text='Acronyms list' domain='module_multihook'}</option>
+                <option value="2" {if $filter eq 2}selected="selected"{/if}>{gt text='Links list' domain='module_multihook'}</option>
+            </select>
+            <input type="submit" name="submit" value="{gt text='Show' domain='module_multihook'}" />
+        </fieldset>
+    </form>
+
+    {pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars=filter shift=1}
+    <table class="z-datatable">
+        <thead>
+            <tr>
+                <th>{gt text='Short version' domain='module_multihook'}</th>
+                <th>{gt text='Long version' domain='module_multihook'}</th>
+                <th>{gt text='Title' domain='module_multihook'}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {foreach item=abac from=$abacs}
+            <tr class="{cycle values="z-odd,z-even}">
+                <td>{$abac.short}</td>
+                <td>{$abac.long}</td>
+                <td>
+                    {if $abac.type eq 2}
+                    <a title="{$abac.title}" href="{$abac.long}">{$abac.title}</a>
+                    {else}
+                    {$abac.title}
+                    {/if}
+                </td>
+            </tr>
+            {foreachelse}
+            <tr class="z-datatableempty"><td colspan="3">{gt text='There are currently no entries.' domain='module_multihook'}</td></tr>
+            {/foreach}
+        </tbody>
+    </table>
+
+    {pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars=filter shift=1}
+
+</div>

@@ -1,0 +1,63 @@
+{* $Id: mh_admin_config.html 221 2009-12-09 07:46:02Z herr.vorragend $ *}
+
+{include file=mh_admin_header.html}
+<h2>{gt text='Settings'}</h2>
+
+{form cssClass="z-form"}
+{formvalidationsummary}
+
+<fieldset>
+    <legend>{gt text='General settings'}</legend>
+    <div class="z-formrow">
+        {formlabel for="abacfirst" __text='Only replace first instance of items in text'}
+        {formcheckbox id="abacfirst" checked=$pncore.MultiHook.abacfirst}
+    </div>
+
+    <div class="z-formrow">
+        {formlabel for="externallinkclass" __text='CSS class definition for external links'}
+        {formtextinput size="20" maxLength="40" id="externallinkclass" text=$pncore.MultiHook.externallinkclass}
+    </div>
+
+    <div class="z-formrow">
+        {formlabel for="itemsperpage" __text='Items per page in admin interface'}
+        {formintinput id="itemsperpage" text=$pncore.MultiHook.itemsperpage}
+    </div>
+
+    <div class="z-formrow">
+        {formlabel for="mhincodetags" __text='Use MultiHook inside [code][/code] tags'}
+        {formcheckbox id="mhincodetags" checked=$pncore.MultiHook.mhincodetags}
+    </div>
+
+    <div class="z-formrow">
+        {formlabel for="mhlinktitle" __text='Replace links with title'}
+        {formcheckbox id="mhlinktitle" checked=$pncore.MultiHook.mhlinktitle}
+    </div>
+
+    <div class="z-formrow">
+        {formlabel for="mhreplaceabbr" __text='Replace abbreviations with long text'}
+        {formcheckbox id="mhreplaceabbr" checked=$pncore.MultiHook.mhreplaceabbr}
+    </div>
+
+    <div class="z-formrow">
+        {formlabel for="mhshoweditlink" __text='Show edit link'}
+        {formcheckbox id="mhshoweditlink" checked=$pncore.MultiHook.mhshoweditlink}
+    </div>
+
+    <div class="z-formrow">
+        {formlabel for="mhbrutalcensor" __text='Replace censored words when they are part of other words'}
+        {formcheckbox id="mhbrutalcensor" checked=$pncore.MultiHook.mhbrutalcensor}
+    </div>
+
+    <div class="z-formrow">
+        {formlabel for="mhrelaxedcensoring" __text='Do not replace first and last letter when censoring words with more than two characters'}
+        {formcheckbox id="mhrelaxedcensoring" checked=$pncore.MultiHook.mhrelaxedcensoring}
+    </div>
+</fieldset>
+
+<div class="z-formbuttons">
+    {formbutton id="submit" commandName="submit" __text="Save"}
+</div>
+
+{/form}
+
+{include file=mh_admin_footer.html}

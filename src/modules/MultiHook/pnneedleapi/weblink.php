@@ -4,7 +4,7 @@
  *
  * @copyright (c) 2001-now, Multihook Development Team
  * @link http://code.zikula.org/multihook
- * @version $Id$
+ * @version $Id: weblink.php 221 2009-12-09 07:46:02Z herr.vorragend $
  * @license GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  * @package Multihook
  */
@@ -30,7 +30,7 @@ function MultiHook_needleapi_weblink($args)
     if(!empty($nid)) {
         if(!isset($cache[$nid])) {
             // not in cache array
-            if(pnModAvailable('Web_Links')) {
+            if(ModUtil::available('Web_Links')) {
                 // nid is like C_##, D_## or L_##
                 $temp = explode('-', $nid);
                 $type = '';
@@ -39,16 +39,16 @@ function MultiHook_needleapi_weblink($args)
                     $id   = $temp[1];
                 }
 
-                pnModDBInfoLoad('Web_Links');
-                $dbconn =& pnDBGetConn(true);
-                $pntable =& pnDBGetTables();
+                ModUtil::dbInfoLoad('Web_Links');
+                $dbconn =& DBConnectionStack::getConnection*(true);
+                $pntable =& DBUtil::getTables();
 
                 switch($type) {
                     case 'C':
                         $tblwlcats = $pntable['links_categories'];
                         $colwlcats = $pntable['links_categories_column'];
 
-                        $sql = 'SELECT ' . $colwlcats['title'] . ', ' . $colwlcats['cdescription'] . ' FROM ' . $tblwlcats . ' WHERE ' . $colwlcats['cat_id'] . '=' . pnVarPrepForStore($id);
+                        $sql = 'SELECT ' . $colwlcats['title'] . ', ' . $colwlcats['cdescription'] . ' FROM ' . $tblwlcats . ' WHERE ' . $colwlcats['cat_id'] . '=' . DataUtil::formatForStore($id);
                         $res = $dbconn->Execute($sql);
                         if($dbconn->ErrorNo()==0 && !$res->EOF) {
                             list($title, $desc) = $res->fields;
@@ -69,7 +69,7 @@ function MultiHook_needleapi_weblink($args)
                         $tblwls = $pntable['links_links'];
                         $colwls = $pntable['links_links_column'];
 
-                        $sql = 'SELECT ' . $colwls['title'] . ', ' . $colwls['description'] . ' FROM ' . $tblwls . ' WHERE ' . $colwls['lid'] . '=' . pnVarPrepForStore($id);
+                        $sql = 'SELECT ' . $colwls['title'] . ', ' . $colwls['description'] . ' FROM ' . $tblwls . ' WHERE ' . $colwls['lid'] . '=' . DataUtil::formatForStore($id);
                         $res = $dbconn->Execute($sql);
                         if($dbconn->ErrorNo()==0 && !$res->EOF) {
                             list($title, $desc) = $res->fields;

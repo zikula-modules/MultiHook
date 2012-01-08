@@ -4,7 +4,7 @@
  *
  * @copyright (c) 2001-now, Multihook Development Team
  * @link http://code.zikula.org/multihook
- * @version $Id$
+ * @version $Id: paged.php 221 2009-12-09 07:46:02Z herr.vorragend $
  * @license GNU/GPL - http://www.gnu.org/copyleft/gpl.html
  * @package Multihook
  */
@@ -33,7 +33,7 @@ function MultiHook_needleapi_paged($args)
         // not in cache array
         // set the default
         $cache[$nid] = $result;
-        if(pnModAvailable('PagEd')) {
+        if(ModUtil::available('PagEd')) {
             // nid is like P_## or T_##
             $temp = explode('-', $nid);
             $type = '';
@@ -42,7 +42,7 @@ function MultiHook_needleapi_paged($args)
                 $id   = $temp[1];
             }
 
-            pnModDBInfoLoad('PagEd');
+            ModUtil::dbInfoLoad('PagEd');
             switch($type) {
                 case 'P':
                     $obj = DBUtil::selectObjectByID('paged_titles', $id, 'page_id');

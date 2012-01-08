@@ -1,1 +1,0 @@
-see modules/MultiHook/pndocs/install.txt

@@ -1,0 +1,32 @@
+{* $Id: mh_admin_main.html 221 2009-12-09 07:46:02Z herr.vorragend $ *}
+
+{include file=mh_admin_header.html}
+
+<h2>{gt text="Client modules list"}</h2>
+
+<table class="z-admintable">
+    <thead>
+        <tr>
+            <th>{gt text="Module"}</th>
+            <th>{gt text="Display name"}</th>
+            <th>{gt text="Actions"}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {foreach item=mod from=$hookedmodules}
+        <tr class="{cycle values="z-odd,z-even}">
+            <td>{$mod.name}</td>
+            <td>{$mod.displayname}</td>
+            <td>
+                <a href="{modurl modname=modules type=admin func=hooks id=$mod.id}" title="{gt text="Hook settings"}">{gt text="Hook settings"}</a>
+            </td>
+        </tr>
+        {foreachelse}
+        <tr class="z-admintableempty"><td colspan="3">{gt text="MultiHook is not currently used by any module."}</td></tr>
+        {/foreach}
+        <tr class="z-admintableempty z-sub"><td colspan="3"><a href="{modurl modname=modules type=admin func=main}" title="{gt text="Activate MultiHook for more modules"}">{gt text="Activate MultiHook for more modules"}</a></td></tr>
+    </tbody>
+</table>
+
+{include file=mh_admin_footer.html}
+
