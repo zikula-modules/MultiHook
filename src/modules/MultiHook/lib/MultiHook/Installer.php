@@ -130,8 +130,8 @@ Class MultiHook_Installer extends Zikula_AbstractInstaller
         // deletes all existing vars in one call
         $this->delVar();
     
-        // remove hook
-        HookUtil::unregisterHookProviderBundles($this->version);
+        // remove hooks
+        HookUtil::unregisterProviderBundles($this->version->getHookProviderBundles());
     
         // Deletion successful
         return true;
