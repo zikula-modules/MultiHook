@@ -65,23 +65,40 @@ Class MultiHook_Installer extends Zikula_AbstractInstaller
     
         // change the database. DBUtil + ADODB detect the changes on their own
         // and perform all necessary steps without help from the module author
-        if (!DBUtil::changeTable('multihook')) {
-            return LogUtil::registerError(__('Error! Upgrade of multihook table to failed.'));
-        }
+        //if (!DBUtil::changeTable('multihook')) {
+        //    return LogUtil::registerError(__('Error! Upgrade of multihook table to failed.'));
+        //}
         switch($oldversion) {
             case '5.2':
                 // future upgrade routines
                 // create hook
-                HookUtil::registerHookProviderBundles($this->version);
-                // remove column prefixes
-                // rename field 'long' to 'tlong' as 'long' is a reserved keyword
-                // internally, 'long' will be used, during load the mapping will be done accordingly
-                DBUtil::renameColumn('multihook', 'pn_aid',      'aid');
-                DBUtil::renameColumn('multihook', 'pn_short',    'short');
-                DBUtil::renameColumn('multihook', 'pn_long',     'tlong'); // caution!!
-                DBUtil::renameColumn('multihook', 'pn_title',    'title');
-                DBUtil::renameColumn('multihook', 'pn_type',     'type');
-                DBUtil::renameColumn('multihook', 'pn_language', 'language');
+                HookUtil::registerProviderBundles($this->version->getHookProviderBundles());
+                
+                // remove table prefix
+                $connection = Doctrine_Manager::getInstance()->getConnection('default');
+                $sqlStatements = array();
+                $oldTable = DBUtil::getLimitedTablename('multihook');
+                if ($oldTable <> 'multihook') {
+                    $sqlStatements[] = 'RENAME TABLE ' . $oldTable . " TO multihook";
+                }
+                $sqlStatements[] = "ALTER TABLE `multihook` 
+                                          CHANGE `pn_aid`      `aid` INT( 11 ) NOT NULL AUTO_INCREMENT,
+                                          CHANGE `pn_short`    `short` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+                                          CHANGE `pn_long`     `tlong` VARCHAR( 200 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+                                          CHANGE `pn_title`    `title` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+                                          CHANGE `pn_type`     `type` TINYINT( 4 ) NOT NULL DEFAULT '0',
+                                          CHANGE `pn_language` `language` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ";
+                
+                 foreach ($sqlStatements as $sql) {
+                 $stmt = $connection->prepare($sql);
+                     try {
+                         $stmt->execute();
+                     } catch (Exception $e) {
+                         // trap and toss exceptions if you need to.
+                        return LogUtil::registerError(__("Failed: $sql"));
+                     }   
+                 }
+
             default:
         }
     
