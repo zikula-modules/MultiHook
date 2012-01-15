@@ -34,18 +34,23 @@ class MultiHook_Version extends Zikula_AbstractVersion
 
     protected function setupHookBundles()
     {
-        $aalbundle = new Zikula_HookManager_ProviderBundle($this->name, 'provider.multihook.filter_hooks.MultiHook_AbbreviationsAcronymsLinks', 'filter_hooks', $this->__('MultiHook: Abbreviations, Acronyms and Links'));
+        $aalbundle = new Zikula_HookManager_ProviderBundle($this->name, 'provider.multihook.filter_hooks.MultiHook_AbbreviationsAcronymsLinks', 'filter_hooks', $this->__('Abbreviations, Acronyms and Links'));
         $aalbundle->addStaticHandler('filter', 'MultiHook_HookHandler_AbbreviationsAcronymsLinks', 'filter', true);
         $this->registerHookProviderBundle($aalbundle);
  
-        $cbundle = new Zikula_HookManager_ProviderBundle($this->name, 'provider.multihook.filter_hooks.MultiHook_Censor', 'filter_hooks', $this->__('MultiHook: Censor'));
+        $cbundle = new Zikula_HookManager_ProviderBundle($this->name, 'provider.multihook.filter_hooks.MultiHook_Censor', 'filter_hooks', $this->__('Censor'));
         $cbundle->addStaticHandler('filter', 'MultiHook_HookHandler_Censor', 'filter', true);
         $this->registerHookProviderBundle($cbundle);
 
-        $httpbundle = new Zikula_HookManager_ProviderBundle($this->name, 'provider.multihook.filter_hooks.MultiHook_HttpNeedle', 'filter_hooks', $this->__('MultiHook: HTTP-Needle'));
+        $httpbundle = new Zikula_HookManager_ProviderBundle($this->name, 'provider.multihook.filter_hooks.MultiHook_HttpNeedle', 'filter_hooks', $this->__('HTTP-Needle'));
         $httpbundle->addStaticHandler('filter', 'MultiHook_HookHandler_Http', 'filter', true);
         $this->registerHookProviderBundle($httpbundle);
  
+        // read all needles
+        
+        // create hook bundles for needles, all using MultiHook_HookHandler_Needles
+        
+        
         // add other hook handlers as needed
 
     }

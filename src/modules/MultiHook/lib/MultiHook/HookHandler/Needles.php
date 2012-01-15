@@ -9,17 +9,12 @@
  * @package Multihook
  */
 
-class MultiHook_HookHandler_AbbreviationsAcronymsLinks extends Zikula_Hook_AbstractHandler
+class MultiHook_HookHandler_Needles extends Zikula_Hook_AbstractHandler
 {
     public static function filter(Zikula_FilterHook $hook)
     {
         $data = $hook->getData();
         $newdata = '***' . $data . '***';
         $hook->setData($newdata);
-    }
-    
-    public static function identify()
-    {
-        return array('abachook');
     }
 }

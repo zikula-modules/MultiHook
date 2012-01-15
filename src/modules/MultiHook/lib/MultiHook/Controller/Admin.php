@@ -105,7 +105,25 @@ class MultiHook_Controller_Admin extends Zikula_AbstractController
         }
     
         $needles = ModUtil::apiFunc('MultiHook', 'admin', 'collectneedles');
-    
+$pa = HookUtil::getProviderAreasByOwner('MultiHook');
+mhdebug('needles', $needles);
+mhdebug('Provider Areas by Owner MultiHook', $pa);
+
+/*
+        foreach($needles as $needle) {
+            $handler  = $needle['module'].'_Needles_'.$needle['needle'];
+mhdebug('handler', $handler);
+            $provider = 'provider.multihook.filter_hooks.MultiHook_'.$needle['needle'];
+mhdebug('provider', $provider);
+            $title    = $needle['needle'];
+mhdebug('title', $title);
+            $nbundle = new Zikula_HookManager_ProviderBundle('MultiHook', $provider, 'filter_hooks', $title);
+            $nbundle->addStaticHandler('filter', $handler, 'filter');
+mhdebug('needle',$nbundle);   
+            HookUtil::registerProviderBundles(array($nbundle));
+//        $this->registerHookProviderBundle($nbundle);
+        }
+*/
         $this->view->assign('needles', $needles);
         return $this->view->fetch('mh_admin_viewneedles.html');
     }
