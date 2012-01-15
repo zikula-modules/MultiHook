@@ -127,7 +127,6 @@ class MultiHook_Api_Admin extends Zikula_AbstractApi
         if(is_array($allmods) && count($allmods)>0) {
             foreach($allmods as $mod) {
                 $needledir = $modtypes[$mod['type']] . '/' . $mod['directory'] . '/lib/' . $mod['directory'] . '/Needles/';
-//mhdebug('needledir', $needledir);
                 if(file_exists($needledir) && is_readable($needledir)) {
                     $dh = opendir($needledir);
                     if($dh) {
@@ -136,50 +135,17 @@ class MultiHook_Api_Admin extends Zikula_AbstractApi
                                     ($file != '.') &&
                                     ($file != '..') &&
                                     ($file != '.svn') &&
-                                    ($file != 'index.html') /*&&
-                                    (stristr($file, '_info.php'))*/) {
-                                /*
-                                include_once $needledir . $file;
-                                $needle = str_replace('_info.php', '', $file);
-                                $infofunc = $mod['name'] . '_needleapi_' . $needle . '_info';
-                                */
+                                    ($file != 'index.html')) {
+
                                 $needlename = str_replace('.php', '', $file);
-//mhdebug('needle', $needlename);
-//mhdebug('mod', $mod);
                                 $needleClass = $mod['name'].'_Needles_'.$needlename;
-//mhdebug('needleClass', $needleClass);
                                 $needleObj = new $needleClass($this);
                                 
                                 $needleinfo = $needleObj->info(); // ModUtil::exec($mod['name'], $needle, 'info');
-                                $needleinfo['module'] = $mod['name'];
-//mhdebug('needleinfo', $needleinfo);
-                                
-                                /*
-                                if(function_exists($infofunc)){
-                                    $needleinfo = $infofunc();
-                                } else {
-                                    $needleinfo['info']          = __('No description found.');
-                                    $needleinfo['module']        = __('No module found.');
-                                    $needleinfo['inspect']       = false;
-                                }
-                                
-                                // check if the needle_info sets the 'needle' value
-                                // if not, use the needle name
-                                if (!array_key_exists('needle', $needleinfo)) {
-                                    $needleinfo['needle'] = $needle;
-                                }
-                                // check if the needle_info sets the 'function' value
-                                // if not, use the needle name
-                                if (!array_key_exists('function', $needleinfo)) {
-                                    $needleinfo['function'] = $needle;
-                                }
-                                // check if the needle_info sets the 'casesensitive' value
-                                // if not, set it to true
-                                if (!array_key_exists('casesensitive', $needleinfo)) {
-                                    $needleinfo['casesensitive'] = true;
-                                }
-                                */
+
+                                $needleinfo['module']  = $mod['name'];
                                 $needleinfo['builtin'] = ($mod['name']=='MultiHook') ? true : false;
+
                                 $needles[] = $needleinfo;
                             }
                         }
