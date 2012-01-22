@@ -141,12 +141,12 @@ class MultiHook_Api_Admin extends Zikula_AbstractApi
                                 $needleClass = $mod['name'].'_Needles_'.$needlename;
                                 $needleObj = new $needleClass($this);
                                 
-                                $needleinfo = $needleObj->info(); // ModUtil::exec($mod['name'], $needle, 'info');
+                                $needleinfo = $needleObj->info();
 
                                 $needleinfo['module']  = $mod['name'];
                                 $needleinfo['builtin'] = ($mod['name']=='MultiHook') ? true : false;
 
-                                $needles[] = $needleinfo;
+                                $needles[$needlename] = $needleinfo;
                             }
                         }
                         closedir($dh);

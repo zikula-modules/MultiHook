@@ -103,27 +103,53 @@ class MultiHook_Controller_Admin extends Zikula_AbstractController
         if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_ADMIN)) {
             return LogUtil::registerPermissionError(System::getVar('entrypoint', 'index.php'));
         }
-    
+        
+        // read needles from filesystem in all modules
         $needles = ModUtil::apiFunc('MultiHook', 'admin', 'collectneedles');
-$pa = HookUtil::getProviderAreasByOwner('MultiHook');
-mhdebug('needles', $needles);
-mhdebug('Provider Areas by Owner MultiHook', $pa);
+        
+        // get all hook providers for us
+        $hookproviderareas = array_flip(HookUtil::getProviderAreasByOwner('MultiHook'));
+        
+        // remove builtin hook providers - they cannot be removed
+        unset($hookproviderareas['provider.multihook.filter_hooks.MultiHook_AbbreviationsAcronymsLinks']);
+        unset($hookproviderareas['provider.multihook.filter_hooks.MultiHook_Censor']);
+        
+        // cross checking needed:
+        // * providers that have been deleted in the filesystem get added to the hooksbundlestoremove array and removed from the hook providers list at the end 
+        // * new providers get added to the list
 
-/*
-        foreach($needles as $needle) {
-            $handler  = $needle['module'].'_Needles_'.$needle['needle'];
-mhdebug('handler', $handler);
-            $provider = 'provider.multihook.filter_hooks.MultiHook_'.$needle['needle'];
-mhdebug('provider', $provider);
-            $title    = $needle['needle'];
-mhdebug('title', $title);
-            $nbundle = new Zikula_HookManager_ProviderBundle('MultiHook', $provider, 'filter_hooks', $title);
-            $nbundle->addStaticHandler('filter', $handler, 'filter');
-mhdebug('needle',$nbundle);   
-            HookUtil::registerProviderBundles(array($nbundle));
-//        $this->registerHookProviderBundle($nbundle);
+        $needlenames = array_keys($needles);
+        $addhookproviderbundles = array();
+        foreach ($needlenames as $needlename ) {
+            $handler  = $needles[$needlename]['module'].'_Needles_'.$needlename;
+            $provider = 'provider.multihook.filter_hooks.MultiHook_'.$needlename;
+            if (!array_key_exists($provider, $hookproviderareas)) {
+                // not found in existing hook providers - new needle found, lets add it
+                $nbundle = new Zikula_HookManager_ProviderBundle('MultiHook', $provider, 'filter_hooks', $needles[$needlename]['description']);
+                $nbundle->addStaticHandler('filter', $handler, 'filter');
+                $addhookproviderbundles[] = $nbundle;
+            } else {
+                // provider found in existing hook providers, do not remove it, but remove this entry from the hookproviderareas array
+                // in the end the remaining providers are not longer present in the filesystem and can be removed
+                unset($hookproviderareas[$provider]);
+            }
         }
-*/
+
+        if (!empty($addhookproviderbundles)) {
+            HookUtil::registerProviderBundles($addhookproviderbundles);
+        }
+        
+        // remaining needles in hookproviderareas can now be removed from the system
+        if (!empty($hookproviderareas)) {
+            $hookbundlestoremove = array();
+            foreach($hookproviderareas as $hookprovider => $dummy) {
+                $nbundle = new Zikula_HookManager_ProviderBundle('MultiHook', $hookprovider, 'filter_hooks', 'remove me');
+                $nbundle->addStaticHandler('filter', '', 'filter');
+                $hookbundlestoremove[] = $nbundle;
+            }
+            HookUtil::unregisterProviderBundles($hookbundlestoremove);
+        }
+        
         $this->view->assign('needles', $needles);
         return $this->view->fetch('mh_admin_viewneedles.html');
     }
