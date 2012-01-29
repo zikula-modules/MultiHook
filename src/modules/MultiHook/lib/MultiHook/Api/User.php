@@ -21,11 +21,11 @@ class MultiHook_Api_User extends Zikula_AbstractApi
      * @returns array
      * @return array of entries, or false on failure
      */
-    public function getall($args)
+    public function getAll($args)
     {
         // Optional arguments
         if (!isset($args['startnum']) || !is_numeric($args['startnum'])) {
-            $args['startnum'] = 0;
+            $args['startnum'] = 1;
         }
         if (!isset($args['numitems']) || !is_numeric($args['numitems'])) {
             $args['numitems'] = -1;
@@ -35,40 +35,12 @@ class MultiHook_Api_User extends Zikula_AbstractApi
             return LogUtil::registerPermissionError();
         }
     
-        $permfilter[] = array ('realm'            =>  0,
-                               'component_left'   =>  'MultiHook',
-                               'component_middle' =>  '',
-                               'component_right'  =>  '',
-                               'instance_left'    =>  'short',
-                               'instance_middle'  =>  '',
-                               'instance_right'   =>  'aid',
-                               'level'            =>  ACCESS_READ);
-    
-        ModUtil::dbInfoLoad('MultiHook', 'MultiHook');
-        $tables = DBUtil::getTables();
-        $multihookcolumn = $tables['multihook_column'];
-    
-        $where = '';
-        if(isset($args['filter']) && is_numeric($args['filter']) && ($args['filter']>=0 && $args['filter']<=3)) {
-            $where = "WHERE $multihookcolumn[type]=" . DataUtil::formatForStore($args['filter']);
-        }
-    
-        if(isset($args['sortbylength']) && $args['sortbylength']==true) {
-            $orderby = "ORDER BY LENGTH($multihookcolumn[short]) DESC";
-        } else {
-            $orderby = "ORDER BY $multihookcolumn[short]";
-        }
-    
-        $abacs = DBUtil::selectObjectArray('multihook', $where, $orderby, (int)$args['startnum'], (int)$args['numitems'], '', $permfilter);
-        if ($abacs === false) {
-            return LogUtil::registerError(__('Error! Could not select database. Please contact the site administrator.'));
-        }
-
-        $aks = array_keys($abacs);
-        foreach ($aks as $ak) {
-            $abacs[$ak]['long'] = $abacs[$ak]['tlong'];
-            unset($abacs[$ak]['tlong']);
-        }
+        $abacs = $this->getService('doctrine.entitymanager')
+                      ->createQuery('SELECT a FROM MultiHook_Entity_Abac a WHERE a.type=:filter')
+                      ->setParameters(array('filter' => $args['filter']))
+                      ->setFirstResult($args['startnum']-1)
+                      ->setMaxResults($this->getVar('itemsperpage'))
+                      ->getArrayResult();
         return $abacs;
     }
     
@@ -76,6 +48,7 @@ class MultiHook_Api_User extends Zikula_AbstractApi
      * get a specific entry
      * @param $args['aid'] id of item to get
      * @param $args['short'] short string to get
+     * @param $args['array'] bool if true, return an array, othwise an object, default true
      * @returns array
      * @return abac array, or false on failure
      */
@@ -84,51 +57,20 @@ class MultiHook_Api_User extends Zikula_AbstractApi
         if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_READ)) {
             return LogUtil::registerPermissionError();
         }
-    
-        ModUtil::dbInfoLoad('MultiHook', 'MultiHook');
-        $tables = DBUtil::getTables();
-        $multihookcolumn = $tables['multihook_column'];
-    
-        $permfilter[] = array ('realm'            =>  0,
-                               'component_left'   =>  'MultiHook',
-                               'component_middle' =>  '',
-                               'component_right'  =>  '',
-                               'instance_left'    =>  'short',
-                               'instance_middle'  =>  '',
-                               'instance_right'   =>  'aid',
-                               'level'            =>  ACCESS_READ);
-
-        if (isset($args['aid'])) {
-            if(is_numeric($args['aid'])) {
-                // Get item
-                $abac = DBUtil::selectObjectByID('multihook', $args['aid'], 'aid', null, $permfilter, null, false);
-                if($abac == false) {
-                    return LogUtil::registerError(__('Error! Could not select database. Please contact the site administrator.'));
-                }
-            } else {
-                return LogUtil::registerArgsError();
-            }
-        } else if(isset($args['short'])) {
-            if(!empty($args['short'])) {
-                // Get item
-                $where = "WHERE $multihookcolumn[short] = '" . DataUtil::formatForStore($args['short']) . "'";
-                $abac = DBUtil::selectObject('multihook', $where, null, $permfilter);
-                if($abac == false) {
-                    // not found, just return false
-                    // we do not raise an error in this case, it is ok that the
-                    // short value is not find in some cases
-                    return false;
-                }
-            } else {
-                return LogUtil::registerArgsError();
-            }
-        } else {
-            return LogUtil::registerArgsError();
-        }
         
-        $abac['delete'] = false;
-        $abac['long'] = $abac['tlong'];
-        unset($abac['tlong']);
+        $args['array'] == (isset($args['array']) && is_bool($args['array'])) ? $args['array'] : true;
+ 
+        $em = $this->getService('doctrine.entitymanager');
+        if (isset($args['aid']) && is_numeric($args['aid'])) {
+            $abac = $em->find('MultiHook_Entity_Abac', $args['aid']);
+        } else {
+            $abac = $em->findBy('MultiHook_Entity_Abac', array('shortform' => $args['short']));
+        }
+        $abac->setPermissions();
+        
+        if ($args['array'] == true) {
+            return $abac->toArray();     
+        }
         return $abac;
     }
     
@@ -143,18 +85,13 @@ class MultiHook_Api_User extends Zikula_AbstractApi
         if (!SecurityUtil::checkPermission('MultiHook::', '::', ACCESS_READ)) {
             return LogUtil::registerPermissionError();
         }
-    
-        ModUtil::dbInfoLoad('MultiHook', 'MultiHook');
-        $tables = DBUtil::getTables();
-        $multihookcolumn = $tables['multihook_column'];
-    
-        $where = '';
-        if(isset($args['filter']) && is_numeric($args['filter']) && ($args['filter']>=0 && $args['filter']<=3)) {
-            $where = "WHERE $multihookcolumn[type]=" . DataUtil::formatForStore($args['filter']);
-        }
-    
-        $objcount = DBUtil::selectObjectCount ('multihook', $where);
-        return $objcount;
+
+        $em = $this->getService('doctrine.entitymanager');
+
+        $allabacs = $em->getRepository('MultiHook_Entity_Abac')->findBy(array('type' => $args['filter']));
+        $allabacscount = count($allabacs);
+        
+        return $allabacscount;
     }   
     
     public function transform($args)

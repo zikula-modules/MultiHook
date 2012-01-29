@@ -1,6 +1,5 @@
-{* $Id: mh_admin_edit.html 221 2009-12-09 07:46:02Z herr.vorragend $ *}
 {include file=mh_admin_header.html}
-{if $abac.short eq ''}
+{if $abac.shortform eq ''}
 {gt text='Create new item' assign='templatetitle'}
 {else}
 {gt text='Edit item' assign='templatetitle'}
@@ -13,33 +12,33 @@
 
 <fieldset>
     <legend>
-    {if $abac.short eq ''}
+    {if $abac.shortfor eq ''}
          {gt text='New item'}
       {else}
          {gt text='Item to edit'}
       {/if}
     </legend>
     <div class="z-formrow">
-        {formlabel for="mh_short" __text='Short version'}
-        {formtextinput id="mh_short" dataField="short" text=$abac.short size="40" maxLength="60"}
+        {formlabel for="mh_shortform" __text='Short version'}
+        {formtextinput id="mh_shortform"  text=$abac.shortform size="40" maxLength="60"}
     </div>
     <div class="z-formrow">
-        {formlabel for="mh_long" __text='Long version'}
-        {formtextinput id="mh_long" dataField="long" text=$abac.long size="40" maxLength="200"}
+        {formlabel for="mh_longform" __text='Long version'}
+        {formtextinput id="mh_longform" text=$abac.longform size="40" maxLength="200"}
         <em class="z-sub z-formnote">{gt text="(The URL, in the case of a link; ignored for censored words)"}</em>
     </div>
     <div class="z-formrow">
         {formlabel for="mh_title" __text='Title'}
-        {formtextinput id="mh_title" dataField="title" text=$abac.title size="40" maxLength="200"}
+        {formtextinput id="mh_title"  text=$abac.title size="40" maxLength="200"}
         <em class="z-sub z-formnote">{gt text="(Only necessary for a link; ignored for censored words)"}</em>
     </div>
     <div class="z-formrow">
         {formlabel for="mh_type" __text='Type'}
-        {formdropdownlist id="mh_type" dataField="type" items=$items selectedValue=$abac.type}
+        {formdropdownlist id="mh_type" items=$items selectedValue=$abac.type}
     </div>
     <div class="z-formrow">
         {formlabel for="mh_language" __text='Language'}
-        {formlanguageselector id="mh_language" dataField="language" selectedValue=$abac.language}
+        {formlanguageselector id="mh_language" selectedValue=$abac.language}
     </div>
     {if $abac.delete == true}
     <div class="z-formrow">

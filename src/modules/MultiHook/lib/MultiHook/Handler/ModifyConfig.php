@@ -9,7 +9,7 @@
  * @package Multihook
  */
 
-class MultiHook_Form_Handler_Admin_ModifyConfig extends Zikula_Form_AbstractHandler
+class MultiHook_Handler_ModifyConfig extends Zikula_Form_AbstractHandler
 {
 
     var $id;

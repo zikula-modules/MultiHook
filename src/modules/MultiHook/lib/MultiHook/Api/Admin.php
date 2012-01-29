@@ -37,15 +37,20 @@ class MultiHook_Api_Admin extends Zikula_AbstractApi
             (!isset($args['language']))) {
             return LogUtil::registerArgsError();
         }
+
+        $abac = new MultiHook_Entity_Abac();
+        $abac->setLanguage(ZLanguage::getLanguageCode());
+
+        $abac->setShortform($args['short']);                          
+        $abac->setLongform($args['long']);                          
+        $abac->setTitle($args['title']);                          
+        $abac->setType($args['type']);                          
+        $abac->setLanguage($args['language']);                          
+
+        $em->persist($abac);
+        $em->flush();
         
-        $args['tlong'] = $args['long'];
-        unset($args['long']);
-    
-        $obj = DBUtil::insertObject($args, 'multihook', 'aid');
-        if($obj == false) {
-            return LogUtil::registerError(__('Error! Could not create new entry.'));
-        }
-        return $obj['aid'];
+        return $abac['aid'];
     }
     
     /**
@@ -65,13 +70,13 @@ class MultiHook_Api_Admin extends Zikula_AbstractApi
         if (!isset($args['aid'])) {
             return LogUtil::registerArgsError();
         }
-    
-        $res = DBUtil::deleteObjectByID ('multihook', (int)$args['aid'], 'aid');
-        if($res==false) {
-            return LogUtil::registerError(__('Error! Could not delete entry from database.'));
-        }
 
-        // Let the calling process know that we have finished successfully
+        
+        $em = $this->getService('doctrine.entitymanager');
+        $abac =$em->find('MultiHook_Entity_Abac', $args['aid']);
+        $em->remove($abac);
+        $em->flush();
+
         return true;
     }
     
@@ -100,13 +105,17 @@ class MultiHook_Api_Admin extends Zikula_AbstractApi
             return LogUtil::registerArgsError();
         }
 
-        $args['tlong'] = $args['long'];
-        unset($args['long']);
-    
-        $res = DBUtil::updateObject($args, 'multihook', '', 'aid');
-        if($res == false) {
-            return LogUtil::registerError(__('Error! Could not save changes to database.'));
-        }
+        $abac = ModUtil::apiFunc('MultiHook', 'user', 'get',
+                                  array('aid' => $args['aid']));
+        $abac->setShortform($args['short']);                          
+        $abac->setLongform($args['long']);                          
+        $abac->setTitle($args['title']);                          
+        $abac->setType($args['type']);                          
+        $abac->setLanguage($args['language']);                          
+
+        $em->persist($abac);
+        $em->flush();
+
         return $args['aid'];
     }
     
@@ -124,6 +133,7 @@ class MultiHook_Api_Admin extends Zikula_AbstractApi
         $modtypes = array(2 => 'modules', 3 => 'system');
         // get an array with modinfos of all active modules
         $allmods = ModUtil::getAllMods();
+        unset($allmods['zikula']);
         if(is_array($allmods) && count($allmods)>0) {
             foreach($allmods as $mod) {
                 $needledir = $modtypes[$mod['type']] . '/' . $mod['directory'] . '/lib/' . $mod['directory'] . '/Needles/';

@@ -11,6 +11,9 @@
 
 EventUtil::attach('theme.postfooter', array('MultiHook_Footer', 'includeFooter'));
 
+$MultiHookAdminApi = 'MultiHook_Api_Admin';
+$MultiHookUserApi = 'MultiHook_Api_User';
+
 function mhdebug($name='', $data, $die = false)
 {
     if (SecurityUtil::checkPermission('Dizkus::', '::', ACCESS_ADMIN)) {

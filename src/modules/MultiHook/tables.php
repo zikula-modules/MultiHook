@@ -15,23 +15,23 @@ function MultiHook_tables()
     $tables = array();
 
     $tables['multihook'] = 'multihook';
-    $tables['multihook_column'] = array('aid'      => 'aid',
-                                        'short'    => 'short',
-                                        'tlong'    => 'tlong',
-                                        'title'    => 'title',
-                                        'type'     => 'type',
-                                        'language' => 'language');
+    $tables['multihook_column'] = array('aid'       => 'aid',
+                                        'shortform' => 'shortform',
+                                        'longform'  => 'longform',
+                                        'title'     => 'title',
+                                        'type'      => 'type',
+                                        'language'  => 'language');
 
     // column definitions
-    $tables['multihook_column_def'] = array('aid'      => "I AUTO PRIMARY",
-                                            'short'    => "C(100) NOTNULL DEFAULT ''",
-                                            'tlong'    => "C(200) NOTNULL DEFAULT ''",
-                                            'title'    => "C(100) NOTNULL DEFAULT ''",
-                                            'type'     => "I1 NOTNULL DEFAULT 0",
-                                            'language' => "C(100) NOTNULL DEFAULT ''");
+    $tables['multihook_column_def'] = array('aid'       => "I AUTO PRIMARY",
+                                            'shortform' => "C(100) NOTNULL DEFAULT ''",
+                                            'longform'  => "C(200) NOTNULL DEFAULT ''",
+                                            'title'     => "C(100) NOTNULL DEFAULT ''",
+                                            'type'      => "I1 NOTNULL DEFAULT 0",
+                                            'language'  => "C(100) NOTNULL DEFAULT ''");
 
     // addtitional indexes
-    $tables['multihook_column_idx'] = array ('short' => 'short',
+    $tables['multihook_column_idx'] = array ('shortform' => 'shortform',
                                              'type'  => 'type');
 
     // Return the table information

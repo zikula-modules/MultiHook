@@ -16,9 +16,10 @@ Class MultiHook_Installer extends Zikula_AbstractInstaller
      */
     public function install()
     {
-        // create the MultiHook table
-        // the table definition itself is done in pntables.php
-        if (!DBUtil::createTable('multihook')) {
+        // create the table
+        try {
+            DoctrineHelper::createSchema($this->entityManager, array('MultiHook_Entity_Abac'));
+        } catch (Exception $e) {
             return false;
         }
     
@@ -83,8 +84,8 @@ Class MultiHook_Installer extends Zikula_AbstractInstaller
                 }
                 $sqlStatements[] = "ALTER TABLE `multihook` 
                                           CHANGE `pn_aid`      `aid` INT( 11 ) NOT NULL AUTO_INCREMENT,
-                                          CHANGE `pn_short`    `short` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
-                                          CHANGE `pn_long`     `tlong` VARCHAR( 200 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+                                          CHANGE `pn_short`    `shortform` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
+                                          CHANGE `pn_long`     `longform` VARCHAR( 200 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
                                           CHANGE `pn_title`    `title` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ,
                                           CHANGE `pn_type`     `type` TINYINT( 4 ) NOT NULL DEFAULT '0',
                                           CHANGE `pn_language` `language` VARCHAR( 100 ) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL ";
@@ -104,8 +105,10 @@ Class MultiHook_Installer extends Zikula_AbstractInstaller
     
         // collecting needles
         // force loading of adminapi
-        ModUtil::loadApi('MultiHook', 'admin', true);
-        ModUtil::apiFunc('MultiHook', 'admin', 'collectneedles');
+        //ModUtil::loadApi('MultiHook', 'admin', true);
+        $mhAdminApi = new $MultiHookAdminApi;
+        $mhAdminApi->collectneedles();
+        
         // clear compiled templates. This function is new in Zikula and ensures that after
         // an upgrade the new templates will be used without the need to manually
         // clear the compiled templates.
@@ -120,18 +123,38 @@ Class MultiHook_Installer extends Zikula_AbstractInstaller
      */
     public function uninstall()
     {
-        // drop the table
-        if (!DBUtil::dropTable('multihook')) {
-            return LogUtil::registerError(__('Error! Could not delete table from database.'));
-        }
+        // drop table
+        DoctrineHelper::dropSchema($this->entityManager, array('MultiHook_Entity_Abac'));
     
         // Remove module variables
         // using ModUtil::delVar with only one parameter (the module name) automatically
         // deletes all existing vars in one call
         $this->delVar();
-    
-        // remove hooks
+
+        // remove builtin hooks
         HookUtil::unregisterProviderBundles($this->version->getHookProviderBundles());
+
+        // read needles from filesystem in all modules
+        $mhAdminApi = new $MultiHookAdminApi;
+        $needles = $mhAdminApi->collectneedles();
+        
+        // get all hook providers for us
+        $hookproviderareas = array_flip(HookUtil::getProviderAreasByOwner('MultiHook'));
+        
+        // remove builtin hook providers - they are already removed
+        unset($hookproviderareas['provider.multihook.filter_hooks.MultiHook_AbbreviationsAcronymsLinks']);
+        unset($hookproviderareas['provider.multihook.filter_hooks.MultiHook_Censor']);
+        
+        // needles in hookproviderareas can now be removed from the system
+        if (!empty($hookproviderareas)) {
+            $hookbundlestoremove = array();
+            foreach($hookproviderareas as $hookprovider => $dummy) {
+                $nbundle = new Zikula_HookManager_ProviderBundle('MultiHook', $hookprovider, 'filter_hooks', 'remove me');
+                $nbundle->addStaticHandler('filter', '', 'filter');
+                $hookbundlestoremove[] = $nbundle;
+            }
+            HookUtil::unregisterProviderBundles($hookbundlestoremove);
+        }    
     
         // Deletion successful
         return true;

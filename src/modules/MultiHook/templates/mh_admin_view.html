@@ -1,9 +1,7 @@
-{* $Id: mh_admin_view.html 221 2009-12-09 07:46:02Z herr.vorragend $ *}
-
 {include file=mh_admin_header.html}
 <h2>{$title}</h2>
 
-{pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars="filter" filter=$filter}
+{pager rowcount=$abacscount limit=$coredata.MultiHook.itemsperpage posvar=startnum forwardvars="filter" filter=$filter}
 
 <table class="z-admintable">
   <thead>
@@ -20,12 +18,12 @@
     <tr class="{cycle values="z-odd,z-even" name=abacs}">
       <td>
         {if $abac.edit == true}
-        <a title="{gt text='Edit'}" href="{modurl modname=MultiHook type=admin func=edit aid=$abac.aid}">{$abac.short|default:"&nbsp;"}</a>
+        <a title="{gt text='Edit'}" href="{modurl modname=MultiHook type=admin func=edit aid=$abac.aid}">{$abac.shortform|default:"&nbsp;"}</a>
         {else}
-        {$abac.short|default:"&nbsp;"}
+        {$abac.shortform|default:"&nbsp;"}
         {/if}
       </td>
-      <td>{$abac.long|truncate:30|default:"&nbsp;"}</td>
+      <td>{$abac.longform|truncate:30|default:"&nbsp;"}</td>
       <td>{$abac.title|truncate:30|default:"&nbsp;"}</td>
       <td>{$abac.language|default:"&nbsp;"}</td>
       <td><a title="{gt text='Edit'}" href="{modurl modname=MultiHook type=admin func=edit aid=$abac.aid}">{img modname='core' src='xedit.png' set='icons/extrasmall'}</a></td>
@@ -38,6 +36,6 @@
   </tbody>
 </table>
 
-{pager rowcount=$abacscount limit=$pncore.MultiHook.itemsperpage posvar=startnum no_first=true forwardvars="filter" filter=$filter}
+{pager rowcount=$abacscount limit=$coredata.MultiHook.itemsperpage posvar=startnum forwardvars="filter" filter=$filter}
 
 {include file=mh_admin_footer.html}
