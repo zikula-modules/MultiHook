@@ -64,7 +64,11 @@ class MultiHook_Api_User extends Zikula_AbstractApi
         if (isset($args['aid']) && is_numeric($args['aid'])) {
             $abac = $em->find('MultiHook_Entity_Abac', $args['aid']);
         } else {
-            $abac = $em->findBy('MultiHook_Entity_Abac', array('shortform' => $args['short']));
+            $abac = $em->getRepository('MultiHook_Entity_Abac')->findOneBy(array('shortform' => $args['short']));
+        }
+mhdebug('abac', $abac);
+        if (is_null($abac)) {
+            return false;
         }
         $abac->setPermissions();
         
