@@ -1,0 +1,54 @@
+services:
+    # Form types
+    
+    zikula_multihook_module.form.type.entryquicknav:
+        class: Zikula\MultiHookModule\Form\Type\QuickNavigation\EntryQuickNavType
+        arguments:
+            - "@translator.default"
+            - "@zikula_multihook_module.listentries_helper"
+            - "@zikula_multihook_module.feature_activation_helper"
+        tags: ['form.type']
+    
+    zikula_multihook_module.form.handler.common:
+        abstract: true
+        arguments:
+            - "@kernel"
+            - "@translator.default"
+            - "@form.factory"
+            - "@request_stack"
+            - "@router"
+            - "@logger"
+            - "@zikula_extensions_module.api.variable"
+            - "@zikula_users_module.current_user"
+            - "@zikula_multihook_module.entity_factory"
+            - "@zikula_multihook_module.controller_helper"
+            - "@zikula_multihook_module.model_helper"
+            - "@zikula_multihook_module.permission_helper"
+            - "@zikula_multihook_module.workflow_helper"
+            - "@zikula_multihook_module.hook_helper"
+            - "@zikula_multihook_module.translatable_helper"
+            - "@zikula_multihook_module.feature_activation_helper"
+        calls:
+            - [setLockingApi, ["@?zikula_pagelock_module.api.locking"]]
+    
+    
+    zikula_multihook_module.form.handler.entry:
+        class: Zikula\MultiHookModule\Form\Handler\Entry\EditHandler
+        parent: zikula_multihook_module.form.handler.common
+    
+    zikula_multihook_module.form.type.entry:
+        class: Zikula\MultiHookModule\Form\Type\EntryType
+        arguments:
+            - "@translator.default"
+            - "@zikula_multihook_module.entity_factory"
+            - "@zikula_extensions_module.api.variable"
+            - "@zikula_multihook_module.translatable_helper"
+            - "@zikula_multihook_module.listentries_helper"
+            - "@zikula_multihook_module.feature_activation_helper"
+        tags: ['form.type']
+    
+    zikula_multihook_module.form.type.config:
+        class: Zikula\MultiHookModule\Form\Type\ConfigType
+        arguments:
+            - "@translator.default"
+        tags: ['form.type']

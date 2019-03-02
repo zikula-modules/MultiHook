@@ -1,0 +1,524 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Project-Id-Version: MultiHook 6.0.0\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Axel Guckelsberger <info@guite.de>\n"
+"Language-Team: Axel Guckelsberger\n"
+"MIME-Version: 1.0\n"
+"X-Generator: Poedit 2.1.1\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+msgid "%shortForm%"
+msgstr "%shortForm%"
+
+msgid "10"
+msgstr "10"
+
+msgid "100"
+msgstr "100"
+
+msgid "15"
+msgstr "15"
+
+msgid "20"
+msgstr "20"
+
+msgid "30"
+msgstr "30"
+
+msgid "5"
+msgstr "5"
+
+msgid "50"
+msgstr "50"
+
+msgid "Abbreviation"
+msgstr "Abkürzung"
+
+msgid "Acronym"
+msgstr "Akronym"
+
+msgid "Actions"
+msgstr "Aktionen"
+
+msgid "Active"
+msgstr "Aktiv"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "All except approved"
+msgstr "Alle außer freigegebene"
+
+msgid "All except trashed"
+msgstr "Alle außer weggeworfene"
+
+msgid "Allow moderation specific creation date for entry"
+msgstr "Moderationsspezifisches Erstellungsdatum für Eintrag erlauben"
+
+msgid "Allow moderation specific creator for entry"
+msgstr "Moderationsspezifischen Ersteller für Eintrag erlauben"
+
+msgid "Apply replacements to code tags"
+msgstr "Ersetzungen auf Code-Tags anwenden"
+
+msgid "Approved"
+msgstr "Freigegeben"
+
+msgid "Ascending"
+msgstr "Aufwärts"
+
+msgid "Back to paginated view"
+msgstr "Zurück zur Seitenansicht"
+
+msgid "Backend"
+msgstr "Backend"
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Censored word"
+msgstr "Zensiertes Wort"
+
+msgid "Choose action"
+msgstr "Aktion wählen"
+
+msgid "Choose an option"
+msgstr "Eine Option auswählen"
+
+msgid "Choose the entry type."
+msgstr "Den Eintragstyp auswählen."
+
+msgid "Content has been approved and is available online."
+msgstr "Inhalt wurde geprüft und ist online verfügbar."
+
+msgid "Content has been marked as deleted, but is still persisted in the database."
+msgstr "Inhalt wurde als gelöscht markiert, aber ist noch in der Datenbank gespeichert."
+
+msgid "Create entry"
+msgstr "Eintrag erstellen"
+
+msgid "Created by %user"
+msgstr "Erstellt von %user"
+
+msgid "Created by %user on %date"
+msgstr "Erstellt von %user am %date"
+
+msgid "Created on %date"
+msgstr "Erstellt am %date"
+
+msgid "Creation"
+msgstr "Erstellung"
+
+msgid "Creation and update"
+msgstr "Erstellung und Änderung"
+
+msgid "Creation date"
+msgstr "Erstellungsdatum"
+
+msgid "Creator"
+msgstr "Ersteller"
+
+msgid "Css class for external links"
+msgstr "CSS-Klasse für externe Links"
+
+msgid "Custom template"
+msgstr "Eigene Vorlage"
+
+msgid "Delete"
+msgstr "Löschen"
+
+msgid "Delete content permanently."
+msgstr "Inhalt dauerhaft löschen."
+
+msgid "Deleted"
+msgstr "Gelöscht"
+
+msgid "Descending"
+msgstr "Abwärts"
+
+msgid "Do not censor first and last letter in words with more than two chars"
+msgstr "Ersten und letzten Buchstaben in Wörtern mit mehr als zwei Zeichen nicht zensieren"
+
+msgid "Doctrine Exception"
+msgstr "Doctrine Fehler"
+
+msgid "Done! Entry created."
+msgstr "Erledigt! Eintrag erstellt."
+
+msgid "Done! Entry deleted."
+msgstr "Erledigt! Eintrag gelöscht."
+
+msgid "Done! Entry updated."
+msgstr "Erledigt! Eintrag geändert."
+
+msgid "Done! Item created."
+msgstr "Erledigt! Element erstellt."
+
+msgid "Done! Item deleted."
+msgstr "Erledigt! Element gelöscht."
+
+msgid "Done! Item updated."
+msgstr "Erledigt! Element geändert."
+
+msgid "Done! Module configuration updated."
+msgstr "Erledigt! Modulkonfiguration geändert."
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Edit entries workflow"
+msgstr "Workflow für Einträge bearbeiten"
+
+msgid "Edit entry"
+msgstr "Eintrag bearbeiten"
+
+msgid "Edit this entry"
+msgstr "Diesen Eintrag bearbeiten"
+
+msgid "Edit workflow for entries"
+msgstr "Workflow für Einträge bearbeiten"
+
+msgid "Enter the css class for external links."
+msgstr "Die CSS-Klasse für externe Links eingeben."
+
+msgid "Enter the entry entries per page."
+msgstr "Die Anzahl der Einträge je Seite eingeben."
+
+msgid "Enter the long form of the entry."
+msgstr "Die lange Form des Eintrags eingeben."
+
+msgid "Enter the short form of the entry."
+msgstr "Die Kurzform des Eintrags eingeben."
+
+msgid "Enter the title of the entry."
+msgstr "Den Titel des Eintrags eingeben."
+
+msgid "Entries"
+msgstr "Einträge"
+
+msgid "Entries list"
+msgstr "Liste der Einträge"
+
+msgid "Entry entries per page"
+msgstr "Einträge je Seite"
+
+msgid "Entry filter hooks subscriber"
+msgstr "Eintrag Filter-Hooks Abonnent"
+
+msgid "Entry form aware subscriber"
+msgstr "Eintrag Form-Aware Abonnent"
+
+msgid "Entry type"
+msgstr "Eintragstyp"
+
+msgid "Entry ui hooks subscriber"
+msgstr "Eintrag UI-Hooks Abonnent"
+
+msgid "Error! Could not determine workflow actions."
+msgstr "Fehler! Die Workflow-Aktionen konnten nicht ermittelt werden."
+
+msgid "Error! Creation attempt failed."
+msgstr "Fehler! Erstellung fehlgeschlagen."
+
+msgid "Error! Deletion attempt failed."
+msgstr "Fehler! Löschversuch fehlgeschlagen."
+
+msgid "Error! Invalid object type received."
+msgstr "Fehler! Ungültigen Objekttyp erhalten."
+
+msgid "Error! Update attempt failed."
+msgstr "Fehler! Änderung fehlgeschlagen."
+
+msgid "Error: invalid input."
+msgstr "Fehler: ungültige Eingabe."
+
+msgid "Errors"
+msgstr "Fehler"
+
+msgid "Filter"
+msgstr "Filter"
+
+msgid "Frontend"
+msgstr "Frontend"
+
+msgid "Further properties"
+msgstr "Weitere Eigenschaften"
+
+msgid "Here you can choose a custom creation date."
+msgstr "Hier kann ein abweichendes Erstellungsdatum ausgewählt werden."
+
+msgid "Here you can choose a user which will be set as creator."
+msgstr "Hier kann ein Benutzer ausgewählt werden, der als Ersteller verwendet wird."
+
+msgid "Here you can configure parameters for list views."
+msgstr "Hier können Parameter für Listenansichten eingestellt werden."
+
+msgid "Here you can define moderation-related settings."
+msgstr "Hier können moderationsbezogene Einstellungen vorgenommen werden."
+
+msgid "Here you can inspect and amend the existing workflows."
+msgstr "Hier können die bestehenden Workflows angeschaut und verändert werden."
+
+msgid "Here you can manage all basic settings for this application."
+msgstr "Hier können alle Grundeinstellungen für diese Anwendung verwaltet werden."
+
+msgid "Initial"
+msgstr "Anfang"
+
+msgid "Invalid user identifier received."
+msgstr "Ungültigen Benutzer Identifier erhalten."
+
+msgid "Last update"
+msgstr "Letzte Änderung"
+
+msgid "Link"
+msgstr "Link"
+
+msgid "List views"
+msgstr "Listenansichten"
+
+msgid "Long form"
+msgstr "Lange Form"
+
+msgid "Manage settings for this application"
+msgstr "Einstellungen für diese Anwendung verwalten"
+
+msgid "Moderation"
+msgstr "Moderation"
+
+msgid "Multi hook filter hooks provider"
+msgstr "MultiHook Filter-Hooks Anbieter"
+
+msgid "My entries"
+msgstr "Meine Einträge"
+
+msgid "No"
+msgstr "Nein"
+
+msgid "No entries found."
+msgstr "Keine Einträge gefunden."
+
+msgid "No such item found."
+msgstr "Eintrag nicht gefunden."
+
+msgid "No such item."
+msgstr "Eintrag nicht gefunden."
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Only ajax access is allowed!"
+msgstr "Nur Ajax-Zugriff ist erlaubt!"
+
+msgid "Only digits are allowed."
+msgstr "Nur Ziffern sind erlaubt."
+
+msgid "Only item titles"
+msgstr "Nur Titel der Einträge"
+
+msgid "Operation cancelled."
+msgstr "Vorgang abgebrochen."
+
+msgid "Page size"
+msgstr "Seitengröße"
+
+msgid "Quick navigation"
+msgstr "Schnellnavigation"
+
+msgid "Recover"
+msgstr "Wiederherstellen"
+
+msgid "Replace abbreviations with long text"
+msgstr "Abkürzungen durch langen Text ersetzen"
+
+msgid "Replace censored words when they are part of other words"
+msgstr "Zensierte Wörter ersetzen, wenn sie Teil anderer Wörter sind"
+
+msgid "Replace links with title"
+msgstr "Links durch Titel ersetzen"
+
+msgid "Replace only first instance of items"
+msgstr "Nur erstes Vorkommen von Einträgen ersetzen"
+
+msgid "Reset"
+msgstr "Zurücksetzen"
+
+msgid "Reuse"
+msgstr "Wiederverwenden"
+
+msgid "Reuse for new entry"
+msgstr "Für neuen Eintrag wiederverwenden"
+
+msgid "Search"
+msgstr "Suche"
+
+msgid "Send private message to %userName%"
+msgstr "Private Nachricht an %userName% senden"
+
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgid "Short form"
+msgstr "Kurzform"
+
+msgid "Show all entries"
+msgstr "Alle Einträge anzeigen"
+
+msgid "Show also entries from other users"
+msgstr "Auch Einträge von anderen Benutzern anzeigen"
+
+msgid "Show edit link"
+msgstr "Bearbeiten-Link anzeigen"
+
+msgid "Show only own entries"
+msgstr "Nur eigene Einträge anzeigen"
+
+msgid "Shows all items except these which are approved"
+msgstr "Zeigt alle Einträge außer den freigegebenen"
+
+msgid "Shows all items except these which are trashed"
+msgstr "Zeigt alle Einträge außer den weggeworfenen"
+
+msgid "Sorry, but an error occured during the %action% action."
+msgstr "Entschuldigung, aber während der Aktion %action% ist ein Fehler aufgetreten."
+
+msgid "Sorry, but an error occured during the %action% action. Please apply the changes again!"
+msgstr "Entschuldigung, aber während der Aktion %action% ist ein Fehler aufgetreten. Bitte die Änderungen noch einmal anwenden!"
+
+msgid "Sorry, but you can not create the entry yet as other items are required which must be created before!"
+msgstr "Der Eintrag kann noch nicht erstellt werden, da andere Einträge benötigt werden, die zuvor erstellt werden müssen!"
+
+msgid "Sort by"
+msgstr "Sortieren nach"
+
+msgid "Sort by %s"
+msgstr "Sortieren nach %s"
+
+msgid "Sort direction"
+msgstr "Sortierrichtung"
+
+msgid "State"
+msgstr "Status"
+
+msgid "Submit"
+msgstr "Absenden"
+
+msgid "Submit and repeat"
+msgstr "Absenden und wiederholen"
+
+msgid "Switch to administration area."
+msgstr "Zum Verwaltungsbereich wechseln."
+
+msgid "Switch to user area."
+msgstr "Zum Benutzerbereich wechseln."
+
+msgid "The allow moderation specific creation date for entry option"
+msgstr "Die Option zum Erlauben eines moderationsspezifischen Erstellungsdatums für Einträge"
+
+msgid "The allow moderation specific creator for entry option"
+msgstr "Die Option zum Erlauben eines moderationsspezifischen Erstellers für Einträge"
+
+msgid "The amount of entries shown per page"
+msgstr "Die Anzahl der angezeigten Einträge je Seite"
+
+msgid "The apply replacements to code tags option"
+msgstr "Die Option zum Anwenden von Ersetzungen auf Code-Tags"
+
+msgid "The do not censor first and last letter in words with more than two chars option"
+msgstr "Die Option zum Zensieren der ersten und letzten Buchstaben in Wörtern mit mehr als zwei Zeichen"
+
+msgid "The replace abbreviations with long text option"
+msgstr "Die Option zum Ersetzen von Abkürzungen durch langen Text"
+
+msgid "The replace censored words when they are part of other words option"
+msgstr "Die Option zum Ersetzen zensierter Wörter, wenn sie Teil anderer Wörter sind"
+
+msgid "The replace links with title option"
+msgstr "Die Option zum Ersetzen von Links durch Titel"
+
+msgid "The replace only first instance of items option"
+msgstr "Die Option zum Ersetzen nur des ersten Vorkommen von Einträgen"
+
+msgid "The setting has been successfully changed."
+msgstr "Die Einstellung wurde erfolgreich geändert."
+
+msgid "The show edit link option"
+msgstr "Die Option zur Anzeige von Bearbeiten-Links"
+
+msgid "The show only own entries option"
+msgstr "Die Option zur ausschließlichen Anzeige eigener Einträge"
+
+msgid "The value \"%value%\" is not allowed for the \"%property%\" property."
+msgstr "Der Wert \"%value%\" ist für die Eigenschaft \"%property%\" nicht zulässig."
+
+msgid "This is a dummy addition by a generated filter provider."
+msgstr "Dies ist eine Dummy Addition durch einen generierten Filter-Anbieter."
+
+msgid "This setting is disabled. Click here to enable it."
+msgstr "Diese Einstellung ist deaktiviert. Klicken Sie hier, um sie zu aktivieren."
+
+msgid "This setting is enabled. Click here to disable it."
+msgstr "Diese Einstellung ist aktiviert. Klicken Sie hier, um sie zu deaktivieren."
+
+msgid "Title"
+msgstr "Titel"
+
+msgid "Trash"
+msgstr "Wegwerfen"
+
+msgid "Trashed"
+msgstr "Weggeworfen"
+
+msgid "Update"
+msgstr "Ändern"
+
+msgid "Update configuration"
+msgstr "Einstellungen aktualisieren"
+
+msgid "Update date"
+msgstr "Änderungsdatum"
+
+msgid "Updated by %user"
+msgstr "Geändert von %user"
+
+msgid "Updated by %user on %date"
+msgstr "Geändert von %user am %date"
+
+msgid "Updated on %date"
+msgstr "Geändert am %date"
+
+msgid "Updater"
+msgstr "Änderer"
+
+msgid "Welcome to the entry section of the Multi hook application."
+msgstr "Willkommen zu den Einträgen der MultiHook-Anwendung."
+
+msgid "Whether only own entries should be shown on view pages by default or not"
+msgstr "Ob per Standard nur eigene Einträge auf Listenseiten angezeigt werden sollen oder nicht"
+
+msgid "Whether to allow moderators choosing a custom creation date."
+msgstr "Ob Moderatoren die Auswahl eines abweichenden Erstellungsdatums erlaubt ist."
+
+msgid "Whether to allow moderators choosing a user which will be set as creator."
+msgstr "Ob Moderatoren die Auswahl eines abweichenden Benutzers als Ersteller erlaubt ist."
+
+msgid "With description"
+msgstr "Mit Beschreibung"
+
+msgid "With selected entries"
+msgstr "Die ausgewählten Einträge:"
+
+msgid "Workflows"
+msgstr "Arbeitsabläufe"
+
+msgid "Yes"
+msgstr "Ja"
+
+msgid "active ?"
+msgstr "aktiv ?"

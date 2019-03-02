@@ -1,0 +1,33 @@
+services:
+    zikula_multihook_module.hook_subscriber.filter_hooks.entries:
+        class: Zikula\MultiHookModule\HookSubscriber\EntryFilterHooksSubscriber
+        arguments:
+            - "@translator.default"
+        tags:
+            - { name: zikula.hook_subscriber, areaName: 'subscriber.zikulamultihookmodule.filter_hooks.entries' }
+
+    zikula_multihook_module.hook_subscriber.form_aware_hook.entries:
+        class: Zikula\MultiHookModule\HookSubscriber\EntryFormAwareHookSubscriber
+        arguments:
+            - "@translator.default"
+        tags:
+            - { name: zikula.hook_subscriber, areaName: 'subscriber.zikulamultihookmodule.form_aware_hook.entries' }
+
+    zikula_multihook_module.hook_subscriber.ui_hooks.entries:
+        class: Zikula\MultiHookModule\HookSubscriber\EntryUiHooksSubscriber
+        arguments:
+            - "@translator.default"
+        tags:
+            - { name: zikula.hook_subscriber, areaName: 'subscriber.zikulamultihookmodule.ui_hooks.entries' }
+
+    zikula_multihook_module.hook_provider.filter_hooks.provider:
+        class: Zikula\MultiHookModule\HookProvider\FilterHooksProvider
+        arguments:
+            - "@translator.default"
+        tags:
+            - { name: zikula.hook_provider, areaName: 'provider.zikulamultihookmodule.filter_hooks.multihook' }
+        calls:
+            - [setVariableApi, ["@zikula_extensions_module.api.variable"]]
+            - [setEntityFactory, ["@zikula_multihook_module.entity_factory"]]
+            - [setHookHelper, ["@zikula_multihook_module.hook_helper"]]
+            - [setPermissionHelper, ["@zikula_multihook_module.permission_helper"]]

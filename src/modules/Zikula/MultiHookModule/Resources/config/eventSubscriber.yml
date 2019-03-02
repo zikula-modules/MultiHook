@@ -1,0 +1,66 @@
+services:
+    # Event subscribers and listeners
+    zikula_multihook_module.entity_lifecycle_listener:
+        class: Zikula\MultiHookModule\Listener\EntityLifecycleListener
+        arguments:
+            - "@service_container"
+            - "@event_dispatcher"
+            - "@logger"
+        tags: ['doctrine.event_subscriber']
+    
+    zikula_multihook_module.kernel_listener:
+        class: Zikula\MultiHookModule\Listener\KernelListener
+        tags: ['kernel.event_subscriber']
+    
+    zikula_multihook_module.installer_listener:
+        class: Zikula\MultiHookModule\Listener\InstallerListener
+        tags: ['kernel.event_subscriber']
+    
+    zikula_multihook_module.moduledispatch_listener:
+        class: Zikula\MultiHookModule\Listener\ModuleDispatchListener
+        tags: ['kernel.event_subscriber']
+    
+    zikula_multihook_module.mailer_listener:
+        class: Zikula\MultiHookModule\Listener\MailerListener
+        tags: ['kernel.event_subscriber']
+    
+    zikula_multihook_module.theme_listener:
+        class: Zikula\MultiHookModule\Listener\ThemeListener
+        tags: ['kernel.event_subscriber']
+    
+    zikula_multihook_module.userlogin_listener:
+        class: Zikula\MultiHookModule\Listener\UserLoginListener
+        tags: ['kernel.event_subscriber']
+    
+    zikula_multihook_module.userlogout_listener:
+        class: Zikula\MultiHookModule\Listener\UserLogoutListener
+        tags: ['kernel.event_subscriber']
+    
+    zikula_multihook_module.user_listener:
+        class: Zikula\MultiHookModule\Listener\UserListener
+        arguments:
+            - "@translator.default"
+            - "@zikula_multihook_module.entity_factory"
+            - "@zikula_users_module.current_user"
+            - "@logger"
+        tags: ['kernel.event_subscriber']
+    
+    zikula_multihook_module.userregistration_listener:
+        class: Zikula\MultiHookModule\Listener\UserRegistrationListener
+        tags: ['kernel.event_subscriber']
+    
+    zikula_multihook_module.users_listener:
+        class: Zikula\MultiHookModule\Listener\UsersListener
+        tags: ['kernel.event_subscriber']
+    
+    zikula_multihook_module.group_listener:
+        class: Zikula\MultiHookModule\Listener\GroupListener
+        tags: ['kernel.event_subscriber']
+    
+    zikula_multihook_module.workflow_events_listener:
+        class: Zikula\MultiHookModule\Listener\WorkflowEventsListener
+        arguments:
+            - "@zikula_multihook_module.entity_factory"
+            - "@zikula_multihook_module.permission_helper"
+        tags: ['kernel.event_subscriber']
+    

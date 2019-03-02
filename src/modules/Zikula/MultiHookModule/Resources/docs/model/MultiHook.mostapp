@@ -1,0 +1,108 @@
+application "MultiHook" {
+    documentation "Handle autolinks, abbreviations, acronyms and censoring."
+    vendor "Zikula"
+    author "Zikula Team"
+    email "info@ziku.la"
+    url "https://ziku.la"
+    version "6.0.0"
+    prefix "multih"
+    generateAccountApi false
+    generateSearchApi false
+    generateListBlock false
+    generateDetailBlock false
+    generateModerationBlock false
+    generateListContentType false
+    generateDetailContentType false
+    generateModerationPanel false
+    generatePendingContentSupport false
+    generateExternalControllerAndFinder false
+    generateScribitePlugins false
+    generateRssTemplates false
+    generateAtomTemplates false
+    generateCsvTemplates false
+    generateXmlTemplates false
+    generateJsonTemplates false
+    generateKmlTemplates false
+    generateIcsTemplates false
+    filterHookProvider ENABLED
+    skipFiles "
+        Form/Type/EntryType.php,
+        Helper/HookHelper.php,
+        HookProvider/FilterHooksProvider.php,
+        Resources/config/helpers.yml,
+        Resources/config/hooks.yml
+    "
+    entities {
+        entity "entry" leading {
+            nameMultiple "entries"
+            displayPattern "#shortForm#"
+            fields {
+                string "shortForm" {
+                    length 100
+                },
+                string "longForm" translatable {
+                    mandatory false
+                },
+                string "title" translatable {
+                    mandatory false
+                },
+                list "entryType" {
+                    mandatory false
+                    length 1
+                    items {
+                        listItem "Abbreviation" ( "0" ),
+                        listItem "Acronym" ("1"),
+                        listItem "Link" ("2"),
+                        listItem "Censored word" ("3")
+                    }
+                },
+                boolean "active" ajaxTogglability  {
+                    defaultValue "true"
+                    mandatory false
+                }
+            }
+            actions {
+                mainAction "Index",
+                viewAction "View",
+                editAction "Edit"
+            }
+        }
+    }
+    variables {
+        varContainer "settings" {
+            fields {
+                boolean "replaceAbbreviationsWithLongText" {
+                    defaultValue "false"
+                    mandatory false
+                },
+                boolean "replaceLinksWithTitle" {
+                    defaultValue "false"
+                    mandatory false
+                },
+                string "cssClassForExternalLinks" {
+                    mandatory false
+                },
+                boolean "applyReplacementsToCodeTags" {
+                    defaultValue "false"
+                    mandatory false
+                },
+                boolean "showEditLink" {
+                    defaultValue "true"
+                    mandatory false
+                },
+                boolean "replaceOnlyFirstInstanceOfItems" {
+                    defaultValue "false"
+                    mandatory false
+                },
+                boolean "replaceCensoredWordsWhenTheyArePartOfOtherWords" {
+                    defaultValue "false"
+                    mandatory false
+                },
+                boolean "doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars" {
+                    defaultValue "false"
+                    mandatory false
+                }
+            }
+        }
+    }
+}
