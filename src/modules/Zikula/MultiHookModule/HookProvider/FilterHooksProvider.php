@@ -11,6 +11,7 @@
 
 namespace Zikula\MultiHookModule\HookProvider;
 
+use Symfony\Component\HttpFoundation\RequestStack;
 use Zikula\Bundle\HookBundle\Hook\FilterHook;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 use Zikula\MultiHookModule\HookProvider\Base\AbstractFilterHooksProvider;
@@ -23,6 +24,11 @@ use Zikula\MultiHookModule\Helper\PermissionHelper;
  */
 class FilterHooksProvider extends AbstractFilterHooksProvider
 {
+    /**
+     * @var RequestStack
+     */
+    private $requestStack;
+
     /**
      * @var VariableApiInterface
      */
@@ -37,6 +43,11 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
      * @var HookHelper
      */
     private $hookHelper;
+
+    public function setRequestStack(RequestStack $requestStack)
+    {
+        $this->requestStack = $requestStack;
+    }
 
     public function setVariableApi(VariableApiInterface $variableApi)
     {
@@ -63,17 +74,31 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
      */
     public function applyFilter(FilterHook $hook)
     {
-        // replace this by your own filter operation
-        //parent::applyFilter($hook);
+        $request = $this->requestStack->getCurrentRequest();
+
+        // check the user agent - if it is a bot, return immediately to avoid performance impact
+        $robotslist = [
+            'ia_archiver',
+            'googlebot',
+            'mediapartners-google',
+            'yahoo!',
+            'msnbot',
+            'bingbot',
+            'jeeves',
+            'lycos'
+        ];
+        $userAgent = $request->server->get('HTTP_USER_AGENT');
+        for ($cnt = 0; $cnt < count($robotslist); $cnt++) {
+            if (false !== strpos(strtolower($userAgent), $robotslist[$cnt])) {
+                return;
+            }
+        }
 
         $text = $hook->getData();
         //dump($text);
 
         // pad it with a space so we can distinguish between FALSE and matching the 1st char (index 0).
         $text = ' '  . $text;
-
-        // add stylesheet
-        //PageUtil::addVar('stylesheet', 'modules/MultiHook/style/mh.css');
 
         static $search = [];
         static $replace = [];
@@ -126,13 +151,8 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
         $leetsearch  = ['/o/i', '/e/i', '/a/i', '/i/i'];
         $leetreplace = ['0', '3', '@', '1'];
 
-        // current url and uri
-        //$currenturl = System::getCurrentUrl();
-        //$currenturi = System::getCurrentUri();
-
-        $currenturl = '';
-        $currenturi = '';
-        $baseUrl = '';
+        // base url for making links absolute if needed
+        $baseUrl = $request->getSchemeAndHttpHost() . $request->getBasePath();
 
         // Step 0 - remove areas that should not be changed, eg. for the zdebug plugin
         //          those areas are marked with <!--raw-->some hml<!--/raw-->
@@ -238,20 +258,22 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
                 } elseif ($tmp['type'] == 2) {
                     // 2 = Link
                     // don't show link if the target is the current url
-                    if ($tmp['long_original'] != $currenturl && $tmp['long_original'] != $currenturi) {
-                        // if short beginns with a single ' we need another regexp to not check for \w
-                        // this enables autolinks for german deppenapostrophs :-)
-                        if ($tmp['shortform'][0] == '\'') {
-                            $search_temp = '/(?<![\/@\.:-])(' . preg_quote($tmp['shortform'], '/'). ')(?![\/\w@-])(?!\.\w)/i';
-                        } else {
-                            $search_temp = '/(?<![\/\w@\.:-])(' . preg_quote($tmp['shortform'], '/'). ')(?![\/\w@:-])(?!\.\w)/i';
-                        }
-                        $search[] = $search_temp;
-                        $replace[] = md5($search_temp);
-                        $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                        $finalreplace[] = $this->hookHelper->createLink($tmp, $showEditLink);
-                        unset($search_temp);
+                    if (in_array($tmp['long_original'], [$request->getUri(), $request->getRequestUri()])) {
+                        continue;
                     }
+
+                    // if short beginns with a single ' we need another regexp to not check for \w
+                    // this enables autolinks for german deppenapostrophs :-)
+                    if ($tmp['shortform'][0] == '\'') {
+                        $search_temp = '/(?<![\/@\.:-])(' . preg_quote($tmp['shortform'], '/'). ')(?![\/\w@-])(?!\.\w)/i';
+                    } else {
+                        $search_temp = '/(?<![\/\w@\.:-])(' . preg_quote($tmp['shortform'], '/'). ')(?![\/\w@:-])(?!\.\w)/i';
+                    }
+                    $search[] = $search_temp;
+                    $replace[] = md5($search_temp);
+                    $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
+                    $finalreplace[] = $this->hookHelper->createLink($tmp, $showEditLink);
+                    unset($search_temp);
                 } elseif ($tmp['type'] == 3) {
                     // original censored word
                     if (false === $replaceCensoredWordsWhenTheyArePartOfOtherWords) {
@@ -368,7 +390,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
             $text = str_replace(" MULTIHOOKRAWREPLACEMENT{$i} ", $raws[0][$i], $text);
         }
 
-        // Remove our padding from the string..
+        // Remove our padding from the string
         $text = substr($text, 1);
 
         //dump($text);

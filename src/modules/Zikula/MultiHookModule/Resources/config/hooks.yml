@@ -27,6 +27,7 @@ services:
         tags:
             - { name: zikula.hook_provider, areaName: 'provider.zikulamultihookmodule.filter_hooks.multihook' }
         calls:
+            - [setRequestStack, ["@request_stack"]]
             - [setVariableApi, ["@zikula_extensions_module.api.variable"]]
             - [setEntityFactory, ["@zikula_multihook_module.entity_factory"]]
             - [setHookHelper, ["@zikula_multihook_module.hook_helper"]]
