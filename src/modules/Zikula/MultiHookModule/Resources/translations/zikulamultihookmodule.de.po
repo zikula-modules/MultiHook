@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Project-Id-Version: MultiHook 6.0.0\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: Axel Guckelsberger <info@guite.de>\n"
 "Language-Team: Axel Guckelsberger\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.1.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
@@ -39,6 +39,9 @@ msgstr "50"
 
 msgid "Abbreviation"
 msgstr "Abkürzung"
+
+msgid "Abbreviations and acronyms"
+msgstr "Abkürzungen und Akronyme"
 
 msgid "Acronym"
 msgstr "Akronym"
@@ -73,6 +76,9 @@ msgstr "Freigegeben"
 msgid "Ascending"
 msgstr "Aufwärts"
 
+msgid "Automatic links"
+msgstr "Automatische Links"
+
 msgid "Back to paginated view"
 msgstr "Zurück zur Seitenansicht"
 
@@ -81,6 +87,9 @@ msgstr "Backend"
 
 msgid "Cancel"
 msgstr "Abbrechen"
+
+msgid "Censor"
+msgstr "Zensor"
 
 msgid "Censored word"
 msgstr "Zensiertes Wort"
@@ -97,8 +106,11 @@ msgstr "Den Eintragstyp auswählen."
 msgid "Content has been approved and is available online."
 msgstr "Inhalt wurde geprüft und ist online verfügbar."
 
-msgid "Content has been marked as deleted, but is still persisted in the database."
-msgstr "Inhalt wurde als gelöscht markiert, aber ist noch in der Datenbank gespeichert."
+msgid ""
+"Content has been marked as deleted, but is still persisted in the database."
+msgstr ""
+"Inhalt wurde als gelöscht markiert, aber ist noch in der Datenbank "
+"gespeichert."
 
 msgid "Create entry"
 msgstr "Eintrag erstellen"
@@ -143,7 +155,9 @@ msgid "Descending"
 msgstr "Abwärts"
 
 msgid "Do not censor first and last letter in words with more than two chars"
-msgstr "Ersten und letzten Buchstaben in Wörtern mit mehr als zwei Zeichen nicht zensieren"
+msgstr ""
+"Ersten und letzten Buchstaben in Wörtern mit mehr als zwei Zeichen nicht "
+"zensieren"
 
 msgid "Doctrine Exception"
 msgstr "Doctrine Fehler"
@@ -250,11 +264,15 @@ msgstr "Frontend"
 msgid "Further properties"
 msgstr "Weitere Eigenschaften"
 
+msgid "General settings"
+msgstr "Allgemeine Einstellungen"
+
 msgid "Here you can choose a custom creation date."
 msgstr "Hier kann ein abweichendes Erstellungsdatum ausgewählt werden."
 
 msgid "Here you can choose a user which will be set as creator."
-msgstr "Hier kann ein Benutzer ausgewählt werden, der als Ersteller verwendet wird."
+msgstr ""
+"Hier kann ein Benutzer ausgewählt werden, der als Ersteller verwendet wird."
 
 msgid "Here you can configure parameters for list views."
 msgstr "Hier können Parameter für Listenansichten eingestellt werden."
@@ -266,7 +284,8 @@ msgid "Here you can inspect and amend the existing workflows."
 msgstr "Hier können die bestehenden Workflows angeschaut und verändert werden."
 
 msgid "Here you can manage all basic settings for this application."
-msgstr "Hier können alle Grundeinstellungen für diese Anwendung verwaltet werden."
+msgstr ""
+"Hier können alle Grundeinstellungen für diese Anwendung verwaltet werden."
 
 msgid "Initial"
 msgstr "Anfang"
@@ -297,6 +316,9 @@ msgstr "MultiHook Filter-Hooks Anbieter"
 
 msgid "My entries"
 msgstr "Meine Einträge"
+
+msgid "Needles"
+msgstr "Needles"
 
 msgid "No"
 msgstr "Nein"
@@ -334,14 +356,29 @@ msgstr "Schnellnavigation"
 msgid "Recover"
 msgstr "Wiederherstellen"
 
+msgid "Replace abbreviations"
+msgstr "Abkürzungen ersetzen"
+
 msgid "Replace abbreviations with long text"
 msgstr "Abkürzungen durch langen Text ersetzen"
+
+msgid "Replace acronyms"
+msgstr "Akronyme ersetzen"
+
+msgid "Replace censored words"
+msgstr "Zensierte Wörter ersetzen"
 
 msgid "Replace censored words when they are part of other words"
 msgstr "Zensierte Wörter ersetzen, wenn sie Teil anderer Wörter sind"
 
+msgid "Replace links"
+msgstr "Links ersetzen"
+
 msgid "Replace links with title"
 msgstr "Links durch Titel ersetzen"
+
+msgid "Replace needles"
+msgstr "Needles ersetzen"
 
 msgid "Replace only first instance of items"
 msgstr "Nur erstes Vorkommen von Einträgen ersetzen"
@@ -386,13 +423,22 @@ msgid "Shows all items except these which are trashed"
 msgstr "Zeigt alle Einträge außer den weggeworfenen"
 
 msgid "Sorry, but an error occured during the %action% action."
-msgstr "Entschuldigung, aber während der Aktion %action% ist ein Fehler aufgetreten."
+msgstr ""
+"Entschuldigung, aber während der Aktion %action% ist ein Fehler aufgetreten."
 
-msgid "Sorry, but an error occured during the %action% action. Please apply the changes again!"
-msgstr "Entschuldigung, aber während der Aktion %action% ist ein Fehler aufgetreten. Bitte die Änderungen noch einmal anwenden!"
+msgid ""
+"Sorry, but an error occured during the %action% action. Please apply the "
+"changes again!"
+msgstr ""
+"Entschuldigung, aber während der Aktion %action% ist ein Fehler aufgetreten. "
+"Bitte die Änderungen noch einmal anwenden!"
 
-msgid "Sorry, but you can not create the entry yet as other items are required which must be created before!"
-msgstr "Der Eintrag kann noch nicht erstellt werden, da andere Einträge benötigt werden, die zuvor erstellt werden müssen!"
+msgid ""
+"Sorry, but you can not create the entry yet as other items are required "
+"which must be created before!"
+msgstr ""
+"Der Eintrag kann noch nicht erstellt werden, da andere Einträge benötigt "
+"werden, die zuvor erstellt werden müssen!"
 
 msgid "Sort by"
 msgstr "Sortieren nach"
@@ -419,10 +465,13 @@ msgid "Switch to user area."
 msgstr "Zum Benutzerbereich wechseln."
 
 msgid "The allow moderation specific creation date for entry option"
-msgstr "Die Option zum Erlauben eines moderationsspezifischen Erstellungsdatums für Einträge"
+msgstr ""
+"Die Option zum Erlauben eines moderationsspezifischen Erstellungsdatums für "
+"Einträge"
 
 msgid "The allow moderation specific creator for entry option"
-msgstr "Die Option zum Erlauben eines moderationsspezifischen Erstellers für Einträge"
+msgstr ""
+"Die Option zum Erlauben eines moderationsspezifischen Erstellers für Einträge"
 
 msgid "The amount of entries shown per page"
 msgstr "Die Anzahl der angezeigten Einträge je Seite"
@@ -430,17 +479,37 @@ msgstr "Die Anzahl der angezeigten Einträge je Seite"
 msgid "The apply replacements to code tags option"
 msgstr "Die Option zum Anwenden von Ersetzungen auf Code-Tags"
 
-msgid "The do not censor first and last letter in words with more than two chars option"
-msgstr "Die Option zum Zensieren der ersten und letzten Buchstaben in Wörtern mit mehr als zwei Zeichen"
+msgid ""
+"The do not censor first and last letter in words with more than two chars "
+"option"
+msgstr ""
+"Die Option zum Zensieren der ersten und letzten Buchstaben in Wörtern mit "
+"mehr als zwei Zeichen"
+
+msgid "The replace abbreviations option"
+msgstr "Die Option zum Ersetzen von Abkürzungen"
 
 msgid "The replace abbreviations with long text option"
 msgstr "Die Option zum Ersetzen von Abkürzungen durch langen Text"
 
+msgid "The replace acronyms option"
+msgstr "Die Option zum Ersetzen von Akronymen"
+
+msgid "The replace censored words option"
+msgstr "Die Option zum Ersetzen zensierter Wörter"
+
 msgid "The replace censored words when they are part of other words option"
-msgstr "Die Option zum Ersetzen zensierter Wörter, wenn sie Teil anderer Wörter sind"
+msgstr ""
+"Die Option zum Ersetzen zensierter Wörter, wenn sie Teil anderer Wörter sind"
+
+msgid "The replace links option"
+msgstr "Die Option zum Ersetzen von Links"
 
 msgid "The replace links with title option"
 msgstr "Die Option zum Ersetzen von Links durch Titel"
+
+msgid "The replace needles option"
+msgstr "Die Option zum Ersetzen von Needles"
 
 msgid "The replace only first instance of items option"
 msgstr "Die Option zum Ersetzen nur des ersten Vorkommen von Einträgen"
@@ -455,16 +524,19 @@ msgid "The show only own entries option"
 msgstr "Die Option zur ausschließlichen Anzeige eigener Einträge"
 
 msgid "The value \"%value%\" is not allowed for the \"%property%\" property."
-msgstr "Der Wert \"%value%\" ist für die Eigenschaft \"%property%\" nicht zulässig."
+msgstr ""
+"Der Wert \"%value%\" ist für die Eigenschaft \"%property%\" nicht zulässig."
 
 msgid "This is a dummy addition by a generated filter provider."
 msgstr "Dies ist eine Dummy Addition durch einen generierten Filter-Anbieter."
 
 msgid "This setting is disabled. Click here to enable it."
-msgstr "Diese Einstellung ist deaktiviert. Klicken Sie hier, um sie zu aktivieren."
+msgstr ""
+"Diese Einstellung ist deaktiviert. Klicken Sie hier, um sie zu aktivieren."
 
 msgid "This setting is enabled. Click here to disable it."
-msgstr "Diese Einstellung ist aktiviert. Klicken Sie hier, um sie zu deaktivieren."
+msgstr ""
+"Diese Einstellung ist aktiviert. Klicken Sie hier, um sie zu deaktivieren."
 
 msgid "Title"
 msgstr "Titel"
@@ -499,14 +571,21 @@ msgstr "Änderer"
 msgid "Welcome to the entry section of the Multi hook application."
 msgstr "Willkommen zu den Einträgen der MultiHook-Anwendung."
 
-msgid "Whether only own entries should be shown on view pages by default or not"
-msgstr "Ob per Standard nur eigene Einträge auf Listenseiten angezeigt werden sollen oder nicht"
+msgid ""
+"Whether only own entries should be shown on view pages by default or not"
+msgstr ""
+"Ob per Standard nur eigene Einträge auf Listenseiten angezeigt werden sollen "
+"oder nicht"
 
 msgid "Whether to allow moderators choosing a custom creation date."
-msgstr "Ob Moderatoren die Auswahl eines abweichenden Erstellungsdatums erlaubt ist."
+msgstr ""
+"Ob Moderatoren die Auswahl eines abweichenden Erstellungsdatums erlaubt ist."
 
-msgid "Whether to allow moderators choosing a user which will be set as creator."
-msgstr "Ob Moderatoren die Auswahl eines abweichenden Benutzers als Ersteller erlaubt ist."
+msgid ""
+"Whether to allow moderators choosing a user which will be set as creator."
+msgstr ""
+"Ob Moderatoren die Auswahl eines abweichenden Benutzers als Ersteller "
+"erlaubt ist."
 
 msgid "With description"
 msgstr "Mit Beschreibung"

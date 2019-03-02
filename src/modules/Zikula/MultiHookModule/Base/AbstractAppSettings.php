@@ -27,9 +27,51 @@ abstract class AbstractAppSettings
     /**
      * @Assert\NotNull()
      * @Assert\Type(type="bool")
+     * @var boolean $showEditLink
+     */
+    protected $showEditLink = true;
+    
+    /**
+     * @Assert\NotNull()
+     * @Assert\Type(type="bool")
+     * @var boolean $replaceOnlyFirstInstanceOfItems
+     */
+    protected $replaceOnlyFirstInstanceOfItems = false;
+    
+    /**
+     * @Assert\NotNull()
+     * @Assert\Type(type="bool")
+     * @var boolean $applyReplacementsToCodeTags
+     */
+    protected $applyReplacementsToCodeTags = false;
+    
+    /**
+     * @Assert\NotNull()
+     * @Assert\Type(type="bool")
+     * @var boolean $replaceAbbreviations
+     */
+    protected $replaceAbbreviations = true;
+    
+    /**
+     * @Assert\NotNull()
+     * @Assert\Type(type="bool")
+     * @var boolean $replaceAcronyms
+     */
+    protected $replaceAcronyms = true;
+    
+    /**
+     * @Assert\NotNull()
+     * @Assert\Type(type="bool")
      * @var boolean $replaceAbbreviationsWithLongText
      */
     protected $replaceAbbreviationsWithLongText = false;
+    
+    /**
+     * @Assert\NotNull()
+     * @Assert\Type(type="bool")
+     * @var boolean $replaceLinks
+     */
+    protected $replaceLinks = true;
     
     /**
      * @Assert\NotNull()
@@ -48,23 +90,9 @@ abstract class AbstractAppSettings
     /**
      * @Assert\NotNull()
      * @Assert\Type(type="bool")
-     * @var boolean $applyReplacementsToCodeTags
+     * @var boolean $replaceCensoredWords
      */
-    protected $applyReplacementsToCodeTags = false;
-    
-    /**
-     * @Assert\NotNull()
-     * @Assert\Type(type="bool")
-     * @var boolean $showEditLink
-     */
-    protected $showEditLink = true;
-    
-    /**
-     * @Assert\NotNull()
-     * @Assert\Type(type="bool")
-     * @var boolean $replaceOnlyFirstInstanceOfItems
-     */
-    protected $replaceOnlyFirstInstanceOfItems = false;
+    protected $replaceCensoredWords = true;
     
     /**
      * @Assert\NotNull()
@@ -79,6 +107,13 @@ abstract class AbstractAppSettings
      * @var boolean $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars
      */
     protected $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars = false;
+    
+    /**
+     * @Assert\NotNull()
+     * @Assert\Type(type="bool")
+     * @var boolean $replaceNeedles
+     */
+    protected $replaceNeedles = true;
     
     /**
      * The amount of entries shown per page
@@ -133,6 +168,126 @@ abstract class AbstractAppSettings
     }
     
     /**
+     * Returns the show edit link.
+     *
+     * @return boolean
+     */
+    public function getShowEditLink()
+    {
+        return $this->showEditLink;
+    }
+    
+    /**
+     * Sets the show edit link.
+     *
+     * @param boolean $showEditLink
+     *
+     * @return void
+     */
+    public function setShowEditLink($showEditLink)
+    {
+        if (boolval($this->showEditLink) !== boolval($showEditLink)) {
+            $this->showEditLink = boolval($showEditLink);
+        }
+    }
+    
+    /**
+     * Returns the replace only first instance of items.
+     *
+     * @return boolean
+     */
+    public function getReplaceOnlyFirstInstanceOfItems()
+    {
+        return $this->replaceOnlyFirstInstanceOfItems;
+    }
+    
+    /**
+     * Sets the replace only first instance of items.
+     *
+     * @param boolean $replaceOnlyFirstInstanceOfItems
+     *
+     * @return void
+     */
+    public function setReplaceOnlyFirstInstanceOfItems($replaceOnlyFirstInstanceOfItems)
+    {
+        if (boolval($this->replaceOnlyFirstInstanceOfItems) !== boolval($replaceOnlyFirstInstanceOfItems)) {
+            $this->replaceOnlyFirstInstanceOfItems = boolval($replaceOnlyFirstInstanceOfItems);
+        }
+    }
+    
+    /**
+     * Returns the apply replacements to code tags.
+     *
+     * @return boolean
+     */
+    public function getApplyReplacementsToCodeTags()
+    {
+        return $this->applyReplacementsToCodeTags;
+    }
+    
+    /**
+     * Sets the apply replacements to code tags.
+     *
+     * @param boolean $applyReplacementsToCodeTags
+     *
+     * @return void
+     */
+    public function setApplyReplacementsToCodeTags($applyReplacementsToCodeTags)
+    {
+        if (boolval($this->applyReplacementsToCodeTags) !== boolval($applyReplacementsToCodeTags)) {
+            $this->applyReplacementsToCodeTags = boolval($applyReplacementsToCodeTags);
+        }
+    }
+    
+    /**
+     * Returns the replace abbreviations.
+     *
+     * @return boolean
+     */
+    public function getReplaceAbbreviations()
+    {
+        return $this->replaceAbbreviations;
+    }
+    
+    /**
+     * Sets the replace abbreviations.
+     *
+     * @param boolean $replaceAbbreviations
+     *
+     * @return void
+     */
+    public function setReplaceAbbreviations($replaceAbbreviations)
+    {
+        if (boolval($this->replaceAbbreviations) !== boolval($replaceAbbreviations)) {
+            $this->replaceAbbreviations = boolval($replaceAbbreviations);
+        }
+    }
+    
+    /**
+     * Returns the replace acronyms.
+     *
+     * @return boolean
+     */
+    public function getReplaceAcronyms()
+    {
+        return $this->replaceAcronyms;
+    }
+    
+    /**
+     * Sets the replace acronyms.
+     *
+     * @param boolean $replaceAcronyms
+     *
+     * @return void
+     */
+    public function setReplaceAcronyms($replaceAcronyms)
+    {
+        if (boolval($this->replaceAcronyms) !== boolval($replaceAcronyms)) {
+            $this->replaceAcronyms = boolval($replaceAcronyms);
+        }
+    }
+    
+    /**
      * Returns the replace abbreviations with long text.
      *
      * @return boolean
@@ -153,6 +308,30 @@ abstract class AbstractAppSettings
     {
         if (boolval($this->replaceAbbreviationsWithLongText) !== boolval($replaceAbbreviationsWithLongText)) {
             $this->replaceAbbreviationsWithLongText = boolval($replaceAbbreviationsWithLongText);
+        }
+    }
+    
+    /**
+     * Returns the replace links.
+     *
+     * @return boolean
+     */
+    public function getReplaceLinks()
+    {
+        return $this->replaceLinks;
+    }
+    
+    /**
+     * Sets the replace links.
+     *
+     * @param boolean $replaceLinks
+     *
+     * @return void
+     */
+    public function setReplaceLinks($replaceLinks)
+    {
+        if (boolval($this->replaceLinks) !== boolval($replaceLinks)) {
+            $this->replaceLinks = boolval($replaceLinks);
         }
     }
     
@@ -205,74 +384,26 @@ abstract class AbstractAppSettings
     }
     
     /**
-     * Returns the apply replacements to code tags.
+     * Returns the replace censored words.
      *
      * @return boolean
      */
-    public function getApplyReplacementsToCodeTags()
+    public function getReplaceCensoredWords()
     {
-        return $this->applyReplacementsToCodeTags;
+        return $this->replaceCensoredWords;
     }
     
     /**
-     * Sets the apply replacements to code tags.
+     * Sets the replace censored words.
      *
-     * @param boolean $applyReplacementsToCodeTags
+     * @param boolean $replaceCensoredWords
      *
      * @return void
      */
-    public function setApplyReplacementsToCodeTags($applyReplacementsToCodeTags)
+    public function setReplaceCensoredWords($replaceCensoredWords)
     {
-        if (boolval($this->applyReplacementsToCodeTags) !== boolval($applyReplacementsToCodeTags)) {
-            $this->applyReplacementsToCodeTags = boolval($applyReplacementsToCodeTags);
-        }
-    }
-    
-    /**
-     * Returns the show edit link.
-     *
-     * @return boolean
-     */
-    public function getShowEditLink()
-    {
-        return $this->showEditLink;
-    }
-    
-    /**
-     * Sets the show edit link.
-     *
-     * @param boolean $showEditLink
-     *
-     * @return void
-     */
-    public function setShowEditLink($showEditLink)
-    {
-        if (boolval($this->showEditLink) !== boolval($showEditLink)) {
-            $this->showEditLink = boolval($showEditLink);
-        }
-    }
-    
-    /**
-     * Returns the replace only first instance of items.
-     *
-     * @return boolean
-     */
-    public function getReplaceOnlyFirstInstanceOfItems()
-    {
-        return $this->replaceOnlyFirstInstanceOfItems;
-    }
-    
-    /**
-     * Sets the replace only first instance of items.
-     *
-     * @param boolean $replaceOnlyFirstInstanceOfItems
-     *
-     * @return void
-     */
-    public function setReplaceOnlyFirstInstanceOfItems($replaceOnlyFirstInstanceOfItems)
-    {
-        if (boolval($this->replaceOnlyFirstInstanceOfItems) !== boolval($replaceOnlyFirstInstanceOfItems)) {
-            $this->replaceOnlyFirstInstanceOfItems = boolval($replaceOnlyFirstInstanceOfItems);
+        if (boolval($this->replaceCensoredWords) !== boolval($replaceCensoredWords)) {
+            $this->replaceCensoredWords = boolval($replaceCensoredWords);
         }
     }
     
@@ -321,6 +452,30 @@ abstract class AbstractAppSettings
     {
         if (boolval($this->doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars) !== boolval($doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars)) {
             $this->doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars = boolval($doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars);
+        }
+    }
+    
+    /**
+     * Returns the replace needles.
+     *
+     * @return boolean
+     */
+    public function getReplaceNeedles()
+    {
+        return $this->replaceNeedles;
+    }
+    
+    /**
+     * Sets the replace needles.
+     *
+     * @param boolean $replaceNeedles
+     *
+     * @return void
+     */
+    public function setReplaceNeedles($replaceNeedles)
+    {
+        if (boolval($this->replaceNeedles) !== boolval($replaceNeedles)) {
+            $this->replaceNeedles = boolval($replaceNeedles);
         }
     }
     
@@ -428,8 +583,26 @@ abstract class AbstractAppSettings
     {
         $moduleVars = $this->variableApi->getAll('ZikulaMultiHookModule');
     
+        if (isset($moduleVars['showEditLink'])) {
+            $this->setShowEditLink($moduleVars['showEditLink']);
+        }
+        if (isset($moduleVars['replaceOnlyFirstInstanceOfItems'])) {
+            $this->setReplaceOnlyFirstInstanceOfItems($moduleVars['replaceOnlyFirstInstanceOfItems']);
+        }
+        if (isset($moduleVars['applyReplacementsToCodeTags'])) {
+            $this->setApplyReplacementsToCodeTags($moduleVars['applyReplacementsToCodeTags']);
+        }
+        if (isset($moduleVars['replaceAbbreviations'])) {
+            $this->setReplaceAbbreviations($moduleVars['replaceAbbreviations']);
+        }
+        if (isset($moduleVars['replaceAcronyms'])) {
+            $this->setReplaceAcronyms($moduleVars['replaceAcronyms']);
+        }
         if (isset($moduleVars['replaceAbbreviationsWithLongText'])) {
             $this->setReplaceAbbreviationsWithLongText($moduleVars['replaceAbbreviationsWithLongText']);
+        }
+        if (isset($moduleVars['replaceLinks'])) {
+            $this->setReplaceLinks($moduleVars['replaceLinks']);
         }
         if (isset($moduleVars['replaceLinksWithTitle'])) {
             $this->setReplaceLinksWithTitle($moduleVars['replaceLinksWithTitle']);
@@ -437,20 +610,17 @@ abstract class AbstractAppSettings
         if (isset($moduleVars['cssClassForExternalLinks'])) {
             $this->setCssClassForExternalLinks($moduleVars['cssClassForExternalLinks']);
         }
-        if (isset($moduleVars['applyReplacementsToCodeTags'])) {
-            $this->setApplyReplacementsToCodeTags($moduleVars['applyReplacementsToCodeTags']);
-        }
-        if (isset($moduleVars['showEditLink'])) {
-            $this->setShowEditLink($moduleVars['showEditLink']);
-        }
-        if (isset($moduleVars['replaceOnlyFirstInstanceOfItems'])) {
-            $this->setReplaceOnlyFirstInstanceOfItems($moduleVars['replaceOnlyFirstInstanceOfItems']);
+        if (isset($moduleVars['replaceCensoredWords'])) {
+            $this->setReplaceCensoredWords($moduleVars['replaceCensoredWords']);
         }
         if (isset($moduleVars['replaceCensoredWordsWhenTheyArePartOfOtherWords'])) {
             $this->setReplaceCensoredWordsWhenTheyArePartOfOtherWords($moduleVars['replaceCensoredWordsWhenTheyArePartOfOtherWords']);
         }
         if (isset($moduleVars['doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars'])) {
             $this->setDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars($moduleVars['doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars']);
+        }
+        if (isset($moduleVars['replaceNeedles'])) {
+            $this->setReplaceNeedles($moduleVars['replaceNeedles']);
         }
         if (isset($moduleVars['entryEntriesPerPage'])) {
             $this->setEntryEntriesPerPage($moduleVars['entryEntriesPerPage']);
@@ -471,14 +641,19 @@ abstract class AbstractAppSettings
      */
     public function save()
     {
-        $this->variableApi->set('ZikulaMultiHookModule', 'replaceAbbreviationsWithLongText', $this->getReplaceAbbreviationsWithLongText());
-        $this->variableApi->set('ZikulaMultiHookModule', 'replaceLinksWithTitle', $this->getReplaceLinksWithTitle());
-        $this->variableApi->set('ZikulaMultiHookModule', 'cssClassForExternalLinks', $this->getCssClassForExternalLinks());
-        $this->variableApi->set('ZikulaMultiHookModule', 'applyReplacementsToCodeTags', $this->getApplyReplacementsToCodeTags());
         $this->variableApi->set('ZikulaMultiHookModule', 'showEditLink', $this->getShowEditLink());
         $this->variableApi->set('ZikulaMultiHookModule', 'replaceOnlyFirstInstanceOfItems', $this->getReplaceOnlyFirstInstanceOfItems());
+        $this->variableApi->set('ZikulaMultiHookModule', 'applyReplacementsToCodeTags', $this->getApplyReplacementsToCodeTags());
+        $this->variableApi->set('ZikulaMultiHookModule', 'replaceAbbreviations', $this->getReplaceAbbreviations());
+        $this->variableApi->set('ZikulaMultiHookModule', 'replaceAcronyms', $this->getReplaceAcronyms());
+        $this->variableApi->set('ZikulaMultiHookModule', 'replaceAbbreviationsWithLongText', $this->getReplaceAbbreviationsWithLongText());
+        $this->variableApi->set('ZikulaMultiHookModule', 'replaceLinks', $this->getReplaceLinks());
+        $this->variableApi->set('ZikulaMultiHookModule', 'replaceLinksWithTitle', $this->getReplaceLinksWithTitle());
+        $this->variableApi->set('ZikulaMultiHookModule', 'cssClassForExternalLinks', $this->getCssClassForExternalLinks());
+        $this->variableApi->set('ZikulaMultiHookModule', 'replaceCensoredWords', $this->getReplaceCensoredWords());
         $this->variableApi->set('ZikulaMultiHookModule', 'replaceCensoredWordsWhenTheyArePartOfOtherWords', $this->getReplaceCensoredWordsWhenTheyArePartOfOtherWords());
         $this->variableApi->set('ZikulaMultiHookModule', 'doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars', $this->getDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars());
+        $this->variableApi->set('ZikulaMultiHookModule', 'replaceNeedles', $this->getReplaceNeedles());
         $this->variableApi->set('ZikulaMultiHookModule', 'entryEntriesPerPage', $this->getEntryEntriesPerPage());
         $this->variableApi->set('ZikulaMultiHookModule', 'showOnlyOwnEntries', $this->getShowOnlyOwnEntries());
         $this->variableApi->set('ZikulaMultiHookModule', 'allowModerationSpecificCreatorForEntry', $this->getAllowModerationSpecificCreatorForEntry());

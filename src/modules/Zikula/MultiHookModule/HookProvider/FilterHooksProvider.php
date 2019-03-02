@@ -93,10 +93,33 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
         $replaceCensoredWordsWhenTheyArePartOfOtherWords = $this->variableApi->get('ZikulaMultiHookModule', 'replaceCensoredWordsWhenTheyArePartOfOtherWords', false);
         $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars = $this->variableApi->get('ZikulaMultiHookModule', 'doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars', false);
 
-        //$needles = $this->variableApi->get('ZikulaMultiHookModule', 'MultiHook', 'needles', []);
+        $replaceAbbreviations = $this->variableApi->get('ZikulaMultiHookModule', 'replaceAbbreviations', true);
+        $replaceAcronyms = $this->variableApi->get('ZikulaMultiHookModule', 'replaceAcronyms', true);
+        $replaceLinks = $this->variableApi->get('ZikulaMultiHookModule', 'replaceLinks', true);
+        $replaceCensoredWords = $this->variableApi->get('ZikulaMultiHookModule', 'replaceCensoredWords', true);
+        $replaceNeedles = $this->variableApi->get('ZikulaMultiHookModule', 'replaceNeedles', true);
+
+        $entryTypes = [];
+        if (true === $replaceAbbreviations) {
+            $entryTypes[] = '0';
+        }
+        if (true === $replaceAcronyms) {
+            $entryTypes[] = '1';
+        }
+        if (true === $replaceLinks) {
+            $entryTypes[] = '2';
+        }
+        if (true === $replaceCensoredWords) {
+            $entryTypes[] = '3';
+        }
+
         $needles = [];
-        if (!is_array($needles)) {
-            $needles =  [];
+        if (true === $replaceNeedles) {
+            // TODO migrate needles #6
+            //$needles = $this->variableApi->get('ZikulaMultiHookModule', 'MultiHook', 'needles', []);
+            if (!is_array($needles)) {
+                $needles = [];
+            }
         }
 
         // deal with munded words (leet speak)
@@ -127,7 +150,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
                 $text = str_replace($codes1[0][$i], " MULTIHOOKCODE1REPLACEMENT{$i} ", $text);
                 //$text = preg_replace('/(' . preg_quote($codes1[0][$i], '/') . ')/', " MULTIHOOKCODE1REPLACEMENT{$i} ", $text, 1);
             }
-            // but pbbcode may have been faster than we are,. To avoid any problems its embraces the
+            // but bbcode may have been faster than we are; to avoid any problems its embraces the
             // replaced code tags with <!--code--> and <!--/code-->
             // this is what we are taking care of now
             $codecount2 = preg_match_all("/<!--code-->(.*)<!--\/code-->/siU", $text, $codes2);
@@ -169,9 +192,13 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
 
         if (empty($gotAbbreviations)) {
             $gotAbbreviations = 1;
-            $entities = $this->entityFactory->getRepository('entry')->selectWhere('tbl.active = 1');
-            // Create search/replace array from abbreviations/links information
+            $entities = [];
+            if (count($entryTypes) > 0) {
+                $entities = $this->entityFactory->getRepository('entry')
+                    ->selectWhere('tbl.active = 1 AND tbl.entryType IN (' . implode(', ', $entryTypes) . ')');
+            }
 
+            // Create search/replace array from abbreviations/links information
             foreach ($entities as $entity) {
                 $tmp = [
                     'id' => $entity->getId(),
@@ -248,49 +275,51 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
                     }
                     unset($search_temp);
                 }
-            } // foreach
+            }
         }
 
         for ($i = 0; $i < $linkcount; $i++) {
             $text = preg_replace("/ MULTIHOOKLINKREPLACEMENT{$i} /", $links[0][$i], $text, 1);
         }
 
-        // check for needles
-        // TODO migrate needles
-        if (empty($gotNeedles)) {
-            $gotNeedles = 1;
-            /*
-            if (count($needles) > 0) {
-                foreach ($needles as $singleneedle) {
-                    if (!is_array($singleneedle['needle'])) {
-                        $singleneedle['needle'] = [$singleneedle['needle']];
-                    }
-                    $regexpmodifier = (isset($singleneedle['casesensitive']) && $singleneedle['casesensitive'] == false) ? 'i' : '';
-                    foreach ($singleneedle['needle'] as $needle) {
-                        preg_match_all('/(?<![\/\w@\.:])' . preg_quote(strtoupper($needle), '/') . '([a-zA-Z0-9\.\?\/&:=_-]*?)(?![\/\?\w&@:=_-])(?!\.\w)/' . $regexpmodifier, $text, $needleresults);
-                        if (is_array($needleresults) && count($needleresults[0]) > 0) {
-                            // complete needle in $needleresults[0], needle id in $needleresults[1]
-                            // both are arrays!
-                            for ($ncnt = 0; $ncnt < count($needleresults[0]); $ncnt++) {
-                                $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($needleresults[0][$ncnt], '/'). ')(?![\/\w@:-])(?!\.\w)/';
-                                $search[]      = $search_temp;
-                                $replace[]     = md5($search_temp);
-                                $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                                // TODO migrate needle call
-                                $finalreplace[] = ModUtil::apiFunc(
-                                    ($singleneedle['builtin'] == true)  ? 'ZikulaMultiHookModule' : $singleneedle['module'], 'needle', strtolower($singleneedle['function']),
-                                        [
-                                            'nid'    => $needleresults[1][$ncnt],
-                                            'needle' => $needle
-                                        ]
-                                );
-                                unset($search_temp);
+        if (true === $replaceNeedles) {
+            // check for needles
+            // TODO migrate needles #6
+            if (empty($gotNeedles)) {
+                $gotNeedles = 1;
+                /*
+                if (count($needles) > 0) {
+                    foreach ($needles as $singleneedle) {
+                        if (!is_array($singleneedle['needle'])) {
+                            $singleneedle['needle'] = [$singleneedle['needle']];
+                        }
+                        $regexpmodifier = (isset($singleneedle['casesensitive']) && $singleneedle['casesensitive'] == false) ? 'i' : '';
+                        foreach ($singleneedle['needle'] as $needle) {
+                            preg_match_all('/(?<![\/\w@\.:])' . preg_quote(strtoupper($needle), '/') . '([a-zA-Z0-9\.\?\/&:=_-]*?)(?![\/\?\w&@:=_-])(?!\.\w)/' . $regexpmodifier, $text, $needleresults);
+                            if (is_array($needleresults) && count($needleresults[0]) > 0) {
+                                // complete needle in $needleresults[0], needle id in $needleresults[1]
+                                // both are arrays!
+                                for ($ncnt = 0; $ncnt < count($needleresults[0]); $ncnt++) {
+                                    $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($needleresults[0][$ncnt], '/'). ')(?![\/\w@:-])(?!\.\w)/';
+                                    $search[]      = $search_temp;
+                                    $replace[]     = md5($search_temp);
+                                    $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
+                                    // TODO migrate needle call
+                                    $finalreplace[] = ModUtil::apiFunc(
+                                        ($singleneedle['builtin'] == true)  ? 'ZikulaMultiHookModule' : $singleneedle['module'], 'needle', strtolower($singleneedle['function']),
+                                            [
+                                                'nid'    => $needleresults[1][$ncnt],
+                                                'needle' => $needle
+                                            ]
+                                    );
+                                    unset($search_temp);
+                                }
                             }
                         }
                     }
                 }
+                */
             }
-            */
         }
 
         // Step 7 - the main replacements

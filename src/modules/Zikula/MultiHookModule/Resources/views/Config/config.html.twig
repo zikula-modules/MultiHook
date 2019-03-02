@@ -11,17 +11,33 @@
         {{ form_start(form) }}
         <div class="zikula-bootstrap-tab-container">
             <ul class="nav nav-tabs">
-                {% set tabTitle = __('Settings') %}
+                {% set tabTitle = __('General settings') %}
                 <li role="presentation" class="active">
                     <a id="vars1Tab" href="#tab1" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab">{{ tabTitle }}</a>
                 </li>
-                {% set tabTitle = __('List views') %}
+                {% set tabTitle = __('Abbreviations and acronyms') %}
                 <li role="presentation">
                     <a id="vars2Tab" href="#tab2" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab">{{ tabTitle }}</a>
                 </li>
-                {% set tabTitle = __('Moderation') %}
+                {% set tabTitle = __('Automatic links') %}
                 <li role="presentation">
                     <a id="vars3Tab" href="#tab3" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab">{{ tabTitle }}</a>
+                </li>
+                {% set tabTitle = __('Censor') %}
+                <li role="presentation">
+                    <a id="vars4Tab" href="#tab4" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab">{{ tabTitle }}</a>
+                </li>
+                {% set tabTitle = __('Needles') %}
+                <li role="presentation">
+                    <a id="vars5Tab" href="#tab5" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab">{{ tabTitle }}</a>
+                </li>
+                {% set tabTitle = __('List views') %}
+                <li role="presentation">
+                    <a id="vars6Tab" href="#tab6" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab">{{ tabTitle }}</a>
+                </li>
+                {% set tabTitle = __('Moderation') %}
+                <li role="presentation">
+                    <a id="vars7Tab" href="#tab7" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab">{{ tabTitle }}</a>
                 </li>
                 {% set tabTitle = __('Workflows') %}
                 <li role="presentation">
@@ -32,23 +48,60 @@
             {{ form_errors(form) }}
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane fade in active" id="tab1" aria-labelledby="vars1Tab">
-                    {% set tabTitle = __('Settings') %}
+                    {% set tabTitle = __('General settings') %}
                     <fieldset>
                         <legend>{{ tabTitle }}</legend>
                     
                         <p class="alert alert-info">{{ __('Here you can manage all basic settings for this application.') }}</p>
                     
-                        {{ form_row(form.replaceAbbreviationsWithLongText) }}
-                        {{ form_row(form.replaceLinksWithTitle) }}
-                        {{ form_row(form.cssClassForExternalLinks) }}
-                        {{ form_row(form.applyReplacementsToCodeTags) }}
                         {{ form_row(form.showEditLink) }}
                         {{ form_row(form.replaceOnlyFirstInstanceOfItems) }}
+                        {{ form_row(form.applyReplacementsToCodeTags) }}
+                    </fieldset>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab2" aria-labelledby="vars2Tab">
+                    {% set tabTitle = __('Abbreviations and acronyms') %}
+                    <fieldset>
+                        <legend>{{ tabTitle }}</legend>
+                    
+                    
+                        {{ form_row(form.replaceAbbreviations) }}
+                        {{ form_row(form.replaceAcronyms) }}
+                        {{ form_row(form.replaceAbbreviationsWithLongText) }}
+                    </fieldset>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab3" aria-labelledby="vars3Tab">
+                    {% set tabTitle = __('Automatic links') %}
+                    <fieldset>
+                        <legend>{{ tabTitle }}</legend>
+                    
+                    
+                        {{ form_row(form.replaceLinks) }}
+                        {{ form_row(form.replaceLinksWithTitle) }}
+                        {{ form_row(form.cssClassForExternalLinks) }}
+                    </fieldset>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab4" aria-labelledby="vars4Tab">
+                    {% set tabTitle = __('Censor') %}
+                    <fieldset>
+                        <legend>{{ tabTitle }}</legend>
+                    
+                    
+                        {{ form_row(form.replaceCensoredWords) }}
                         {{ form_row(form.replaceCensoredWordsWhenTheyArePartOfOtherWords) }}
                         {{ form_row(form.doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars) }}
                     </fieldset>
                 </div>
-                <div role="tabpanel" class="tab-pane fade" id="tab2" aria-labelledby="vars2Tab">
+                <div role="tabpanel" class="tab-pane fade" id="tab5" aria-labelledby="vars5Tab">
+                    {% set tabTitle = __('Needles') %}
+                    <fieldset>
+                        <legend>{{ tabTitle }}</legend>
+                    
+                    
+                        {{ form_row(form.replaceNeedles) }}
+                    </fieldset>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="tab6" aria-labelledby="vars6Tab">
                     {% set tabTitle = __('List views') %}
                     <fieldset>
                         <legend>{{ tabTitle }}</legend>
@@ -59,7 +112,7 @@
                         {{ form_row(form.showOnlyOwnEntries) }}
                     </fieldset>
                 </div>
-                <div role="tabpanel" class="tab-pane fade" id="tab3" aria-labelledby="vars3Tab">
+                <div role="tabpanel" class="tab-pane fade" id="tab7" aria-labelledby="vars7Tab">
                     {% set tabTitle = __('Moderation') %}
                     <fieldset>
                         <legend>{{ tabTitle }}</legend>

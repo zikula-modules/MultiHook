@@ -69,23 +69,8 @@ application "MultiHook" {
         }
     }
     variables {
-        varContainer "settings" {
+        varContainer "generalSettings" {
             fields {
-                boolean "replaceAbbreviationsWithLongText" {
-                    defaultValue "false"
-                    mandatory false
-                },
-                boolean "replaceLinksWithTitle" {
-                    defaultValue "false"
-                    mandatory false
-                },
-                string "cssClassForExternalLinks" {
-                    mandatory false
-                },
-                boolean "applyReplacementsToCodeTags" {
-                    defaultValue "false"
-                    mandatory false
-                },
                 boolean "showEditLink" {
                     defaultValue "true"
                     mandatory false
@@ -94,12 +79,67 @@ application "MultiHook" {
                     defaultValue "false"
                     mandatory false
                 },
+                boolean "applyReplacementsToCodeTags" {
+                    defaultValue "false"
+                    mandatory false
+                }
+            }
+        },
+        varContainer "abbreviationsAndAcronyms" {
+            sortOrder 2
+            fields {
+                boolean "replaceAbbreviations" {
+                    defaultValue "true"
+                    mandatory false
+                },
+                boolean "replaceAcronyms" {
+                    defaultValue "true"
+                    mandatory false
+                },
+                boolean "replaceAbbreviationsWithLongText" {
+                    defaultValue "false"
+                    mandatory false
+                }
+            }
+        },
+        varContainer "automaticLinks" {
+            sortOrder 3
+            fields {
+                boolean "replaceLinks" {
+                    defaultValue "true"
+                    mandatory false
+                },
+                boolean "replaceLinksWithTitle" {
+                    defaultValue "false"
+                    mandatory false
+                },
+                string "cssClassForExternalLinks" {
+                    mandatory false
+                }
+            }
+        },
+        varContainer "censor" {
+            sortOrder 4
+            fields {
+                boolean "replaceCensoredWords" {
+                    defaultValue "true"
+                    mandatory false
+                },
                 boolean "replaceCensoredWordsWhenTheyArePartOfOtherWords" {
                     defaultValue "false"
                     mandatory false
                 },
                 boolean "doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars" {
                     defaultValue "false"
+                    mandatory false
+                }
+            }
+        },
+        varContainer "needles" {
+            sortOrder 5
+            fields {
+                boolean "replaceNeedles" {
+                    defaultValue "true"
                     mandatory false
                 }
             }
