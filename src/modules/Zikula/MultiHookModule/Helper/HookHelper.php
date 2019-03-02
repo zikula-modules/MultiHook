@@ -11,6 +11,8 @@
 
 namespace Zikula\MultiHookModule\Helper;
 
+use Symfony\Component\Routing\RouterInterface;
+use Zikula\Common\Translator\TranslatorInterface;
 use Zikula\MultiHookModule\Helper\Base\AbstractHookHelper;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 
@@ -20,58 +22,75 @@ use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 class HookHelper extends AbstractHookHelper
 {
     /**
+     * @var TranslatorInterface
+     */
+    private $translator;
+
+    /**
+     * @var RouterInterface
+     */
+    private $router;
+
+    /**
      * @var VariableApiInterface
      */
     private $variableApi;    
 
+    public function setTranslator(TranslatorInterface $translator)
+    {
+        $this->translator = $translator;
+    }
+
+    public function setRouter(RouterInterface $router)
+    {
+        $this->router = $router;
+    }
+    
     public function setVariableApi(VariableApiInterface $variableApi)
     {
         $this->variableApi = $variableApi;
     }
     
-    public function create_abbr($abac, $showEditLink=false)
+    public function createAbbr($abac, $showEditLink=false)
     {
         $replaceAbbreviationsWithLongText = $this->variableApi->get('ZikulaMultiHookModule', 'replaceAbbreviationsWithLongText', false);
 
         $long = $abac['longform'];
         $short = $abac['shortform'];
-        $aid = $abac['aid'];
+        $id = $abac['id'];
 
         $replace_temp = '';
         if (false === $replaceAbbreviationsWithLongText) {
-            $xhtmllang = $this->get_xhtml_language($abac['language']);
+            $xhtmllang = $this->getLanguageAttributes($abac['language']);
             $replace_temp = '<abbr' . $xhtmllang . ' title="' . str_replace('"', '', $long) . '"><span class="abbr" title="' . str_replace('"', '', $long) . '">' . $short . '</span></abbr>';
         } else {
             $replace_temp = $long;
         }
-        /**
+
         if (true === $showEditLink) {
-            $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/images/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . str_replace('"', '', __('Edit', $dom)) . ': ' . $short . ' (' . str_replace('"', '', __('Abbreviations', $dom)) . ') #' . $aid . '" />' . '</span>';
+            $replace_temp = '<span>' . $replace_temp . ' ' . $this->getEditLink($short, $this->translator->__('Abbreviation', 'zikulamultihookmodule'), $id) . '</span>';
         }
-        */
 
         return $replace_temp;
     }
     
-    public function create_acronym($abac, $showEditLink=false)
+    public function createAcronym($abac, $showEditLink=false)
     {
-        $longform = $abac['longform'];
-        $shortform = $abac['shortform'];
-        $aid = $abac['aid'];
+        $long = $abac['longform'];
+        $short = $abac['shortform'];
+        $id = $abac['id'];
 
-        $xhtmllang = $this->get_xhtml_language($abac['language']);
-        $replace_temp = '<acronym' . $xhtmllang . ' title="' . str_replace('"', '', $longform) . '">' . $shortform . '</acronym>';
+        $xhtmllang = $this->getLanguageAttributes($abac['language']);
+        $replace_temp = '<acronym' . $xhtmllang . ' title="' . str_replace('"', '', $long) . '">' . $short . '</acronym>';
 
-        /**
         if (true === $showEditLink) {
-            $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/images/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . str_replace('"', '', __('Edit', $dom)) . ': ' . $short . ' (' . str_replace('"', '', __('Acronyms', $dom)) . ') #' . $aid . '" />' . '</span>';
+            $replace_temp = '<span>' . $replace_temp . ' ' . $this->getEditLink($short, $this->translator->__('Acronym', 'zikulamultihookmodule'), $id) . '</span>';
         }
-        */
 
         return $replace_temp;
     }
 
-    public function create_link($abac, $showEditLink=false)
+    public function createLink($abac, $showEditLink=false)
     {
         $replaceLinksWithTitle = $this->variableApi->get('ZikulaMultiHookModule', 'replaceLinksWithTitle', false);
         $cssClassForExternalLinks = $this->variableApi->get('ZikulaMultiHookModule', 'cssClassForExternalLinks', '');
@@ -85,51 +104,55 @@ class HookHelper extends AbstractHookHelper
             $accessibilityHack = ''; // not working yet: <span class="mhacconly"> ' . str_replace('"', '', __('(external link)', $dom)) . '</span>';
         }
 
-        $longform  = $abac['longform'];
-        $shortform = $abac['shortform'];
-        $aid = $abac['aid'];
+        $long  = $abac['longform'];
+        $short = $abac['shortform'];
+        $id = $abac['id'];
         $title = $abac['title'];
 
-        $linkText = (false === $replaceLinksWithTitle ? $shortform : $title) . $accessibilityHack;
-        $replace_temp = '<a' . $extclass . ' href="' . str_replace('"', '', $longform) . '" title="' . str_replace('"', '', $title) . '">' . $linkText . '</a>';
+        $linkText = (false === $replaceLinksWithTitle ? $short : $title) . $accessibilityHack;
+        $replace_temp = '<a' . $extclass . ' href="' . str_replace('"', '', $long) . '" title="' . str_replace('"', '', $title) . '">' . $linkText . '</a>';
 
-        /**
         if (true === $showEditLink) {
-            $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/images/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . str_replace('"', '', __('Edit', $dom)) . ': ' . $short . ' (' . str_replace('"', '', __('Links', $dom)) . ') #' . $aid . '" />' . '</span>';
+            $replace_temp = '<span>' . $replace_temp . ' ' . $this->getEditLink($short, $this->translator->__('Link', 'zikulamultihookmodule'), $id) . '</span>';
         }
-        */
 
         return $replace_temp;
     }
 
-    public function create_censor($abac, $showEditLink=false, $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars=false)
+    public function createCensor($abac, $showEditLink=false, $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars=false)
     {
-        $len = strlen($abac['shortform']);
+        $short = $abac['shortform'];
+
+        $len = strlen($short);
         $replace_temp = str_repeat('*', $len);
         if (true === $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars && $len > 2) {
-            $replace_temp[0]= $abac['shortform'][0];
+            $replace_temp[0] = $short[0];
             $id = strlen($replace_temp)-1;
-            $replace_temp[$id] = $abac['shortform'][$len-1];
+            $replace_temp[$id] = $short[$len-1];
         }
 
-        $shortform = $abac['shortform'];
-        $aid = $abac['aid'];
+        $id = $abac['id'];
 
-        /**
         if (true === $showEditLink) {
-            $replace_temp = '<span>' . $replace_temp . '<img src="modules/MultiHook/images/edit.gif" width="7" height="7" alt="" class="multihookeditlink" title="' . str_replace('"', '', __('Edit', $dom)) . ': ' . shortform . ' (' . str_replace('"', '', __('Censor', $dom)) . ') #' . $aid . '" />' . '</span>';
+            $replace_temp = '<span>' . $replace_temp . ' ' . $this->getEditLink($short, $this->translator->__('Censor', 'zikulamultihookmodule'), $id) . '</span>';
         }
-        */
 
         return $replace_temp;
     }
 
-    public function get_xhtml_language($lang)
+    private function getLanguageAttributes($lang)
     {
         return !empty($lang) ? ' lang="' . $lang . '" xml:lang="' . $lang . '"' : '';
     }
 
-    public function absolute_url($url='', $baseUrl='')
+    public function getEditLink($short, $entryLabel = '', $id = 0)
+    {
+        $title = $this->translator->__('Edit', 'zikulamultihookmodule') . ': ' . $short . ' (' . str_replace('"', '', $entryLabel) . ') #' . $id;
+
+        return '<a href="' . $this->router->generate('zikulamultihookmodule_entry_edit', ['id' => $id]) . '" class="mh-edit-link" title="' . str_replace('"', '', $title) . '" target="_blank"><i class="fa fa-pencil"></i></a>';
+    }
+
+    public function createAbsoluteUrl($url='', $baseUrl='')
     {
         static $schemes = ['http', 'https', 'ftp', 'gopher', 'ed2k', 'news', 'mailto', 'telnet'];
 

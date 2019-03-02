@@ -35,6 +35,8 @@ services:
         arguments:
             - "@hook_dispatcher"
         calls:
+            - [setTranslator, ["@translator.default"]]
+            - [setRouter, ["@router"]]
             - [setVariableApi, ["@zikula_extensions_module.api.variable"]]
     
     zikula_multihook_module.listentries_helper:

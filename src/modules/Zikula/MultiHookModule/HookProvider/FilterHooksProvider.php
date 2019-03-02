@@ -174,11 +174,11 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
 
             foreach ($entities as $entity) {
                 $tmp = [
+                    'id' => $entity->getId(),
                     'longform' => $entity->getLongForm(),
                     'shortform' => $entity->getShortForm(),
                     'title' => $entity->getTitle(),
                     'type' => $entity->getEntryType(),
-                    'aid' => $entity->getId(),
                     'language' => $entity->getLocale()
                 ];
 
@@ -186,7 +186,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
                 //save original long
                 $tmp['long_original'] = $tmp['longform'];
                 if ($tmp['type'] == 2) {
-                    $tmp['longform'] = $this->hookHelper->absolute_url($tmp['longform'], $baseUrl);
+                    $tmp['longform'] = $this->hookHelper->createAbsoluteUrl($tmp['longform'], $baseUrl);
                 }
 
                 $tmp['longform'] = preg_replace('/(\b)/', '\\1MULTIHOOKTEMPORARY', $tmp['longform']);
@@ -198,7 +198,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
                     $search[] = $search_temp;
                     $replace[] = md5($search_temp);
                     $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                    $finalreplace[] = $this->hookHelper->create_abbr($tmp, $showEditLink);
+                    $finalreplace[] = $this->hookHelper->createAbbr($tmp, $showEditLink);
                     unset($search_temp);
                 } elseif ($tmp['type'] == 1) {
                     // 1 = Acronym
@@ -206,7 +206,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
                     $search[] = $search_temp;
                     $replace[] = md5($search_temp);
                     $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                    $finalreplace[] = $this->hookHelper->create_acronym($tmp, $showEditLink);
+                    $finalreplace[] = $this->hookHelper->createAcronym($tmp, $showEditLink);
                     unset($search_temp);
                 } elseif ($tmp['type'] == 2) {
                     // 2 = Link
@@ -222,7 +222,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
                         $search[] = $search_temp;
                         $replace[] = md5($search_temp);
                         $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                        $finalreplace[] = $this->hookHelper->create_link($tmp, $showEditLink);
+                        $finalreplace[] = $this->hookHelper->createLink($tmp, $showEditLink);
                         unset($search_temp);
                     }
                 } elseif ($tmp['type'] == 3) {
@@ -235,7 +235,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
                     $search[] = $search_temp;
                     $replace[] = md5($search_temp);
                     $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                    $finalreplace[] = $this->hookHelper->create_censor($tmp, $showEditLink, $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars);
+                    $finalreplace[] = $this->hookHelper->createCensor($tmp, $showEditLink, $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars);
 
                     // Common replacements
                     $mungedword = preg_replace($leetsearch, $leetreplace, $tmp['shortform']);
@@ -244,7 +244,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
                         $search[] = $search_temp;
                         $replace[] = md5($search_temp);
                         $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                        $finalreplace[] = $this->hookHelper->create_censor($tmp, $showEditLink, $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars);
+                        $finalreplace[] = $this->hookHelper->createCensor($tmp, $showEditLink, $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars);
                     }
                     unset($search_temp);
                 }
