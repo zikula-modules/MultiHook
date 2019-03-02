@@ -88,8 +88,8 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
     protected $title = '';
     
     /**
-     * @ORM\Column(length=1)
-     * @Assert\NotNull()
+     * @ORM\Column(length=10)
+     * @Assert\NotBlank()
      * @MultiHookAssert\ListEntry(entityName="entry", propertyName="entryType", multiple=false)
      * @var string $entryType
      */

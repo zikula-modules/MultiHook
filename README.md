@@ -63,6 +63,7 @@ Structural changes:
 - Entirely rewritten for Zikula 2.0.x using ModuleStudio.
 
 New features:
+- Translatable functionality for multilingual entries.
 - New settings for configuring which replacements should be enabled/disabled (#1).
 - Checkbox column for mass deletion (#2).
 

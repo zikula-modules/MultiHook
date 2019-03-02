@@ -26,7 +26,6 @@ application "MultiHook" {
     generateIcsTemplates false
     filterHookProvider ENABLED
     skipFiles "
-        Form/Type/EntryType.php,
         Helper/HookHelper.php,
         HookProvider/FilterHooksProvider.php,
         Resources/config/helpers.yml,
@@ -47,13 +46,12 @@ application "MultiHook" {
                     mandatory false
                 },
                 list "entryType" {
-                    mandatory false
-                    length 1
+                    length 10
                     items {
-                        listItem "Abbreviation" ( "0" ),
-                        listItem "Acronym" ("1"),
-                        listItem "Link" ("2"),
-                        listItem "Censored word" ("3")
+                        listItem "Abbreviation" ( "abbr" ),
+                        listItem "Acronym" ("acronym"),
+                        listItem "Link" ("link"),
+                        listItem "Censored word" ("censor")
                     }
                 },
                 boolean "active" ajaxTogglability  {

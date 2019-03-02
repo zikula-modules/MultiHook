@@ -185,8 +185,7 @@ abstract class AbstractEntryType extends AbstractType
                 'class' => '',
                 'title' => $this->__('Choose the entry type.')
             ],
-            'required' => false,
-            'placeholder' => $this->__('Choose an option'),
+            'required' => true,
             'choices' => $choices,
             'choice_attr' => $choiceAttributes,
             'multiple' => false,

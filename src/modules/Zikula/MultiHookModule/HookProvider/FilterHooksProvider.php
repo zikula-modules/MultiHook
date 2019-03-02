@@ -126,16 +126,16 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
 
         $entryTypes = [];
         if (true === $replaceAbbreviations) {
-            $entryTypes[] = '0';
+            $entryTypes[] = 'abbr';
         }
         if (true === $replaceAcronyms) {
-            $entryTypes[] = '1';
+            $entryTypes[] = 'acronym';
         }
         if (true === $replaceLinks) {
-            $entryTypes[] = '2';
+            $entryTypes[] = 'link';
         }
         if (true === $replaceCensoredWords) {
-            $entryTypes[] = '3';
+            $entryTypes[] = 'censor';
         }
 
         $needles = [];
@@ -215,7 +215,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
             $entities = [];
             if (count($entryTypes) > 0) {
                 $entities = $this->entityFactory->getRepository('entry')
-                    ->selectWhere('tbl.active = 1 AND tbl.entryType IN (' . implode(', ', $entryTypes) . ')');
+                    ->selectWhere('tbl.active = 1 AND tbl.entryType IN (\'' . implode('\', \'', $entryTypes) . '\')');
             }
 
             // Create search/replace array from abbreviations/links information
@@ -232,31 +232,28 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
                 // check if the current tmp is a link
                 //save original long
                 $tmp['long_original'] = $tmp['longform'];
-                if ($tmp['type'] == 2) {
+                if ('link' == $tmp['type']) {
                     $tmp['longform'] = $this->hookHelper->createAbsoluteUrl($tmp['longform'], $baseUrl);
                 }
 
                 $tmp['longform'] = preg_replace('/(\b)/', '\\1MULTIHOOKTEMPORARY', $tmp['longform']);
                 $tmp['title'] = preg_replace('/(\b)/', '\\1MULTIHOOKTEMPORARY', $tmp['title']);
 
-                if ($tmp['type'] == 0) {
-                    // 0 = Abbreviation
+                if ('abbr' == $tmp['type']) {
                     $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($tmp['shortform'], '/'). ')(?![\/\w@])(?!\.\w)/i';
                     $search[] = $search_temp;
                     $replace[] = md5($search_temp);
                     $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
                     $finalreplace[] = $this->hookHelper->createAbbr($tmp, $showEditLink);
                     unset($search_temp);
-                } elseif ($tmp['type'] == 1) {
-                    // 1 = Acronym
+                } elseif ('acronym' == $tmp['type']) {
                     $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($tmp['shortform'], '/'). ')(?![\/\w@])(?!\.\w)/i';
                     $search[] = $search_temp;
                     $replace[] = md5($search_temp);
                     $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
                     $finalreplace[] = $this->hookHelper->createAcronym($tmp, $showEditLink);
                     unset($search_temp);
-                } elseif ($tmp['type'] == 2) {
-                    // 2 = Link
+                } elseif ('link' == $tmp['type']) {
                     // don't show link if the target is the current url
                     if (in_array($tmp['long_original'], [$request->getUri(), $request->getRequestUri()])) {
                         continue;
@@ -274,7 +271,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
                     $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
                     $finalreplace[] = $this->hookHelper->createLink($tmp, $showEditLink);
                     unset($search_temp);
-                } elseif ($tmp['type'] == 3) {
+                } elseif ('censor' == $tmp['type']) {
                     // original censored word
                     if (false === $replaceCensoredWordsWhenTheyArePartOfOtherWords) {
                         $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($tmp['shortform'], '/'). ')(?![\/\w@])(?!\.\w)/i';
