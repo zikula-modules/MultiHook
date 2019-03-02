@@ -9,8 +9,9 @@
   2. [Requirements](#requirements)
   3. [Installation](#installation)
   4. [Implementing custom entry providers](#entryproviders)
-  5. [Changelog](#changelog)
-  6. [Questions, bugs and contributing](#contributing)
+  5. [Implementing custom needles](#needles)
+  6. [Changelog](#changelog)
+  7. [Questions, bugs and contributing](#contributing)
 
 
 <a name="introduction" />
@@ -44,6 +45,13 @@ The MultiHook module is installed like this:
 
 **TBD**
 
+
+<a name="needles" />
+
+## Implementing custom needles
+
+**TBD**
+For some (old) information about it see [this](https://github.com/zikula-modules/MultiHook/blob/5.x-old/docs/install.txt) and [that](https://github.com/zikula-modules/MultiHook/blob/5.x-old/docs/needles_howto.txt).
 
 <a name="changelog" />
 
