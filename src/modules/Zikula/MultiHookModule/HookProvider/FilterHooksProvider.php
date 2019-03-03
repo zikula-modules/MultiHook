@@ -232,78 +232,69 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
             }
 
             // Create search/replace array from abbreviations/links information
-            foreach ($entries as $entity) {
-                $tmp = [
-                    'id' => $entity->getId(),
-                    'longform' => $entity->getLongForm(),
-                    'shortform' => $entity->getShortForm(),
-                    'title' => $entity->getTitle(),
-                    'type' => $entity->getEntryType(),
-                    'language' => $entity->getLocale()
-                ];
-
+            foreach ($entries as $entry) {
                 // check if the current tmp is a link
                 //save original long
-                $tmp['long_original'] = $tmp['longform'];
-                if ('link' == $tmp['type']) {
-                    $tmp['longform'] = $this->hookHelper->createAbsoluteUrl($tmp['longform'], $baseUrl);
+                $entry['long_original'] = $entry['longform'];
+                if ('link' == $entry['type']) {
+                    $entry['longform'] = $this->hookHelper->createAbsoluteUrl($entry['longform'], $baseUrl);
                 }
 
-                $tmp['longform'] = preg_replace('/(\b)/', '\\1MULTIHOOKTEMPORARY', $tmp['longform']);
-                $tmp['title'] = preg_replace('/(\b)/', '\\1MULTIHOOKTEMPORARY', $tmp['title']);
+                $entry['longform'] = preg_replace('/(\b)/', '\\1MULTIHOOKTEMPORARY', $entry['longform']);
+                $entry['title'] = preg_replace('/(\b)/', '\\1MULTIHOOKTEMPORARY', $entry['title']);
 
-                if ('abbr' == $tmp['type']) {
-                    $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($tmp['shortform'], '/'). ')(?![\/\w@])(?!\.\w)/i';
+                if ('abbr' == $entry['type']) {
+                    $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($entry['shortform'], '/'). ')(?![\/\w@])(?!\.\w)/i';
                     $search[] = $search_temp;
                     $replace[] = md5($search_temp);
                     $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                    $finalreplace[] = $this->hookHelper->createAbbr($tmp, $showEditLink);
+                    $finalreplace[] = $this->hookHelper->createAbbr($entry, $showEditLink);
                     unset($search_temp);
-                } elseif ('acronym' == $tmp['type']) {
-                    $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($tmp['shortform'], '/'). ')(?![\/\w@])(?!\.\w)/i';
+                } elseif ('acronym' == $entry['type']) {
+                    $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($entry['shortform'], '/'). ')(?![\/\w@])(?!\.\w)/i';
                     $search[] = $search_temp;
                     $replace[] = md5($search_temp);
                     $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                    $finalreplace[] = $this->hookHelper->createAcronym($tmp, $showEditLink);
+                    $finalreplace[] = $this->hookHelper->createAcronym($entry, $showEditLink);
                     unset($search_temp);
-                } elseif ('link' == $tmp['type']) {
+                } elseif ('link' == $entry['type']) {
                     // don't show link if the target is the current url
-                    if (in_array($tmp['long_original'], [$request->getUri(), $request->getRequestUri()])) {
+                    if (in_array($entry['long_original'], [$request->getUri(), $request->getRequestUri()])) {
                         continue;
                     }
 
                     // if short beginns with a single ' we need another regexp to not check for \w
                     // this enables autolinks for german deppenapostrophs :-)
-                    if ($tmp['shortform'][0] == '\'') {
-                        $search_temp = '/(?<![\/@\.:-])(' . preg_quote($tmp['shortform'], '/'). ')(?![\/\w@-])(?!\.\w)/i';
+                    if ($entry['shortform'][0] == '\'') {
+                        $search_temp = '/(?<![\/@\.:-])(' . preg_quote($entry['shortform'], '/'). ')(?![\/\w@-])(?!\.\w)/i';
                     } else {
-                        $search_temp = '/(?<![\/\w@\.:-])(' . preg_quote($tmp['shortform'], '/'). ')(?![\/\w@:-])(?!\.\w)/i';
+                        $search_temp = '/(?<![\/\w@\.:-])(' . preg_quote($entry['shortform'], '/'). ')(?![\/\w@:-])(?!\.\w)/i';
                     }
                     $search[] = $search_temp;
                     $replace[] = md5($search_temp);
                     $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                    $finalreplace[] = $this->hookHelper->createLink($tmp, $showEditLink);
+                    $finalreplace[] = $this->hookHelper->createLink($entry, $showEditLink);
                     unset($search_temp);
-                } elseif ('censor' == $tmp['type']) {
+                } elseif ('censor' == $entry['type']) {
                     // original censored word
                     if (false === $replaceCensoredWordsWhenTheyArePartOfOtherWords) {
-                        $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($tmp['shortform'], '/'). ')(?![\/\w@])(?!\.\w)/i';
+                        $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($entry['shortform'], '/'). ')(?![\/\w@])(?!\.\w)/i';
                     } else {
-                        $search_temp = '/(?)(' . preg_quote($tmp['shortform'], '/') . ')(?)/i';
+                        $search_temp = '/(?)(' . preg_quote($entry['shortform'], '/') . ')(?)/i';
                     }
                     $search[] = $search_temp;
                     $replace[] = md5($search_temp);
                     $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                    $finalreplace[] = $this->hookHelper->createCensor($tmp, $showEditLink, $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars);
+                    $finalreplace[] = $this->hookHelper->createCensor($entry, $showEditLink, $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars);
 
                     // Common replacements
-                    $mungedword = preg_replace($leetsearch, $leetreplace, $tmp['shortform']);
-                    if ($mungedword != $tmp['shortform']) {
+                    $mungedword = preg_replace($leetsearch, $leetreplace, $entry['shortform']);
+                    if ($mungedword != $entry['shortform']) {
                         $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($mungedword, '/'). ')(?![\/\w@])(?!\.\w)/i';
                         $search[] = $search_temp;
                         $replace[] = md5($search_temp);
                         $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                        $finalreplace[] = $this->hookHelper->createCensor($tmp, $showEditLink, $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars);
+                        $finalreplace[] = $this->hookHelper->createCensor($entry, $showEditLink, $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars);
                     }
                     unset($search_temp);
                 }

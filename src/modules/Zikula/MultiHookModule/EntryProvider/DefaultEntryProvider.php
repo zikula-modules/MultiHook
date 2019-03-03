@@ -155,8 +155,19 @@ class DefaultEntryProvider
         $result = [];
 
         if (count($entryTypes) > 0) {
-            $result = $this->entityFactory->getRepository('entry')
+            $entities = $this->entityFactory->getRepository('entry')
                 ->selectWhere('tbl.active = 1 AND tbl.entryType IN (\'' . implode('\', \'', $entryTypes) . '\')');
+
+            foreach ($entities as $entity) {
+                $result[] = [
+                    'id' => $entity->getId(),
+                    'longform' => $entity->getLongForm(),
+                    'shortform' => $entity->getShortForm(),
+                    'title' => $entity->getTitle(),
+                    'type' => $entity->getEntryType(),
+                    'language' => $entity->getLocale()
+                ];
+            }
         }
 
         return $result;
