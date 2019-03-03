@@ -39,13 +39,6 @@ class DefaultEntryProvider
     private $bundleName;
 
     /**
-     * Translation domain
-     *
-     * @var string
-     */
-    private $domain;
-
-    /**
      * The name of this provider
      *
      * @var string
@@ -70,7 +63,6 @@ class DefaultEntryProvider
         $nameAndType = $nsParts[1];
 
         $this->bundleName = $vendor . $nameAndType;
-        $this->domain = strtolower($this->bundleName);
         $this->name = str_replace('Type', '', array_pop($nsParts));
     }
 
@@ -111,7 +103,7 @@ class DefaultEntryProvider
      */
     public function getTitle()
     {
-        return $this->translator->__('Default functionality', $this->domain);
+        return $this->translator->__('Default functionality', 'zikulamultihookmodule');
     }
 
     /**
@@ -121,7 +113,7 @@ class DefaultEntryProvider
      */
     public function getDescription()
     {
-        return $this->translator->__('Provides MultiHook\'s own entries.', $this->domain);
+        return $this->translator->__('Provides MultiHook\'s own entries.', 'zikulamultihookmodule');
     }
 
     /**

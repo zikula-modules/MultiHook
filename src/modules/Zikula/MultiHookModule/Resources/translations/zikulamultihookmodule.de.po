@@ -97,9 +97,6 @@ msgstr "Zensiertes Wort"
 msgid "Choose action"
 msgstr "Aktion wählen"
 
-msgid "Choose an option"
-msgstr "Eine Option auswählen"
-
 msgid "Choose the entry type."
 msgstr "Den Eintragstyp auswählen."
 
@@ -141,6 +138,9 @@ msgstr "CSS-Klasse für externe Links"
 
 msgid "Custom template"
 msgstr "Eigene Vorlage"
+
+msgid "Default functionality"
+msgstr "Standardfunktionalität"
 
 msgid "Delete"
 msgstr "Löschen"
@@ -349,6 +349,9 @@ msgstr "Vorgang abgebrochen."
 
 msgid "Page size"
 msgstr "Seitengröße"
+
+msgid "Provides MultiHook's own entries."
+msgstr "Stellt die eigenen Einträge vom MultiHook bereit."
 
 msgid "Quick navigation"
 msgstr "Schnellnavigation"
@@ -599,5 +602,22 @@ msgstr "Arbeitsabläufe"
 msgid "Yes"
 msgstr "Ja"
 
+msgid ""
+"You must select at least \"%limit%\" choice.|You must select at least "
+"\"%limit%\" choices."
+msgstr ""
+"Es muss mindestens \"%limit%\" Option ausgewählt werden.|Es müssen "
+"mindestens \"%limit%\" Optionen ausgewählt werden."
+
+msgid ""
+"You must select at most \"%limit%\" choice.|You must select at most \"%limit%"
+"\" choices."
+msgstr ""
+"Es dürfen höchstens \"%limit%\" Option ausgewählt werden.|Es dürfen "
+"höchstens \"%limit%\" Optionen ausgewählt werden."
+
 msgid "active ?"
 msgstr "aktiv ?"
+
+#~ msgid "Choose an option"
+#~ msgstr "Eine Option auswählen"
