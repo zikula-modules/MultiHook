@@ -1,0 +1,11 @@
+services:
+    zikula_multihook_module.collector.entry_provider_collector:
+        class: Zikula\MultiHookModule\Collector\EntryProviderCollector
+    zikula_multihook_module.collector.needle_collector:
+        class: Zikula\MultiHookModule\Collector\NeedleCollector
+    zikula_multihook_module.custom_twig_extension:
+        class: Zikula\MultiHookModule\Twig\CustomTwigExtension
+        arguments:
+            - '@zikula_multihook_module.collector.entry_provider_collector'
+            - '@zikula_multihook_module.collector.needle_collector'
+        tags: ['twig.extension']

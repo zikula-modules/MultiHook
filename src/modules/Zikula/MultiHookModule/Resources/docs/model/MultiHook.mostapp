@@ -29,7 +29,8 @@ application "MultiHook" {
         Helper/HookHelper.php,
         HookProvider/FilterHooksProvider.php,
         Resources/config/helpers.yml,
-        Resources/config/hooks.yml
+        Resources/config/hooks.yml,
+        Resources/config/services.yml
     "
     entities {
         entity "entry" leading {
