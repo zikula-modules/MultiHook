@@ -57,7 +57,7 @@ class HookHelper extends AbstractHookHelper
 
         $long = $abac['longform'];
         $short = $abac['shortform'];
-        $id = $abac['id'];
+        $id = isset($abac['id']) ? $abac['id'] : 0;
 
         $replace_temp = '';
         if (false === $replaceAbbreviationsWithLongText) {
@@ -78,7 +78,7 @@ class HookHelper extends AbstractHookHelper
     {
         $long = $abac['longform'];
         $short = $abac['shortform'];
-        $id = $abac['id'];
+        $id = isset($abac['id']) ? $abac['id'] : 0;
 
         $xhtmllang = $this->getLanguageAttributes($abac['language']);
         $replace_temp = '<acronym' . $xhtmllang . ' title="' . str_replace('"', '', $long) . '">' . $short . '</acronym>';
@@ -106,7 +106,7 @@ class HookHelper extends AbstractHookHelper
 
         $long  = $abac['longform'];
         $short = $abac['shortform'];
-        $id = $abac['id'];
+        $id = isset($abac['id']) ? $abac['id'] : 0;
         $title = $abac['title'];
 
         $linkText = (false === $replaceLinksWithTitle ? $short : $title) . $accessibilityHack;
@@ -131,7 +131,7 @@ class HookHelper extends AbstractHookHelper
             $replace_temp[$id] = $short[$len-1];
         }
 
-        $id = $abac['id'];
+        $id = isset($abac['id']) ? $abac['id'] : 0;
 
         if (true === $showEditLink && $id > 0) {
             $replace_temp = '<span>' . $replace_temp . ' ' . $this->getEditLink($short, $this->translator->__('Censor', 'zikulamultihookmodule'), $id) . '</span>';
