@@ -43,16 +43,23 @@ The MultiHook module is installed like this:
 
 ## Implementing custom entry providers
 
-**TBD**
+MultiHook can not only manage abbreviations, acronyms, autolinks and censored words itself. Also other modules can contribute additional entries by implementing an *entry provider*. For example a product database could let MultiHook create autolinks for all product numbers automatically.
+
+- An entity provider class name should be suffixed by `Provider` and located in the `ModuleRoot/EntryProvider/` directory. This is not mandatory but a recommended convention.
+- Entity provider classes must be registered as a service using the `zikula.multihook_entry_provider` tag.
+- Entity provider classes need to implement several methods. At the moment there is no interface for that though to prevent issues when MultiHook is not available in a system.
+- As an example the Content module offers a [PageEntryProvider](https://github.com/zikula-modules/Content/blob/master/src/modules/Zikula/ContentModule/EntryProvider/PageEntryProvider.php) to create auto links for all site titles.
 
 
 <a name="needles" />
 
 ## Implementing custom needles
 
-**TBD**
 For some (old) information about it see [this](https://github.com/zikula-modules/MultiHook/blob/5.x-old/docs/install.txt) and [that](https://github.com/zikula-modules/MultiHook/blob/5.x-old/docs/needles_howto.txt).
 
+- Needle classes must be registered as a service using the `zikula.multihook_needle` tag.
+
+**TBD**
 
 <a name="changelog" />
 
