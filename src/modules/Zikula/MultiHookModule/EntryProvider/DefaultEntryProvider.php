@@ -85,7 +85,7 @@ class DefaultEntryProvider
     }
 
     /**
-     * Returns the name of this content type.
+     * Returns the name of this entry provider.
      *
      * @return string
      */
@@ -105,7 +105,7 @@ class DefaultEntryProvider
     }
 
     /**
-     * Returns the title of this content type.
+     * Returns the title of this entry provider.
      *
      * @return string
      */
@@ -115,7 +115,7 @@ class DefaultEntryProvider
     }
 
     /**
-     * Returns the description of this content type.
+     * Returns the description of this entry provider.
      *
      * @return string
      */
@@ -135,7 +135,7 @@ class DefaultEntryProvider
     }
 
     /**
-     * Returns whether this content type is active or not.
+     * Returns whether this entry provider is active or not.
      *
      * @return boolean
      */
