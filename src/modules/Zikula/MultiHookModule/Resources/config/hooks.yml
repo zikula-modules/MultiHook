@@ -29,6 +29,7 @@ services:
         calls:
             - [setRequestStack, ["@request_stack"]]
             - [setVariableApi, ["@zikula_extensions_module.api.variable"]]
-            - [setEntityFactory, ["@zikula_multihook_module.entity_factory"]]
+            - [setEntryProviderCollector, ['@zikula_multihook_module.collector.entry_provider_collector']]
+            - [setNeedleCollector, ['@zikula_multihook_module.collector.needle_collector']]
             - [setHookHelper, ["@zikula_multihook_module.hook_helper"]]
             - [setPermissionHelper, ["@zikula_multihook_module.permission_helper"]]

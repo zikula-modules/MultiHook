@@ -14,10 +14,11 @@ namespace Zikula\MultiHookModule\HookProvider;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Zikula\Bundle\HookBundle\Hook\FilterHook;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
-use Zikula\MultiHookModule\HookProvider\Base\AbstractFilterHooksProvider;
-use Zikula\MultiHookModule\Entity\Factory\EntityFactory;
+use Zikula\MultiHookModule\Collector\EntryProviderCollector;
+use Zikula\MultiHookModule\Collector\NeedleCollector;
 use Zikula\MultiHookModule\Helper\HookHelper;
 use Zikula\MultiHookModule\Helper\PermissionHelper;
+use Zikula\MultiHookModule\HookProvider\Base\AbstractFilterHooksProvider;
 
 /**
  * Implementation class for filter hooks provider.
@@ -35,9 +36,14 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
     private $variableApi;
 
     /**
-     * @var EntityFactory
+     * @var EntryProviderCollector
      */
-    private $entityFactory;
+    protected $entryProviderCollector;
+
+    /**
+     * @var NeedleCollector
+     */
+    protected $needleCollector;
 
     /**
      * @var HookHelper
@@ -54,9 +60,14 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
         $this->variableApi = $variableApi;
     }
 
-    public function setEntityFactory(EntityFactory $entityFactory)
+    public function setEntryProviderCollector(EntryProviderCollector $entryProviderCollector)
     {
-        $this->entityFactory = $entityFactory;
+        $this->entryProviderCollector = $entryProviderCollector;
+    }
+
+    public function setNeedleCollector(NeedleCollector $needleCollector)
+    {
+        $this->needleCollector = $needleCollector;
     }
 
     public function setHookHelper(HookHelper $hookHelper)
@@ -212,14 +223,16 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
 
         if (empty($gotAbbreviations)) {
             $gotAbbreviations = 1;
-            $entities = [];
-            if (count($entryTypes) > 0) {
-                $entities = $this->entityFactory->getRepository('entry')
-                    ->selectWhere('tbl.active = 1 AND tbl.entryType IN (\'' . implode('\', \'', $entryTypes) . '\')');
+            $entries = [];
+            foreach ($this->entryProviderCollector->getAll() as $entryProvider) {
+                $providedEntries = $entryProvider->getEntries($entryTypes);
+                foreach ($providedEntries as $entry) {
+                    $entries[] = $entry;
+                }
             }
 
             // Create search/replace array from abbreviations/links information
-            foreach ($entities as $entity) {
+            foreach ($entries as $entity) {
                 $tmp = [
                     'id' => $entity->getId(),
                     'longform' => $entity->getLongForm(),

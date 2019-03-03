@@ -11,12 +11,24 @@
 
 namespace Zikula\MultiHookModule;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Zikula\MultiHookModule\Base\AbstractZikulaMultiHookModule;
+use Zikula\MultiHookModule\DependencyInjection\Compiler\EntryProviderCollectorPass;
+use Zikula\MultiHookModule\DependencyInjection\Compiler\NeedleCollectorPass;
 
 /**
  * Module implementation class.
  */
 class ZikulaMultiHookModule extends AbstractZikulaMultiHookModule
 {
-    // custom enhancements can go here
+    /**
+     * @inheritDoc
+     */
+    public function build(ContainerBuilder $container)
+    {
+        parent::build($container);
+
+        $container->addCompilerPass(new EntryProviderCollectorPass());
+        $container->addCompilerPass(new NeedleCollectorPass());
+    }
 }

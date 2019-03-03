@@ -9,3 +9,9 @@ services:
             - '@zikula_multihook_module.collector.entry_provider_collector'
             - '@zikula_multihook_module.collector.needle_collector'
         tags: ['twig.extension']
+    zikula_multihook_module.multihook_entry_provider.default:
+        class: Zikula\MultiHookModule\EntryProvider\DefaultEntryProvider
+        arguments:
+            - '@translator.default'
+            - '@zikula_multihook_module.entity_factory'
+        tags: ['zikula.multihook_entry_provider']
