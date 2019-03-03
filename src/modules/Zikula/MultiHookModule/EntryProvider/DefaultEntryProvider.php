@@ -20,7 +20,7 @@ use Zikula\MultiHookModule\Entity\Factory\EntityFactory;
 class DefaultEntryProvider
 {
     /**
-     * Translator instance.
+     * Translator instance
      *
      * @var TranslatorInterface
      */
@@ -32,21 +32,21 @@ class DefaultEntryProvider
     private $entityFactory;
 
     /**
-     * Bundle name.
+     * Bundle name
      *
      * @var string
      */
     private $bundleName;
 
     /**
-     * Translation domain.
+     * Translation domain
      *
      * @var string
      */
     private $domain;
 
     /**
-     * The name of this provider.
+     * The name of this provider
      *
      * @var string
      */
