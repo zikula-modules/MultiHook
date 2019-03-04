@@ -84,6 +84,7 @@ Hints for implementing your own needles:
 - A needle class name should be suffixed by `Needle` and located in the `ModuleRoot/Needle/` directory. This is not mandatory but a recommended convention.
 - Needle classes must be registered as a service using the `zikula.multihook_needle` tag.
 - Ideally use some caching mechanism in order to avoid consecutive database queries. Have a look at existing needles to learn more about the idea.
+- As an example the Content module includes the [PageNeedle](https://github.com/zikula-modules/Content/tree/master/src/modules/Zikula/ContentModule/Needle).
 
 
 <a name="changelog" />
