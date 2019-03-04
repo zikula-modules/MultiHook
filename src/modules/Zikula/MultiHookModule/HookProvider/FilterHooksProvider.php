@@ -131,6 +131,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
         $this->pageAssetApi->add('stylesheet', $this->assetHelper->resolve('@ZikulaMultiHookModule:css/custom.css'));
 
         $text = $hook->getData();
+        $callerId = md5($text);
         //dump($text);
 
         // pad it with a space so we can distinguish between FALSE and matching the 1st char (index 0).
@@ -140,8 +141,15 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
         static $replace = [];
         static $finalsearch = [];
         static $finalreplace = [];
-        static $gotAbbreviations = 0;
-        static $gotNeedles = 0;
+        static $gotAbbreviations = [];
+        static $gotNeedles = [];
+
+        if (!isset($gotAbbreviations[$callerId])) {
+            $gotAbbreviations[$callerId] = 0;
+        }
+        if (!isset($gotNeedles[$callerId])) {
+            $gotNeedles[$callerId] = 0;
+        }
 
         static $mhAdmin;
         if (!isset($mhAdmin)) {
@@ -237,8 +245,8 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
             $text = preg_replace('/(' . preg_quote($hilite[0][$i], '/') . ')/', " MULTIHOOKHILITEREPLACEMENT{$i} ", $text, 1);
         }
 
-        if (empty($gotAbbreviations)) {
-            $gotAbbreviations = 1;
+        if (empty($gotAbbreviations[$callerId])) {
+            $gotAbbreviations[$callerId] = 1;
             $entries = [];
             foreach ($this->entryProviderCollector->getActive() as $entryProvider) {
                 $providedEntries = $entryProvider->getEntries($entryTypes);
@@ -323,14 +331,17 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
 
         if (true === $replaceNeedles) {
             // check for needles
-            if (empty($gotNeedles)) {
-                $gotNeedles = 1;
+            if (empty($gotNeedles[$callerId])) {
+                $gotNeedles[$callerId] = 1;
                 $needles = $this->needleCollector->getActive();
                 if (count($needles) > 0) {
                     foreach ($needles as $needle) {
                         $subjects = method_exists($needle, 'getSubjects') ? $needle->getSubjects() : [];
                         if (!is_array($subjects)) {
                             $subjects = [$subjects];
+                        }
+                        if (empty($subjects) && method_exists($needle, 'getName')) {
+                            $subjects[] = $needle->getName();
                         }
                         $regExpModifier = method_exists($needle, 'isCaseSensitive') && false === $needle->isCaseSensitive() ? 'i' : '';
                         foreach ($subjects as $subject) {
@@ -344,7 +355,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
                                     $replace[] = md5($search_temp);
                                     $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
 
-                                    $finalreplace[] = $needle->apply($needleresults[1][$ncnt], $subject);
+                                    $finalreplace[] = $needle->apply($needleResults[1][$ncnt], $subject);
                                     unset($search_temp);
                                 }
                             }
