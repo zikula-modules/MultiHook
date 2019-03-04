@@ -1,0 +1,4 @@
+abbr, acronym, span.abbr {
+    cursor: help;
+    border-bottom: 1px dashed #000;
+}

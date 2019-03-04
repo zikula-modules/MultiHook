@@ -19,6 +19,8 @@ use Zikula\MultiHookModule\Collector\NeedleCollector;
 use Zikula\MultiHookModule\Helper\HookHelper;
 use Zikula\MultiHookModule\Helper\PermissionHelper;
 use Zikula\MultiHookModule\HookProvider\Base\AbstractFilterHooksProvider;
+use Zikula\ThemeModule\Api\ApiInterface\PageAssetApiInterface;
+use Zikula\ThemeModule\Engine\Asset;
 
 /**
  * Implementation class for filter hooks provider.
@@ -50,6 +52,16 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
      */
     private $hookHelper;
 
+    /**
+     * @var PageAssetApiInterface
+     */
+    private $pageAssetApi;
+
+    /**
+     * @var Asset
+     */
+    private $assetHelper;
+
     public function setRequestStack(RequestStack $requestStack)
     {
         $this->requestStack = $requestStack;
@@ -80,6 +92,16 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
         $this->permissionHelper = $permissionHelper;
     }
 
+    public function setPageAssetApi(PageAssetApiInterface $pageAssetApi)
+    {
+        $this->pageAssetApi = $pageAssetApi;
+    }
+
+    public function setAssetHelper(Asset $assetHelper)
+    {
+        $this->assetHelper = $assetHelper;
+    }
+
     /**
      * @inheritDoc
      */
@@ -104,6 +126,9 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
                 return;
             }
         }
+
+        // add custom styles (for older browsers)
+        $this->pageAssetApi->add('stylesheet', $this->assetHelper->resolve('@ZikulaMultiHookModule:css/custom.css'));
 
         $text = $hook->getData();
         //dump($text);
