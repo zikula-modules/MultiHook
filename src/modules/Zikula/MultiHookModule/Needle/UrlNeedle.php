@@ -54,6 +54,8 @@ class UrlNeedle
      * UrlNeedle constructor.
      *
      * @param TranslatorInterface $translator
+     * @param RequestStack $requestStack
+     * @param string $cssClassForExternalLinks
      */
     public function __construct(
         TranslatorInterface $translator,
