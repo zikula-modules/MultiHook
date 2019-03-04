@@ -45,7 +45,7 @@ The MultiHook module is installed like this:
 
 After installation has been completed activate MultiHook for any modules you want to use it with, like Content or News. You can manage the hook enablements from either the subscriber modules administration area or from the provider side, that is the MultiHook administration area.
 
-You can now add links, acronyms, abbreviations and censors in the admin panel or by selecting text while pressing the CTRL-button on every page inside your Zikula installation.
+You can now add links, acronyms, abbreviations and censors in the admin panel or by selecting text while pressing the CTRL-button on every page inside your Zikula installation (*Note:* the latter option is not available [yet](https://github.com/zikula-modules/MultiHook/issues/5)).
 
 ### Configuring HTML tags needed for MultiHook
 
