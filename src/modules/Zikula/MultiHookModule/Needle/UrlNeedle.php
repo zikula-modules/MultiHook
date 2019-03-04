@@ -170,7 +170,7 @@ class UrlNeedle
      * @param string $needleId
      * @param string $needleText
      *
-     * @return string
+     * @return string Replaced value for the needle
      */
     public function apply($needleId, $needleText)
     {
