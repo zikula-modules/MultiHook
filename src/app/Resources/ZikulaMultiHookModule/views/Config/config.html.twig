@@ -166,20 +166,21 @@
                                 </thead>
                                 <tbody>
                                 {% for provider in allEntryProviders %}
+                                    {% set providerName = provider.name|default('provider' ~ loop.index) %}
                                     <tr>
-                                        <td headers="h{{ provider.name }} hBundle">{{ provider.bundleName }}</td>
-                                        <th id="h{{ provider.name }}" scope="row" headers="hTitle" class="nowrap">
-                                            <i class="fa fa-fw fa-{{ provider.icon|e('html_attr') }}"></i> {{ provider.title }}
+                                        <td headers="h{{ providerName }} hBundle">{{ provider.bundleName|default('-') }}</td>
+                                        <th id="h{{ providerName }}" scope="row" headers="hTitle" class="nowrap">
+                                            <i class="fa fa-fw fa-{{ provider.icon|e('html_attr') }}"></i> {{ provider.title|default('-') }}
                                         </th>
-                                        <td headers="h{{ provider.name }} hActive" class="text-center text-{% if provider.active %}success{% else %}danger{% endif %}">
-                                            {% if provider.active %}
+                                        <td headers="h{{ providerName }} hActive" class="text-center text-{% if provider.active|default(false) %}success{% else %}danger{% endif %}">
+                                            {% if provider.active|default(false) %}
                                                 <i class="fa fa-check" title="{{ __('Yes') }}"></i>
                                             {% else %}
                                                 <i class="fa fa-times" title="{{ __('No') }}"></i>
                                             {% endif %}
                                         </td>
-                                        <td headers="h{{ provider.name }} hDescription">
-                                            {{ provider.description }}
+                                        <td headers="h{{ providerName }} hDescription">
+                                            {{ provider.description|default('-') }}
                                             {% if provider.adminInfo|default %}<br /><span class="label label-default">{{ provider.adminInfo }}</span>{% endif %}
                                         </td>
                                     </tr>
@@ -213,20 +214,21 @@
                                 </thead>
                                 <tbody>
                                 {% for needle in allNeedles %}
+                                    {% set needleName = needle.name|default('needle' ~ loop.index) %}
                                     <tr>
-                                        <td headers="h{{ needle.name }} hBundle">{{ needle.bundleName }}</td>
-                                        <th id="h{{ needle.name }}" scope="row" headers="hTitle" class="nowrap">
-                                            <i class="fa fa-fw fa-{{ needle.icon|e('html_attr') }}"></i> {{ needle.title }}
+                                        <td headers="h{{ needleName }} hBundle">{{ needle.bundleName|default('-') }}</td>
+                                        <th id="h{{ needleName }}" scope="row" headers="hTitle" class="nowrap">
+                                            <i class="fa fa-fw fa-{{ needle.icon|e('html_attr') }}"></i> {{ needle.title|default('-') }}
                                         </th>
-                                        <td headers="h{{ needle.name }} hActive" class="text-center text-{% if needle.active %}success{% else %}danger{% endif %}">
-                                            {% if needle.active %}
+                                        <td headers="h{{ needleName }} hActive" class="text-center text-{% if needle.active|default(false) %}success{% else %}danger{% endif %}">
+                                            {% if needle.active|default(false) %}
                                                 <i class="fa fa-check" title="{{ __('Yes') }}"></i>
                                             {% else %}
                                                 <i class="fa fa-times" title="{{ __('No') }}"></i>
                                             {% endif %}
                                         </td>
-                                        <td headers="h{{ needle.name }} hDescription">
-                                            {{ needle.description }}
+                                        <td headers="h{{ needleName }} hDescription">
+                                            {{ needle.description|default('-') }}
                                             {% if needle.adminInfo|default %}<br /><span class="label label-default">{{ needle.adminInfo }}</span>{% endif %}
                                         </td>
                                     </tr>

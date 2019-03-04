@@ -37,7 +37,15 @@ class NeedleCollector
      */
     public function add($needle)
     {
-        $id = $needle->getBundleName() . $needle->getName();
+        $id = '';
+        if (method_exists($needle, 'getBundleName')) {
+            $id .= $needle->getBundleName();
+        }
+        if (method_exists($needle, 'getName')) {
+            $id .= $needle->getName();
+        } elseif (method_exists($needle, 'getTitle')) {
+            $id .= $needle->getTitle();
+        }
 
         $this->needles[$id] = $needle;
     }
@@ -73,7 +81,7 @@ class NeedleCollector
     public function getActive()
     {
         return array_filter($this->getAll(), function($item) {
-            return $item->isActive();
+            return method_exists($item, 'isActive') ? $item->isActive() : false;
         });
     }
 
@@ -83,6 +91,10 @@ class NeedleCollector
     private function sortNeedles() {
         $needles = $this->needles;
         usort($needles, function ($a, $b) {
+            if (!method_exists($a, 'getTitle') || !method_exists($b, 'getTitle')) {
+                return 0;
+            }
+
             return strcmp($a->getTitle(), $b->getTitle());
         });
         $this->needles = $needles;

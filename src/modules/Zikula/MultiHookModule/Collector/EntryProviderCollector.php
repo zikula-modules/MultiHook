@@ -37,7 +37,15 @@ class EntryProviderCollector
      */
     public function add($entryProvider)
     {
-        $id = $entryProvider->getBundleName() . $entryProvider->getName();
+        $id = '';
+        if (method_exists($entryProvider, 'getBundleName')) {
+            $id .= $entryProvider->getBundleName();
+        }
+        if (method_exists($entryProvider, 'getName')) {
+            $id .= $entryProvider->getName();
+        } elseif (method_exists($entryProvider, 'getTitle')) {
+            $id .= $entryProvider->getTitle();
+        }
 
         $this->providers[$id] = $entryProvider;
     }
@@ -73,7 +81,7 @@ class EntryProviderCollector
     public function getActive()
     {
         return array_filter($this->getAll(), function($item) {
-            return $item->isActive();
+            return method_exists($item, 'isActive') ? $item->isActive() : false;
         });
     }
 
@@ -83,6 +91,10 @@ class EntryProviderCollector
     private function sortProviders() {
         $providers = $this->providers;
         usort($providers, function ($a, $b) {
+            if (!method_exists($a, 'getTitle') || !method_exists($b, 'getTitle')) {
+                return 0;
+            }
+
             return strcmp($a->getTitle(), $b->getTitle());
         });
         $this->providers = $providers;
