@@ -97,6 +97,7 @@ Structural changes:
 
 New features:
 - Translatable functionality for multilingual entries.
+- Entry providers for letting other modules contribute additional entries automatically (#7).
 - New settings for configuring which replacements should be enabled/disabled (#1).
 - Checkbox column for mass deletion (#2).
 
