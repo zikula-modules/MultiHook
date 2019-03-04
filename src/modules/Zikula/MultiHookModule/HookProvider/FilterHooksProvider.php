@@ -141,6 +141,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
         static $replace = [];
         static $finalsearch = [];
         static $finalreplace = [];
+        static $selectedEntries = [];
         static $gotAbbreviations = [];
         static $gotNeedles = [];
 
@@ -245,15 +246,17 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
             $text = preg_replace('/(' . preg_quote($hilite[0][$i], '/') . ')/', " MULTIHOOKHILITEREPLACEMENT{$i} ", $text, 1);
         }
 
-        if (empty($gotAbbreviations[$callerId])) {
-            $gotAbbreviations[$callerId] = 1;
-            $entries = [];
+        if (empty($selectedEntries)) {
             foreach ($this->entryProviderCollector->getActive() as $entryProvider) {
                 $providedEntries = $entryProvider->getEntries($entryTypes);
                 foreach ($providedEntries as $entry) {
-                    $entries[] = $entry;
+                    $selectedEntries[] = $entry;
                 }
             }
+        }
+        if (empty($gotAbbreviations[$callerId])) {
+            $gotAbbreviations[$callerId] = 1;
+            $entries = $selectedEntries;
 
             // Create search/replace array from abbreviations/links information
             foreach ($entries as $entry) {

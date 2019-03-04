@@ -97,7 +97,7 @@ New features:
 - None yet
 
 Bugfixes:
-- None yet
+- Cache selected entries to save performance for multiple filter calls on same page
 
 ### Version 6.0.0
 
