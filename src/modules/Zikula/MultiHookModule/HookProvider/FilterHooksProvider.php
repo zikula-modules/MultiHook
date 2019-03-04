@@ -109,7 +109,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
         //dump($text);
 
         // pad it with a space so we can distinguish between FALSE and matching the 1st char (index 0).
-        $text = ' '  . $text;
+        $text = ' ' . $text;
 
         static $search = [];
         static $replace = [];
@@ -117,7 +117,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
         static $finalreplace = [];
         static $gotAbbreviations = 0;
         static $gotNeedles = 0;
-        
+
         static $mhAdmin;
         if (!isset($mhAdmin)) {
             $mhAdmin = $this->permissionHelper->hasPermission(ACCESS_DELETE);
@@ -147,15 +147,6 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
         }
         if (true === $replaceCensoredWords) {
             $entryTypes[] = 'censor';
-        }
-
-        $needles = [];
-        if (true === $replaceNeedles) {
-            // TODO migrate needles #6
-            //$needles = $this->variableApi->get('ZikulaMultiHookModule', 'MultiHook', 'needles', []);
-            if (!is_array($needles)) {
-                $needles = [];
-            }
         }
 
         // deal with munded words (leet speak)
@@ -224,7 +215,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
         if (empty($gotAbbreviations)) {
             $gotAbbreviations = 1;
             $entries = [];
-            foreach ($this->entryProviderCollector->getAll() as $entryProvider) {
+            foreach ($this->entryProviderCollector->getActive() as $entryProvider) {
                 $providedEntries = $entryProvider->getEntries($entryTypes);
                 foreach ($providedEntries as $entry) {
                     $entries[] = $entry;
@@ -307,41 +298,34 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
 
         if (true === $replaceNeedles) {
             // check for needles
-            // TODO migrate needles #6
             if (empty($gotNeedles)) {
                 $gotNeedles = 1;
-                /*
+                $needles = $this->needleCollector->getActive();
                 if (count($needles) > 0) {
-                    foreach ($needles as $singleneedle) {
-                        if (!is_array($singleneedle['needle'])) {
-                            $singleneedle['needle'] = [$singleneedle['needle']];
+                    foreach ($needles as $needle) {
+                        $subjects = method_exists($needle, 'getSubjects') ? $needle->getSubjects() : [];
+                        if (!is_array($subjects)) {
+                            $subjects = [$subjects];
                         }
-                        $regexpmodifier = (isset($singleneedle['casesensitive']) && $singleneedle['casesensitive'] == false) ? 'i' : '';
-                        foreach ($singleneedle['needle'] as $needle) {
-                            preg_match_all('/(?<![\/\w@\.:])' . preg_quote(strtoupper($needle), '/') . '([a-zA-Z0-9\.\?\/&:=_-]*?)(?![\/\?\w&@:=_-])(?!\.\w)/' . $regexpmodifier, $text, $needleresults);
-                            if (is_array($needleresults) && count($needleresults[0]) > 0) {
-                                // complete needle in $needleresults[0], needle id in $needleresults[1]
-                                // both are arrays!
-                                for ($ncnt = 0; $ncnt < count($needleresults[0]); $ncnt++) {
-                                    $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($needleresults[0][$ncnt], '/'). ')(?![\/\w@:-])(?!\.\w)/';
-                                    $search[]      = $search_temp;
-                                    $replace[]     = md5($search_temp);
+                        $regExpModifier = method_exists($needle, 'isCaseSensitive') && false === $needle->isCaseSensitive() ? 'i' : '';
+                        foreach ($subjects as $subject) {
+                            preg_match_all('/(?<![\/\w@\.:])' . preg_quote(strtoupper($subject), '/') . '([a-zA-Z0-9\.\?\/&:=_-]*?)(?![\/\?\w&@:=_-])(?!\.\w)/' . $regExpModifier, $text, $needleResults);
+                            if (is_array($needleResults) && count($needleResults[0]) > 0) {
+                                // complete needle in $needleResults[0], needle id in $needleResults[1]
+                                // both are arrays
+                                for ($ncnt = 0; $ncnt < count($needleResults[0]); $ncnt++) {
+                                    $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($needleResults[0][$ncnt], '/'). ')(?![\/\w@:-])(?!\.\w)/';
+                                    $search[] = $search_temp;
+                                    $replace[] = md5($search_temp);
                                     $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
-                                    // TODO migrate needle call
-                                    $finalreplace[] = ModUtil::apiFunc(
-                                        ($singleneedle['builtin'] == true)  ? 'ZikulaMultiHookModule' : $singleneedle['module'], 'needle', strtolower($singleneedle['function']),
-                                            [
-                                                'nid'    => $needleresults[1][$ncnt],
-                                                'needle' => $needle
-                                            ]
-                                    );
+
+                                    $finalreplace[] = $needle->apply($needleresults[1][$ncnt], $subject);
                                     unset($search_temp);
                                 }
                             }
                         }
                     }
                 }
-                */
             }
         }
 
@@ -395,7 +379,6 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
         $text = substr($text, 1);
 
         //dump($text);
-
         $hook->setData($text);
     }
 }

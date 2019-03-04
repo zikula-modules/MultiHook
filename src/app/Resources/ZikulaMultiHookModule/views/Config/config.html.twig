@@ -195,6 +195,7 @@
                     <fieldset>
                         <legend>{{ tabTitle }}</legend>
                         <p class="alert alert-info">{{ __('A needle is a quick way to insert a link from one piece of your content to another piece of your content. MultiHook already includes some common needles but also allows other bundles/modules to provide additional needles. The following list shows which needles are available at your installation.') }}</p>
+                        <p class="alert alert-info">{{ __('The curly brackets indicate the beginning and the end of the parameters and don\'t have to be used in the needle, the pipe symbol | indicates different options you can use.') }}</p>
                         {% set allNeedles = zikulamultihookmodule_getNeedles(true) %}
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered table-hover table-condensed">
@@ -203,6 +204,8 @@
                                     <col id="cTitle" />
                                     <col id="cActive" />
                                     <col id="cDescription" />
+                                    <col id="cUsage" />
+                                    <col id="cCaseSensitive" />
                                 </colgroup>
                                 <thead>
                                     <tr>
@@ -210,6 +213,8 @@
                                         <th id="hTitle" scope="col">{{ __('Title') }}</th>
                                         <th id="hActive" scope="col">{{ __('Active') }}</th>
                                         <th id="hDescription" scope="col">{{ __('Description') }}</th>
+                                        <th id="hUsage" scope="col">{{ __('Usage') }}</th>
+                                        <th id="hCaseSensitive" scope="col">{{ __('Case sensitive') }}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -229,7 +234,16 @@
                                         </td>
                                         <td headers="h{{ needleName }} hDescription">
                                             {{ needle.description|default('-') }}
-                                            {% if needle.adminInfo|default %}<br /><span class="label label-default">{{ needle.adminInfo }}</span>{% endif %}
+                                        </td>
+                                        <td headers="h{{ needleName }} hUsage">
+                                            {{ needle.usageInfo|default('-') }}
+                                        </td>
+                                        <td headers="h{{ needleName }} hCaseSensitive" class="text-center text-{% if needle.caseSensitive|default(true) %}success{% else %}danger{% endif %}">
+                                            {% if needle.caseSensitive|default(true) %}
+                                                <i class="fa fa-check" title="{{ __('Yes') }}"></i>
+                                            {% else %}
+                                                <i class="fa fa-times" title="{{ __('No') }}"></i>
+                                            {% endif %}
                                         </td>
                                     </tr>
                                 {% endfor %}

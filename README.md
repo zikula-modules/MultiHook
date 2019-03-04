@@ -9,7 +9,7 @@
   2. [Requirements](#requirements)
   3. [Installation](#installation)
   4. [Implementing custom entry providers](#entryproviders)
-  5. [Implementing custom needles](#needles)
+  5. [Using and implementing needles](#needles)
   6. [Changelog](#changelog)
   7. [Questions, bugs and contributing](#contributing)
 
@@ -18,7 +18,11 @@
 
 ## Introduction
 
-MultiHook is a content helper module which can handle automatically replace abbreviations, acronyms, autolinks and censored words.
+MultiHook is a content helper module which can handle automatically replace abbreviations, acronyms, autolinks and censored words. As a filter hook, MultiHook scans text for certain keywords and performs actions depending on what has been defined for them. You can easily create
+- autolinks, eg. the word MultiHook can always link to the project site at GitHub
+- abbr + acronym tags, eg. EC gets converted to <abbr title="European Community">EC</abbr>
+- censors, eg. bad words get converted to *****
+- needles (see below for more information about this feature)
 
 
 <a name="requirements" />
@@ -39,6 +43,20 @@ The MultiHook module is installed like this:
 3. Initialize and activate ZikulaMultiHookModule in the extensions administration.
 
 
+After installation has been completed activate MultiHook for any modules you want to use it with, like Content or News. You can manage the hook enablements from either the subscriber modules administration area or from the provider side, that is the MultiHook administration area.
+
+You can now add links, acronyms, abbreviations and censors in the admin panel or by selecting text while pressing the CTRL-button on every page inside your Zikula installation.
+
+### Configuring HTML tags needed for MultiHook
+
+In the SecurityCenter administration you need to allow these tags incl. parameters for the MultiHook:
+* a
+* abbr
+* acronym
+* em
+* span
+
+
 <a name="entryproviders" />
 
 ## Implementing custom entry providers
@@ -53,13 +71,20 @@ MultiHook can not only manage abbreviations, acronyms, autolinks and censored wo
 
 <a name="needles" />
 
-## Implementing custom needles
+## Using and implementing needles
 
-For some (old) information about it see [this](https://github.com/zikula-modules/MultiHook/blob/5.x-old/docs/install.txt) and [that](https://github.com/zikula-modules/MultiHook/blob/5.x-old/docs/needles_howto.txt).
+Needles are a clever invention by Oivind Skau and have been implemented in PagEd for the first time. They have been implemented since MultiHook 4.0.
 
+A needle is a quick way to insert a link from one piece of your content to another piece of your content. Instead of typing out a long URL to reference some page or forum post, you could simply type a short string such as `CONTENTPAGE-2` and the link would be automatically created for you. Or maybe you want to link to a specific download, weblink, news article...any module that has a needle (or needles) included, can use the functionality. Another great aspect about needles is that they won't become outdated: if a permalink changes your needle will automatically be replaced by the newest version.
+
+You can simply add any kind of link by writing `NEEDLENAME{params}` if there is a corresponding needle provided. You can see a list of all needles available in your installation at the configuration page inside the MultiHook administration area.
+
+Hints for implementing your own needles:
+
+- A needle class name should be suffixed by `Needle` and located in the `ModuleRoot/Needle/` directory. This is not mandatory but a recommended convention.
 - Needle classes must be registered as a service using the `zikula.multihook_needle` tag.
+- Ideally use some caching mechanism in order to avoid consecutive database queries. Have a look at existing needles to learn more about the idea.
 
-**TBD**
 
 <a name="changelog" />
 

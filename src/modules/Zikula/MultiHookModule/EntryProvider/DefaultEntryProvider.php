@@ -63,7 +63,7 @@ class DefaultEntryProvider
         $nameAndType = $nsParts[1];
 
         $this->bundleName = $vendor . $nameAndType;
-        $this->name = str_replace('Type', '', array_pop($nsParts));
+        $this->name = str_replace('Provider', '', array_pop($nsParts));
     }
 
     /**
