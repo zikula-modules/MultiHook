@@ -91,6 +91,14 @@ Hints for implementing your own needles:
 
 ## Changelog
 
+### Version 6.1.0
+
+New features:
+- None yet
+
+Bugfixes:
+- None yet
+
 ### Version 6.0.0
 
 Structural changes:
