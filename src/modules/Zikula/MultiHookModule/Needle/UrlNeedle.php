@@ -183,10 +183,9 @@ class UrlNeedle
         $url = htmlspecialchars($needleText . $needleId);
 
         $extclass = '';
-        if (false === stristr(pnGetBaseURL(), $url)) {
-            $externallinkclass = pnModGetVar('MultiHook', 'externallinkclass', '');
-            if (!empty($externallinkclass)) {
-                $extclass = ' class="' . $externallinkclass . '"';
+        if (false === stristr($baseUrl, $url)) {
+            if (!empty($this->cssClassForExternalLinks)) {
+                $extclass = ' class="' . $this->cssClassForExternalLinks . '"';
             }
         }
 

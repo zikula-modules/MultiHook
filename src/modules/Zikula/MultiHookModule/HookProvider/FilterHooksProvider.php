@@ -40,12 +40,12 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
     /**
      * @var EntryProviderCollector
      */
-    protected $entryProviderCollector;
+    private $entryProviderCollector;
 
     /**
      * @var NeedleCollector
      */
-    protected $needleCollector;
+    private $needleCollector;
 
     /**
      * @var HookHelper
