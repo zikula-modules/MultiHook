@@ -42,9 +42,11 @@ application "MultiHook" {
                     length 100
                 },
                 string "longForm" translatable {
+                    documentation "The URL, in the case of a link; ignored for censored words."
                     mandatory false
                 },
                 string "title" translatable {
+                    documentation "Only necessary for a link; ignored for censored words."
                     mandatory false
                 },
                 list "entryType" {

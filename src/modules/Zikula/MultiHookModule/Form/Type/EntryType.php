@@ -18,5 +18,5 @@ use Zikula\MultiHookModule\Form\Type\Base\AbstractEntryType;
  */
 class EntryType extends AbstractEntryType
 {
-    // feel free to extend the base form type class here
+    // feel free to extend the entry editing form type class here
 }

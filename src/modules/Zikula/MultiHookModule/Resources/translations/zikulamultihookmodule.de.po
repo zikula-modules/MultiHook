@@ -375,6 +375,9 @@ msgstr "Nur Ziffern sind erlaubt."
 msgid "Only item titles"
 msgstr "Nur Titel der Einträge"
 
+msgid "Only necessary for a link; ignored for censored words."
+msgstr "Nur für einen Link nötig; wird für zensierte Wörter ignoriert."
+
 msgid "Operation cancelled."
 msgstr "Vorgang abgebrochen."
 
@@ -497,6 +500,9 @@ msgstr "Zum Verwaltungsbereich wechseln."
 
 msgid "Switch to user area."
 msgstr "Zum Benutzerbereich wechseln."
+
+msgid "The URL, in the case of a link; ignored for censored words."
+msgstr "Die URL im Fall eines Links; wird für zensierte Wörter ignoriert."
 
 msgid "The allow moderation specific creation date for entry option"
 msgstr ""
