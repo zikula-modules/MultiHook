@@ -44,7 +44,7 @@ class UrlNeedle
     private $bundleName;
 
     /**
-     * The name of this provider
+     * The name of this needle
      *
      * @var string
      */
