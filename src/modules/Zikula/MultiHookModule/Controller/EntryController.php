@@ -35,9 +35,10 @@ class EntryController extends AbstractEntryController
      * )
      * @Theme("admin")
      */
-    public function adminIndexAction(Request $request)
-    {
-        return parent::adminIndexAction($request);
+    public function adminIndexAction(
+        Request $request
+    ) {
+        return $this->indexInternal($request, true);
     }
     
     /**
@@ -47,9 +48,10 @@ class EntryController extends AbstractEntryController
      *        methods = {"GET"}
      * )
      */
-    public function indexAction(Request $request)
-    {
-        return parent::indexAction($request);
+    public function indexAction(
+        Request $request
+    ) {
+        return $this->indexInternal($request, false);
     }
     
     /**
@@ -62,9 +64,14 @@ class EntryController extends AbstractEntryController
      * )
      * @Theme("admin")
      */
-    public function adminViewAction(Request $request, $sort, $sortdir, $pos, $num)
-    {
-        return parent::adminViewAction($request, $sort, $sortdir, $pos, $num);
+    public function adminViewAction(
+        Request $request,
+        $sort,
+        $sortdir,
+        $pos,
+        $num
+    ) {
+        return $this->viewInternal($request, $sort, $sortdir, $pos, $num, true);
     }
     
     /**
@@ -76,9 +83,14 @@ class EntryController extends AbstractEntryController
      *        methods = {"GET"}
      * )
      */
-    public function viewAction(Request $request, $sort, $sortdir, $pos, $num)
-    {
-        return parent::viewAction($request, $sort, $sortdir, $pos, $num);
+    public function viewAction(
+        Request $request,
+        $sort,
+        $sortdir,
+        $pos,
+        $num
+    ) {
+        return $this->viewInternal($request, $sort, $sortdir, $pos, $num, false);
     }
     
     /**
@@ -91,9 +103,10 @@ class EntryController extends AbstractEntryController
      * )
      * @Theme("admin")
      */
-    public function adminEditAction(Request $request)
-    {
-        return parent::adminEditAction($request);
+    public function adminEditAction(
+        Request $request
+    ) {
+        return $this->editInternal($request, true);
     }
     
     /**
@@ -105,9 +118,10 @@ class EntryController extends AbstractEntryController
      *        methods = {"GET", "POST"}
      * )
      */
-    public function editAction(Request $request)
-    {
-        return parent::editAction($request);
+    public function editAction(
+        Request $request
+    ) {
+        return $this->editInternal($request, false);
     }
     
     /**
@@ -117,9 +131,10 @@ class EntryController extends AbstractEntryController
      * )
      * @Theme("admin")
      */
-    public function adminHandleSelectedEntriesAction(Request $request)
-    {
-        return parent::adminHandleSelectedEntriesAction($request);
+    public function adminHandleSelectedEntriesAction(
+        Request $request
+    ) {
+        return $this->handleSelectedEntriesActionInternal($request, true);
     }
     
     /**
@@ -128,9 +143,10 @@ class EntryController extends AbstractEntryController
      *        methods = {"POST"}
      * )
      */
-    public function handleSelectedEntriesAction(Request $request)
-    {
-        return parent::handleSelectedEntriesAction($request);
+    public function handleSelectedEntriesAction(
+        Request $request
+    ) {
+        return $this->handleSelectedEntriesActionInternal($request, false);
     }
     
     // feel free to add your own controller methods here

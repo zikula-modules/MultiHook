@@ -13,6 +13,7 @@ namespace Zikula\MultiHookModule\Helper\Base;
 
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 use Zikula\UsersModule\Api\ApiInterface\CurrentUserApiInterface;
 use Zikula\UsersModule\Constant as UsersConstant;
 use Zikula\MultiHookModule\Entity\EntryEntity;
@@ -46,21 +47,21 @@ abstract class AbstractCollectionFilterHelper
     /**
      * CollectionFilterHelper constructor.
      *
-     * @param RequestStack $requestStack RequestStack service instance
-     * @param PermissionHelper $permissionHelper PermissionHelper service instance
-     * @param CurrentUserApiInterface $currentUserApi CurrentUserApi service instance
-     * @param boolean $showOnlyOwnEntries Fallback value to determine whether only own entries should be selected or not
+     * @param RequestStack $requestStack
+     * @param PermissionHelper $permissionHelper
+     * @param CurrentUserApiInterface $currentUserApi
+     * @param VariableApiInterface $variableApi
      */
     public function __construct(
         RequestStack $requestStack,
         PermissionHelper $permissionHelper,
         CurrentUserApiInterface $currentUserApi,
-        $showOnlyOwnEntries
+        VariableApiInterface $variableApi
     ) {
         $this->requestStack = $requestStack;
         $this->permissionHelper = $permissionHelper;
         $this->currentUserApi = $currentUserApi;
-        $this->showOnlyOwnEntries = $showOnlyOwnEntries;
+        $this->showOnlyOwnEntries = $variableApi->get('ZikulaMultiHookModule', 'showOnlyOwnEntries', false);
     }
     
     /**

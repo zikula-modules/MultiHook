@@ -11,9 +11,6 @@
 
 namespace Zikula\MultiHookModule\Helper\Base;
 
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
-use Symfony\Component\DependencyInjection\ContainerAwareTrait;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Zikula\PermissionsModule\Api\ApiInterface\PermissionApiInterface;
 use Zikula\UsersModule\Api\ApiInterface\CurrentUserApiInterface;
@@ -23,10 +20,8 @@ use Zikula\UsersModule\Entity\UserEntity;
 /**
  * Permission helper base class.
  */
-abstract class AbstractPermissionHelper implements ContainerAwareInterface
+abstract class AbstractPermissionHelper
 {
-    use ContainerAwareTrait;
-    
     /**
      * @var RequestStack
      */
@@ -50,20 +45,17 @@ abstract class AbstractPermissionHelper implements ContainerAwareInterface
     /**
      * PermissionHelper constructor.
      *
-     * @param ContainerInterface      $container
-     * @param RequestStack            $requestStack   RequestStack service instance
-     * @param PermissionApiInterface  $permissionApi  PermissionApi service instance
-     * @param CurrentUserApiInterface $currentUserApi CurrentUserApi service instance
-     * @param UserRepositoryInterface $userRepository UserRepository service instance
+     * @param RequestStack $requestStack
+     * @param PermissionApiInterface $permissionApi
+     * @param CurrentUserApiInterface $currentUserApi
+     * @param UserRepositoryInterface $userRepository
      */
     public function __construct(
-        ContainerInterface $container,
         RequestStack $requestStack,
         PermissionApiInterface $permissionApi,
         CurrentUserApiInterface $currentUserApi,
         UserRepositoryInterface $userRepository
     ) {
-        $this->setContainer($container);
         $this->requestStack = $requestStack;
         $this->permissionApi = $permissionApi;
         $this->currentUserApi = $currentUserApi;
