@@ -32,8 +32,8 @@ abstract class AbstractListEntryValidator extends ConstraintValidator
     /**
      * ListEntryValidator constructor.
      *
-     * @param TranslatorInterface $translator        Translator service instance
-     * @param ListEntriesHelper   $listEntriesHelper ListEntriesHelper service instance
+     * @param TranslatorInterface $translator
+     * @param ListEntriesHelper $listEntriesHelper
      */
     public function __construct(TranslatorInterface $translator, ListEntriesHelper $listEntriesHelper)
     {
@@ -44,7 +44,7 @@ abstract class AbstractListEntryValidator extends ConstraintValidator
     /**
      * Sets the translator.
      *
-     * @param TranslatorInterface $translator Translator service instance
+     * @param TranslatorInterface $translator
      */
     public function setTranslator(TranslatorInterface $translator)
     {
@@ -104,14 +104,14 @@ abstract class AbstractListEntryValidator extends ConstraintValidator
 
         if (null !== $constraint->min && $count < $constraint->min) {
             $this->context->buildViolation(
-                $this->translator->transChoice('You must select at least "%limit%" choice.', 'You must select at least "%limit%" choices.', $count, [
+                $this->translator->transChoice('You must select at least "%limit%" choice.|You must select at least "%limit%" choices.', $count, [
                     '%limit%' => $constraint->min
                 ], 'zikulamultihookmodule')
             )->addViolation();
         }
         if (null !== $constraint->max && $count > $constraint->max) {
             $this->context->buildViolation(
-                $this->translator->transChoice('You must select at most "%limit%" choice.', 'You must select at most "%limit%" choices.', $count, [
+                $this->translator->transChoice('You must select at most "%limit%" choice.|You must select at most "%limit%" choices.', $count, [
                     '%limit%' => $constraint->max
                 ], 'zikulamultihookmodule')
             )->addViolation();

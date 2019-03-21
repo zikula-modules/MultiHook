@@ -52,11 +52,11 @@ abstract class AbstractTranslatableHelper
     /**
      * TranslatableHelper constructor.
      *
-     * @param TranslatorInterface  $translator    Translator service instance
-     * @param RequestStack         $requestStack  RequestStack service instance
-     * @param VariableApiInterface $variableApi   VariableApi service instance
-     * @param LocaleApiInterface   $localeApi     LocaleApi service instance
-     * @param EntityFactory        $entityFactory EntityFactory service instance
+     * @param TranslatorInterface $translator
+     * @param RequestStack $requestStack
+     * @param VariableApiInterface $variableApi
+     * @param LocaleApiInterface $localeApi
+     * @param EntityFactory $entityFactory
      */
     public function __construct(
         TranslatorInterface $translator,
@@ -160,7 +160,7 @@ abstract class AbstractTranslatableHelper
         }
     
         // get translations
-        $entityManager = $this->entityFactory->getObjectManager();
+        $entityManager = $this->entityFactory->getEntityManager();
         $repository = $entityManager->getRepository('Zikula\MultiHookModule\Entity\\' . ucfirst($objectType) . 'TranslationEntity');
         $entityTranslations = $repository->findTranslations($entity);
     
@@ -196,7 +196,7 @@ abstract class AbstractTranslatableHelper
     public function processEntityAfterEditing($entity, FormInterface $form)
     {
         $objectType = $entity->get_objectType();
-        $entityManager = $this->entityFactory->getObjectManager();
+        $entityManager = $this->entityFactory->getEntityManager();
         $supportedLanguages = $this->getSupportedLanguages($objectType);
         foreach ($supportedLanguages as $language) {
             $translationInput = $this->readTranslationInput($form, $language);

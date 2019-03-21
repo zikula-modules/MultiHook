@@ -11,15 +11,24 @@
 
 namespace Zikula\MultiHookModule\Base;
 
-use Doctrine\DBAL\Connection;
 use RuntimeException;
 use Zikula\Core\AbstractExtensionInstaller;
+use Zikula\MultiHookModule\Entity\EntryEntity;
+use Zikula\MultiHookModule\Entity\EntryTranslationEntity;
 
 /**
  * Installer base class.
  */
 abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstaller
 {
+    /**
+     * @var array
+     */
+    protected $entities = [
+        EntryEntity::class,
+        EntryTranslationEntity::class,
+    ];
+
     /**
      * Install the ZikulaMultiHookModule application.
      *
@@ -33,7 +42,7 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
     
         // create all tables from according entity definitions
         try {
-            $this->schemaTool->create($this->listEntityClasses());
+            $this->schemaTool->create($this->entities);
         } catch (\Exception $exception) {
             $this->addFlash('error', $this->__('Doctrine Exception') . ': ' . $exception->getMessage());
             $logger->error('{app}: Could not create the database tables during installation. Error details: {errorMessage}.', ['app' => 'ZikulaMultiHookModule', 'errorMessage' => $exception->getMessage()]);
@@ -82,7 +91,7 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
                 // ...
                 // update the database schema
                 try {
-                    $this->schemaTool->update($this->listEntityClasses());
+                    $this->schemaTool->update($this->entities);
                 } catch (\Exception $exception) {
                     $this->addFlash('error', $this->__('Doctrine Exception') . ': ' . $exception->getMessage());
                     $logger->error('{app}: Could not update the database tables during the upgrade. Error details: {errorMessage}.', ['app' => 'ZikulaMultiHookModule', 'errorMessage' => $exception->getMessage()]);
@@ -108,7 +117,7 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
         $logger = $this->container->get('logger');
     
         try {
-            $this->schemaTool->drop($this->listEntityClasses());
+            $this->schemaTool->drop($this->entities);
         } catch (\Exception $exception) {
             $this->addFlash('error', $this->__('Doctrine Exception') . ': ' . $exception->getMessage());
             $logger->error('{app}: Could not remove the database tables during uninstallation. Error details: {errorMessage}.', ['app' => 'ZikulaMultiHookModule', 'errorMessage' => $exception->getMessage()]);
@@ -121,19 +130,5 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
     
         // uninstallation successful
         return true;
-    }
-    
-    /**
-     * Build array with all entity classes for ZikulaMultiHookModule.
-     *
-     * @return string[] List of class names
-     */
-    protected function listEntityClasses()
-    {
-        $classNames = [];
-        $classNames[] = 'Zikula\MultiHookModule\Entity\EntryEntity';
-        $classNames[] = 'Zikula\MultiHookModule\Entity\EntryTranslationEntity';
-    
-        return $classNames;
     }
 }

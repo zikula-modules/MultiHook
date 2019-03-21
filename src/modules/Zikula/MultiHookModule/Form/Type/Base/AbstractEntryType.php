@@ -67,12 +67,12 @@ abstract class AbstractEntryType extends AbstractType
     /**
      * EntryType constructor.
      *
-     * @param TranslatorInterface $translator     Translator service instance
-     * @param EntityFactory $entityFactory EntityFactory service instance
-     * @param VariableApiInterface $variableApi VariableApi service instance
-     * @param TranslatableHelper $translatableHelper TranslatableHelper service instance
-     * @param ListEntriesHelper $listHelper ListEntriesHelper service instance
-     * @param FeatureActivationHelper $featureActivationHelper FeatureActivationHelper service instance
+     * @param TranslatorInterface $translator
+     * @param EntityFactory $entityFactory
+     * @param VariableApiInterface $variableApi
+     * @param TranslatableHelper $translatableHelper
+     * @param ListEntriesHelper $listHelper
+     * @param FeatureActivationHelper $featureActivationHelper
      */
     public function __construct(
         TranslatorInterface $translator,
@@ -93,7 +93,7 @@ abstract class AbstractEntryType extends AbstractType
     /**
      * Sets the translator.
      *
-     * @param TranslatorInterface $translator Translator service instance
+     * @param TranslatorInterface $translator
      */
     public function setTranslator(TranslatorInterface $translator)
     {

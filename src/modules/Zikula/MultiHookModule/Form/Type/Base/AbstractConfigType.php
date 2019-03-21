@@ -33,7 +33,7 @@ abstract class AbstractConfigType extends AbstractType
     /**
      * ConfigType constructor.
      *
-     * @param TranslatorInterface $translator Translator service instance
+     * @param TranslatorInterface $translator
      */
     public function __construct(
         TranslatorInterface $translator
@@ -44,7 +44,7 @@ abstract class AbstractConfigType extends AbstractType
     /**
      * Sets the translator.
      *
-     * @param TranslatorInterface $translator Translator service instance
+     * @param TranslatorInterface $translator
      */
     public function setTranslator(TranslatorInterface $translator)
     {

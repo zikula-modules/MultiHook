@@ -122,7 +122,7 @@ abstract class AbstractAppSettings
     /**
      * AppSettings constructor.
      *
-     * @param VariableApiInterface $variableApi VariableApi service instance
+     * @param VariableApiInterface $variableApi
      */
     public function __construct(
         VariableApiInterface $variableApi

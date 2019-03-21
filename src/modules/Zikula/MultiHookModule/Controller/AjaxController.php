@@ -11,11 +11,11 @@
 
 namespace Zikula\MultiHookModule\Controller;
 
-use Zikula\MultiHookModule\Controller\Base\AbstractAjaxController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Zikula\MultiHookModule\Controller\Base\AbstractAjaxController;
 
 /**
  * Ajax controller implementation class.
@@ -29,8 +29,10 @@ class AjaxController extends AbstractAjaxController
      * @inheritDoc
      * @Route("/toggleFlag", methods = {"POST"}, options={"expose"=true})
      */
-    public function toggleFlagAction(Request $request)
-    {
+    public function toggleFlagAction(
+        Request $request
+    )
+     {
         return parent::toggleFlagAction($request);
     }
 
