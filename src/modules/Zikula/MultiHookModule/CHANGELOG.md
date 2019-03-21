@@ -1,3 +1,3 @@
 # CHANGELOG
 
-Changes in ZikulaMultiHookModule 6.0.0
+Changes in ZikulaMultiHookModule 6.1.0

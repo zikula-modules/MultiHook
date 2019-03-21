@@ -51,14 +51,19 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
         }
     
         // set up all our vars with initial values
-        $this->setVar('replaceAbbreviationsWithLongText', false);
-        $this->setVar('replaceLinksWithTitle', false);
-        $this->setVar('cssClassForExternalLinks', '');
-        $this->setVar('applyReplacementsToCodeTags', false);
         $this->setVar('showEditLink', true);
         $this->setVar('replaceOnlyFirstInstanceOfItems', false);
+        $this->setVar('applyReplacementsToCodeTags', false);
+        $this->setVar('replaceAbbreviations', true);
+        $this->setVar('replaceAcronyms', true);
+        $this->setVar('replaceAbbreviationsWithLongText', false);
+        $this->setVar('replaceLinks', true);
+        $this->setVar('replaceLinksWithTitle', false);
+        $this->setVar('cssClassForExternalLinks', '');
+        $this->setVar('replaceCensoredWords', true);
         $this->setVar('replaceCensoredWordsWhenTheyArePartOfOtherWords', false);
         $this->setVar('doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars', false);
+        $this->setVar('replaceNeedles', true);
         $this->setVar('entryEntriesPerPage', 10);
         $this->setVar('showOnlyOwnEntries', false);
         $this->setVar('allowModerationSpecificCreatorForEntry', false);

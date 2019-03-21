@@ -121,6 +121,11 @@ abstract class AbstractEntryType extends AbstractType
         
         $builder->add('longForm', TextType::class, [
             'label' => $this->__('Long form') . ':',
+            'label_attr' => [
+                'class' => 'tooltips',
+                'title' => $this->__('The URL, in the case of a link; ignored for censored words.')
+            ],
+            'help' => $this->__('The URL, in the case of a link; ignored for censored words.'),
             'empty_data' => '',
             'attr' => [
                 'maxlength' => 255,
@@ -132,6 +137,11 @@ abstract class AbstractEntryType extends AbstractType
         
         $builder->add('title', TextType::class, [
             'label' => $this->__('Title') . ':',
+            'label_attr' => [
+                'class' => 'tooltips',
+                'title' => $this->__('Only necessary for a link; ignored for censored words.')
+            ],
+            'help' => $this->__('Only necessary for a link; ignored for censored words.'),
             'empty_data' => '',
             'attr' => [
                 'maxlength' => 255,
@@ -185,8 +195,7 @@ abstract class AbstractEntryType extends AbstractType
                 'class' => '',
                 'title' => $this->__('Choose the entry type.')
             ],
-            'required' => false,
-            'placeholder' => $this->__('Choose an option'),
+            'required' => true,
             'choices' => $choices,
             'choice_attr' => $choiceAttributes,
             'multiple' => false,

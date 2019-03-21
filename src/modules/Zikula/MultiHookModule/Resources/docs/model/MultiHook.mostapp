@@ -4,7 +4,7 @@ application "MultiHook" {
     author "Zikula Team"
     email "info@ziku.la"
     url "https://ziku.la"
-    version "6.0.0"
+    version "6.1.0"
     prefix "multih"
     generateAccountApi false
     generateSearchApi false
@@ -26,11 +26,12 @@ application "MultiHook" {
     generateIcsTemplates false
     filterHookProvider ENABLED
     skipFiles "
-        Form/Type/EntryType.php,
         Helper/HookHelper.php,
         HookProvider/FilterHooksProvider.php,
         Resources/config/helpers.yml,
-        Resources/config/hooks.yml
+        Resources/config/hooks.yml,
+        Resources/config/services.yml,
+        ZikulaMultiHookModule.php
     "
     entities {
         entity "entry" leading {
@@ -41,19 +42,20 @@ application "MultiHook" {
                     length 100
                 },
                 string "longForm" translatable {
+                    documentation "The URL, in the case of a link; ignored for censored words."
                     mandatory false
                 },
                 string "title" translatable {
+                    documentation "Only necessary for a link; ignored for censored words."
                     mandatory false
                 },
                 list "entryType" {
-                    mandatory false
-                    length 1
+                    length 10
                     items {
-                        listItem "Abbreviation" ( "0" ),
-                        listItem "Acronym" ("1"),
-                        listItem "Link" ("2"),
-                        listItem "Censored word" ("3")
+                        listItem "Abbreviation" ( "abbr" ),
+                        listItem "Acronym" ("acronym"),
+                        listItem "Link" ("link"),
+                        listItem "Censored word" ("censor")
                     }
                 },
                 boolean "active" ajaxTogglability  {
@@ -69,23 +71,8 @@ application "MultiHook" {
         }
     }
     variables {
-        varContainer "settings" {
+        varContainer "generalSettings" {
             fields {
-                boolean "replaceAbbreviationsWithLongText" {
-                    defaultValue "false"
-                    mandatory false
-                },
-                boolean "replaceLinksWithTitle" {
-                    defaultValue "false"
-                    mandatory false
-                },
-                string "cssClassForExternalLinks" {
-                    mandatory false
-                },
-                boolean "applyReplacementsToCodeTags" {
-                    defaultValue "false"
-                    mandatory false
-                },
                 boolean "showEditLink" {
                     defaultValue "true"
                     mandatory false
@@ -94,12 +81,67 @@ application "MultiHook" {
                     defaultValue "false"
                     mandatory false
                 },
+                boolean "applyReplacementsToCodeTags" {
+                    defaultValue "false"
+                    mandatory false
+                }
+            }
+        },
+        varContainer "abbreviationsAndAcronyms" {
+            sortOrder 2
+            fields {
+                boolean "replaceAbbreviations" {
+                    defaultValue "true"
+                    mandatory false
+                },
+                boolean "replaceAcronyms" {
+                    defaultValue "true"
+                    mandatory false
+                },
+                boolean "replaceAbbreviationsWithLongText" {
+                    defaultValue "false"
+                    mandatory false
+                }
+            }
+        },
+        varContainer "automaticLinks" {
+            sortOrder 3
+            fields {
+                boolean "replaceLinks" {
+                    defaultValue "true"
+                    mandatory false
+                },
+                boolean "replaceLinksWithTitle" {
+                    defaultValue "false"
+                    mandatory false
+                },
+                string "cssClassForExternalLinks" {
+                    mandatory false
+                }
+            }
+        },
+        varContainer "censor" {
+            sortOrder 4
+            fields {
+                boolean "replaceCensoredWords" {
+                    defaultValue "true"
+                    mandatory false
+                },
                 boolean "replaceCensoredWordsWhenTheyArePartOfOtherWords" {
                     defaultValue "false"
                     mandatory false
                 },
                 boolean "doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars" {
                     defaultValue "false"
+                    mandatory false
+                }
+            }
+        },
+        varContainer "needles" {
+            sortOrder 5
+            fields {
+                boolean "replaceNeedles" {
+                    defaultValue "true"
                     mandatory false
                 }
             }

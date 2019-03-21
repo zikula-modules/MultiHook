@@ -56,7 +56,11 @@ abstract class AbstractConfigType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->addSettingsFields($builder, $options);
+        $this->addGeneralSettingsFields($builder, $options);
+        $this->addAbbreviationsAndAcronymsFields($builder, $options);
+        $this->addAutomaticLinksFields($builder, $options);
+        $this->addCensorFields($builder, $options);
+        $this->addNeedlesFields($builder, $options);
         $this->addListViewsFields($builder, $options);
         $this->addModerationFields($builder, $options);
 
@@ -64,19 +68,93 @@ abstract class AbstractConfigType extends AbstractType
     }
 
     /**
-     * Adds fields for settings fields.
+     * Adds fields for general settings fields.
      *
      * @param FormBuilderInterface $builder The form builder
      * @param array                $options The options
      */
-    public function addSettingsFields(FormBuilderInterface $builder, array $options = [])
+    public function addGeneralSettingsFields(FormBuilderInterface $builder, array $options = [])
     {
+        
+        $builder->add('showEditLink', CheckboxType::class, [
+            'label' => $this->__('Show edit link') . ':',
+            'attr' => [
+                'class' => '',
+                'title' => $this->__('The show edit link option')
+            ],
+            'required' => false,
+        ]);
+        
+        $builder->add('replaceOnlyFirstInstanceOfItems', CheckboxType::class, [
+            'label' => $this->__('Replace only first instance of items') . ':',
+            'attr' => [
+                'class' => '',
+                'title' => $this->__('The replace only first instance of items option')
+            ],
+            'required' => false,
+        ]);
+        
+        $builder->add('applyReplacementsToCodeTags', CheckboxType::class, [
+            'label' => $this->__('Apply replacements to code tags') . ':',
+            'attr' => [
+                'class' => '',
+                'title' => $this->__('The apply replacements to code tags option')
+            ],
+            'required' => false,
+        ]);
+    }
+
+    /**
+     * Adds fields for abbreviations and acronyms fields.
+     *
+     * @param FormBuilderInterface $builder The form builder
+     * @param array                $options The options
+     */
+    public function addAbbreviationsAndAcronymsFields(FormBuilderInterface $builder, array $options = [])
+    {
+        
+        $builder->add('replaceAbbreviations', CheckboxType::class, [
+            'label' => $this->__('Replace abbreviations') . ':',
+            'attr' => [
+                'class' => '',
+                'title' => $this->__('The replace abbreviations option')
+            ],
+            'required' => false,
+        ]);
+        
+        $builder->add('replaceAcronyms', CheckboxType::class, [
+            'label' => $this->__('Replace acronyms') . ':',
+            'attr' => [
+                'class' => '',
+                'title' => $this->__('The replace acronyms option')
+            ],
+            'required' => false,
+        ]);
         
         $builder->add('replaceAbbreviationsWithLongText', CheckboxType::class, [
             'label' => $this->__('Replace abbreviations with long text') . ':',
             'attr' => [
                 'class' => '',
                 'title' => $this->__('The replace abbreviations with long text option')
+            ],
+            'required' => false,
+        ]);
+    }
+
+    /**
+     * Adds fields for automatic links fields.
+     *
+     * @param FormBuilderInterface $builder The form builder
+     * @param array                $options The options
+     */
+    public function addAutomaticLinksFields(FormBuilderInterface $builder, array $options = [])
+    {
+        
+        $builder->add('replaceLinks', CheckboxType::class, [
+            'label' => $this->__('Replace links') . ':',
+            'attr' => [
+                'class' => '',
+                'title' => $this->__('The replace links option')
             ],
             'required' => false,
         ]);
@@ -100,30 +178,22 @@ abstract class AbstractConfigType extends AbstractType
             ],
             'required' => false,
         ]);
+    }
+
+    /**
+     * Adds fields for censor fields.
+     *
+     * @param FormBuilderInterface $builder The form builder
+     * @param array                $options The options
+     */
+    public function addCensorFields(FormBuilderInterface $builder, array $options = [])
+    {
         
-        $builder->add('applyReplacementsToCodeTags', CheckboxType::class, [
-            'label' => $this->__('Apply replacements to code tags') . ':',
+        $builder->add('replaceCensoredWords', CheckboxType::class, [
+            'label' => $this->__('Replace censored words') . ':',
             'attr' => [
                 'class' => '',
-                'title' => $this->__('The apply replacements to code tags option')
-            ],
-            'required' => false,
-        ]);
-        
-        $builder->add('showEditLink', CheckboxType::class, [
-            'label' => $this->__('Show edit link') . ':',
-            'attr' => [
-                'class' => '',
-                'title' => $this->__('The show edit link option')
-            ],
-            'required' => false,
-        ]);
-        
-        $builder->add('replaceOnlyFirstInstanceOfItems', CheckboxType::class, [
-            'label' => $this->__('Replace only first instance of items') . ':',
-            'attr' => [
-                'class' => '',
-                'title' => $this->__('The replace only first instance of items option')
+                'title' => $this->__('The replace censored words option')
             ],
             'required' => false,
         ]);
@@ -142,6 +212,25 @@ abstract class AbstractConfigType extends AbstractType
             'attr' => [
                 'class' => '',
                 'title' => $this->__('The do not censor first and last letter in words with more than two chars option')
+            ],
+            'required' => false,
+        ]);
+    }
+
+    /**
+     * Adds fields for needles fields.
+     *
+     * @param FormBuilderInterface $builder The form builder
+     * @param array                $options The options
+     */
+    public function addNeedlesFields(FormBuilderInterface $builder, array $options = [])
+    {
+        
+        $builder->add('replaceNeedles', CheckboxType::class, [
+            'label' => $this->__('Replace needles') . ':',
+            'attr' => [
+                'class' => '',
+                'title' => $this->__('The replace needles option')
             ],
             'required' => false,
         ]);

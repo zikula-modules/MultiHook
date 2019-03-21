@@ -70,6 +70,8 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
     protected $shortForm = '';
     
     /**
+     * The URL, in the case of a link; ignored for censored words.
+     *
      * @Gedmo\Translatable
      * @ORM\Column(length=255)
      * @Assert\NotNull()
@@ -79,6 +81,8 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
     protected $longForm = '';
     
     /**
+     * Only necessary for a link; ignored for censored words.
+     *
      * @Gedmo\Translatable
      * @ORM\Column(length=255)
      * @Assert\NotNull()
@@ -88,8 +92,8 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
     protected $title = '';
     
     /**
-     * @ORM\Column(length=1)
-     * @Assert\NotNull()
+     * @ORM\Column(length=10)
+     * @Assert\NotBlank()
      * @MultiHookAssert\ListEntry(entityName="entry", propertyName="entryType", multiple=false)
      * @var string $entryType
      */

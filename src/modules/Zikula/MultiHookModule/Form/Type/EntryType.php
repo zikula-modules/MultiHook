@@ -11,8 +11,6 @@
 
 namespace Zikula\MultiHookModule\Form\Type;
 
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Zikula\MultiHookModule\Form\Type\Base\AbstractEntryType;
 
 /**
@@ -20,33 +18,5 @@ use Zikula\MultiHookModule\Form\Type\Base\AbstractEntryType;
  */
 class EntryType extends AbstractEntryType
 {
-    /**
-     * @inheritDoc
-     */
-    public function addEntityFields(FormBuilderInterface $builder, array $options = [])
-    {
-        parent::addEntityFields($builder, $options);
-
-        $listEntries = $this->listHelper->getEntries('entry', 'entryType');
-        $choices = [];
-        $choiceAttributes = [];
-        foreach ($listEntries as $entry) {
-            $choices[$entry['text']] = $entry['value'];
-            $choiceAttributes[$entry['text']] = ['title' => $entry['title']];
-        }
-        $builder->add('entryType', ChoiceType::class, [
-            'label' => $this->__('Entry type') . ':',
-            'empty_data' => '',
-            'attr' => [
-                'class' => '',
-                'title' => $this->__('Choose the entry type.')
-            ],
-            'required' => false,
-            'placeholder' => false,//$this->__('Choose an option'),
-            'choices' => $choices,
-            'choice_attr' => $choiceAttributes,
-            'multiple' => false,
-            'expanded' => false
-        ]);
-    }
+    // feel free to extend the entry editing form type class here
 }

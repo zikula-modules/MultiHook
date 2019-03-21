@@ -226,28 +226,28 @@ abstract class AbstractListEntriesHelper
     {
         $states = [];
         $states[] = [
-            'value'   => '0',
+            'value'   => 'abbr',
             'text'    => $this->__('Abbreviation'),
             'title'   => '',
             'image'   => '',
             'default' => false
         ];
         $states[] = [
-            'value'   => '1',
+            'value'   => 'acronym',
             'text'    => $this->__('Acronym'),
             'title'   => '',
             'image'   => '',
             'default' => false
         ];
         $states[] = [
-            'value'   => '2',
+            'value'   => 'link',
             'text'    => $this->__('Link'),
             'title'   => '',
             'image'   => '',
             'default' => false
         ];
         $states[] = [
-            'value'   => '3',
+            'value'   => 'censor',
             'text'    => $this->__('Censored word'),
             'title'   => '',
             'image'   => '',

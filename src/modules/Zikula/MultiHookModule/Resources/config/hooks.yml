@@ -27,7 +27,11 @@ services:
         tags:
             - { name: zikula.hook_provider, areaName: 'provider.zikulamultihookmodule.filter_hooks.multihook' }
         calls:
+            - [setRequestStack, ["@request_stack"]]
             - [setVariableApi, ["@zikula_extensions_module.api.variable"]]
-            - [setEntityFactory, ["@zikula_multihook_module.entity_factory"]]
+            - [setEntryProviderCollector, ['@zikula_multihook_module.collector.entry_provider_collector']]
+            - [setNeedleCollector, ['@zikula_multihook_module.collector.needle_collector']]
             - [setHookHelper, ["@zikula_multihook_module.hook_helper"]]
             - [setPermissionHelper, ["@zikula_multihook_module.permission_helper"]]
+            - [setPageAssetApi, ["@zikula_theme_module.api.page_asset"]]
+            - [setAssetHelper, ["@zikula_core.common.theme.asset_helper"]]

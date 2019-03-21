@@ -72,7 +72,7 @@
             </tr>
             <tr>
                 <th id="hVersion" scope="row" headers="hBasicField">Version</th>
-                <td headers="hBasicValue hVersion">6.0.0</td>
+                <td headers="hBasicValue hVersion">6.1.0</td>
             </tr>
             <tr>
                 <th id="hLicense" scope="row" headers="hBasicField">Lizenz</th>
@@ -236,6 +236,7 @@
                 </td>
                 <td headers="hEntityEntryFieldLongForm hEntityEntryFieldRemarks">
                     <ul>
+                        <li>The URL, in the case of a link; ignored for censored words. </li>
                         <li>Dieses Feld ist nicht eindeutig und erlaubt keine Null-Werte.</li>
                         <li>Dieses Feld ist übersetzbar.</li>
                     </ul>
@@ -254,6 +255,7 @@
                 </td>
                 <td headers="hEntityEntryFieldTitle hEntityEntryFieldRemarks">
                     <ul>
+                        <li>Only necessary for a link; ignored for censored words. </li>
                         <li>Dieses Feld ist nicht eindeutig und erlaubt keine Null-Werte.</li>
                         <li>Dieses Feld ist übersetzbar.</li>
                     </ul>
@@ -262,19 +264,19 @@
             <tr>
                 <th id="hEntityEntryFieldEntryType" scope="row" headers="hEntityEntryFieldName">Entry type</th>
                 <td headers="hEntityEntryFieldEntryType hEntityEntryFieldType">Liste</td>
-                <td headers="hEntityEntryFieldEntryType hEntityEntryFieldMandatory">false</td>
+                <td headers="hEntityEntryFieldEntryType hEntityEntryFieldMandatory">true</td>
                 <td headers="hEntityEntryFieldEntryType hEntityEntryFieldDefault"></td>
                 <td headers="hEntityEntryFieldEntryType hEntityEntryFieldDisplayType">ALL</td>
                 <td headers="hEntityEntryFieldEntryType hEntityEntryFieldConstraints">
                     <ul>
-                        <li>Hat eine Länge von 1 Zeichen.</li>
+                        <li>Hat eine Länge von 10 Zeichen.</li>
                     </ul>
                 </td>
                 <td headers="hEntityEntryFieldEntryType hEntityEntryFieldRemarks">
                     <ul>
                         <li>Dieses Feld ist nicht eindeutig und erlaubt keine Null-Werte.</li>
                         <li>Die Liste wird durch eine einwertige Dropdownliste repräsentiert.</li>
-                        <li>Verfügbare Einträge: <ul><li>Abbreviation (0)</li><li>Acronym (1)</li><li>Link (2)</li><li>Censored word (3)</li></ul></li>
+                        <li>Verfügbare Einträge: <ul><li>Abbreviation (abbr)</li><li>Acronym (acronym)</li><li>Link (link)</li><li>Censored word (censor)</li></ul></li>
                     </ul>
                 </td>
             </tr>
@@ -464,7 +466,7 @@
     </table>
 </div>
 <h2><i class="fa fa-wrench"></i> Variablen zur Konfiguration</h2>
-<h3><i class="fa fa-server"></i> Settings</h3>
+<h3><i class="fa fa-server"></i> General settings</h3>
 <p>Sortierwert: 1</p>
 <p>Kombination: <i class="fa fa-times"></i>
 </p>
@@ -472,150 +474,354 @@
 <div class="table-responsive">
     <table class="table-striped table-bordered table-hover table-condensed">
         <colgroup>
-            <col id="cVariablesSettingsFieldName" />
-            <col id="cVariablesSettingsFieldType" />
-            <col id="cVariablesSettingsFieldMandatory" />
-            <col id="cVariablesSettingsFieldDefault" />
-            <col id="cVariablesSettingsFieldDisplayType" />
-            <col id="cVariablesSettingsFieldConstraints" />
-            <col id="cVariablesSettingsFieldRemarks" />
+            <col id="cVariablesGeneralSettingsFieldName" />
+            <col id="cVariablesGeneralSettingsFieldType" />
+            <col id="cVariablesGeneralSettingsFieldMandatory" />
+            <col id="cVariablesGeneralSettingsFieldDefault" />
+            <col id="cVariablesGeneralSettingsFieldDisplayType" />
+            <col id="cVariablesGeneralSettingsFieldConstraints" />
+            <col id="cVariablesGeneralSettingsFieldRemarks" />
         </colgroup>
         <thead>
             <tr>
-                <th id="hVariablesSettingsFieldName" scope="col">Name</th>
-                <th id="hVariablesSettingsFieldType" scope="col">Typ</th>
-                <th id="hVariablesSettingsFieldMandatory" scope="col">Pflicht</th>
-                <th id="hVariablesSettingsFieldDefault" scope="col">Standardwert</th>
-                <th id="hVariablesSettingsFieldDisplayType" scope="col">Anzeige</th>
-                <th id="hVariablesSettingsFieldConstraints" scope="col">Beschränkungen</th>
-                <th id="hVariablesSettingsFieldRemarks" scope="col">Anmerkungen</th>
+                <th id="hVariablesGeneralSettingsFieldName" scope="col">Name</th>
+                <th id="hVariablesGeneralSettingsFieldType" scope="col">Typ</th>
+                <th id="hVariablesGeneralSettingsFieldMandatory" scope="col">Pflicht</th>
+                <th id="hVariablesGeneralSettingsFieldDefault" scope="col">Standardwert</th>
+                <th id="hVariablesGeneralSettingsFieldDisplayType" scope="col">Anzeige</th>
+                <th id="hVariablesGeneralSettingsFieldConstraints" scope="col">Beschränkungen</th>
+                <th id="hVariablesGeneralSettingsFieldRemarks" scope="col">Anmerkungen</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <th id="hVariablesSettingsFieldReplaceAbbreviationsWithLongText" scope="row" headers="hVariablesSettingsFieldName">Replace abbreviations with long text</th>
-                <td headers="hVariablesSettingsFieldReplaceAbbreviationsWithLongText hVariablesSettingsFieldType">Boolesches</td>
-                <td headers="hVariablesSettingsFieldReplaceAbbreviationsWithLongText hVariablesSettingsFieldMandatory">false</td>
-                <td headers="hVariablesSettingsFieldReplaceAbbreviationsWithLongText hVariablesSettingsFieldDefault">false</td>
-                <td headers="hVariablesSettingsFieldReplaceAbbreviationsWithLongText hVariablesSettingsFieldDisplayType">ALL</td>
-                <td headers="hVariablesSettingsFieldReplaceAbbreviationsWithLongText hVariablesSettingsFieldConstraints">
+                <th id="hVariablesGeneralSettingsFieldShowEditLink" scope="row" headers="hVariablesGeneralSettingsFieldName">Show edit link</th>
+                <td headers="hVariablesGeneralSettingsFieldShowEditLink hVariablesGeneralSettingsFieldType">Boolesches</td>
+                <td headers="hVariablesGeneralSettingsFieldShowEditLink hVariablesGeneralSettingsFieldMandatory">false</td>
+                <td headers="hVariablesGeneralSettingsFieldShowEditLink hVariablesGeneralSettingsFieldDefault">true</td>
+                <td headers="hVariablesGeneralSettingsFieldShowEditLink hVariablesGeneralSettingsFieldDisplayType">ALL</td>
+                <td headers="hVariablesGeneralSettingsFieldShowEditLink hVariablesGeneralSettingsFieldConstraints">
                     <ul>
                     </ul>
                 </td>
-                <td headers="hVariablesSettingsFieldReplaceAbbreviationsWithLongText hVariablesSettingsFieldRemarks">
-                    <ul>
-                        <li>Dieses Feld ist nicht eindeutig und erlaubt keine Null-Werte.</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <th id="hVariablesSettingsFieldReplaceLinksWithTitle" scope="row" headers="hVariablesSettingsFieldName">Replace links with title</th>
-                <td headers="hVariablesSettingsFieldReplaceLinksWithTitle hVariablesSettingsFieldType">Boolesches</td>
-                <td headers="hVariablesSettingsFieldReplaceLinksWithTitle hVariablesSettingsFieldMandatory">false</td>
-                <td headers="hVariablesSettingsFieldReplaceLinksWithTitle hVariablesSettingsFieldDefault">false</td>
-                <td headers="hVariablesSettingsFieldReplaceLinksWithTitle hVariablesSettingsFieldDisplayType">ALL</td>
-                <td headers="hVariablesSettingsFieldReplaceLinksWithTitle hVariablesSettingsFieldConstraints">
-                    <ul>
-                    </ul>
-                </td>
-                <td headers="hVariablesSettingsFieldReplaceLinksWithTitle hVariablesSettingsFieldRemarks">
+                <td headers="hVariablesGeneralSettingsFieldShowEditLink hVariablesGeneralSettingsFieldRemarks">
                     <ul>
                         <li>Dieses Feld ist nicht eindeutig und erlaubt keine Null-Werte.</li>
                     </ul>
                 </td>
             </tr>
             <tr>
-                <th id="hVariablesSettingsFieldCssClassForExternalLinks" scope="row" headers="hVariablesSettingsFieldName">Css class for external links</th>
-                <td headers="hVariablesSettingsFieldCssClassForExternalLinks hVariablesSettingsFieldType">Zeichenkette</td>
-                <td headers="hVariablesSettingsFieldCssClassForExternalLinks hVariablesSettingsFieldMandatory">false</td>
-                <td headers="hVariablesSettingsFieldCssClassForExternalLinks hVariablesSettingsFieldDefault"></td>
-                <td headers="hVariablesSettingsFieldCssClassForExternalLinks hVariablesSettingsFieldDisplayType">ALL</td>
-                <td headers="hVariablesSettingsFieldCssClassForExternalLinks hVariablesSettingsFieldConstraints">
+                <th id="hVariablesGeneralSettingsFieldReplaceOnlyFirstInstanceOfItems" scope="row" headers="hVariablesGeneralSettingsFieldName">Replace only first instance of items</th>
+                <td headers="hVariablesGeneralSettingsFieldReplaceOnlyFirstInstanceOfItems hVariablesGeneralSettingsFieldType">Boolesches</td>
+                <td headers="hVariablesGeneralSettingsFieldReplaceOnlyFirstInstanceOfItems hVariablesGeneralSettingsFieldMandatory">false</td>
+                <td headers="hVariablesGeneralSettingsFieldReplaceOnlyFirstInstanceOfItems hVariablesGeneralSettingsFieldDefault">false</td>
+                <td headers="hVariablesGeneralSettingsFieldReplaceOnlyFirstInstanceOfItems hVariablesGeneralSettingsFieldDisplayType">ALL</td>
+                <td headers="hVariablesGeneralSettingsFieldReplaceOnlyFirstInstanceOfItems hVariablesGeneralSettingsFieldConstraints">
+                    <ul>
+                    </ul>
+                </td>
+                <td headers="hVariablesGeneralSettingsFieldReplaceOnlyFirstInstanceOfItems hVariablesGeneralSettingsFieldRemarks">
+                    <ul>
+                        <li>Dieses Feld ist nicht eindeutig und erlaubt keine Null-Werte.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th id="hVariablesGeneralSettingsFieldApplyReplacementsToCodeTags" scope="row" headers="hVariablesGeneralSettingsFieldName">Apply replacements to code tags</th>
+                <td headers="hVariablesGeneralSettingsFieldApplyReplacementsToCodeTags hVariablesGeneralSettingsFieldType">Boolesches</td>
+                <td headers="hVariablesGeneralSettingsFieldApplyReplacementsToCodeTags hVariablesGeneralSettingsFieldMandatory">false</td>
+                <td headers="hVariablesGeneralSettingsFieldApplyReplacementsToCodeTags hVariablesGeneralSettingsFieldDefault">false</td>
+                <td headers="hVariablesGeneralSettingsFieldApplyReplacementsToCodeTags hVariablesGeneralSettingsFieldDisplayType">ALL</td>
+                <td headers="hVariablesGeneralSettingsFieldApplyReplacementsToCodeTags hVariablesGeneralSettingsFieldConstraints">
+                    <ul>
+                    </ul>
+                </td>
+                <td headers="hVariablesGeneralSettingsFieldApplyReplacementsToCodeTags hVariablesGeneralSettingsFieldRemarks">
+                    <ul>
+                        <li>Dieses Feld ist nicht eindeutig und erlaubt keine Null-Werte.</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<h3><i class="fa fa-server"></i> Abbreviations and acronyms</h3>
+<p>Sortierwert: 2</p>
+<p>Kombination: <i class="fa fa-times"></i>
+</p>
+<h4><i class="fa fa-bars"></i> Felder</h4>
+<div class="table-responsive">
+    <table class="table-striped table-bordered table-hover table-condensed">
+        <colgroup>
+            <col id="cVariablesAbbreviationsAndAcronymsFieldName" />
+            <col id="cVariablesAbbreviationsAndAcronymsFieldType" />
+            <col id="cVariablesAbbreviationsAndAcronymsFieldMandatory" />
+            <col id="cVariablesAbbreviationsAndAcronymsFieldDefault" />
+            <col id="cVariablesAbbreviationsAndAcronymsFieldDisplayType" />
+            <col id="cVariablesAbbreviationsAndAcronymsFieldConstraints" />
+            <col id="cVariablesAbbreviationsAndAcronymsFieldRemarks" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th id="hVariablesAbbreviationsAndAcronymsFieldName" scope="col">Name</th>
+                <th id="hVariablesAbbreviationsAndAcronymsFieldType" scope="col">Typ</th>
+                <th id="hVariablesAbbreviationsAndAcronymsFieldMandatory" scope="col">Pflicht</th>
+                <th id="hVariablesAbbreviationsAndAcronymsFieldDefault" scope="col">Standardwert</th>
+                <th id="hVariablesAbbreviationsAndAcronymsFieldDisplayType" scope="col">Anzeige</th>
+                <th id="hVariablesAbbreviationsAndAcronymsFieldConstraints" scope="col">Beschränkungen</th>
+                <th id="hVariablesAbbreviationsAndAcronymsFieldRemarks" scope="col">Anmerkungen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th id="hVariablesAbbreviationsAndAcronymsFieldReplaceAbbreviations" scope="row" headers="hVariablesAbbreviationsAndAcronymsFieldName">Replace abbreviations</th>
+                <td headers="hVariablesAbbreviationsAndAcronymsFieldReplaceAbbreviations hVariablesAbbreviationsAndAcronymsFieldType">Boolesches</td>
+                <td headers="hVariablesAbbreviationsAndAcronymsFieldReplaceAbbreviations hVariablesAbbreviationsAndAcronymsFieldMandatory">false</td>
+                <td headers="hVariablesAbbreviationsAndAcronymsFieldReplaceAbbreviations hVariablesAbbreviationsAndAcronymsFieldDefault">true</td>
+                <td headers="hVariablesAbbreviationsAndAcronymsFieldReplaceAbbreviations hVariablesAbbreviationsAndAcronymsFieldDisplayType">ALL</td>
+                <td headers="hVariablesAbbreviationsAndAcronymsFieldReplaceAbbreviations hVariablesAbbreviationsAndAcronymsFieldConstraints">
+                    <ul>
+                    </ul>
+                </td>
+                <td headers="hVariablesAbbreviationsAndAcronymsFieldReplaceAbbreviations hVariablesAbbreviationsAndAcronymsFieldRemarks">
+                    <ul>
+                        <li>Dieses Feld ist nicht eindeutig und erlaubt keine Null-Werte.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th id="hVariablesAbbreviationsAndAcronymsFieldReplaceAcronyms" scope="row" headers="hVariablesAbbreviationsAndAcronymsFieldName">Replace acronyms</th>
+                <td headers="hVariablesAbbreviationsAndAcronymsFieldReplaceAcronyms hVariablesAbbreviationsAndAcronymsFieldType">Boolesches</td>
+                <td headers="hVariablesAbbreviationsAndAcronymsFieldReplaceAcronyms hVariablesAbbreviationsAndAcronymsFieldMandatory">false</td>
+                <td headers="hVariablesAbbreviationsAndAcronymsFieldReplaceAcronyms hVariablesAbbreviationsAndAcronymsFieldDefault">true</td>
+                <td headers="hVariablesAbbreviationsAndAcronymsFieldReplaceAcronyms hVariablesAbbreviationsAndAcronymsFieldDisplayType">ALL</td>
+                <td headers="hVariablesAbbreviationsAndAcronymsFieldReplaceAcronyms hVariablesAbbreviationsAndAcronymsFieldConstraints">
+                    <ul>
+                    </ul>
+                </td>
+                <td headers="hVariablesAbbreviationsAndAcronymsFieldReplaceAcronyms hVariablesAbbreviationsAndAcronymsFieldRemarks">
+                    <ul>
+                        <li>Dieses Feld ist nicht eindeutig und erlaubt keine Null-Werte.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th id="hVariablesAbbreviationsAndAcronymsFieldReplaceAbbreviationsWithLongText" scope="row" headers="hVariablesAbbreviationsAndAcronymsFieldName">Replace abbreviations with long text</th>
+                <td headers="hVariablesAbbreviationsAndAcronymsFieldReplaceAbbreviationsWithLongText hVariablesAbbreviationsAndAcronymsFieldType">Boolesches</td>
+                <td headers="hVariablesAbbreviationsAndAcronymsFieldReplaceAbbreviationsWithLongText hVariablesAbbreviationsAndAcronymsFieldMandatory">false</td>
+                <td headers="hVariablesAbbreviationsAndAcronymsFieldReplaceAbbreviationsWithLongText hVariablesAbbreviationsAndAcronymsFieldDefault">false</td>
+                <td headers="hVariablesAbbreviationsAndAcronymsFieldReplaceAbbreviationsWithLongText hVariablesAbbreviationsAndAcronymsFieldDisplayType">ALL</td>
+                <td headers="hVariablesAbbreviationsAndAcronymsFieldReplaceAbbreviationsWithLongText hVariablesAbbreviationsAndAcronymsFieldConstraints">
+                    <ul>
+                    </ul>
+                </td>
+                <td headers="hVariablesAbbreviationsAndAcronymsFieldReplaceAbbreviationsWithLongText hVariablesAbbreviationsAndAcronymsFieldRemarks">
+                    <ul>
+                        <li>Dieses Feld ist nicht eindeutig und erlaubt keine Null-Werte.</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<h3><i class="fa fa-server"></i> Automatic links</h3>
+<p>Sortierwert: 3</p>
+<p>Kombination: <i class="fa fa-times"></i>
+</p>
+<h4><i class="fa fa-bars"></i> Felder</h4>
+<div class="table-responsive">
+    <table class="table-striped table-bordered table-hover table-condensed">
+        <colgroup>
+            <col id="cVariablesAutomaticLinksFieldName" />
+            <col id="cVariablesAutomaticLinksFieldType" />
+            <col id="cVariablesAutomaticLinksFieldMandatory" />
+            <col id="cVariablesAutomaticLinksFieldDefault" />
+            <col id="cVariablesAutomaticLinksFieldDisplayType" />
+            <col id="cVariablesAutomaticLinksFieldConstraints" />
+            <col id="cVariablesAutomaticLinksFieldRemarks" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th id="hVariablesAutomaticLinksFieldName" scope="col">Name</th>
+                <th id="hVariablesAutomaticLinksFieldType" scope="col">Typ</th>
+                <th id="hVariablesAutomaticLinksFieldMandatory" scope="col">Pflicht</th>
+                <th id="hVariablesAutomaticLinksFieldDefault" scope="col">Standardwert</th>
+                <th id="hVariablesAutomaticLinksFieldDisplayType" scope="col">Anzeige</th>
+                <th id="hVariablesAutomaticLinksFieldConstraints" scope="col">Beschränkungen</th>
+                <th id="hVariablesAutomaticLinksFieldRemarks" scope="col">Anmerkungen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th id="hVariablesAutomaticLinksFieldReplaceLinks" scope="row" headers="hVariablesAutomaticLinksFieldName">Replace links</th>
+                <td headers="hVariablesAutomaticLinksFieldReplaceLinks hVariablesAutomaticLinksFieldType">Boolesches</td>
+                <td headers="hVariablesAutomaticLinksFieldReplaceLinks hVariablesAutomaticLinksFieldMandatory">false</td>
+                <td headers="hVariablesAutomaticLinksFieldReplaceLinks hVariablesAutomaticLinksFieldDefault">true</td>
+                <td headers="hVariablesAutomaticLinksFieldReplaceLinks hVariablesAutomaticLinksFieldDisplayType">ALL</td>
+                <td headers="hVariablesAutomaticLinksFieldReplaceLinks hVariablesAutomaticLinksFieldConstraints">
+                    <ul>
+                    </ul>
+                </td>
+                <td headers="hVariablesAutomaticLinksFieldReplaceLinks hVariablesAutomaticLinksFieldRemarks">
+                    <ul>
+                        <li>Dieses Feld ist nicht eindeutig und erlaubt keine Null-Werte.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th id="hVariablesAutomaticLinksFieldReplaceLinksWithTitle" scope="row" headers="hVariablesAutomaticLinksFieldName">Replace links with title</th>
+                <td headers="hVariablesAutomaticLinksFieldReplaceLinksWithTitle hVariablesAutomaticLinksFieldType">Boolesches</td>
+                <td headers="hVariablesAutomaticLinksFieldReplaceLinksWithTitle hVariablesAutomaticLinksFieldMandatory">false</td>
+                <td headers="hVariablesAutomaticLinksFieldReplaceLinksWithTitle hVariablesAutomaticLinksFieldDefault">false</td>
+                <td headers="hVariablesAutomaticLinksFieldReplaceLinksWithTitle hVariablesAutomaticLinksFieldDisplayType">ALL</td>
+                <td headers="hVariablesAutomaticLinksFieldReplaceLinksWithTitle hVariablesAutomaticLinksFieldConstraints">
+                    <ul>
+                    </ul>
+                </td>
+                <td headers="hVariablesAutomaticLinksFieldReplaceLinksWithTitle hVariablesAutomaticLinksFieldRemarks">
+                    <ul>
+                        <li>Dieses Feld ist nicht eindeutig und erlaubt keine Null-Werte.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <th id="hVariablesAutomaticLinksFieldCssClassForExternalLinks" scope="row" headers="hVariablesAutomaticLinksFieldName">Css class for external links</th>
+                <td headers="hVariablesAutomaticLinksFieldCssClassForExternalLinks hVariablesAutomaticLinksFieldType">Zeichenkette</td>
+                <td headers="hVariablesAutomaticLinksFieldCssClassForExternalLinks hVariablesAutomaticLinksFieldMandatory">false</td>
+                <td headers="hVariablesAutomaticLinksFieldCssClassForExternalLinks hVariablesAutomaticLinksFieldDefault"></td>
+                <td headers="hVariablesAutomaticLinksFieldCssClassForExternalLinks hVariablesAutomaticLinksFieldDisplayType">ALL</td>
+                <td headers="hVariablesAutomaticLinksFieldCssClassForExternalLinks hVariablesAutomaticLinksFieldConstraints">
                     <ul>
                         <li>Hat eine Länge von 255 Zeichen.</li>
                     </ul>
                 </td>
-                <td headers="hVariablesSettingsFieldCssClassForExternalLinks hVariablesSettingsFieldRemarks">
+                <td headers="hVariablesAutomaticLinksFieldCssClassForExternalLinks hVariablesAutomaticLinksFieldRemarks">
+                    <ul>
+                        <li>Dieses Feld ist nicht eindeutig und erlaubt keine Null-Werte.</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<h3><i class="fa fa-server"></i> Censor</h3>
+<p>Sortierwert: 4</p>
+<p>Kombination: <i class="fa fa-times"></i>
+</p>
+<h4><i class="fa fa-bars"></i> Felder</h4>
+<div class="table-responsive">
+    <table class="table-striped table-bordered table-hover table-condensed">
+        <colgroup>
+            <col id="cVariablesCensorFieldName" />
+            <col id="cVariablesCensorFieldType" />
+            <col id="cVariablesCensorFieldMandatory" />
+            <col id="cVariablesCensorFieldDefault" />
+            <col id="cVariablesCensorFieldDisplayType" />
+            <col id="cVariablesCensorFieldConstraints" />
+            <col id="cVariablesCensorFieldRemarks" />
+        </colgroup>
+        <thead>
+            <tr>
+                <th id="hVariablesCensorFieldName" scope="col">Name</th>
+                <th id="hVariablesCensorFieldType" scope="col">Typ</th>
+                <th id="hVariablesCensorFieldMandatory" scope="col">Pflicht</th>
+                <th id="hVariablesCensorFieldDefault" scope="col">Standardwert</th>
+                <th id="hVariablesCensorFieldDisplayType" scope="col">Anzeige</th>
+                <th id="hVariablesCensorFieldConstraints" scope="col">Beschränkungen</th>
+                <th id="hVariablesCensorFieldRemarks" scope="col">Anmerkungen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th id="hVariablesCensorFieldReplaceCensoredWords" scope="row" headers="hVariablesCensorFieldName">Replace censored words</th>
+                <td headers="hVariablesCensorFieldReplaceCensoredWords hVariablesCensorFieldType">Boolesches</td>
+                <td headers="hVariablesCensorFieldReplaceCensoredWords hVariablesCensorFieldMandatory">false</td>
+                <td headers="hVariablesCensorFieldReplaceCensoredWords hVariablesCensorFieldDefault">true</td>
+                <td headers="hVariablesCensorFieldReplaceCensoredWords hVariablesCensorFieldDisplayType">ALL</td>
+                <td headers="hVariablesCensorFieldReplaceCensoredWords hVariablesCensorFieldConstraints">
+                    <ul>
+                    </ul>
+                </td>
+                <td headers="hVariablesCensorFieldReplaceCensoredWords hVariablesCensorFieldRemarks">
                     <ul>
                         <li>Dieses Feld ist nicht eindeutig und erlaubt keine Null-Werte.</li>
                     </ul>
                 </td>
             </tr>
             <tr>
-                <th id="hVariablesSettingsFieldApplyReplacementsToCodeTags" scope="row" headers="hVariablesSettingsFieldName">Apply replacements to code tags</th>
-                <td headers="hVariablesSettingsFieldApplyReplacementsToCodeTags hVariablesSettingsFieldType">Boolesches</td>
-                <td headers="hVariablesSettingsFieldApplyReplacementsToCodeTags hVariablesSettingsFieldMandatory">false</td>
-                <td headers="hVariablesSettingsFieldApplyReplacementsToCodeTags hVariablesSettingsFieldDefault">false</td>
-                <td headers="hVariablesSettingsFieldApplyReplacementsToCodeTags hVariablesSettingsFieldDisplayType">ALL</td>
-                <td headers="hVariablesSettingsFieldApplyReplacementsToCodeTags hVariablesSettingsFieldConstraints">
+                <th id="hVariablesCensorFieldReplaceCensoredWordsWhenTheyArePartOfOtherWords" scope="row" headers="hVariablesCensorFieldName">Replace censored words when they are part of other words</th>
+                <td headers="hVariablesCensorFieldReplaceCensoredWordsWhenTheyArePartOfOtherWords hVariablesCensorFieldType">Boolesches</td>
+                <td headers="hVariablesCensorFieldReplaceCensoredWordsWhenTheyArePartOfOtherWords hVariablesCensorFieldMandatory">false</td>
+                <td headers="hVariablesCensorFieldReplaceCensoredWordsWhenTheyArePartOfOtherWords hVariablesCensorFieldDefault">false</td>
+                <td headers="hVariablesCensorFieldReplaceCensoredWordsWhenTheyArePartOfOtherWords hVariablesCensorFieldDisplayType">ALL</td>
+                <td headers="hVariablesCensorFieldReplaceCensoredWordsWhenTheyArePartOfOtherWords hVariablesCensorFieldConstraints">
                     <ul>
                     </ul>
                 </td>
-                <td headers="hVariablesSettingsFieldApplyReplacementsToCodeTags hVariablesSettingsFieldRemarks">
-                    <ul>
-                        <li>Dieses Feld ist nicht eindeutig und erlaubt keine Null-Werte.</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <th id="hVariablesSettingsFieldShowEditLink" scope="row" headers="hVariablesSettingsFieldName">Show edit link</th>
-                <td headers="hVariablesSettingsFieldShowEditLink hVariablesSettingsFieldType">Boolesches</td>
-                <td headers="hVariablesSettingsFieldShowEditLink hVariablesSettingsFieldMandatory">false</td>
-                <td headers="hVariablesSettingsFieldShowEditLink hVariablesSettingsFieldDefault">true</td>
-                <td headers="hVariablesSettingsFieldShowEditLink hVariablesSettingsFieldDisplayType">ALL</td>
-                <td headers="hVariablesSettingsFieldShowEditLink hVariablesSettingsFieldConstraints">
-                    <ul>
-                    </ul>
-                </td>
-                <td headers="hVariablesSettingsFieldShowEditLink hVariablesSettingsFieldRemarks">
+                <td headers="hVariablesCensorFieldReplaceCensoredWordsWhenTheyArePartOfOtherWords hVariablesCensorFieldRemarks">
                     <ul>
                         <li>Dieses Feld ist nicht eindeutig und erlaubt keine Null-Werte.</li>
                     </ul>
                 </td>
             </tr>
             <tr>
-                <th id="hVariablesSettingsFieldReplaceOnlyFirstInstanceOfItems" scope="row" headers="hVariablesSettingsFieldName">Replace only first instance of items</th>
-                <td headers="hVariablesSettingsFieldReplaceOnlyFirstInstanceOfItems hVariablesSettingsFieldType">Boolesches</td>
-                <td headers="hVariablesSettingsFieldReplaceOnlyFirstInstanceOfItems hVariablesSettingsFieldMandatory">false</td>
-                <td headers="hVariablesSettingsFieldReplaceOnlyFirstInstanceOfItems hVariablesSettingsFieldDefault">false</td>
-                <td headers="hVariablesSettingsFieldReplaceOnlyFirstInstanceOfItems hVariablesSettingsFieldDisplayType">ALL</td>
-                <td headers="hVariablesSettingsFieldReplaceOnlyFirstInstanceOfItems hVariablesSettingsFieldConstraints">
+                <th id="hVariablesCensorFieldDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars" scope="row" headers="hVariablesCensorFieldName">Do not censor first and last letter in words with more than two chars</th>
+                <td headers="hVariablesCensorFieldDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars hVariablesCensorFieldType">Boolesches</td>
+                <td headers="hVariablesCensorFieldDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars hVariablesCensorFieldMandatory">false</td>
+                <td headers="hVariablesCensorFieldDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars hVariablesCensorFieldDefault">false</td>
+                <td headers="hVariablesCensorFieldDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars hVariablesCensorFieldDisplayType">ALL</td>
+                <td headers="hVariablesCensorFieldDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars hVariablesCensorFieldConstraints">
                     <ul>
                     </ul>
                 </td>
-                <td headers="hVariablesSettingsFieldReplaceOnlyFirstInstanceOfItems hVariablesSettingsFieldRemarks">
-                    <ul>
-                        <li>Dieses Feld ist nicht eindeutig und erlaubt keine Null-Werte.</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <th id="hVariablesSettingsFieldReplaceCensoredWordsWhenTheyArePartOfOtherWords" scope="row" headers="hVariablesSettingsFieldName">Replace censored words when they are part of other words</th>
-                <td headers="hVariablesSettingsFieldReplaceCensoredWordsWhenTheyArePartOfOtherWords hVariablesSettingsFieldType">Boolesches</td>
-                <td headers="hVariablesSettingsFieldReplaceCensoredWordsWhenTheyArePartOfOtherWords hVariablesSettingsFieldMandatory">false</td>
-                <td headers="hVariablesSettingsFieldReplaceCensoredWordsWhenTheyArePartOfOtherWords hVariablesSettingsFieldDefault">false</td>
-                <td headers="hVariablesSettingsFieldReplaceCensoredWordsWhenTheyArePartOfOtherWords hVariablesSettingsFieldDisplayType">ALL</td>
-                <td headers="hVariablesSettingsFieldReplaceCensoredWordsWhenTheyArePartOfOtherWords hVariablesSettingsFieldConstraints">
-                    <ul>
-                    </ul>
-                </td>
-                <td headers="hVariablesSettingsFieldReplaceCensoredWordsWhenTheyArePartOfOtherWords hVariablesSettingsFieldRemarks">
+                <td headers="hVariablesCensorFieldDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars hVariablesCensorFieldRemarks">
                     <ul>
                         <li>Dieses Feld ist nicht eindeutig und erlaubt keine Null-Werte.</li>
                     </ul>
                 </td>
             </tr>
+        </tbody>
+    </table>
+</div>
+<h3><i class="fa fa-server"></i> Needles</h3>
+<p>Sortierwert: 5</p>
+<p>Kombination: <i class="fa fa-times"></i>
+</p>
+<h4><i class="fa fa-bars"></i> Felder</h4>
+<div class="table-responsive">
+    <table class="table-striped table-bordered table-hover table-condensed">
+        <colgroup>
+            <col id="cVariablesNeedlesFieldName" />
+            <col id="cVariablesNeedlesFieldType" />
+            <col id="cVariablesNeedlesFieldMandatory" />
+            <col id="cVariablesNeedlesFieldDefault" />
+            <col id="cVariablesNeedlesFieldDisplayType" />
+            <col id="cVariablesNeedlesFieldConstraints" />
+            <col id="cVariablesNeedlesFieldRemarks" />
+        </colgroup>
+        <thead>
             <tr>
-                <th id="hVariablesSettingsFieldDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars" scope="row" headers="hVariablesSettingsFieldName">Do not censor first and last letter in words with more than two chars</th>
-                <td headers="hVariablesSettingsFieldDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars hVariablesSettingsFieldType">Boolesches</td>
-                <td headers="hVariablesSettingsFieldDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars hVariablesSettingsFieldMandatory">false</td>
-                <td headers="hVariablesSettingsFieldDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars hVariablesSettingsFieldDefault">false</td>
-                <td headers="hVariablesSettingsFieldDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars hVariablesSettingsFieldDisplayType">ALL</td>
-                <td headers="hVariablesSettingsFieldDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars hVariablesSettingsFieldConstraints">
+                <th id="hVariablesNeedlesFieldName" scope="col">Name</th>
+                <th id="hVariablesNeedlesFieldType" scope="col">Typ</th>
+                <th id="hVariablesNeedlesFieldMandatory" scope="col">Pflicht</th>
+                <th id="hVariablesNeedlesFieldDefault" scope="col">Standardwert</th>
+                <th id="hVariablesNeedlesFieldDisplayType" scope="col">Anzeige</th>
+                <th id="hVariablesNeedlesFieldConstraints" scope="col">Beschränkungen</th>
+                <th id="hVariablesNeedlesFieldRemarks" scope="col">Anmerkungen</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th id="hVariablesNeedlesFieldReplaceNeedles" scope="row" headers="hVariablesNeedlesFieldName">Replace needles</th>
+                <td headers="hVariablesNeedlesFieldReplaceNeedles hVariablesNeedlesFieldType">Boolesches</td>
+                <td headers="hVariablesNeedlesFieldReplaceNeedles hVariablesNeedlesFieldMandatory">false</td>
+                <td headers="hVariablesNeedlesFieldReplaceNeedles hVariablesNeedlesFieldDefault">true</td>
+                <td headers="hVariablesNeedlesFieldReplaceNeedles hVariablesNeedlesFieldDisplayType">ALL</td>
+                <td headers="hVariablesNeedlesFieldReplaceNeedles hVariablesNeedlesFieldConstraints">
                     <ul>
                     </ul>
                 </td>
-                <td headers="hVariablesSettingsFieldDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars hVariablesSettingsFieldRemarks">
+                <td headers="hVariablesNeedlesFieldReplaceNeedles hVariablesNeedlesFieldRemarks">
                     <ul>
                         <li>Dieses Feld ist nicht eindeutig und erlaubt keine Null-Werte.</li>
                     </ul>
@@ -626,7 +832,7 @@
 </div>
 <h3><i class="fa fa-server"></i> List views</h3>
 <p>Here you can configure parameters for list views.</p>
-<p>Sortierwert: 2</p>
+<p>Sortierwert: 6</p>
 <p>Kombination: <i class="fa fa-times"></i>
 </p>
 <h4><i class="fa fa-bars"></i> Felder</h4>
@@ -693,7 +899,7 @@
 </div>
 <h3><i class="fa fa-server"></i> Moderation</h3>
 <p>Here you can define moderation-related settings.</p>
-<p>Sortierwert: 3</p>
+<p>Sortierwert: 7</p>
 <p>Kombination: <i class="fa fa-times"></i>
 </p>
 <h4><i class="fa fa-bars"></i> Felder</h4>
