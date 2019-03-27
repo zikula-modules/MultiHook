@@ -1,5 +1,5 @@
 {# purpose of this template: entries view filter form #}
-{% if permissionHelper.hasComponentPermission('entry', constant('ACCESS_EDIT')) %}
+{% if permissionHelper.mayUseQuickNav('entry') %}
     {% form_theme quickNavForm with [
         'bootstrap_3_layout.html.twig'
     ] %}

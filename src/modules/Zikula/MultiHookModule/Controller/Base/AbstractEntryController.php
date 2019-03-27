@@ -193,6 +193,9 @@ abstract class AbstractEntryController extends AbstractController
         // Get parameters
         $action = $request->request->get('action', null);
         $items = $request->request->get('items', null);
+        if (!is_array($items) || !count($items)) {
+            return $this->redirectToRoute('zikulamultihookmodule_entry_' . ($isAdmin ? 'admin' : '') . 'index');
+        }
         
         $action = strtolower($action);
         
