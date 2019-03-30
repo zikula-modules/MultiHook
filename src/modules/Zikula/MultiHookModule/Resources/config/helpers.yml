@@ -6,7 +6,7 @@ services:
             - "@request_stack"
             - "@zikula_multihook_module.permission_helper"
             - "@zikula_users_module.current_user"
-            - "@=service('zikula_extensions_module.api.variable').get('ZikulaMultiHookModule', 'showOnlyOwnEntries', false)"
+            - "@zikula_extensions_module.api.variable"
     
     zikula_multihook_module.controller_helper:
         class: Zikula\MultiHookModule\Helper\ControllerHelper
@@ -52,7 +52,6 @@ services:
     zikula_multihook_module.permission_helper:
         class: Zikula\MultiHookModule\Helper\PermissionHelper
         arguments:
-            - "@service_container"
             - "@request_stack"
             - "@zikula_permissions_module.api.permission"
             - "@zikula_users_module.current_user"
