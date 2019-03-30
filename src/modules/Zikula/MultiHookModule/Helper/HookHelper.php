@@ -34,30 +34,15 @@ class HookHelper extends AbstractHookHelper
     /**
      * @var VariableApiInterface
      */
-    private $variableApi;    
+    private $variableApi;
 
-    public function setTranslator(TranslatorInterface $translator)
-    {
-        $this->translator = $translator;
-    }
-
-    public function setRouter(RouterInterface $router)
-    {
-        $this->router = $router;
-    }
-    
-    public function setVariableApi(VariableApiInterface $variableApi)
-    {
-        $this->variableApi = $variableApi;
-    }
-    
     public function createAbbr($abac, $showEditLink=false)
     {
         $replaceAbbreviationsWithLongText = $this->variableApi->get('ZikulaMultiHookModule', 'replaceAbbreviationsWithLongText', false);
 
         $long = $abac['longform'];
         $short = $abac['shortform'];
-        $id = isset($abac['id']) ? $abac['id'] : 0;
+        $id = $abac['id'] ?? 0;
 
         $replace_temp = '';
         if (false === $replaceAbbreviationsWithLongText) {
@@ -78,7 +63,7 @@ class HookHelper extends AbstractHookHelper
     {
         $long = $abac['longform'];
         $short = $abac['shortform'];
-        $id = isset($abac['id']) ? $abac['id'] : 0;
+        $id = $abac['id'] ?? 0;
 
         $xhtmllang = $this->getLanguageAttributes($abac['language']);
         $replace_temp = '<acronym' . $xhtmllang . ' title="' . str_replace('"', '', $long) . '">' . $short . '</acronym>';
@@ -97,7 +82,7 @@ class HookHelper extends AbstractHookHelper
 
         $extclass = '';
         $accessibilityHack = '';
-        if (preg_match("/(^http:\/\/)/", $abac['longform']) == 1) {
+        if (1 === preg_match("/(^http:\/\/)/", $abac['longform'])) {
             if (!empty($cssClassForExternalLinks)) {
                 $extclass = ' class="' . $cssClassForExternalLinks . '"';
             }
@@ -106,7 +91,7 @@ class HookHelper extends AbstractHookHelper
 
         $long  = $abac['longform'];
         $short = $abac['shortform'];
-        $id = isset($abac['id']) ? $abac['id'] : 0;
+        $id = $abac['id'] ?? 0;
         $title = $abac['title'];
 
         $linkText = (false === $replaceLinksWithTitle ? $short : $title) . $accessibilityHack;
@@ -162,12 +147,12 @@ class HookHelper extends AbstractHookHelper
 
         // make sure that relative urls get converted to absolute urls (safehtml needs this)
         $exploded_url = explode(':', $url);
-        if (!in_array($exploded_url[0], $schemes)) {
+        if (!in_array($exploded_url[0], $schemes, true)) {
             // url does not start with one of the schemes defined above
             // we consider it being a relative path now
 
             // next check for leading / in  relative url
-            if ($url[0] == '/') {
+            if (0 === strpos($url, '/')) {
                 // and remove it
                 $url = substr($url, 1);
             }
@@ -175,5 +160,29 @@ class HookHelper extends AbstractHookHelper
         }
 
         return $url;
+    }
+
+    /**
+     * @required
+     */
+    public function setTranslator(TranslatorInterface $translator): void
+    {
+        $this->translator = $translator;
+    }
+
+    /**
+     * @required
+     */
+    public function setRouter(RouterInterface $router): void
+    {
+        $this->router = $router;
+    }
+
+    /**
+     * @required
+     */
+    public function setVariableApi(VariableApiInterface $variableApi): void
+    {
+        $this->variableApi = $variableApi;
     }
 }

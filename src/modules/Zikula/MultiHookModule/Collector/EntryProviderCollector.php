@@ -11,6 +11,8 @@
 
 namespace Zikula\MultiHookModule\Collector;
 
+use Zikula\Common\MultiHook\EntryProviderInterface;
+
 /**
  * Entry provider collector implementation class.
  */
@@ -23,50 +25,40 @@ class EntryProviderCollector
     private $providers;
 
     /**
-     * EntryProviderCollector constructor.
+     * @param EntryProviderInterface[] $providers
      */
-    public function __construct()
+    public function __construct(iterable $providers)
     {
         $this->providers = [];
+        foreach ($providers as $provider) {
+            $this->add($provider);
+        }
     }
 
     /**
      * Adds an entry provider to the collection.
-     *
-     * @param object $entryProvider
      */
-    public function add($entryProvider)
+    public function add(EntryProviderInterface $provider)
     {
-        $id = '';
-        if (method_exists($entryProvider, 'getBundleName')) {
-            $id .= $entryProvider->getBundleName();
-        }
-        if (method_exists($entryProvider, 'getName')) {
-            $id .= $entryProvider->getName();
-        } elseif (method_exists($entryProvider, 'getTitle')) {
-            $id .= $entryProvider->getTitle();
-        }
+        $id = str_replace('\\', '_', get_class($provider));
 
-        $this->providers[$id] = $entryProvider;
+        $this->providers[$id] = $provider;
     }
 
     /**
      * Returns an entry provider from the collection by service.id.
-     *
-     * @param $id
-     * @return object
      */
-    public function get($id)
+    public function get(string $id): ?EntryProviderInterface
     {
-        return isset($this->providers[$id]) ? $this->providers[$id] : null;
+        return $this->providers[$id] ?? null;
     }
 
     /**
      * Returns all providers in the collection.
      *
-     * @return object[]
+     * @return EntryProviderInterface[]
      */
-    public function getAll()
+    public function getAll(): iterable
     {
         $this->sortProviders();
 
@@ -76,12 +68,12 @@ class EntryProviderCollector
     /**
      * Returns all active providers in the collection.
      *
-     * @return object[]
+     * @return EntryProviderInterface[]
      */
-    public function getActive()
+    public function getActive(): iterable
     {
-        return array_filter($this->getAll(), function($item) {
-            return method_exists($item, 'isActive') ? $item->isActive() : false;
+        return array_filter($this->getAll(), function(EntryProviderInterface $item) {
+            return $item->isActive();
         });
     }
 
@@ -90,11 +82,7 @@ class EntryProviderCollector
      */
     private function sortProviders() {
         $providers = $this->providers;
-        usort($providers, function ($a, $b) {
-            if (!method_exists($a, 'getTitle') || !method_exists($b, 'getTitle')) {
-                return 0;
-            }
-
+        usort($providers, function (EntryProviderInterface $a, EntryProviderInterface $b) {
             return strcmp($a->getTitle(), $b->getTitle());
         });
         $this->providers = $providers;

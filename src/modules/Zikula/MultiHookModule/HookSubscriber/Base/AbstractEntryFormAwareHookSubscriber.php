@@ -58,6 +58,14 @@ abstract class AbstractEntryFormAwareHookSubscriber implements HookSubscriberInt
     {
         return $this->translator->__('Entry form aware subscriber');
     }
+    
+    /**
+     * @inheritDoc
+     */
+    public function getAreaName()
+    {
+        return 'subscriber.zikulamultihookmodule.form_aware_hook.entries';
+    }
 
     /**
      * @inheritDoc

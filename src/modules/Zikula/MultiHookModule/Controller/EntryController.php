@@ -20,7 +20,15 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Zikula\ThemeModule\Engine\Annotation\Theme;
+use Zikula\UsersModule\Api\ApiInterface\CurrentUserApiInterface;
 use Zikula\MultiHookModule\Entity\EntryEntity;
+use Zikula\MultiHookModule\Entity\Factory\EntityFactory;
+use Zikula\MultiHookModule\Form\Handler\Entry\EditHandler;
+use Zikula\MultiHookModule\Helper\ControllerHelper;
+use Zikula\MultiHookModule\Helper\HookHelper;
+use Zikula\MultiHookModule\Helper\PermissionHelper;
+use Zikula\MultiHookModule\Helper\ViewHelper;
+use Zikula\MultiHookModule\Helper\WorkflowHelper;
 
 /**
  * Entry controller class providing navigation and interaction functionality.
@@ -36,9 +44,10 @@ class EntryController extends AbstractEntryController
      * @Theme("admin")
      */
     public function adminIndexAction(
-        Request $request
+        Request $request,
+        PermissionHelper $permissionHelper
     ) {
-        return $this->indexInternal($request, true);
+        return $this->indexInternal($request, $permissionHelper, true);
     }
     
     /**
@@ -49,9 +58,10 @@ class EntryController extends AbstractEntryController
      * )
      */
     public function indexAction(
-        Request $request
+        Request $request,
+        PermissionHelper $permissionHelper
     ) {
-        return $this->indexInternal($request, false);
+        return $this->indexInternal($request, $permissionHelper, false);
     }
     
     /**
@@ -66,12 +76,15 @@ class EntryController extends AbstractEntryController
      */
     public function adminViewAction(
         Request $request,
+        PermissionHelper $permissionHelper,
+        ControllerHelper $controllerHelper,
+        ViewHelper $viewHelper,
         $sort,
         $sortdir,
         $pos,
         $num
     ) {
-        return $this->viewInternal($request, $sort, $sortdir, $pos, $num, true);
+        return $this->viewInternal($request, $permissionHelper, $controllerHelper, $viewHelper, $sort, $sortdir, $pos, $num, true);
     }
     
     /**
@@ -85,12 +98,15 @@ class EntryController extends AbstractEntryController
      */
     public function viewAction(
         Request $request,
+        PermissionHelper $permissionHelper,
+        ControllerHelper $controllerHelper,
+        ViewHelper $viewHelper,
         $sort,
         $sortdir,
         $pos,
         $num
     ) {
-        return $this->viewInternal($request, $sort, $sortdir, $pos, $num, false);
+        return $this->viewInternal($request, $permissionHelper, $controllerHelper, $viewHelper, $sort, $sortdir, $pos, $num, false);
     }
     
     /**
@@ -104,9 +120,13 @@ class EntryController extends AbstractEntryController
      * @Theme("admin")
      */
     public function adminEditAction(
-        Request $request
+        Request $request,
+        PermissionHelper $permissionHelper,
+        ControllerHelper $controllerHelper,
+        ViewHelper $viewHelper,
+        EditHandler $formHandler
     ) {
-        return $this->editInternal($request, true);
+        return $this->editInternal($request, $permissionHelper, $controllerHelper, $viewHelper, $formHandler, true);
     }
     
     /**
@@ -119,9 +139,13 @@ class EntryController extends AbstractEntryController
      * )
      */
     public function editAction(
-        Request $request
+        Request $request,
+        PermissionHelper $permissionHelper,
+        ControllerHelper $controllerHelper,
+        ViewHelper $viewHelper,
+        EditHandler $formHandler
     ) {
-        return $this->editInternal($request, false);
+        return $this->editInternal($request, $permissionHelper, $controllerHelper, $viewHelper, $formHandler, false);
     }
     
     /**
@@ -132,9 +156,13 @@ class EntryController extends AbstractEntryController
      * @Theme("admin")
      */
     public function adminHandleSelectedEntriesAction(
-        Request $request
+        Request $request,
+        EntityFactory $entityFactory,
+        WorkflowHelper $workflowHelper,
+        HookHelper $hookHelper,
+        CurrentUserApiInterface $currentUserApi
     ) {
-        return $this->handleSelectedEntriesActionInternal($request, true);
+        return $this->handleSelectedEntriesActionInternal($request, $entityFactory, $workflowHelper, $hookHelper, $currentUserApi, true);
     }
     
     /**
@@ -144,9 +172,13 @@ class EntryController extends AbstractEntryController
      * )
      */
     public function handleSelectedEntriesAction(
-        Request $request
+        Request $request,
+        EntityFactory $entityFactory,
+        WorkflowHelper $workflowHelper,
+        HookHelper $hookHelper,
+        CurrentUserApiInterface $currentUserApi
     ) {
-        return $this->handleSelectedEntriesActionInternal($request, false);
+        return $this->handleSelectedEntriesActionInternal($request, $entityFactory, $workflowHelper, $hookHelper, $currentUserApi, false);
     }
     
     // feel free to add your own controller methods here

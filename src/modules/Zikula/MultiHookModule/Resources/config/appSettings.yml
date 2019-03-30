@@ -1,5 +1,0 @@
-services:
-    zikula_multihook_module.app_settings:
-        class: Zikula\MultiHookModule\AppSettings
-        arguments:
-            - "@zikula_extensions_module.api.variable"

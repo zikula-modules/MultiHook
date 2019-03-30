@@ -16,21 +16,21 @@
         "psr-4": { "Zikula\\MultiHookModule\\": "" }
     },
     "require": {
-        "php": ">=5.5.9"
+        "php": ">=7.2.0"
     },
     "require-dev": {
         "jakub-onderka/php-parallel-lint": "^1",
         "pdepend/pdepend": "^2",
-        "phploc/phploc": "^4",
+        "phploc/phploc": "^5",
         "phpmd/phpmd": "^2",
-        "phpunit/phpunit": "^5",
-        "sebastian/phpcpd": "^3",
+        "phpunit/phpunit": "^8",
+        "sebastian/phpcpd": "^4",
         "squizlabs/php_codesniffer": "^3",
         "theseer/phpdox": "^0"
     },
     "extra": {
         "zikula": {
-            "core-compatibility": ">=2.0.12 <3.0.0",
+            "core-compatibility": ">=3.0.0 <4.0.0",
             "class": "Zikula\\MultiHookModule\\ZikulaMultiHookModule",
             "displayname": "Multi hook",
             "url": "multihook",
@@ -49,9 +49,6 @@
         "vendor-dir": "vendor",
         "preferred-install": "dist",
         "optimize-autoloader": true,
-        "platform": {
-            "php": "7.0.30"
-        },
         "sort-packages": true
     }
 }

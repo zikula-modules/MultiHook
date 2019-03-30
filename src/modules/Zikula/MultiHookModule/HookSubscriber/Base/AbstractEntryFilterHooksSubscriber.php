@@ -58,6 +58,14 @@ abstract class AbstractEntryFilterHooksSubscriber implements HookSubscriberInter
     {
         return $this->translator->__('Entry filter hooks subscriber');
     }
+    
+    /**
+     * @inheritDoc
+     */
+    public function getAreaName()
+    {
+        return 'subscriber.zikulamultihookmodule.filter_hooks.entries';
+    }
 
     /**
      * @inheritDoc

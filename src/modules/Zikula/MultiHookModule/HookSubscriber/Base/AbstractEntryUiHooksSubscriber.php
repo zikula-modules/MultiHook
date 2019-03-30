@@ -58,6 +58,14 @@ abstract class AbstractEntryUiHooksSubscriber implements HookSubscriberInterface
     {
         return $this->translator->__('Entry ui hooks subscriber');
     }
+    
+    /**
+     * @inheritDoc
+     */
+    public function getAreaName()
+    {
+        return 'subscriber.zikulamultihookmodule.ui_hooks.entries';
+    }
 
     /**
      * @inheritDoc

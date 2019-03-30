@@ -14,7 +14,7 @@ namespace Zikula\MultiHookModule\Helper\Base;
 use Symfony\Bundle\TwigBundle\Loader\FilesystemLoader;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Twig_Environment;
+use Twig\Environment;
 use Zikula\Core\Response\PlainResponse;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 use Zikula\ThemeModule\Engine\AssetFilter;
@@ -27,7 +27,7 @@ use Zikula\MultiHookModule\Helper\PermissionHelper;
 abstract class AbstractViewHelper
 {
     /**
-     * @var Twig_Environment
+     * @var Environment
      */
     protected $twig;
     
@@ -64,7 +64,7 @@ abstract class AbstractViewHelper
     /**
      * ViewHelper constructor.
      *
-     * @param Twig_Environment $twig
+     * @param Environment $twig
      * @param FilesystemLoader $twigLoader
      * @param RequestStack $requestStack
      * @param VariableApiInterface $variableApi
@@ -75,7 +75,7 @@ abstract class AbstractViewHelper
      * @return void
      */
     public function __construct(
-        Twig_Environment $twig,
+        Environment $twig,
         FilesystemLoader $twigLoader,
         RequestStack $requestStack,
         VariableApiInterface $variableApi,

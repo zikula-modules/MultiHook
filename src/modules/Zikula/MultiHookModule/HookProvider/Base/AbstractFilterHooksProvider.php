@@ -62,6 +62,14 @@ abstract class AbstractFilterHooksProvider implements HookProviderInterface
     {
         return $this->translator->__('Multi hook filter hooks provider');
     }
+    
+    /**
+     * @inheritDoc
+     */
+    public function getAreaName()
+    {
+        return 'provider.zikulamultihookmodule.filter_hooks.multihook';
+    }
 
     /**
      * @inheritDoc

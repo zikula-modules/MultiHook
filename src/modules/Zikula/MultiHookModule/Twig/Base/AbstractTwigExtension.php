@@ -11,7 +11,9 @@
 
 namespace Zikula\MultiHookModule\Twig\Base;
 
-use Twig_Extension;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 use Zikula\Common\Translator\TranslatorInterface;
 use Zikula\Common\Translator\TranslatorTrait;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
@@ -22,7 +24,7 @@ use Zikula\MultiHookModule\Helper\WorkflowHelper;
 /**
  * Twig extension base class.
  */
-abstract class AbstractTwigExtension extends Twig_Extension
+abstract class AbstractTwigExtension extends AbstractExtension
 {
     use TranslatorTrait;
     
@@ -82,27 +84,27 @@ abstract class AbstractTwigExtension extends Twig_Extension
     /**
      * Returns a list of custom Twig functions.
      *
-     * @return \Twig_SimpleFunction[] List of functions
+     * @return TwigFunction[] List of functions
      */
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('zikulamultihookmodule_objectTypeSelector', [$this, 'getObjectTypeSelector']),
-            new \Twig_SimpleFunction('zikulamultihookmodule_templateSelector', [$this, 'getTemplateSelector'])
+            new TwigFunction('zikulamultihookmodule_objectTypeSelector', [$this, 'getObjectTypeSelector']),
+            new TwigFunction('zikulamultihookmodule_templateSelector', [$this, 'getTemplateSelector'])
         ];
     }
     
     /**
      * Returns a list of custom Twig filters.
      *
-     * @return \Twig_SimpleFilter[] List of filters
+     * @return TwigFilter[] List of filters
      */
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter('zikulamultihookmodule_listEntry', [$this, 'getListEntry']),
-            new \Twig_SimpleFilter('zikulamultihookmodule_formattedTitle', [$this, 'getFormattedEntityTitle']),
-            new \Twig_SimpleFilter('zikulamultihookmodule_objectState', [$this, 'getObjectState'], ['is_safe' => ['html']])
+            new TwigFilter('zikulamultihookmodule_listEntry', [$this, 'getListEntry']),
+            new TwigFilter('zikulamultihookmodule_formattedTitle', [$this, 'getFormattedEntityTitle']),
+            new TwigFilter('zikulamultihookmodule_objectState', [$this, 'getObjectState'], ['is_safe' => ['html']])
         ];
     }
     

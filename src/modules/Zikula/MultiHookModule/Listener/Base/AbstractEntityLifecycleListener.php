@@ -161,7 +161,7 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
         
         $objectType = $entity->get_objectType();
         
-        $currentUserApi = $this->container->get('zikula_users_module.current_user');
+        $currentUserApi = $this->container->get(CurrentUserApi::class);
         $logArgs = ['app' => 'ZikulaMultiHookModule', 'user' => $currentUserApi->get('uname'), 'entity' => $objectType, 'id' => $entity->getKey()];
         $this->logger->debug('{app}: User {user} removed the {entity} with id {id}.', $logArgs);
         
@@ -213,7 +213,7 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
             return;
         }
         
-        $currentUserApi = $this->container->get('zikula_users_module.current_user');
+        $currentUserApi = $this->container->get(CurrentUserApi::class);
         $logArgs = ['app' => 'ZikulaMultiHookModule', 'user' => $currentUserApi->get('uname'), 'entity' => $entity->get_objectType(), 'id' => $entity->getKey()];
         $this->logger->debug('{app}: User {user} created the {entity} with id {id}.', $logArgs);
         
@@ -260,7 +260,7 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
             return;
         }
         
-        $currentUserApi = $this->container->get('zikula_users_module.current_user');
+        $currentUserApi = $this->container->get(CurrentUserApi::class);
         $logArgs = ['app' => 'ZikulaMultiHookModule', 'user' => $currentUserApi->get('uname'), 'entity' => $entity->get_objectType(), 'id' => $entity->getKey()];
         $this->logger->debug('{app}: User {user} updated the {entity} with id {id}.', $logArgs);
         

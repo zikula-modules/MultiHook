@@ -48,6 +48,11 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
     private $needleCollector;
 
     /**
+     * @var PermissionHelper
+     */
+    private $permissionHelper;
+
+    /**
      * @var HookHelper
      */
     private $hookHelper;
@@ -62,55 +67,12 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
      */
     private $assetHelper;
 
-    public function setRequestStack(RequestStack $requestStack)
-    {
-        $this->requestStack = $requestStack;
-    }
-
-    public function setVariableApi(VariableApiInterface $variableApi)
-    {
-        $this->variableApi = $variableApi;
-    }
-
-    public function setEntryProviderCollector(EntryProviderCollector $entryProviderCollector)
-    {
-        $this->entryProviderCollector = $entryProviderCollector;
-    }
-
-    public function setNeedleCollector(NeedleCollector $needleCollector)
-    {
-        $this->needleCollector = $needleCollector;
-    }
-
-    public function setHookHelper(HookHelper $hookHelper)
-    {
-        $this->hookHelper = $hookHelper;
-    }
-
-    public function setPermissionHelper(PermissionHelper $permissionHelper)
-    {
-        $this->permissionHelper = $permissionHelper;
-    }
-
-    public function setPageAssetApi(PageAssetApiInterface $pageAssetApi)
-    {
-        $this->pageAssetApi = $pageAssetApi;
-    }
-
-    public function setAssetHelper(Asset $assetHelper)
-    {
-        $this->assetHelper = $assetHelper;
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function applyFilter(FilterHook $hook)
     {
         $request = $this->requestStack->getCurrentRequest();
 
         // check the user agent - if it is a bot, return immediately to avoid performance impact
-        $robotslist = [
+        $robots = [
             'ia_archiver',
             'googlebot',
             'mediapartners-google',
@@ -120,10 +82,12 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
             'jeeves',
             'lycos'
         ];
-        $userAgent = $request->server->get('HTTP_USER_AGENT');
-        for ($cnt = 0; $cnt < count($robotslist); $cnt++) {
-            if (false !== strpos(strtolower($userAgent), $robotslist[$cnt])) {
-                return;
+        if (null !== $request) {
+            $userAgent = $request->server->get('HTTP_USER_AGENT');
+            foreach ($robots as $robot) {
+                if (false !== strpos(strtolower($userAgent), $robot)) {
+                    return;
+                }
             }
         }
 
@@ -263,28 +227,28 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
                 // check if the current tmp is a link
                 //save original long
                 $entry['long_original'] = $entry['longform'];
-                if ('link' == $entry['type']) {
+                if ('link' === $entry['type']) {
                     $entry['longform'] = $this->hookHelper->createAbsoluteUrl($entry['longform'], $baseUrl);
                 }
 
                 $entry['longform'] = preg_replace('/(\b)/', '\\1MULTIHOOKTEMPORARY', $entry['longform']);
                 $entry['title'] = preg_replace('/(\b)/', '\\1MULTIHOOKTEMPORARY', $entry['title']);
 
-                if ('abbr' == $entry['type']) {
+                if ('abbr' === $entry['type']) {
                     $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($entry['shortform'], '/'). ')(?![\/\w@])(?!\.\w)/i';
                     $search[] = $search_temp;
                     $replace[] = md5($search_temp);
                     $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
                     $finalreplace[] = $this->hookHelper->createAbbr($entry, $showEditLink);
                     unset($search_temp);
-                } elseif ('acronym' == $entry['type']) {
+                } elseif ('acronym' === $entry['type']) {
                     $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($entry['shortform'], '/'). ')(?![\/\w@])(?!\.\w)/i';
                     $search[] = $search_temp;
                     $replace[] = md5($search_temp);
                     $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
                     $finalreplace[] = $this->hookHelper->createAcronym($entry, $showEditLink);
                     unset($search_temp);
-                } elseif ('link' == $entry['type']) {
+                } elseif ('link' === $entry['type']) {
                     // don't show link if the target is the current url
                     if (in_array($entry['long_original'], [$request->getUri(), $request->getRequestUri()])) {
                         continue;
@@ -292,7 +256,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
 
                     // if short beginns with a single ' we need another regexp to not check for \w
                     // this enables autolinks for german deppenapostrophs :-)
-                    if ($entry['shortform'][0] == '\'') {
+                    if ('\'' === $entry['shortform'][0]) {
                         $search_temp = '/(?<![\/@\.:-])(' . preg_quote($entry['shortform'], '/'). ')(?![\/\w@-])(?!\.\w)/i';
                     } else {
                         $search_temp = '/(?<![\/\w@\.:-])(' . preg_quote($entry['shortform'], '/'). ')(?![\/\w@:-])(?!\.\w)/i';
@@ -302,7 +266,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
                     $finalsearch[] = '/' . preg_quote(md5($search_temp), '/') . '/';
                     $finalreplace[] = $this->hookHelper->createLink($entry, $showEditLink);
                     unset($search_temp);
-                } elseif ('censor' == $entry['type']) {
+                } elseif ('censor' === $entry['type']) {
                     // original censored word
                     if (false === $replaceCensoredWordsWhenTheyArePartOfOtherWords) {
                         $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($entry['shortform'], '/'). ')(?![\/\w@])(?!\.\w)/i';
@@ -352,7 +316,8 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
                             if (is_array($needleResults) && count($needleResults[0]) > 0) {
                                 // complete needle in $needleResults[0], needle id in $needleResults[1]
                                 // both are arrays
-                                for ($ncnt = 0; $ncnt < count($needleResults[0]); $ncnt++) {
+                                $amountOfNeedleResults = count($needleResults[0]);
+                                for ($ncnt = 0; $ncnt < $amountOfNeedleResults; $ncnt++) {
                                     $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($needleResults[0][$ncnt], '/'). ')(?![\/\w@:-])(?!\.\w)/';
                                     $search[] = $search_temp;
                                     $replace[] = md5($search_temp);
@@ -419,5 +384,69 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
 
         //dump($text);
         $hook->setData($text);
+    }
+
+    /**
+     * @required
+     */
+    public function setRequestStack(RequestStack $requestStack): void
+    {
+        $this->requestStack = $requestStack;
+    }
+
+    /**
+     * @required
+     */
+    public function setVariableApi(VariableApiInterface $variableApi): void
+    {
+        $this->variableApi = $variableApi;
+    }
+
+    /**
+     * @required
+     */
+    public function setEntryProviderCollector(EntryProviderCollector $entryProviderCollector): void
+    {
+        $this->entryProviderCollector = $entryProviderCollector;
+    }
+
+    /**
+     * @required
+     */
+    public function setNeedleCollector(NeedleCollector $needleCollector): void
+    {
+        $this->needleCollector = $needleCollector;
+    }
+
+    /**
+     * @required
+     */
+    public function setHookHelper(HookHelper $hookHelper): void
+    {
+        $this->hookHelper = $hookHelper;
+    }
+
+    /**
+     * @required
+     */
+    public function setPermissionHelper(PermissionHelper $permissionHelper): void
+    {
+        $this->permissionHelper = $permissionHelper;
+    }
+
+    /**
+     * @required
+     */
+    public function setPageAssetApi(PageAssetApiInterface $pageAssetApi): void
+    {
+        $this->pageAssetApi = $pageAssetApi;
+    }
+
+    /**
+     * @required
+     */
+    public function setAssetHelper(Asset $assetHelper): void
+    {
+        $this->assetHelper = $assetHelper;
     }
 }
