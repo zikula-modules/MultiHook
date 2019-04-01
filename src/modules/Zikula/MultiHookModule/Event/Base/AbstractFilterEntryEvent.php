@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -29,12 +32,6 @@ class AbstractFilterEntryEvent extends Event
      */
     protected $entityChangeSet = [];
 
-    /**
-     * FilterEntryEvent constructor.
-     *
-     * @param EntryEntity $entry Processed entity
-     * @param array $entityChangeSet Change set for preUpdate events
-     */
     public function __construct(EntryEntity $entry, array $entityChangeSet = [])
     {
         $this->entry = $entry;
@@ -42,21 +39,17 @@ class AbstractFilterEntryEvent extends Event
     }
 
     /**
-     * Returns the entity.
-     *
      * @return EntryEntity
      */
-    public function getEntry()
+    public function getEntry(): EntryEntity
     {
         return $this->entry;
     }
 
     /**
-     * Returns the change set.
-     *
      * @return array Entity change set
      */
-    public function getEntityChangeSet()
+    public function getEntityChangeSet(): array
     {
         return $this->entityChangeSet;
     }

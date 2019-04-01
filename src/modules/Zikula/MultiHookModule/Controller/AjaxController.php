@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -14,7 +17,6 @@ namespace Zikula\MultiHookModule\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Zikula\UsersModule\Api\ApiInterface\CurrentUserApiInterface;
 use Zikula\MultiHookModule\Controller\Base\AbstractAjaxController;
 use Zikula\MultiHookModule\Entity\Factory\EntityFactory;
@@ -35,7 +37,7 @@ class AjaxController extends AbstractAjaxController
         Request $request,
         EntityFactory $entityFactory,
         CurrentUserApiInterface $currentUserApi
-    )
+    ): JsonResponse
      {
         return parent::toggleFlagAction($request, $entityFactory, $currentUserApi);
     }

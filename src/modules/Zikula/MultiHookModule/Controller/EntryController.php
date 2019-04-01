@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -12,13 +15,10 @@
 namespace Zikula\MultiHookModule\Controller;
 
 use Zikula\MultiHookModule\Controller\Base\AbstractEntryController;
-
-use RuntimeException;
-
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Zikula\ThemeModule\Engine\Annotation\Theme;
 use Zikula\UsersModule\Api\ApiInterface\CurrentUserApiInterface;
 use Zikula\MultiHookModule\Entity\EntryEntity;
@@ -36,7 +36,6 @@ use Zikula\MultiHookModule\Helper\WorkflowHelper;
 class EntryController extends AbstractEntryController
 {
     /**
-     * @inheritDoc
      *
      * @Route("/admin/entries",
      *        methods = {"GET"}
@@ -46,12 +45,11 @@ class EntryController extends AbstractEntryController
     public function adminIndexAction(
         Request $request,
         PermissionHelper $permissionHelper
-    ) {
+    ): Response {
         return $this->indexInternal($request, $permissionHelper, true);
     }
     
     /**
-     * @inheritDoc
      *
      * @Route("/entries",
      *        methods = {"GET"}
@@ -60,12 +58,11 @@ class EntryController extends AbstractEntryController
     public function indexAction(
         Request $request,
         PermissionHelper $permissionHelper
-    ) {
+    ): Response {
         return $this->indexInternal($request, $permissionHelper, false);
     }
     
     /**
-     * @inheritDoc
      *
      * @Route("/admin/entries/view/{sort}/{sortdir}/{pos}/{num}.{_format}",
      *        requirements = {"sortdir" = "asc|desc|ASC|DESC", "pos" = "\d+", "num" = "\d+", "_format" = "html"},
@@ -79,16 +76,15 @@ class EntryController extends AbstractEntryController
         PermissionHelper $permissionHelper,
         ControllerHelper $controllerHelper,
         ViewHelper $viewHelper,
-        $sort,
-        $sortdir,
-        $pos,
-        $num
-    ) {
+        string $sort,
+        string $sortdir,
+        int $pos,
+        int $num
+    ): Response {
         return $this->viewInternal($request, $permissionHelper, $controllerHelper, $viewHelper, $sort, $sortdir, $pos, $num, true);
     }
     
     /**
-     * @inheritDoc
      *
      * @Route("/entries/view/{sort}/{sortdir}/{pos}/{num}.{_format}",
      *        requirements = {"sortdir" = "asc|desc|ASC|DESC", "pos" = "\d+", "num" = "\d+", "_format" = "html"},
@@ -101,16 +97,15 @@ class EntryController extends AbstractEntryController
         PermissionHelper $permissionHelper,
         ControllerHelper $controllerHelper,
         ViewHelper $viewHelper,
-        $sort,
-        $sortdir,
-        $pos,
-        $num
-    ) {
+        string $sort,
+        string $sortdir,
+        int $pos,
+        int $num
+    ): Response {
         return $this->viewInternal($request, $permissionHelper, $controllerHelper, $viewHelper, $sort, $sortdir, $pos, $num, false);
     }
     
     /**
-     * @inheritDoc
      *
      * @Route("/admin/entry/edit/{id}.{_format}",
      *        requirements = {"id" = "\d+", "_format" = "html"},
@@ -125,12 +120,11 @@ class EntryController extends AbstractEntryController
         ControllerHelper $controllerHelper,
         ViewHelper $viewHelper,
         EditHandler $formHandler
-    ) {
+    ): Response {
         return $this->editInternal($request, $permissionHelper, $controllerHelper, $viewHelper, $formHandler, true);
     }
     
     /**
-     * @inheritDoc
      *
      * @Route("/entry/edit/{id}.{_format}",
      *        requirements = {"id" = "\d+", "_format" = "html"},
@@ -144,11 +138,13 @@ class EntryController extends AbstractEntryController
         ControllerHelper $controllerHelper,
         ViewHelper $viewHelper,
         EditHandler $formHandler
-    ) {
+    ): Response {
         return $this->editInternal($request, $permissionHelper, $controllerHelper, $viewHelper, $formHandler, false);
     }
     
     /**
+     * Process status changes for multiple items.
+     *
      * @inheritDoc
      * @Route("/admin/entries/handleSelectedEntries",
      *        methods = {"POST"}
@@ -161,11 +157,13 @@ class EntryController extends AbstractEntryController
         WorkflowHelper $workflowHelper,
         HookHelper $hookHelper,
         CurrentUserApiInterface $currentUserApi
-    ) {
+    ): RedirectResponse {
         return $this->handleSelectedEntriesActionInternal($request, $entityFactory, $workflowHelper, $hookHelper, $currentUserApi, true);
     }
     
     /**
+     * Process status changes for multiple items.
+     *
      * @inheritDoc
      * @Route("/entries/handleSelectedEntries",
      *        methods = {"POST"}
@@ -177,7 +175,7 @@ class EntryController extends AbstractEntryController
         WorkflowHelper $workflowHelper,
         HookHelper $hookHelper,
         CurrentUserApiInterface $currentUserApi
-    ) {
+    ): RedirectResponse {
         return $this->handleSelectedEntriesActionInternal($request, $entityFactory, $workflowHelper, $hookHelper, $currentUserApi, false);
     }
     

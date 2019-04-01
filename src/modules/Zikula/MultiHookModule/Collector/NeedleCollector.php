@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -37,10 +40,8 @@ class NeedleCollector
 
     /**
      * Adds a needle to the collection.
-     *
-     * @param NeedleInterface $needle
      */
-    public function add(NeedleInterface $needle)
+    public function add(NeedleInterface $needle): void
     {
         $id = str_replace('\\', '_', get_class($needle));
 
@@ -74,7 +75,7 @@ class NeedleCollector
      */
     public function getActive(): iterable
     {
-        return array_filter($this->getAll(), function(NeedleInterface $item) {
+        return array_filter($this->getAll(), static function(NeedleInterface $item) {
             return $item->isActive();
         });
     }
@@ -82,9 +83,9 @@ class NeedleCollector
     /**
      * Sorts available needles by their title.
      */
-    private function sortNeedles() {
+    private function sortNeedles(): void {
         $needles = $this->needles;
-        usort($needles, function (NeedleInterface $a, NeedleInterface $b) {
+        usort($needles, static function(NeedleInterface $a, NeedleInterface $b) {
             return strcmp($a->getTitle(), $b->getTitle());
         });
         $this->needles = $needles;

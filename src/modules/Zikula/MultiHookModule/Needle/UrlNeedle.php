@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -12,13 +15,14 @@
 namespace Zikula\MultiHookModule\Needle;
 
 use Symfony\Component\HttpFoundation\RequestStack;
+use Zikula\Common\MultiHook\NeedleInterface;
 use Zikula\Common\Translator\TranslatorInterface;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 
 /**
  * URL needle
  */
-class UrlNeedle
+class UrlNeedle implements NeedleInterface
 {
     /**
      * @var TranslatorInterface
@@ -112,15 +116,15 @@ class UrlNeedle
             return $needleId;
         }
 
-        $request = $this->requestStack->getCurrentRequest();
-        $baseUrl = $request->getSchemeAndHttpHost() . $request->getBasePath();
-
         // simple replacement, no need to cache anything
         $url = htmlspecialchars($needleText . $needleId);
-
         $extclass = '';
-        if (false === stripos($baseUrl, $url)) {
-            if (!empty($this->cssClassForExternalLinks)) {
+
+        $request = $this->requestStack->getCurrentRequest();
+        if (null !== $request) {
+            $baseUrl = $request->getSchemeAndHttpHost() . $request->getBasePath();
+
+            if (!empty($this->cssClassForExternalLinks) && false === stripos($baseUrl, $url)) {
                 $extclass = ' class="' . $this->cssClassForExternalLinks . '"';
             }
         }

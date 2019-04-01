@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -28,19 +31,13 @@ abstract class AbstractAjaxController extends AbstractController
     /**
      * Changes a given flag (boolean field) by switching between true and false.
      *
-     * @param Request $request
-     * @param EntityFactory $entityFactory
-     * @param CurrentUserApiInterface $currentUserApi
-     *
-     * @return JsonResponse
-     *
      * @throws AccessDeniedException Thrown if the user doesn't have required permissions
      */
     public function toggleFlagAction(
         Request $request,
         EntityFactory $entityFactory,
         CurrentUserApiInterface $currentUserApi
-    )
+    ): JsonResponse
      {
         if (!$request->isXmlHttpRequest()) {
             return $this->json($this->__('Only ajax access is allowed!'), Response::HTTP_BAD_REQUEST);
@@ -51,12 +48,12 @@ abstract class AbstractAjaxController extends AbstractController
         }
         
         $objectType = $request->request->getAlnum('ot', 'entry');
-        $field = $request->request->getAlnum('field', '');
-        $id = $request->request->getInt('id', 0);
+        $field = $request->request->getAlnum('field');
+        $id = $request->request->getInt('id');
         
-        if ($id == 0
-            || ($objectType != 'entry')
-        || ($objectType == 'entry' && !in_array($field, ['active']))
+        if (0 === $id
+            || ('entry' !== $objectType)
+        || ('entry' === $objectType && !in_array($field, ['active'], true))
         ) {
             return $this->json($this->__('Error: invalid input.'), JsonResponse::HTTP_BAD_REQUEST);
         }
@@ -72,7 +69,7 @@ abstract class AbstractAjaxController extends AbstractController
         $entity[$field] = !$entity[$field];
         
         // save entity back to database
-        $entityFactory->getEntityManager()->flush($entity);
+        $entityFactory->getEntityManager()->flush();
         
         $logger = $this->get('logger');
         $logArgs = ['app' => 'ZikulaMultiHookModule', 'user' => $currentUserApi->get('uname'), 'field' => $field, 'entity' => $objectType, 'id' => $id];

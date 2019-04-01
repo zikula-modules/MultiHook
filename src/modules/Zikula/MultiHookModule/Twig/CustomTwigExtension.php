@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -11,14 +14,15 @@
 
 namespace Zikula\MultiHookModule\Twig;
 
-use Twig_Extension;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 use Zikula\MultiHookModule\Collector\EntryProviderCollector;
 use Zikula\MultiHookModule\Collector\NeedleCollector;
 
 /**
  * Twig extension implementation class.
  */
-class CustomTwigExtension extends Twig_Extension
+class CustomTwigExtension extends AbstractExtension
 {
     /**
      * @var EntryProviderCollector
@@ -30,12 +34,6 @@ class CustomTwigExtension extends Twig_Extension
      */
     protected $needleCollector;
 
-    /**
-     * CustomTwigExtension constructor.
-     *
-     * @param EntryProviderCollector $entryProviderCollector
-     * @param NeedleCollector        $needleCollector
-     */
     public function __construct(
         EntryProviderCollector $entryProviderCollector,
         NeedleCollector $needleCollector
@@ -44,16 +42,11 @@ class CustomTwigExtension extends Twig_Extension
         $this->needleCollector = $needleCollector;
     }
 
-    /**
-     * Returns a list of custom Twig functions.
-     *
-     * @return \Twig_SimpleFunction[] List of functions
-     */
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('zikulamultihookmodule_getEntryProviders', [$this, 'getEntryProviders']),
-            new \Twig_SimpleFunction('zikulamultihookmodule_getNeedles', [$this, 'getNeedles'])
+            new TwigFunction('zikulamultihookmodule_getEntryProviders', [$this, 'getEntryProviders']),
+            new TwigFunction('zikulamultihookmodule_getNeedles', [$this, 'getNeedles'])
         ];
     }
 
@@ -62,12 +55,8 @@ class CustomTwigExtension extends Twig_Extension
      * Examples:
      *    {% set entryProviders = zikulamultihookmodule_getEntryProviders() %}     {# only active ones #}
      *    {% set entryProviders = zikulamultihookmodule_getEntryProviders(true) %} {# also inactive ones #}
-     *
-     * @param boolean $includeInactive Whether also inactive entry providers should be returned or not (default false)
-     *
-     * @return array
      */
-    public function getEntryProviders($includeInactive = false)
+    public function getEntryProviders(bool $includeInactive = false): array
     {
         if (true === $includeInactive) {
             return $this->entryProviderCollector->getAll();
@@ -81,12 +70,8 @@ class CustomTwigExtension extends Twig_Extension
      * Examples:
      *    {% set needles = zikulamultihookmodule_getNeedles() %}     {# only active ones #}
      *    {% set needles = zikulamultihookmodule_getNeedles(true) %} {# also inactive ones #}
-     *
-     * @param boolean $includeInactive Whether also inactive needles should be returned or not (default false)
-     *
-     * @return array
      */
-    public function getNeedles($includeInactive = false)
+    public function getNeedles(bool $includeInactive = false): array
     {
         if (true === $includeInactive) {
             return $this->needleCollector->getAll();

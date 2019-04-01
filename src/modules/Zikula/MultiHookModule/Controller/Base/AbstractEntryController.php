@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -11,16 +14,17 @@
 
 namespace Zikula\MultiHookModule\Controller\Base;
 
+use Exception;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Zikula\Bundle\HookBundle\Category\UiHooksCategory;
 use Zikula\Component\SortableColumns\Column;
 use Zikula\Component\SortableColumns\SortableColumns;
 use Zikula\Core\Controller\AbstractController;
-use Zikula\Core\RouteUrl;
 use Zikula\UsersModule\Api\ApiInterface\CurrentUserApiInterface;
 use Zikula\MultiHookModule\Entity\EntryEntity;
 use Zikula\MultiHookModule\Entity\Factory\EntityFactory;
@@ -40,18 +44,13 @@ abstract class AbstractEntryController extends AbstractController
     /**
      * This is the default action handling the index area called without defining arguments.
      *
-     * @param Request $request
-     * @param PermissionHelper $permissionHelper
-     *
-     * @return Response Output
-     *
      * @throws AccessDeniedException Thrown if the user doesn't have required permissions
      */
     protected function indexInternal(
         Request $request,
         PermissionHelper $permissionHelper,
-        $isAdmin = false
-    ) {
+        bool $isAdmin = false
+    ): Response {
         $objectType = 'entry';
         // permission check
         $permLevel = $isAdmin ? ACCESS_ADMIN : ACCESS_OVERVIEW;
@@ -70,26 +69,20 @@ abstract class AbstractEntryController extends AbstractController
     /**
      * This action provides an item list overview.
      *
-     * @param Request $request
-     * @param PermissionHelper $permissionHelper
-     * @param ControllerHelper $controllerHelper
-     * @param ViewHelper $viewHelper
-     *
-     * @return Response Output
-     *
      * @throws AccessDeniedException Thrown if the user doesn't have required permissions
+     * @throws Exception
      */
     protected function viewInternal(
         Request $request,
         PermissionHelper $permissionHelper,
         ControllerHelper $controllerHelper,
         ViewHelper $viewHelper,
-        $sort,
-        $sortdir,
-        $pos,
-        $num,
-        $isAdmin = false
-    ) {
+        string $sort,
+        string $sortdir,
+        int $pos,
+        int $num,
+        bool $isAdmin = false
+    ): Response {
         $objectType = 'entry';
         // permission check
         $permLevel = $isAdmin ? ACCESS_ADMIN : ACCESS_READ;
@@ -105,7 +98,9 @@ abstract class AbstractEntryController extends AbstractController
         $request->query->set('sortdir', $sortdir);
         $request->query->set('pos', $pos);
         
-        $sortableColumns = new SortableColumns($this->get('router'), 'zikulamultihookmodule_entry_' . ($isAdmin ? 'admin' : '') . 'view', 'sort', 'sortdir');
+        /** @var RouterInterface $router */
+        $router = $this->get('router');
+        $sortableColumns = new SortableColumns($router, 'zikulamultihookmodule_entry_' . ($isAdmin ? 'admin' : '') . 'view', 'sort', 'sortdir');
         
         $sortableColumns->addColumns([
             new Column('shortForm'),
@@ -139,16 +134,9 @@ abstract class AbstractEntryController extends AbstractController
     /**
      * This action provides a handling of edit requests.
      *
-     * @param Request $request
-     * @param PermissionHelper $permissionHelper
-     * @param ControllerHelper $controllerHelper
-     * @param ViewHelper $viewHelper
-     * @param EditHandler $formHandler
-     *
-     * @return Response Output
-     *
      * @throws AccessDeniedException Thrown if the user doesn't have required permissions
      * @throws RuntimeException Thrown if another critical error occurs (e.g. workflow actions not available)
+     * @throws Exception
      */
     protected function editInternal(
         Request $request,
@@ -156,8 +144,8 @@ abstract class AbstractEntryController extends AbstractController
         ControllerHelper $controllerHelper,
         ViewHelper $viewHelper,
         EditHandler $formHandler,
-        $isAdmin = false
-    ) {
+        bool $isAdmin = false
+    ): Response {
         $objectType = 'entry';
         // permission check
         $permLevel = $isAdmin ? ACCESS_ADMIN : ACCESS_EDIT;
@@ -190,15 +178,6 @@ abstract class AbstractEntryController extends AbstractController
      * This function processes the items selected in the admin view page.
      * Multiple items may have their state changed or be deleted.
      *
-     * @param Request $request
-     * @param EntityFactory $entityFactory
-     * @param WorkflowHelper $workflowHelper
-     * @param HookHelper $hookHelper
-     * @param CurrentUserApiInterface $currentUserApi
-     * @param boolean $isAdmin Whether the admin area is used or not
-     *
-     * @return RedirectResponse
-     *
      * @throws RuntimeException Thrown if executing the workflow action fails
      */
     protected function handleSelectedEntriesActionInternal(
@@ -207,13 +186,13 @@ abstract class AbstractEntryController extends AbstractController
         WorkflowHelper $workflowHelper,
         HookHelper $hookHelper,
         CurrentUserApiInterface $currentUserApi,
-        $isAdmin = false
-    ) {
+        bool $isAdmin = false
+    ): RedirectResponse {
         $objectType = 'entry';
         
         // Get parameters
-        $action = $request->request->get('action', null);
-        $items = $request->request->get('items', null);
+        $action = $request->request->get('action');
+        $items = $request->request->get('items');
         if (!is_array($items) || !count($items)) {
             return $this->redirectToRoute('zikulamultihookmodule_entry_' . ($isAdmin ? 'admin' : '') . 'index');
         }
@@ -235,14 +214,14 @@ abstract class AbstractEntryController extends AbstractController
             // check if $action can be applied to this entity (may depend on it's current workflow state)
             $allowedActions = $workflowHelper->getActionsForObject($entity);
             $actionIds = array_keys($allowedActions);
-            if (!in_array($action, $actionIds)) {
+            if (!in_array($action, $actionIds, true)) {
                 // action not allowed, skip this object
                 continue;
             }
         
             if ($entity->supportsHookSubscribers()) {
                 // Let any ui hooks perform additional validation actions
-                $hookType = $action == 'delete' ? UiHooksCategory::TYPE_VALIDATE_DELETE : UiHooksCategory::TYPE_VALIDATE_EDIT;
+                $hookType = 'delete' === $action ? UiHooksCategory::TYPE_VALIDATE_DELETE : UiHooksCategory::TYPE_VALIDATE_EDIT;
                 $validationErrors = $hookHelper->callValidationHooks($entity, $hookType);
                 if (count($validationErrors) > 0) {
                     foreach ($validationErrors as $message) {
@@ -256,7 +235,7 @@ abstract class AbstractEntryController extends AbstractController
             try {
                 // execute the workflow action
                 $success = $workflowHelper->executeAction($entity, $action);
-            } catch (\Exception $exception) {
+            } catch (Exception $exception) {
                 $this->addFlash('error', $this->__f('Sorry, but an error occured during the %action% action.', ['%action%' => $action]) . '  ' . $exception->getMessage());
                 $logger->error('{app}: User {user} tried to execute the {action} workflow action for the {entity} with id {id}, but failed. Error details: {errorMessage}.', ['app' => 'ZikulaMultiHookModule', 'user' => $userName, 'action' => $action, 'entity' => 'entry', 'id' => $itemId, 'errorMessage' => $exception->getMessage()]);
             }
@@ -265,7 +244,7 @@ abstract class AbstractEntryController extends AbstractController
                 continue;
             }
         
-            if ($action == 'delete') {
+            if ('delete' === $action) {
                 $this->addFlash('status', $this->__('Done! Item deleted.'));
                 $logger->notice('{app}: User {user} deleted the {entity} with id {id}.', ['app' => 'ZikulaMultiHookModule', 'user' => $userName, 'entity' => 'entry', 'id' => $itemId]);
             } else {
@@ -275,7 +254,7 @@ abstract class AbstractEntryController extends AbstractController
         
             if ($entity->supportsHookSubscribers()) {
                 // Let any ui hooks know that we have updated or deleted an item
-                $hookType = $action == 'delete' ? UiHooksCategory::TYPE_PROCESS_DELETE : UiHooksCategory::TYPE_PROCESS_EDIT;
+                $hookType = 'delete' === $action ? UiHooksCategory::TYPE_PROCESS_DELETE : UiHooksCategory::TYPE_PROCESS_EDIT;
                 $url = null;
                 $hookHelper->callProcessHooks($entity, $hookType, $url);
             }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -67,7 +70,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
      */
     private $assetHelper;
 
-    public function applyFilter(FilterHook $hook)
+    public function applyFilter(FilterHook $hook): void
     {
         $request = $this->requestStack->getCurrentRequest();
 
@@ -85,7 +88,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
         if (null !== $request) {
             $userAgent = $request->server->get('HTTP_USER_AGENT');
             foreach ($robots as $robot) {
-                if (false !== strpos(strtolower($userAgent), $robot)) {
+                if (false !== stripos($userAgent, $robot)) {
                     return;
                 }
             }
@@ -121,11 +124,11 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
             $mhAdmin = $this->permissionHelper->hasPermission(ACCESS_DELETE);
         }
 
-        $applyReplacementsToCodeTags = $this->variableApi->get('ZikulaMultiHookModule', 'applyReplacementsToCodeTags', false);
-        $showEditLink = $mhAdmin && $this->variableApi->get('ZikulaMultiHookModule', 'showEditLink', true);
-        $replaceOnlyFirstInstanceOfItems = $this->variableApi->get('ZikulaMultiHookModule', 'replaceOnlyFirstInstanceOfItems', false);
-        $replaceCensoredWordsWhenTheyArePartOfOtherWords = $this->variableApi->get('ZikulaMultiHookModule', 'replaceCensoredWordsWhenTheyArePartOfOtherWords', false);
-        $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars = $this->variableApi->get('ZikulaMultiHookModule', 'doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars', false);
+        $applyReplacementsToCodeTags = (bool)$this->variableApi->get('ZikulaMultiHookModule', 'applyReplacementsToCodeTags');
+        $showEditLink = $mhAdmin && (bool)$this->variableApi->get('ZikulaMultiHookModule', 'showEditLink');
+        $replaceOnlyFirstInstanceOfItems = (bool)$this->variableApi->get('ZikulaMultiHookModule', 'replaceOnlyFirstInstanceOfItems');
+        $replaceCensoredWordsWhenTheyArePartOfOtherWords = (bool)$this->variableApi->get('ZikulaMultiHookModule', 'replaceCensoredWordsWhenTheyArePartOfOtherWords');
+        $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars = (bool)$this->variableApi->get('ZikulaMultiHookModule', 'doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars');
 
         $replaceAbbreviations = $this->variableApi->get('ZikulaMultiHookModule', 'replaceAbbreviations', true);
         $replaceAcronyms = $this->variableApi->get('ZikulaMultiHookModule', 'replaceAcronyms', true);
@@ -161,20 +164,21 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
             $text = substr_replace($text, " MULTIHOOKRAWREPLACEMENT{$i} ", strpos($text, $raws[0][$i]), strlen($raws[0][$i]));
         }
 
+        $codes1 = $codes2 = [];
         // Step 1 - move all bbcode with [code][/code] out of the way
         //          if MultiHook is configured accordingly
         if (false === $applyReplacementsToCodeTags) {
             // if we are faster than bbcode, we will have to remove the code tags
-            $codecount1 = preg_match_all("/\[code(.*)\](.*)\[\/code\]/siU", $text, $codes1);
-            for ($i = 0; $i < $codecount1; $i++) {
+            preg_match_all("/\[code(.*)\](.*)\[\/code\]/siU", $text, $codes1);
+            foreach ($codes1[0] as $i => $iValue) {
                 $text = str_replace($codes1[0][$i], " MULTIHOOKCODE1REPLACEMENT{$i} ", $text);
                 //$text = preg_replace('/(' . preg_quote($codes1[0][$i], '/') . ')/', " MULTIHOOKCODE1REPLACEMENT{$i} ", $text, 1);
             }
             // but bbcode may have been faster than we are; to avoid any problems its embraces the
             // replaced code tags with <!--code--> and <!--/code-->
             // this is what we are taking care of now
-            $codecount2 = preg_match_all("/<!--code-->(.*)<!--\/code-->/siU", $text, $codes2);
-            for ($i = 0; $i < $codecount2; $i++) {
+            preg_match_all("/<!--code-->(.*)<!--\/code-->/siU", $text, $codes2);
+            foreach ($codes2[0] as $i => $iValue) {
                 $text = str_replace($codes2[0][$i], " MULTIHOOKCODE2REPLACEMENT{$i} ", $text);
                 //$text = preg_replace('/(' . preg_quote($codes2[0][$i], '/') . ')/', " MULTIHOOKCODE2REPLACEMENT{$i} ", $text, 1);
             }
@@ -250,7 +254,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
                     unset($search_temp);
                 } elseif ('link' === $entry['type']) {
                     // don't show link if the target is the current url
-                    if (in_array($entry['long_original'], [$request->getUri(), $request->getRequestUri()])) {
+                    if (in_array($entry['long_original'], [$request->getUri(), $request->getRequestUri()], true)) {
                         continue;
                     }
 
@@ -280,7 +284,7 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
 
                     // Common replacements
                     $mungedword = preg_replace($leetsearch, $leetreplace, $entry['shortform']);
-                    if ($mungedword != $entry['shortform']) {
+                    if ($mungedword !== $entry['shortform']) {
                         $search_temp = '/(?<![\/\w@\.:])(' . preg_quote($mungedword, '/'). ')(?![\/\w@])(?!\.\w)/i';
                         $search[] = $search_temp;
                         $replace[] = md5($search_temp);
@@ -365,11 +369,11 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
         }
 
         if (false === $applyReplacementsToCodeTags) {
-            for ($i = 0; $i < $codecount2; $i++) {
+            foreach ($codes2[0] as $i => $iValue) {
                 $text = str_replace(" MULTIHOOKCODE2REPLACEMENT{$i} ", $codes2[0][$i], $text);
                 //$text = preg_replace("/ MULTIHOOKCODE2REPLACEMENT{$i} /", $codes2[0][$i], $text, 1);
             }
-            for ($i = 0; $i < $codecount1; $i++) {
+            foreach ($codes1[0] as $i => $iValue) {
                 $text = str_replace(" MULTIHOOKCODE1REPLACEMENT{$i} ", $codes1[0][$i], $text);
                 //$text = preg_replace("/ MULTIHOOKCODE1REPLACEMENT{$i} /", $codes1[0][$i], $text, 1);
             }

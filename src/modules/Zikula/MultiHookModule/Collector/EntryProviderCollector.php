@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -38,7 +41,7 @@ class EntryProviderCollector
     /**
      * Adds an entry provider to the collection.
      */
-    public function add(EntryProviderInterface $provider)
+    public function add(EntryProviderInterface $provider): void
     {
         $id = str_replace('\\', '_', get_class($provider));
 
@@ -72,7 +75,7 @@ class EntryProviderCollector
      */
     public function getActive(): iterable
     {
-        return array_filter($this->getAll(), function(EntryProviderInterface $item) {
+        return array_filter($this->getAll(), static function(EntryProviderInterface $item) {
             return $item->isActive();
         });
     }
@@ -80,9 +83,9 @@ class EntryProviderCollector
     /**
      * Sorts available providers by their title.
      */
-    private function sortProviders() {
+    private function sortProviders(): void {
         $providers = $this->providers;
-        usort($providers, function (EntryProviderInterface $a, EntryProviderInterface $b) {
+        usort($providers, static function(EntryProviderInterface $a, EntryProviderInterface $b) {
             return strcmp($a->getTitle(), $b->getTitle());
         });
         $this->providers = $providers;
