@@ -47,7 +47,7 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
      * @Assert\Type(type="integer")
      * @Assert\NotNull()
      * @Assert\LessThan(value=1000000000)
-     * @var integer $id
+     * @var int $id
      */
     protected $id = 0;
     
@@ -103,7 +103,7 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
      * @ORM\Column(type="boolean")
      * @Assert\NotNull()
      * @Assert\Type(type="bool")
-     * @var boolean $active
+     * @var bool $active
      */
     protected $active = true;
     
@@ -149,7 +149,7 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
      */
     public function set_objectType($_objectType)
     {
-        if ($this->_objectType != $_objectType) {
+        if ($this->_objectType !== $_objectType) {
             $this->_objectType = isset($_objectType) ? $_objectType : '';
         }
     }
@@ -158,7 +158,7 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
     /**
      * Returns the id.
      *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
@@ -168,14 +168,14 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
     /**
      * Sets the id.
      *
-     * @param integer $id
+     * @param int $id
      *
      * @return void
      */
     public function setId($id)
     {
-        if (intval($this->id) !== intval($id)) {
-            $this->id = intval($id);
+        if ((int)$this->id !== (int)$id) {
+            $this->id = (int)$id;
         }
     }
     
@@ -302,7 +302,7 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
     /**
      * Returns the active.
      *
-     * @return boolean
+     * @return bool
      */
     public function getActive()
     {
@@ -312,14 +312,14 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
     /**
      * Sets the active.
      *
-     * @param boolean $active
+     * @param bool $active
      *
      * @return void
      */
     public function setActive($active)
     {
-        if (boolval($this->active) !== boolval($active)) {
-            $this->active = boolval($active);
+        if ((bool)$this->active !== (bool)$active) {
+            $this->active = (bool)$active;
         }
     }
     
@@ -340,9 +340,9 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
      *
      * @return void
      */
-    public function setLocale($locale)
+    public function setLocale($locale = null)
     {
-        if ($this->locale != $locale) {
+        if ($this->locale !== $locale) {
             $this->locale = $locale;
         }
     }
@@ -365,7 +365,7 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
     /**
      * Returns the primary key.
      *
-     * @return integer The identifier
+     * @return int The identifier
      */
     public function getKey()
     {
@@ -375,7 +375,7 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
     /**
      * Determines whether this entity supports hook subscribers or not.
      *
-     * @return boolean
+     * @return bool
      */
     public function supportsHookSubscribers()
     {

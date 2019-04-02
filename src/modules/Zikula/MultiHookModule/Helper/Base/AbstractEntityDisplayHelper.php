@@ -12,6 +12,7 @@
 namespace Zikula\MultiHookModule\Helper\Base;
 
 use Zikula\Common\Translator\TranslatorInterface;
+use Zikula\Core\Doctrine\EntityAccess;
 use Zikula\MultiHookModule\Entity\EntryEntity;
 use Zikula\MultiHookModule\Helper\ListEntriesHelper;
 
@@ -30,12 +31,6 @@ abstract class AbstractEntityDisplayHelper
      */
     protected $listEntriesHelper;
     
-    /**
-     * EntityDisplayHelper constructor.
-     *
-     * @param TranslatorInterface $translator
-     * @param ListEntriesHelper $listEntriesHelper
-     */
     public function __construct(
         TranslatorInterface $translator,
         ListEntriesHelper $listEntriesHelper
@@ -47,11 +42,11 @@ abstract class AbstractEntityDisplayHelper
     /**
      * Returns the formatted title for a given entity.
      *
-     * @param object $entity The given entity instance
+     * @param EntityAccess $entity The given entity instance
      *
      * @return string The formatted title
      */
-    public function getFormattedTitle($entity)
+    public function getFormattedTitle(EntityAccess $entity)
     {
         if ($entity instanceof EntryEntity) {
             return $this->formatEntry($entity);
@@ -81,9 +76,9 @@ abstract class AbstractEntityDisplayHelper
      *
      * @return string Name of field to be used as title
      */
-    public function getTitleFieldName($objectType)
+    public function getTitleFieldName($objectType = '')
     {
-        if ($objectType == 'entry') {
+        if ('entry' === $objectType) {
             return 'shortForm';
         }
     
@@ -97,9 +92,9 @@ abstract class AbstractEntityDisplayHelper
      *
      * @return string Name of field to be used as description
      */
-    public function getDescriptionFieldName($objectType)
+    public function getDescriptionFieldName($objectType = '')
     {
-        if ($objectType == 'entry') {
+        if ('entry' === $objectType) {
             return 'longForm';
         }
     
@@ -114,9 +109,9 @@ abstract class AbstractEntityDisplayHelper
      *
      * @return string Name of field to be used as date
      */
-    public function getStartDateFieldName($objectType)
+    public function getStartDateFieldName($objectType = '')
     {
-        if ($objectType == 'entry') {
+        if ('entry' === $objectType) {
             return 'createdDate';
         }
     

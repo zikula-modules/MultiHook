@@ -49,15 +49,6 @@ abstract class AbstractTranslatableHelper
      */
     protected $entityFactory;
     
-    /**
-     * TranslatableHelper constructor.
-     *
-     * @param TranslatorInterface $translator
-     * @param RequestStack $requestStack
-     * @param VariableApiInterface $variableApi
-     * @param LocaleApiInterface $localeApi
-     * @param EntityFactory $entityFactory
-     */
     public function __construct(
         TranslatorInterface $translator,
         RequestStack $requestStack,
@@ -79,7 +70,7 @@ abstract class AbstractTranslatableHelper
      *
      * @param string $objectType The currently treated object type
      *
-     * @return array List of translatable fields
+     * @return string[] List of translatable fields
      */
     public function getTranslatableFields($objectType)
     {
@@ -100,7 +91,9 @@ abstract class AbstractTranslatableHelper
      */
     public function getCurrentLanguage()
     {
-        return $this->requestStack->getCurrentRequest()->getLocale();
+        $request = $this->requestStack->getCurrentRequest();
+    
+        return null !== $request ? $request->getLocale() : 'en';
     }
     
     /**
@@ -108,7 +101,7 @@ abstract class AbstractTranslatableHelper
      *
      * @param string $objectType The currently treated object type
      *
-     * @return array List of language codes
+     * @return string[] List of language codes
      */
     public function getSupportedLanguages($objectType)
     {
@@ -140,16 +133,14 @@ abstract class AbstractTranslatableHelper
     /**
      * Collects translated fields for editing.
      *
-     * @param EntityAccess $entity The entity being edited
-     *
      * @return array Collected translations for each language code
      */
-    public function prepareEntityForEditing($entity)
+    public function prepareEntityForEditing(EntityAccess $entity)
     {
         $translations = [];
         $objectType = $entity->get_objectType();
     
-        if ($this->variableApi->getSystemVar('multilingual') != 1) {
+        if (!$this->variableApi->getSystemVar('multilingual')) {
             return $translations;
         }
     
@@ -167,7 +158,7 @@ abstract class AbstractTranslatableHelper
         $supportedLanguages = $this->getSupportedLanguages($objectType);
         $currentLanguage = $this->getCurrentLanguage();
         foreach ($supportedLanguages as $language) {
-            if ($language == $currentLanguage) {
+            if ($language === $currentLanguage) {
                 foreach ($fields as $fieldName) {
                     if (null === $entity[$fieldName]) {
                         $entity[$fieldName] = '';
@@ -190,10 +181,10 @@ abstract class AbstractTranslatableHelper
     /**
      * Post-editing method persisting translated fields.
      *
-     * @param EntityAccess  $entity The entity being edited
-     * @param FormInterface $form   Form containing translations
+     * @param EntityAccess $entity The entity being edited
+     * @param FormInterface $form Form containing translations
      */
-    public function processEntityAfterEditing($entity, FormInterface $form)
+    public function processEntityAfterEditing(EntityAccess $entity, FormInterface $form)
     {
         $objectType = $entity->get_objectType();
         $entityManager = $this->entityFactory->getEntityManager();
@@ -210,25 +201,26 @@ abstract class AbstractTranslatableHelper
             }
     
             $entity->setLocale($language);
-            $entityManager->flush($entity);
+            $entityManager->flush();
         }
     }
     
     /**
      * Collects translated fields from given form for a specific language.
      *
-     * @param FormInterface $form     Form containing translations
-     * @param string        $language The desired language
+     * @param FormInterface $form Form containing translations
+     * @param string $language The desired language
      *
      * @return array
      */
     public function readTranslationInput(FormInterface $form, $language = 'en')
     {
         $data = [];
-        if (!isset($form['translations' . $language])) {
+        $translationKey = 'translations' . $language;
+        if (!isset($form[$translationKey])) {
             return $data;
         }
-        $translatedFields = $form['translations' . $language];
+        $translatedFields = $form[$translationKey];
         foreach ($translatedFields as $fieldName => $formField) {
             $fieldData = $formField->getData();
             if (!$fieldData && isset($form[$fieldName])) {

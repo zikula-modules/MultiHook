@@ -20,9 +20,6 @@ use Zikula\UsersModule\UserEvents;
  */
 abstract class AbstractUsersListener implements EventSubscriberInterface
 {
-    /**
-     * Makes our handlers known to the event system.
-     */
     public static function getSubscribedEvents()
     {
         return [
@@ -43,7 +40,6 @@ abstract class AbstractUsersListener implements EventSubscriberInterface
      * The event name:
      *     `echo 'Event: ' . $event->getName();`
      *
-     * @param GenericEvent $event The event instance
      */
     public function configUpdated(GenericEvent $event)
     {

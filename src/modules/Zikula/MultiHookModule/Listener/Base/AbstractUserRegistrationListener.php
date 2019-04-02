@@ -20,9 +20,6 @@ use Zikula\UsersModule\RegistrationEvents;
  */
 abstract class AbstractUserRegistrationListener implements EventSubscriberInterface
 {
-    /**
-     * Makes our handlers known to the event system.
-     */
     public static function getSubscribedEvents()
     {
         return [
@@ -47,7 +44,6 @@ abstract class AbstractUserRegistrationListener implements EventSubscriberInterf
      * The event name:
      *     `echo 'Event: ' . $event->getName();`
      *
-     * @param GenericEvent $event The event instance
      */
     public function started(GenericEvent $event)
     {
@@ -79,7 +75,6 @@ abstract class AbstractUserRegistrationListener implements EventSubscriberInterf
      * The event name:
      *     `echo 'Event: ' . $event->getName();`
      *
-     * @param GenericEvent $event The event instance
      */
     public function createVeto(GenericEvent $event)
     {
@@ -142,7 +137,6 @@ abstract class AbstractUserRegistrationListener implements EventSubscriberInterf
      * The event name:
      *     `echo 'Event: ' . $event->getName();`
      *
-     * @param GenericEvent $event The event instance
      */
     public function succeeded(GenericEvent $event)
     {
@@ -173,7 +167,6 @@ abstract class AbstractUserRegistrationListener implements EventSubscriberInterf
      * The event name:
      *     `echo 'Event: ' . $event->getName();`
      *
-     * @param GenericEvent $event The event instance
      */
     public function failed(GenericEvent $event)
     {
@@ -194,7 +187,6 @@ abstract class AbstractUserRegistrationListener implements EventSubscriberInterf
      * The event name:
      *     `echo 'Event: ' . $event->getName();`
      *
-     * @param GenericEvent $event The event instance
      */
     public function create(GenericEvent $event)
     {
@@ -213,7 +205,6 @@ abstract class AbstractUserRegistrationListener implements EventSubscriberInterf
      * The event name:
      *     `echo 'Event: ' . $event->getName();`
      *
-     * @param GenericEvent $event The event instance
      */
     public function update(GenericEvent $event)
     {
@@ -233,7 +224,6 @@ abstract class AbstractUserRegistrationListener implements EventSubscriberInterf
      * The event name:
      *     `echo 'Event: ' . $event->getName();`
      *
-     * @param GenericEvent $event The event instance
      */
     public function delete(GenericEvent $event)
     {
@@ -249,7 +239,6 @@ abstract class AbstractUserRegistrationListener implements EventSubscriberInterf
      * The event name:
      *     `echo 'Event: ' . $event->getName();`
      *
-     * @param GenericEvent $event The event instance
      */
     public function forceApproval(GenericEvent $event)
     {

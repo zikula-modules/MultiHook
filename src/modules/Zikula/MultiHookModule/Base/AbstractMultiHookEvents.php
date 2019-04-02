@@ -12,6 +12,7 @@
 namespace Zikula\MultiHookModule\Base;
 
 use Zikula\MultiHookModule\Listener\EntityLifecycleListener;
+use Zikula\MultiHookModule\Menu\MenuBuilder;
 
 /**
  * Events definition base class.
@@ -25,7 +26,7 @@ abstract class AbstractMultiHookEvents
      * The event listener receives an
      * Zikula\MultiHookModule\Event\ConfigureItemActionsMenuEvent instance.
      *
-     * @see Zikula\MultiHookModule\Menu\MenuBuilder::createItemActionsMenu()
+     * @see MenuBuilder::createItemActionsMenu()
      * @var string
      */
     const MENU_ITEMACTIONS_PRE_CONFIGURE = 'zikulamultihookmodule.itemactionsmenu_pre_configure';
@@ -37,7 +38,7 @@ abstract class AbstractMultiHookEvents
      * The event listener receives an
      * Zikula\MultiHookModule\Event\ConfigureItemActionsMenuEvent instance.
      *
-     * @see Zikula\MultiHookModule\Menu\MenuBuilder::createItemActionsMenu()
+     * @see MenuBuilder::createItemActionsMenu()
      * @var string
      */
     const MENU_ITEMACTIONS_POST_CONFIGURE = 'zikulamultihookmodule.itemactionsmenu_post_configure';

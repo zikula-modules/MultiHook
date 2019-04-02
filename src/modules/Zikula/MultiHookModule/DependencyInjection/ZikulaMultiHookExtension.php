@@ -14,7 +14,7 @@ namespace Zikula\MultiHookModule\DependencyInjection;
 use Zikula\MultiHookModule\DependencyInjection\Base\AbstractZikulaMultiHookExtension;
 
 /**
- * Implementation class for service definition loader using the DependencyInjection extension.
+ * DependencyInjection extension implementation class.
  */
 class ZikulaMultiHookExtension extends AbstractZikulaMultiHookExtension
 {

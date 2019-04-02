@@ -76,7 +76,7 @@ function zikulaMultiHookInitEditForm(mode, entityId) {
     });
     editForm.submit(zikulaMultiHookHandleFormSubmit);
 
-    if (mode != 'create') {
+    if ('create' !== mode) {
         zikulaMultiHookTriggerFormValidation();
     }
 }

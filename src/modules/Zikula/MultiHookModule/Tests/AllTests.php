@@ -13,7 +13,7 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
     define('PHPUnit_MAIN_METHOD', 'AllTests::main');
 }
 
-require_once dirname(__FILE__) . '/bootstrap.php';
+require_once __DIR__ . '/bootstrap.php';
 
 class AllTests
 {
@@ -24,12 +24,10 @@ class AllTests
 
     public static function suite()
     {
-        $suite = new PHPUnit_Framework_TestSuite('ZikulaMultiHookModule - All Tests');
-
-        return $suite;
+        return new PHPUnit_Framework_TestSuite('ZikulaMultiHookModule - All Tests');
     }
 }
 
-if (PHPUnit_MAIN_METHOD == 'AllTests::main') {
+if (PHPUnit_MAIN_METHOD === 'AllTests::main') {
     AllTests::main();
 }

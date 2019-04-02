@@ -14,7 +14,6 @@ namespace Zikula\MultiHookModule\Form\Type\Base;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -26,6 +25,7 @@ use Zikula\Common\Translator\TranslatorTrait;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 use Zikula\MultiHookModule\Entity\Factory\EntityFactory;
 use Zikula\MultiHookModule\Form\Type\Field\TranslationType;
+use Zikula\MultiHookModule\Entity\EntryEntity;
 use Zikula\MultiHookModule\Helper\FeatureActivationHelper;
 use Zikula\MultiHookModule\Helper\ListEntriesHelper;
 use Zikula\MultiHookModule\Helper\TranslatableHelper;
@@ -64,16 +64,6 @@ abstract class AbstractEntryType extends AbstractType
      */
     protected $featureActivationHelper;
 
-    /**
-     * EntryType constructor.
-     *
-     * @param TranslatorInterface $translator
-     * @param EntityFactory $entityFactory
-     * @param VariableApiInterface $variableApi
-     * @param TranslatableHelper $translatableHelper
-     * @param ListEntriesHelper $listHelper
-     * @param FeatureActivationHelper $featureActivationHelper
-     */
     public function __construct(
         TranslatorInterface $translator,
         EntityFactory $entityFactory,
@@ -90,19 +80,11 @@ abstract class AbstractEntryType extends AbstractType
         $this->featureActivationHelper = $featureActivationHelper;
     }
 
-    /**
-     * Sets the translator.
-     *
-     * @param TranslatorInterface $translator
-     */
     public function setTranslator(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this->addEntityFields($builder, $options);
@@ -112,9 +94,6 @@ abstract class AbstractEntryType extends AbstractType
 
     /**
      * Adds basic entity fields.
-     *
-     * @param FormBuilderInterface $builder The form builder
-     * @param array                $options The options
      */
     public function addEntityFields(FormBuilderInterface $builder, array $options = [])
     {
@@ -158,7 +137,7 @@ abstract class AbstractEntryType extends AbstractType
                 $translatableFields = $this->translatableHelper->getTranslatableFields('entry');
                 $mandatoryFields = $this->translatableHelper->getMandatoryFields('entry');
                 foreach ($supportedLanguages as $language) {
-                    if ($language == $currentLanguage) {
+                    if ($language === $currentLanguage) {
                         continue;
                     }
                     $builder->add('translations' . $language, TranslationType::class, [
@@ -214,21 +193,18 @@ abstract class AbstractEntryType extends AbstractType
 
     /**
      * Adds submit buttons.
-     *
-     * @param FormBuilderInterface $builder The form builder
-     * @param array                $options The options
      */
     public function addSubmitButtons(FormBuilderInterface $builder, array $options = [])
     {
         foreach ($options['actions'] as $action) {
             $builder->add($action['id'], SubmitType::class, [
                 'label' => $action['title'],
-                'icon' => ($action['id'] == 'delete' ? 'fa-trash-o' : ''),
+                'icon' => 'delete' === $action['id'] ? 'fa-trash-o' : '',
                 'attr' => [
                     'class' => $action['buttonClass']
                 ]
             ]);
-            if ($options['mode'] == 'create' && $action['id'] == 'submit') {
+            if ('create' === $options['mode'] && 'submit' === $action['id']) {
                 // add additional button to submit item and return to create form
                 $builder->add('submitrepeat', SubmitType::class, [
                     'label' => $this->__('Submit and repeat'),
@@ -257,23 +233,17 @@ abstract class AbstractEntryType extends AbstractType
         ]);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getBlockPrefix()
     {
         return 'zikulamultihookmodule_entry';
     }
 
-    /**
-     * @inheritDoc
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver
             ->setDefaults([
                 // define class for underlying data (required for embedding forms)
-                'data_class' => 'Zikula\MultiHookModule\Entity\EntryEntity',
+                'data_class' => EntryEntity::class,
                 'empty_data' => function (FormInterface $form) {
                     return $this->entityFactory->createEntry();
                 },

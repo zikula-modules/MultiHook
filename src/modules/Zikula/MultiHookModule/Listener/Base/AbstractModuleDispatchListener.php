@@ -19,9 +19,6 @@ use Zikula\Core\Event\GenericEvent;
  */
 abstract class AbstractModuleDispatchListener implements EventSubscriberInterface
 {
-    /**
-     * Makes our handlers known to the event system.
-     */
     public static function getSubscribedEvents()
     {
         return [
@@ -47,7 +44,6 @@ abstract class AbstractModuleDispatchListener implements EventSubscriberInterfac
      * The event name:
      *     `echo 'Event: ' . $event->getName();`
      *
-     * @param GenericEvent $event The event instance
      */
     public function serviceLinks(GenericEvent $event)
     {

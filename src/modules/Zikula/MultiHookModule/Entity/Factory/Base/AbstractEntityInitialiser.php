@@ -30,12 +30,6 @@ abstract class AbstractEntityInitialiser
      */
     protected $listEntriesHelper;
 
-    /**
-     * EntityInitialiser constructor.
-     *
-     * @param PermissionHelper $permissionHelper
-     * @param ListEntriesHelper $listEntriesHelper
-     */
     public function __construct(
         PermissionHelper $permissionHelper,
         ListEntriesHelper $listEntriesHelper
@@ -81,9 +75,9 @@ abstract class AbstractEntityInitialiser
      *
      * @return void
      */
-    public function setListEntriesHelper($listEntriesHelper)
+    public function setListEntriesHelper(ListEntriesHelper $listEntriesHelper = null)
     {
-        if ($this->listEntriesHelper != $listEntriesHelper) {
+        if ($this->listEntriesHelper !== $listEntriesHelper) {
             $this->listEntriesHelper = $listEntriesHelper;
         }
     }

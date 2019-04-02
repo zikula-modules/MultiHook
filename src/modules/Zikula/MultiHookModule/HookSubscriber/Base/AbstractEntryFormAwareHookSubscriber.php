@@ -25,43 +25,26 @@ abstract class AbstractEntryFormAwareHookSubscriber implements HookSubscriberInt
      */
     protected $translator;
 
-    /**
-     * EntryFormAwareHookSubscriber constructor.
-     *
-     * @param TranslatorInterface $translator
-     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getOwner()
     {
         return 'ZikulaMultiHookModule';
     }
     
-    /**
-     * @inheritDoc
-     */
     public function getCategory()
     {
         return FormAwareCategory::NAME;
     }
     
-    /**
-     * @inheritDoc
-     */
     public function getTitle()
     {
         return $this->translator->__('Entry form aware subscriber');
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getEvents()
     {
         return [

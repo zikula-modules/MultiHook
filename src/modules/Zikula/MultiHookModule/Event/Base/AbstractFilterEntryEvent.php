@@ -29,12 +29,6 @@ class AbstractFilterEntryEvent extends Event
      */
     protected $entityChangeSet = [];
 
-    /**
-     * FilterEntryEvent constructor.
-     *
-     * @param EntryEntity $entry Processed entity
-     * @param array $entityChangeSet Change set for preUpdate events
-     */
     public function __construct(EntryEntity $entry, array $entityChangeSet = [])
     {
         $this->entry = $entry;
@@ -42,8 +36,6 @@ class AbstractFilterEntryEvent extends Event
     }
 
     /**
-     * Returns the entity.
-     *
      * @return EntryEntity
      */
     public function getEntry()
@@ -52,8 +44,6 @@ class AbstractFilterEntryEvent extends Event
     }
 
     /**
-     * Returns the change set.
-     *
      * @return array Entity change set
      */
     public function getEntityChangeSet()

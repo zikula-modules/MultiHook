@@ -22,50 +22,31 @@ use Zikula\Common\Translator\TranslatorInterface;
  */
 abstract class AbstractFilterHooksProvider implements HookProviderInterface
 {
-    use ServiceIdTrait;
-
     /**
      * @var TranslatorInterface
      */
     protected $translator;
 
-    /**
-     * FilterHooksProvider constructor.
-     *
-     * @param TranslatorInterface $translator
-     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getOwner()
     {
         return 'ZikulaMultiHookModule';
     }
     
-    /**
-     * @inheritDoc
-     */
     public function getCategory()
     {
         return FilterHooksCategory::NAME;
     }
     
-    /**
-     * @inheritDoc
-     */
     public function getTitle()
     {
         return $this->translator->__('Multi hook filter hooks provider');
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getProviderTypes()
     {
         return [
@@ -75,8 +56,6 @@ abstract class AbstractFilterHooksProvider implements HookProviderInterface
 
     /**
      * Filters the given data.
-     *
-     * @param FilterHook $hook
      */
     public function applyFilter(FilterHook $hook)
     {

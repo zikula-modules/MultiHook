@@ -20,9 +20,6 @@ use Zikula\MailerModule\MailerEvents;
  */
 abstract class AbstractMailerListener implements EventSubscriberInterface
 {
-    /**
-     * Makes our handlers known to the event system.
-     */
     public static function getSubscribedEvents()
     {
         return [
@@ -47,7 +44,6 @@ abstract class AbstractMailerListener implements EventSubscriberInterface
      * The event name:
      *     `echo 'Event: ' . $event->getName();`
      *
-     * @param GenericEvent $event The event instance
      */
     public function sendMessageStart(GenericEvent $event)
     {
@@ -67,7 +63,6 @@ abstract class AbstractMailerListener implements EventSubscriberInterface
      * The event name:
      *     `echo 'Event: ' . $event->getName();`
      *
-     * @param GenericEvent $event The event instance
      */
     public function sendMessagePerform(GenericEvent $event)
     {
@@ -84,7 +79,6 @@ abstract class AbstractMailerListener implements EventSubscriberInterface
      * The event name:
      *     `echo 'Event: ' . $event->getName();`
      *
-     * @param GenericEvent $event The event instance
      */
     public function sendMessageSuccess(GenericEvent $event)
     {
@@ -101,7 +95,6 @@ abstract class AbstractMailerListener implements EventSubscriberInterface
      * The event name:
      *     `echo 'Event: ' . $event->getName();`
      *
-     * @param GenericEvent $event The event instance
      */
     public function sendMessageFailure(GenericEvent $event)
     {

@@ -14,6 +14,7 @@ namespace Zikula\MultiHookModule\Twig\Base;
 use Twig_Extension;
 use Zikula\Common\Translator\TranslatorInterface;
 use Zikula\Common\Translator\TranslatorTrait;
+use Zikula\Core\Doctrine\EntityAccess;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 use Zikula\MultiHookModule\Helper\EntityDisplayHelper;
 use Zikula\MultiHookModule\Helper\ListEntriesHelper;
@@ -46,15 +47,6 @@ abstract class AbstractTwigExtension extends Twig_Extension
      */
     protected $listHelper;
     
-    /**
-     * TwigExtension constructor.
-     *
-     * @param TranslatorInterface $translator
-     * @param VariableApiInterface $variableApi
-     * @param EntityDisplayHelper $entityDisplayHelper
-     * @param WorkflowHelper $workflowHelper
-     * @param ListEntriesHelper $listHelper
-     */
     public function __construct(
         TranslatorInterface $translator,
         VariableApiInterface $variableApi,
@@ -69,11 +61,6 @@ abstract class AbstractTwigExtension extends Twig_Extension
         $this->listHelper = $listHelper;
     }
     
-    /**
-     * Sets the translator.
-     *
-     * @param TranslatorInterface $translator
-     */
     public function setTranslator(TranslatorInterface $translator)
     {
         $this->translator = $translator;
@@ -112,7 +99,7 @@ abstract class AbstractTwigExtension extends Twig_Extension
      *    {{ item.workflowState|zikulamultihookmodule_objectState }}        {# with visual feedback #}
      *    {{ item.workflowState|zikulamultihookmodule_objectState(false) }} {# no ui feedback #}
      *
-     * @param string  $state      Name of given workflow state
+     * @param string $state Name of given workflow state
      * @param boolean $uiFeedback Whether the output should include some visual feedback about the state
      *
      * @return string Enriched and translated workflow state ready for display
@@ -136,16 +123,16 @@ abstract class AbstractTwigExtension extends Twig_Extension
      * Example:
      *     {{ entity.listField|zikulamultihookmodule_listEntry('entityName', 'fieldName') }}
      *
-     * @param string $value      The dropdown value to process
+     * @param string $value The dropdown value to process
      * @param string $objectType The treated object type
-     * @param string $fieldName  The list field's name
-     * @param string $delimiter  String used as separator for multiple selections
+     * @param string $fieldName The list field's name
+     * @param string $delimiter String used as separator for multiple selections
      *
      * @return string List item name
      */
     public function getListEntry($value, $objectType = '', $fieldName = '', $delimiter = ', ')
     {
-        if ((empty($value) && $value != '0') || empty($objectType) || empty($fieldName)) {
+        if ((empty($value) && '0' !== $value) || empty($objectType) || empty($fieldName)) {
             return $value;
         }
     
@@ -155,55 +142,15 @@ abstract class AbstractTwigExtension extends Twig_Extension
     }
     
     
-    /**
-     * The zikulamultihookmodule_objectTypeSelector function provides items for a dropdown selector.
-     *
-     * @return string The output of the plugin
-     */
-    public function getObjectTypeSelector()
-    {
-        $result = [];
-    
-        $result[] = [
-            'text' => $this->__('Entries'),
-            'value' => 'entry'
-        ];
-    
-        return $result;
-    }
     
     
-    /**
-     * The zikulamultihookmodule_templateSelector function provides items for a dropdown selector.
-     *
-     * @return string The output of the plugin
-     */
-    public function getTemplateSelector()
-    {
-        $result = [];
-    
-        $result[] = [
-            'text' => $this->__('Only item titles'),
-            'value' => 'itemlist_display.html.twig'
-        ];
-        $result[] = [
-            'text' => $this->__('With description'),
-            'value' => 'itemlist_display_description.html.twig'
-        ];
-        $result[] = [
-            'text' => $this->__('Custom template'),
-            'value' => 'custom'
-        ];
-    
-        return $result;
-    }
     
     /**
      * The zikulamultihookmodule_formattedTitle filter outputs a formatted title for a given entity.
      * Example:
      *     {{ myPost|zikulamultihookmodule_formattedTitle }}
      *
-     * @param object $entity The given entity instance
+     * @param EntityAccess $entity The given entity instance
      *
      * @return string The formatted title
      */

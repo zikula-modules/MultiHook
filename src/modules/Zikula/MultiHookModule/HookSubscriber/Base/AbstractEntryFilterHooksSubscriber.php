@@ -25,43 +25,26 @@ abstract class AbstractEntryFilterHooksSubscriber implements HookSubscriberInter
      */
     protected $translator;
 
-    /**
-     * EntryFilterHooksSubscriber constructor.
-     *
-     * @param TranslatorInterface $translator
-     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getOwner()
     {
         return 'ZikulaMultiHookModule';
     }
     
-    /**
-     * @inheritDoc
-     */
     public function getCategory()
     {
         return FilterHooksCategory::NAME;
     }
     
-    /**
-     * @inheritDoc
-     */
     public function getTitle()
     {
         return $this->translator->__('Entry filter hooks subscriber');
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getEvents()
     {
         return [

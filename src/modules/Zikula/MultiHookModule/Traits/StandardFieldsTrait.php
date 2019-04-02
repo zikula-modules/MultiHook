@@ -11,6 +11,7 @@
 
 namespace Zikula\MultiHookModule\Traits;
 
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -33,7 +34,7 @@ trait StandardFieldsTrait
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="create")
      * @Assert\DateTime()
-     * @var \DateTimeInterface $createdDate
+     * @var DateTimeInterface $createdDate
      */
     protected $createdDate;
     
@@ -49,7 +50,7 @@ trait StandardFieldsTrait
      * @ORM\Column(type="datetime")
      * @Gedmo\Timestampable(on="update")
      * @Assert\DateTime()
-     * @var \DateTimeInterface $updatedDate
+     * @var DateTimeInterface $updatedDate
      */
     protected $updatedDate;
     
@@ -70,9 +71,9 @@ trait StandardFieldsTrait
      *
      * @return void
      */
-    public function setCreatedBy($createdBy)
+    public function setCreatedBy($createdBy = null)
     {
-        if ($this->createdBy != $createdBy) {
+        if ($this->createdBy !== $createdBy) {
             $this->createdBy = $createdBy;
         }
     }
@@ -94,9 +95,9 @@ trait StandardFieldsTrait
      *
      * @return void
      */
-    public function setCreatedDate($createdDate)
+    public function setCreatedDate($createdDate = null)
     {
-        if ($this->createdDate != $createdDate) {
+        if ($this->createdDate !== $createdDate) {
             $this->createdDate = $createdDate;
         }
     }
@@ -118,9 +119,9 @@ trait StandardFieldsTrait
      *
      * @return void
      */
-    public function setUpdatedBy($updatedBy)
+    public function setUpdatedBy($updatedBy = null)
     {
-        if ($this->updatedBy != $updatedBy) {
+        if ($this->updatedBy !== $updatedBy) {
             $this->updatedBy = $updatedBy;
         }
     }
@@ -142,9 +143,9 @@ trait StandardFieldsTrait
      *
      * @return void
      */
-    public function setUpdatedDate($updatedDate)
+    public function setUpdatedDate($updatedDate = null)
     {
-        if ($this->updatedDate != $updatedDate) {
+        if ($this->updatedDate !== $updatedDate) {
             $this->updatedDate = $updatedDate;
         }
     }

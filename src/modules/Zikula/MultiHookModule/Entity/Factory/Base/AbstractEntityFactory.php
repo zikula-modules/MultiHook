@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use InvalidArgumentException;
 use Zikula\MultiHookModule\Entity\Factory\EntityInitialiser;
+use Zikula\MultiHookModule\Entity\EntryEntity;
 use Zikula\MultiHookModule\Helper\CollectionFilterHelper;
 use Zikula\MultiHookModule\Helper\FeatureActivationHelper;
 
@@ -29,7 +30,7 @@ abstract class AbstractEntityFactory
     protected $entityManager;
 
     /**
-     * @var EntityInitialiser The entity initialiser for dynamic application of default values
+     * @var EntityInitialiser
      */
     protected $entityInitialiser;
 
@@ -43,14 +44,6 @@ abstract class AbstractEntityFactory
      */
     protected $featureActivationHelper;
 
-    /**
-     * EntityFactory constructor.
-     *
-     * @param EntityManagerInterface $entityManager
-     * @param EntityInitialiser $entityInitialiser
-     * @param CollectionFilterHelper $collectionFilterHelper
-     * @param FeatureActivationHelper $featureActivationHelper
-     */
     public function __construct(
         EntityManagerInterface $entityManager,
         EntityInitialiser $entityInitialiser,
@@ -74,10 +67,11 @@ abstract class AbstractEntityFactory
     {
         $entityClass = 'Zikula\\MultiHookModule\\Entity\\' . ucfirst($objectType) . 'Entity';
 
+        /** @var EntityRepository $repository */
         $repository = $this->getEntityManager()->getRepository($entityClass);
         $repository->setCollectionFilterHelper($this->collectionFilterHelper);
 
-        if (in_array($objectType, ['entry'])) {
+        if (in_array($objectType, ['entry'], true)) {
             $repository->setTranslationsEnabled($this->featureActivationHelper->isEnabled(FeatureActivationHelper::TRANSLATIONS, $objectType));
         }
 
@@ -87,13 +81,11 @@ abstract class AbstractEntityFactory
     /**
      * Creates a new entry instance.
      *
-     * @return \Zikula\MultiHookModule\Entity\EntryEntity The newly created entity instance
+     * @return EntryEntity The newly created entity instance
      */
     public function createEntry()
     {
-        $entityClass = 'Zikula\\MultiHookModule\\Entity\\EntryEntity';
-
-        $entity = new $entityClass();
+        $entity = new EntryEntity();
 
         $this->entityInitialiser->initEntry($entity);
 
@@ -136,14 +128,13 @@ abstract class AbstractEntityFactory
      *
      * @return void
      */
-    public function setEntityManager($entityManager)
+    public function setEntityManager(EntityManagerInterface $entityManager = null)
     {
-        if ($this->entityManager != $entityManager) {
+        if ($this->entityManager !== $entityManager) {
             $this->entityManager = $entityManager;
         }
     }
     
-
     /**
      * Returns the entity initialiser.
      *
@@ -161,9 +152,9 @@ abstract class AbstractEntityFactory
      *
      * @return void
      */
-    public function setEntityInitialiser($entityInitialiser)
+    public function setEntityInitialiser(EntityInitialiser $entityInitialiser = null)
     {
-        if ($this->entityInitialiser != $entityInitialiser) {
+        if ($this->entityInitialiser !== $entityInitialiser) {
             $this->entityInitialiser = $entityInitialiser;
         }
     }

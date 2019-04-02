@@ -24,7 +24,7 @@ trait ModerationFormFieldsTrait
      * Adds special fields for moderators.
      *
      * @param FormBuilderInterface $builder The form builder
-     * @param array                $options The options
+     * @param array $options The options
      */
     public function addModerationFields(FormBuilderInterface $builder, array $options = [])
     {

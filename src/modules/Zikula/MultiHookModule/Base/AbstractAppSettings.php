@@ -27,56 +27,56 @@ abstract class AbstractAppSettings
     /**
      * @Assert\NotNull()
      * @Assert\Type(type="bool")
-     * @var boolean $showEditLink
+     * @var bool $showEditLink
      */
     protected $showEditLink = true;
     
     /**
      * @Assert\NotNull()
      * @Assert\Type(type="bool")
-     * @var boolean $replaceOnlyFirstInstanceOfItems
+     * @var bool $replaceOnlyFirstInstanceOfItems
      */
     protected $replaceOnlyFirstInstanceOfItems = false;
     
     /**
      * @Assert\NotNull()
      * @Assert\Type(type="bool")
-     * @var boolean $applyReplacementsToCodeTags
+     * @var bool $applyReplacementsToCodeTags
      */
     protected $applyReplacementsToCodeTags = false;
     
     /**
      * @Assert\NotNull()
      * @Assert\Type(type="bool")
-     * @var boolean $replaceAbbreviations
+     * @var bool $replaceAbbreviations
      */
     protected $replaceAbbreviations = true;
     
     /**
      * @Assert\NotNull()
      * @Assert\Type(type="bool")
-     * @var boolean $replaceAcronyms
+     * @var bool $replaceAcronyms
      */
     protected $replaceAcronyms = true;
     
     /**
      * @Assert\NotNull()
      * @Assert\Type(type="bool")
-     * @var boolean $replaceAbbreviationsWithLongText
+     * @var bool $replaceAbbreviationsWithLongText
      */
     protected $replaceAbbreviationsWithLongText = false;
     
     /**
      * @Assert\NotNull()
      * @Assert\Type(type="bool")
-     * @var boolean $replaceLinks
+     * @var bool $replaceLinks
      */
     protected $replaceLinks = true;
     
     /**
      * @Assert\NotNull()
      * @Assert\Type(type="bool")
-     * @var boolean $replaceLinksWithTitle
+     * @var bool $replaceLinksWithTitle
      */
     protected $replaceLinksWithTitle = false;
     
@@ -90,28 +90,28 @@ abstract class AbstractAppSettings
     /**
      * @Assert\NotNull()
      * @Assert\Type(type="bool")
-     * @var boolean $replaceCensoredWords
+     * @var bool $replaceCensoredWords
      */
     protected $replaceCensoredWords = true;
     
     /**
      * @Assert\NotNull()
      * @Assert\Type(type="bool")
-     * @var boolean $replaceCensoredWordsWhenTheyArePartOfOtherWords
+     * @var bool $replaceCensoredWordsWhenTheyArePartOfOtherWords
      */
     protected $replaceCensoredWordsWhenTheyArePartOfOtherWords = false;
     
     /**
      * @Assert\NotNull()
      * @Assert\Type(type="bool")
-     * @var boolean $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars
+     * @var bool $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars
      */
     protected $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars = false;
     
     /**
      * @Assert\NotNull()
      * @Assert\Type(type="bool")
-     * @var boolean $replaceNeedles
+     * @var bool $replaceNeedles
      */
     protected $replaceNeedles = true;
     
@@ -122,7 +122,7 @@ abstract class AbstractAppSettings
      * @Assert\NotBlank()
      * @Assert\NotEqualTo(value=0)
      * @Assert\LessThan(value=100000000000)
-     * @var integer $entryEntriesPerPage
+     * @var int $entryEntriesPerPage
      */
     protected $entryEntriesPerPage = 10;
     
@@ -131,7 +131,7 @@ abstract class AbstractAppSettings
      *
      * @Assert\NotNull()
      * @Assert\Type(type="bool")
-     * @var boolean $showOnlyOwnEntries
+     * @var bool $showOnlyOwnEntries
      */
     protected $showOnlyOwnEntries = false;
     
@@ -140,7 +140,7 @@ abstract class AbstractAppSettings
      *
      * @Assert\NotNull()
      * @Assert\Type(type="bool")
-     * @var boolean $allowModerationSpecificCreatorForEntry
+     * @var bool $allowModerationSpecificCreatorForEntry
      */
     protected $allowModerationSpecificCreatorForEntry = false;
     
@@ -149,16 +149,11 @@ abstract class AbstractAppSettings
      *
      * @Assert\NotNull()
      * @Assert\Type(type="bool")
-     * @var boolean $allowModerationSpecificCreationDateForEntry
+     * @var bool $allowModerationSpecificCreationDateForEntry
      */
     protected $allowModerationSpecificCreationDateForEntry = false;
     
     
-    /**
-     * AppSettings constructor.
-     *
-     * @param VariableApiInterface $variableApi
-     */
     public function __construct(
         VariableApiInterface $variableApi
     ) {
@@ -170,7 +165,7 @@ abstract class AbstractAppSettings
     /**
      * Returns the show edit link.
      *
-     * @return boolean
+     * @return bool
      */
     public function getShowEditLink()
     {
@@ -180,21 +175,21 @@ abstract class AbstractAppSettings
     /**
      * Sets the show edit link.
      *
-     * @param boolean $showEditLink
+     * @param bool $showEditLink
      *
      * @return void
      */
     public function setShowEditLink($showEditLink)
     {
-        if (boolval($this->showEditLink) !== boolval($showEditLink)) {
-            $this->showEditLink = boolval($showEditLink);
+        if ((bool)$this->showEditLink !== (bool)$showEditLink) {
+            $this->showEditLink = (bool)$showEditLink;
         }
     }
     
     /**
      * Returns the replace only first instance of items.
      *
-     * @return boolean
+     * @return bool
      */
     public function getReplaceOnlyFirstInstanceOfItems()
     {
@@ -204,21 +199,21 @@ abstract class AbstractAppSettings
     /**
      * Sets the replace only first instance of items.
      *
-     * @param boolean $replaceOnlyFirstInstanceOfItems
+     * @param bool $replaceOnlyFirstInstanceOfItems
      *
      * @return void
      */
     public function setReplaceOnlyFirstInstanceOfItems($replaceOnlyFirstInstanceOfItems)
     {
-        if (boolval($this->replaceOnlyFirstInstanceOfItems) !== boolval($replaceOnlyFirstInstanceOfItems)) {
-            $this->replaceOnlyFirstInstanceOfItems = boolval($replaceOnlyFirstInstanceOfItems);
+        if ((bool)$this->replaceOnlyFirstInstanceOfItems !== (bool)$replaceOnlyFirstInstanceOfItems) {
+            $this->replaceOnlyFirstInstanceOfItems = (bool)$replaceOnlyFirstInstanceOfItems;
         }
     }
     
     /**
      * Returns the apply replacements to code tags.
      *
-     * @return boolean
+     * @return bool
      */
     public function getApplyReplacementsToCodeTags()
     {
@@ -228,21 +223,21 @@ abstract class AbstractAppSettings
     /**
      * Sets the apply replacements to code tags.
      *
-     * @param boolean $applyReplacementsToCodeTags
+     * @param bool $applyReplacementsToCodeTags
      *
      * @return void
      */
     public function setApplyReplacementsToCodeTags($applyReplacementsToCodeTags)
     {
-        if (boolval($this->applyReplacementsToCodeTags) !== boolval($applyReplacementsToCodeTags)) {
-            $this->applyReplacementsToCodeTags = boolval($applyReplacementsToCodeTags);
+        if ((bool)$this->applyReplacementsToCodeTags !== (bool)$applyReplacementsToCodeTags) {
+            $this->applyReplacementsToCodeTags = (bool)$applyReplacementsToCodeTags;
         }
     }
     
     /**
      * Returns the replace abbreviations.
      *
-     * @return boolean
+     * @return bool
      */
     public function getReplaceAbbreviations()
     {
@@ -252,21 +247,21 @@ abstract class AbstractAppSettings
     /**
      * Sets the replace abbreviations.
      *
-     * @param boolean $replaceAbbreviations
+     * @param bool $replaceAbbreviations
      *
      * @return void
      */
     public function setReplaceAbbreviations($replaceAbbreviations)
     {
-        if (boolval($this->replaceAbbreviations) !== boolval($replaceAbbreviations)) {
-            $this->replaceAbbreviations = boolval($replaceAbbreviations);
+        if ((bool)$this->replaceAbbreviations !== (bool)$replaceAbbreviations) {
+            $this->replaceAbbreviations = (bool)$replaceAbbreviations;
         }
     }
     
     /**
      * Returns the replace acronyms.
      *
-     * @return boolean
+     * @return bool
      */
     public function getReplaceAcronyms()
     {
@@ -276,21 +271,21 @@ abstract class AbstractAppSettings
     /**
      * Sets the replace acronyms.
      *
-     * @param boolean $replaceAcronyms
+     * @param bool $replaceAcronyms
      *
      * @return void
      */
     public function setReplaceAcronyms($replaceAcronyms)
     {
-        if (boolval($this->replaceAcronyms) !== boolval($replaceAcronyms)) {
-            $this->replaceAcronyms = boolval($replaceAcronyms);
+        if ((bool)$this->replaceAcronyms !== (bool)$replaceAcronyms) {
+            $this->replaceAcronyms = (bool)$replaceAcronyms;
         }
     }
     
     /**
      * Returns the replace abbreviations with long text.
      *
-     * @return boolean
+     * @return bool
      */
     public function getReplaceAbbreviationsWithLongText()
     {
@@ -300,21 +295,21 @@ abstract class AbstractAppSettings
     /**
      * Sets the replace abbreviations with long text.
      *
-     * @param boolean $replaceAbbreviationsWithLongText
+     * @param bool $replaceAbbreviationsWithLongText
      *
      * @return void
      */
     public function setReplaceAbbreviationsWithLongText($replaceAbbreviationsWithLongText)
     {
-        if (boolval($this->replaceAbbreviationsWithLongText) !== boolval($replaceAbbreviationsWithLongText)) {
-            $this->replaceAbbreviationsWithLongText = boolval($replaceAbbreviationsWithLongText);
+        if ((bool)$this->replaceAbbreviationsWithLongText !== (bool)$replaceAbbreviationsWithLongText) {
+            $this->replaceAbbreviationsWithLongText = (bool)$replaceAbbreviationsWithLongText;
         }
     }
     
     /**
      * Returns the replace links.
      *
-     * @return boolean
+     * @return bool
      */
     public function getReplaceLinks()
     {
@@ -324,21 +319,21 @@ abstract class AbstractAppSettings
     /**
      * Sets the replace links.
      *
-     * @param boolean $replaceLinks
+     * @param bool $replaceLinks
      *
      * @return void
      */
     public function setReplaceLinks($replaceLinks)
     {
-        if (boolval($this->replaceLinks) !== boolval($replaceLinks)) {
-            $this->replaceLinks = boolval($replaceLinks);
+        if ((bool)$this->replaceLinks !== (bool)$replaceLinks) {
+            $this->replaceLinks = (bool)$replaceLinks;
         }
     }
     
     /**
      * Returns the replace links with title.
      *
-     * @return boolean
+     * @return bool
      */
     public function getReplaceLinksWithTitle()
     {
@@ -348,14 +343,14 @@ abstract class AbstractAppSettings
     /**
      * Sets the replace links with title.
      *
-     * @param boolean $replaceLinksWithTitle
+     * @param bool $replaceLinksWithTitle
      *
      * @return void
      */
     public function setReplaceLinksWithTitle($replaceLinksWithTitle)
     {
-        if (boolval($this->replaceLinksWithTitle) !== boolval($replaceLinksWithTitle)) {
-            $this->replaceLinksWithTitle = boolval($replaceLinksWithTitle);
+        if ((bool)$this->replaceLinksWithTitle !== (bool)$replaceLinksWithTitle) {
+            $this->replaceLinksWithTitle = (bool)$replaceLinksWithTitle;
         }
     }
     
@@ -386,7 +381,7 @@ abstract class AbstractAppSettings
     /**
      * Returns the replace censored words.
      *
-     * @return boolean
+     * @return bool
      */
     public function getReplaceCensoredWords()
     {
@@ -396,21 +391,21 @@ abstract class AbstractAppSettings
     /**
      * Sets the replace censored words.
      *
-     * @param boolean $replaceCensoredWords
+     * @param bool $replaceCensoredWords
      *
      * @return void
      */
     public function setReplaceCensoredWords($replaceCensoredWords)
     {
-        if (boolval($this->replaceCensoredWords) !== boolval($replaceCensoredWords)) {
-            $this->replaceCensoredWords = boolval($replaceCensoredWords);
+        if ((bool)$this->replaceCensoredWords !== (bool)$replaceCensoredWords) {
+            $this->replaceCensoredWords = (bool)$replaceCensoredWords;
         }
     }
     
     /**
      * Returns the replace censored words when they are part of other words.
      *
-     * @return boolean
+     * @return bool
      */
     public function getReplaceCensoredWordsWhenTheyArePartOfOtherWords()
     {
@@ -420,21 +415,21 @@ abstract class AbstractAppSettings
     /**
      * Sets the replace censored words when they are part of other words.
      *
-     * @param boolean $replaceCensoredWordsWhenTheyArePartOfOtherWords
+     * @param bool $replaceCensoredWordsWhenTheyArePartOfOtherWords
      *
      * @return void
      */
     public function setReplaceCensoredWordsWhenTheyArePartOfOtherWords($replaceCensoredWordsWhenTheyArePartOfOtherWords)
     {
-        if (boolval($this->replaceCensoredWordsWhenTheyArePartOfOtherWords) !== boolval($replaceCensoredWordsWhenTheyArePartOfOtherWords)) {
-            $this->replaceCensoredWordsWhenTheyArePartOfOtherWords = boolval($replaceCensoredWordsWhenTheyArePartOfOtherWords);
+        if ((bool)$this->replaceCensoredWordsWhenTheyArePartOfOtherWords !== (bool)$replaceCensoredWordsWhenTheyArePartOfOtherWords) {
+            $this->replaceCensoredWordsWhenTheyArePartOfOtherWords = (bool)$replaceCensoredWordsWhenTheyArePartOfOtherWords;
         }
     }
     
     /**
      * Returns the do not censor first and last letter in words with more than two chars.
      *
-     * @return boolean
+     * @return bool
      */
     public function getDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars()
     {
@@ -444,21 +439,21 @@ abstract class AbstractAppSettings
     /**
      * Sets the do not censor first and last letter in words with more than two chars.
      *
-     * @param boolean $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars
+     * @param bool $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars
      *
      * @return void
      */
     public function setDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars($doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars)
     {
-        if (boolval($this->doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars) !== boolval($doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars)) {
-            $this->doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars = boolval($doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars);
+        if ((bool)$this->doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars !== (bool)$doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars) {
+            $this->doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars = (bool)$doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars;
         }
     }
     
     /**
      * Returns the replace needles.
      *
-     * @return boolean
+     * @return bool
      */
     public function getReplaceNeedles()
     {
@@ -468,21 +463,21 @@ abstract class AbstractAppSettings
     /**
      * Sets the replace needles.
      *
-     * @param boolean $replaceNeedles
+     * @param bool $replaceNeedles
      *
      * @return void
      */
     public function setReplaceNeedles($replaceNeedles)
     {
-        if (boolval($this->replaceNeedles) !== boolval($replaceNeedles)) {
-            $this->replaceNeedles = boolval($replaceNeedles);
+        if ((bool)$this->replaceNeedles !== (bool)$replaceNeedles) {
+            $this->replaceNeedles = (bool)$replaceNeedles;
         }
     }
     
     /**
      * Returns the entry entries per page.
      *
-     * @return integer
+     * @return int
      */
     public function getEntryEntriesPerPage()
     {
@@ -492,21 +487,21 @@ abstract class AbstractAppSettings
     /**
      * Sets the entry entries per page.
      *
-     * @param integer $entryEntriesPerPage
+     * @param int $entryEntriesPerPage
      *
      * @return void
      */
     public function setEntryEntriesPerPage($entryEntriesPerPage)
     {
-        if (intval($this->entryEntriesPerPage) !== intval($entryEntriesPerPage)) {
-            $this->entryEntriesPerPage = intval($entryEntriesPerPage);
+        if ((int)$this->entryEntriesPerPage !== (int)$entryEntriesPerPage) {
+            $this->entryEntriesPerPage = (int)$entryEntriesPerPage;
         }
     }
     
     /**
      * Returns the show only own entries.
      *
-     * @return boolean
+     * @return bool
      */
     public function getShowOnlyOwnEntries()
     {
@@ -516,21 +511,21 @@ abstract class AbstractAppSettings
     /**
      * Sets the show only own entries.
      *
-     * @param boolean $showOnlyOwnEntries
+     * @param bool $showOnlyOwnEntries
      *
      * @return void
      */
     public function setShowOnlyOwnEntries($showOnlyOwnEntries)
     {
-        if (boolval($this->showOnlyOwnEntries) !== boolval($showOnlyOwnEntries)) {
-            $this->showOnlyOwnEntries = boolval($showOnlyOwnEntries);
+        if ((bool)$this->showOnlyOwnEntries !== (bool)$showOnlyOwnEntries) {
+            $this->showOnlyOwnEntries = (bool)$showOnlyOwnEntries;
         }
     }
     
     /**
      * Returns the allow moderation specific creator for entry.
      *
-     * @return boolean
+     * @return bool
      */
     public function getAllowModerationSpecificCreatorForEntry()
     {
@@ -540,21 +535,21 @@ abstract class AbstractAppSettings
     /**
      * Sets the allow moderation specific creator for entry.
      *
-     * @param boolean $allowModerationSpecificCreatorForEntry
+     * @param bool $allowModerationSpecificCreatorForEntry
      *
      * @return void
      */
     public function setAllowModerationSpecificCreatorForEntry($allowModerationSpecificCreatorForEntry)
     {
-        if (boolval($this->allowModerationSpecificCreatorForEntry) !== boolval($allowModerationSpecificCreatorForEntry)) {
-            $this->allowModerationSpecificCreatorForEntry = boolval($allowModerationSpecificCreatorForEntry);
+        if ((bool)$this->allowModerationSpecificCreatorForEntry !== (bool)$allowModerationSpecificCreatorForEntry) {
+            $this->allowModerationSpecificCreatorForEntry = (bool)$allowModerationSpecificCreatorForEntry;
         }
     }
     
     /**
      * Returns the allow moderation specific creation date for entry.
      *
-     * @return boolean
+     * @return bool
      */
     public function getAllowModerationSpecificCreationDateForEntry()
     {
@@ -564,14 +559,14 @@ abstract class AbstractAppSettings
     /**
      * Sets the allow moderation specific creation date for entry.
      *
-     * @param boolean $allowModerationSpecificCreationDateForEntry
+     * @param bool $allowModerationSpecificCreationDateForEntry
      *
      * @return void
      */
     public function setAllowModerationSpecificCreationDateForEntry($allowModerationSpecificCreationDateForEntry)
     {
-        if (boolval($this->allowModerationSpecificCreationDateForEntry) !== boolval($allowModerationSpecificCreationDateForEntry)) {
-            $this->allowModerationSpecificCreationDateForEntry = boolval($allowModerationSpecificCreationDateForEntry);
+        if ((bool)$this->allowModerationSpecificCreationDateForEntry !== (bool)$allowModerationSpecificCreationDateForEntry) {
+            $this->allowModerationSpecificCreationDateForEntry = (bool)$allowModerationSpecificCreationDateForEntry;
         }
     }
     

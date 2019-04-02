@@ -14,7 +14,6 @@ namespace Zikula\MultiHookModule\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Zikula\MultiHookModule\Controller\Base\AbstractAjaxController;
 
 /**

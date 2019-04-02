@@ -21,9 +21,6 @@ use Zikula\ThemeModule\ThemeEvents;
  */
 abstract class AbstractThemeListener implements EventSubscriberInterface
 {
-    /**
-     * Makes our handlers known to the event system.
-     */
     public static function getSubscribedEvents()
     {
         return [
@@ -42,7 +39,6 @@ abstract class AbstractThemeListener implements EventSubscriberInterface
      * The event name:
      *     `echo 'Event: ' . $event->getName();`
      *
-     * @param TwigPreRenderEvent $event The event instance
      */
     public function preRender(TwigPreRenderEvent $event)
     {
@@ -60,7 +56,6 @@ abstract class AbstractThemeListener implements EventSubscriberInterface
      * The event name:
      *     `echo 'Event: ' . $event->getName();`
      *
-     * @param TwigPostRenderEvent $event The event instance
      */
     public function postRender(TwigPostRenderEvent $event)
     {

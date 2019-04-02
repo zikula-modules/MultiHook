@@ -11,7 +11,7 @@
 
 namespace Zikula\MultiHookModule\Base;
 
-use RuntimeException;
+use Exception;
 use Zikula\Core\AbstractExtensionInstaller;
 use Zikula\MultiHookModule\Entity\EntryEntity;
 use Zikula\MultiHookModule\Entity\EntryTranslationEntity;
@@ -22,20 +22,13 @@ use Zikula\MultiHookModule\Entity\EntryTranslationEntity;
 abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstaller
 {
     /**
-     * @var array
+     * @var string[]
      */
     protected $entities = [
         EntryEntity::class,
         EntryTranslationEntity::class,
     ];
 
-    /**
-     * Install the ZikulaMultiHookModule application.
-     *
-     * @return boolean True on success, or false
-     *
-     * @throws RuntimeException Thrown if database tables can not be created or another error occurs
-     */
     public function install()
     {
         $logger = $this->container->get('logger');
@@ -43,7 +36,7 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
         // create all tables from according entity definitions
         try {
             $this->schemaTool->create($this->entities);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $this->addFlash('error', $this->__('Doctrine Exception') . ': ' . $exception->getMessage());
             $logger->error('{app}: Could not create the database tables during installation. Error details: {errorMessage}.', ['app' => 'ZikulaMultiHookModule', 'errorMessage' => $exception->getMessage()]);
     
@@ -73,17 +66,6 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
         return true;
     }
     
-    /**
-     * Upgrade the ZikulaMultiHookModule application from an older version.
-     *
-     * If the upgrade fails at some point, it returns the last upgraded version.
-     *
-     * @param integer $oldVersion Version to upgrade from
-     *
-     * @return boolean True on success, false otherwise
-     *
-     * @throws RuntimeException Thrown if database tables can not be updated
-     */
     public function upgrade($oldVersion)
     {
     /*
@@ -97,7 +79,7 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
                 // update the database schema
                 try {
                     $this->schemaTool->update($this->entities);
-                } catch (\Exception $exception) {
+                } catch (Exception $exception) {
                     $this->addFlash('error', $this->__('Doctrine Exception') . ': ' . $exception->getMessage());
                     $logger->error('{app}: Could not update the database tables during the upgrade. Error details: {errorMessage}.', ['app' => 'ZikulaMultiHookModule', 'errorMessage' => $exception->getMessage()]);
     
@@ -110,20 +92,13 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
         return true;
     }
     
-    /**
-     * Uninstall ZikulaMultiHookModule.
-     *
-     * @return boolean True on success, false otherwise
-     *
-     * @throws RuntimeException Thrown if database tables or stored workflows can not be removed
-     */
     public function uninstall()
     {
         $logger = $this->container->get('logger');
     
         try {
             $this->schemaTool->drop($this->entities);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $this->addFlash('error', $this->__('Doctrine Exception') . ': ' . $exception->getMessage());
             $logger->error('{app}: Could not remove the database tables during uninstallation. Error details: {errorMessage}.', ['app' => 'ZikulaMultiHookModule', 'errorMessage' => $exception->getMessage()]);
     
