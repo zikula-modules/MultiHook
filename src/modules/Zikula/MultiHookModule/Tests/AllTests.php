@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -17,12 +20,12 @@ require_once __DIR__ . '/bootstrap.php';
 
 class AllTests
 {
-    public static function main()
+    public static function main(): void
     {
         PHPUnit_TextUI_TestRunner::run(self::suite());
     }
 
-    public static function suite()
+    public static function suite(): PHPUnit_Framework_TestSuite
     {
         return new PHPUnit_Framework_TestSuite('ZikulaMultiHookModule - All Tests');
     }

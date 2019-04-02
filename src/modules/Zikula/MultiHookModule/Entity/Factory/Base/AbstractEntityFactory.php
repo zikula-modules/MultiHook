@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -58,12 +61,8 @@ abstract class AbstractEntityFactory
 
     /**
      * Returns a repository for a given object type.
-     *
-     * @param string $objectType Name of desired entity type
-     *
-     * @return EntityRepository The repository responsible for the given object type
      */
-    public function getRepository($objectType)
+    public function getRepository(string $objectType): EntityRepository
     {
         $entityClass = 'Zikula\\MultiHookModule\\Entity\\' . ucfirst($objectType) . 'Entity';
 
@@ -80,10 +79,8 @@ abstract class AbstractEntityFactory
 
     /**
      * Creates a new entry instance.
-     *
-     * @return EntryEntity The newly created entity instance
      */
-    public function createEntry()
+    public function createEntry(): EntryEntity
     {
         $entity = new EntryEntity();
 
@@ -94,12 +91,8 @@ abstract class AbstractEntityFactory
 
     /**
      * Returns the identifier field's name for a given object type.
-     *
-     * @param string $objectType The object type to be treated
-     *
-     * @return string Primary identifier field name
      */
-    public function getIdField($objectType = '')
+    public function getIdField(string $objectType = ''): string
     {
         if (empty($objectType)) {
             throw new InvalidArgumentException('Invalid object type received.');
@@ -111,48 +104,24 @@ abstract class AbstractEntityFactory
         return $meta->getSingleIdentifierFieldName();
     }
 
-    /**
-     * Returns the entity manager.
-     *
-     * @return EntityManagerInterface
-     */
-    public function getEntityManager()
+    public function getEntityManager(): ?EntityManagerInterface
     {
         return $this->entityManager;
     }
     
-    /**
-     * Sets the entity manager.
-     *
-     * @param EntityManagerInterface $entityManager
-     *
-     * @return void
-     */
-    public function setEntityManager(EntityManagerInterface $entityManager = null)
+    public function setEntityManager(EntityManagerInterface $entityManager = null): void
     {
         if ($this->entityManager !== $entityManager) {
             $this->entityManager = $entityManager;
         }
     }
     
-    /**
-     * Returns the entity initialiser.
-     *
-     * @return EntityInitialiser
-     */
-    public function getEntityInitialiser()
+    public function getEntityInitialiser(): ?EntityInitialiser
     {
         return $this->entityInitialiser;
     }
     
-    /**
-     * Sets the entity initialiser.
-     *
-     * @param EntityInitialiser $entityInitialiser
-     *
-     * @return void
-     */
-    public function setEntityInitialiser(EntityInitialiser $entityInitialiser = null)
+    public function setEntityInitialiser(EntityInitialiser $entityInitialiser = null): void
     {
         if ($this->entityInitialiser !== $entityInitialiser) {
             $this->entityInitialiser = $entityInitialiser;

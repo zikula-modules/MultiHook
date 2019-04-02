@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -16,6 +19,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Zikula\Core\Controller\AbstractController;
+use Zikula\UsersModule\Api\ApiInterface\CurrentUserApiInterface;
+use Zikula\MultiHookModule\Entity\Factory\EntityFactory;
 
 /**
  * Ajax controller base class.
@@ -26,15 +31,13 @@ abstract class AbstractAjaxController extends AbstractController
     /**
      * Changes a given flag (boolean field) by switching between true and false.
      *
-     * @param Request $request
-     *
-     * @return JsonResponse
-     *
      * @throws AccessDeniedException Thrown if the user doesn't have required permissions
      */
     public function toggleFlagAction(
-        Request $request
-    )
+        Request $request,
+        EntityFactory $entityFactory,
+        CurrentUserApiInterface $currentUserApi
+    ): JsonResponse
      {
         if (!$request->isXmlHttpRequest()) {
             return $this->json($this->__('Only ajax access is allowed!'), Response::HTTP_BAD_REQUEST);
@@ -56,7 +59,6 @@ abstract class AbstractAjaxController extends AbstractController
         }
         
         // select data from data source
-        $entityFactory = $this->get('zikula_multihook_module.entity_factory');
         $repository = $entityFactory->getRepository($objectType);
         $entity = $repository->selectById($id, false);
         if (null === $entity) {
@@ -70,7 +72,7 @@ abstract class AbstractAjaxController extends AbstractController
         $entityFactory->getEntityManager()->flush();
         
         $logger = $this->get('logger');
-        $logArgs = ['app' => 'ZikulaMultiHookModule', 'user' => $this->get('zikula_users_module.current_user')->get('uname'), 'field' => $field, 'entity' => $objectType, 'id' => $id];
+        $logArgs = ['app' => 'ZikulaMultiHookModule', 'user' => $currentUserApi->get('uname'), 'field' => $field, 'entity' => $objectType, 'id' => $id];
         $logger->notice('{app}: User {user} toggled the {field} flag the {entity} with id {id}.', $logArgs);
         
         // return response

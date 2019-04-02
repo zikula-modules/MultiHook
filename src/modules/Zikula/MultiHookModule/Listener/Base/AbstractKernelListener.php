@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -74,7 +77,7 @@ abstract class AbstractKernelListener implements EventSubscriberInterface
      *     `$request = $event->getRequest();`
      *
      */
-    public function onRequest(GetResponseEvent $event)
+    public function onRequest(GetResponseEvent $event): void
     {
     }
     
@@ -122,7 +125,7 @@ abstract class AbstractKernelListener implements EventSubscriberInterface
      *     `$request = $event->getRequest();`
      *
      */
-    public function onController(FilterControllerEvent $event)
+    public function onController(FilterControllerEvent $event): void
     {
     }
     
@@ -161,7 +164,7 @@ abstract class AbstractKernelListener implements EventSubscriberInterface
      *     `$request = $event->getRequest();`
      *
      */
-    public function onView(GetResponseForControllerResultEvent $event)
+    public function onView(GetResponseForControllerResultEvent $event): void
     {
     }
     
@@ -205,7 +208,7 @@ abstract class AbstractKernelListener implements EventSubscriberInterface
      *     `$request = $event->getRequest();`
      *
      */
-    public function onResponse(FilterResponseEvent $event)
+    public function onResponse(FilterResponseEvent $event): void
     {
     }
     
@@ -236,7 +239,7 @@ abstract class AbstractKernelListener implements EventSubscriberInterface
      *     `$request = $event->getRequest();`
      *
      */
-    public function onFinishRequest(FinishRequestEvent $event)
+    public function onFinishRequest(FinishRequestEvent $event): void
     {
     }
     
@@ -270,7 +273,7 @@ abstract class AbstractKernelListener implements EventSubscriberInterface
      *     `$request = $event->getRequest();`
      *
      */
-    public function onTerminate(PostResponseEvent $event)
+    public function onTerminate(PostResponseEvent $event): void
     {
     }
     
@@ -322,7 +325,7 @@ abstract class AbstractKernelListener implements EventSubscriberInterface
      *     `$request = $event->getRequest();`
      *
      */
-    public function onException(GetResponseForExceptionEvent $event)
+    public function onException(GetResponseForExceptionEvent $event): void
     {
     }
 }

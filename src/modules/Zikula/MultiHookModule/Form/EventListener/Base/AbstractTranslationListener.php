@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -33,7 +36,7 @@ abstract class AbstractTranslationListener implements EventSubscriberInterface
     /**
      * Adds translation fields to the form.
      */
-    public function preSetData(FormEvent $event)
+    public function preSetData(FormEvent $event): void
     {
         $form = $event->getForm();
         $formOptions = $form->getConfig()->getOptions();
@@ -48,7 +51,7 @@ abstract class AbstractTranslationListener implements EventSubscriberInterface
             $originalFieldConfig = $entityForm->get($fieldName)->getConfig();
             $fieldOptions = $originalFieldConfig->getOptions();
             $fieldOptions['required'] = $fieldOptions['required'] && in_array($fieldName, $formOptions['mandatory_fields'], true);
-            $fieldOptions['data'] = isset($formOptions['values'][$fieldName]) ? $formOptions['values'][$fieldName] : null;
+            $fieldOptions['data'] = $formOptions['values'][$fieldName] ?? null;
     
             $form->add($fieldName, get_class($originalFieldConfig->getType()->getInnerType()), $fieldOptions);
         }
@@ -56,10 +59,8 @@ abstract class AbstractTranslationListener implements EventSubscriberInterface
     
     /**
      * Returns parent form editing the entity.
-     *
-     * @return FormInterface
      */
-    protected function getEntityForm(FormInterface $form)
+    protected function getEntityForm(FormInterface $form): FormInterface
     {
         $parentForm = $form;
         do {

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -81,7 +84,7 @@ abstract class AbstractUserListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function create(GenericEvent $event)
+    public function create(GenericEvent $event): void
     {
     }
     
@@ -99,7 +102,7 @@ abstract class AbstractUserListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function update(GenericEvent $event)
+    public function update(GenericEvent $event): void
     {
     }
     
@@ -115,7 +118,7 @@ abstract class AbstractUserListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function delete(GenericEvent $event)
+    public function delete(GenericEvent $event): void
     {
         $userId = $event->getSubject();
     

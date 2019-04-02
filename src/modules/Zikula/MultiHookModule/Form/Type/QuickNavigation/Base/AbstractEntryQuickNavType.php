@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -49,7 +52,7 @@ abstract class AbstractEntryQuickNavType extends AbstractType
         $this->featureActivationHelper = $featureActivationHelper;
     }
 
-    public function setTranslator(TranslatorInterface $translator)
+    public function setTranslator(TranslatorInterface $translator): void
     {
         $this->translator = $translator;
     }
@@ -79,7 +82,7 @@ abstract class AbstractEntryQuickNavType extends AbstractType
     /**
      * Adds list fields.
      */
-    public function addListFields(FormBuilderInterface $builder, array $options = [])
+    public function addListFields(FormBuilderInterface $builder, array $options = []): void
     {
         $listEntries = $this->listHelper->getEntries('entry', 'workflowState');
         $choices = [];
@@ -124,7 +127,7 @@ abstract class AbstractEntryQuickNavType extends AbstractType
     /**
      * Adds a search field.
      */
-    public function addSearchField(FormBuilderInterface $builder, array $options = [])
+    public function addSearchField(FormBuilderInterface $builder, array $options = []): void
     {
         $builder->add('q', SearchType::class, [
             'label' => $this->__('Search'),
@@ -140,7 +143,7 @@ abstract class AbstractEntryQuickNavType extends AbstractType
     /**
      * Adds sorting fields.
      */
-    public function addSortingFields(FormBuilderInterface $builder, array $options = [])
+    public function addSortingFields(FormBuilderInterface $builder, array $options = []): void
     {
         $builder
             ->add('sort', ChoiceType::class, [
@@ -181,7 +184,7 @@ abstract class AbstractEntryQuickNavType extends AbstractType
     /**
      * Adds a page size field.
      */
-    public function addAmountField(FormBuilderInterface $builder, array $options = [])
+    public function addAmountField(FormBuilderInterface $builder, array $options = []): void
     {
         $builder->add('num', ChoiceType::class, [
             'label' => $this->__('Page size'),
@@ -206,7 +209,7 @@ abstract class AbstractEntryQuickNavType extends AbstractType
     /**
      * Adds boolean fields.
      */
-    public function addBooleanFields(FormBuilderInterface $builder, array $options = [])
+    public function addBooleanFields(FormBuilderInterface $builder, array $options = []): void
     {
         $builder->add('active', ChoiceType::class, [
             'label' => $this->__('Active'),

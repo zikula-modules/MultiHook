@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -38,7 +41,7 @@ class AbstractFilterEntryEvent extends Event
     /**
      * @return EntryEntity
      */
-    public function getEntry()
+    public function getEntry(): EntryEntity
     {
         return $this->entry;
     }
@@ -46,7 +49,7 @@ class AbstractFilterEntryEvent extends Event
     /**
      * @return array Entity change set
      */
-    public function getEntityChangeSet()
+    public function getEntityChangeSet(): array
     {
         return $this->entityChangeSet;
     }

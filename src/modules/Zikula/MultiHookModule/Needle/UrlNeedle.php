@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -12,16 +15,16 @@
 namespace Zikula\MultiHookModule\Needle;
 
 use Symfony\Component\HttpFoundation\RequestStack;
+use Zikula\Common\MultiHook\NeedleInterface;
 use Zikula\Common\Translator\TranslatorInterface;
+use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 
 /**
  * URL needle
  */
-class UrlNeedle
+class UrlNeedle implements NeedleInterface
 {
     /**
-     * Translator instance
-     *
      * @var TranslatorInterface
      */
     private $translator;
@@ -50,21 +53,14 @@ class UrlNeedle
      */
     private $name;
 
-    /**
-     * UrlNeedle constructor.
-     *
-     * @param TranslatorInterface $translator
-     * @param RequestStack $requestStack
-     * @param string $cssClassForExternalLinks
-     */
     public function __construct(
         TranslatorInterface $translator,
         RequestStack $requestStack,
-        $cssClassForExternalLinks
+        VariableApiInterface $variableApi
     ) {
         $this->translator = $translator;
         $this->requestStack = $requestStack;
-        $this->cssClassForExternalLinks = $cssClassForExternalLinks;
+        $this->cssClassForExternalLinks = $variableApi->get('ZikulaMultiHookModule', 'cssClassForExternalLinks', '');
 
         $nsParts = explode('\\', get_class($this));
         $vendor = $nsParts[0];
@@ -74,125 +70,70 @@ class UrlNeedle
         $this->name = str_replace('Needle', '', array_pop($nsParts));
     }
 
-    /**
-     * Returns the bundle name.
-     *
-     * @return string
-     */
-    public function getBundleName()
-    {
-        return $this->bundleName;
-    }
-
-    /**
-     * Returns the name of this needle.
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Returns the icon name (FontAwesome icon code suffix, e.g. "pencil").
-     *
-     * @return string
-     */
-    public function getIcon()
+    public function getIcon(): string
     {
         return 'globe';
     }
 
-    /**
-     * Returns the title of this needle.
-     *
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->translator->__('URLs', 'zikulamultihookmodule');
     }
 
-    /**
-     * Returns the description of this needle.
-     *
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->translator->__('Makes URLs clickable, works with http, https, ftp and mailto URLs.', 'zikulamultihookmodule');
     }
 
-    /**
-     * Returns usage information shown on settings page.
-     *
-     * @return string
-     */
-    public function getUsageInfo()
+    public function getUsageInfo(): string
     {
         return $this->translator->__('https://www.example.com', 'zikulamultihookmodule');
     }
 
-    /**
-     * Returns whether this needle is active or not.
-     *
-     * @return boolean
-     */
-    public function isActive()
+    public function isActive(): bool
     {
         return true;
     }
 
-    /**
-     * Returns whether this needle is case sensitive or not.
-     *
-     * @return boolean
-     */
-    public function isCaseSensitive()
+    public function isCaseSensitive(): bool
     {
         return false;
     }
 
-    /**
-     * Returns the needle subject entries.
-     *
-     * @return string[]
-     */
-    public function getSubjects()
+    public function getSubjects(): array
     {
         return ['http://', 'https://', 'ftp://', 'mailto://'];
     }
 
-    /**
-     * Applies the needle functionality.
-     *
-     * @param string $needleId
-     * @param string $needleText
-     *
-     * @return string Replaced value for the needle
-     */
-    public function apply($needleId, $needleText)
+    public function apply(string $needleId, string $needleText): string
     {
         if (empty($needleId)) {
             return $needleId;
         }
 
-        $request = $this->requestStack->getCurrentRequest();
-        $baseUrl = $request->getSchemeAndHttpHost() . $request->getBasePath();
-
         // simple replacement, no need to cache anything
         $url = htmlspecialchars($needleText . $needleId);
-
         $extclass = '';
-        if (false === stristr($baseUrl, $url)) {
-            if (!empty($this->cssClassForExternalLinks)) {
+
+        $request = $this->requestStack->getCurrentRequest();
+        if (null !== $request) {
+            $baseUrl = $request->getSchemeAndHttpHost() . $request->getBasePath();
+
+            if (!empty($this->cssClassForExternalLinks) && false === stripos($baseUrl, $url)) {
                 $extclass = ' class="' . $this->cssClassForExternalLinks . '"';
             }
         }
 
-        $result = '<a href="' . $url . '"' . $extclass . '>' . $url . '</a>'; 
+        return '<a href="' . $url . '"' . $extclass . '>' . $url . '</a>';
+    }
 
-        return $result;
+    public function getBundleName(): string
+    {
+        return $this->bundleName;
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -82,10 +85,8 @@ abstract class AbstractWorkflowHelper
     
     /**
      * This method returns a list of possible object states.
-     *
-     * @return array List of collected state information
      */
-    public function getObjectStates()
+    public function getObjectStates(): array
     {
         $states = [];
         $states[] = [
@@ -114,12 +115,8 @@ abstract class AbstractWorkflowHelper
     
     /**
      * This method returns information about a certain state.
-     *
-     * @param string $state The given state value
-     *
-     * @return array|null The corresponding state information
      */
-    public function getStateInfo($state = 'initial')
+    public function getStateInfo(string $state = 'initial'): ?array
     {
         $result = null;
         $stateList = $this->getObjectStates();
@@ -136,12 +133,8 @@ abstract class AbstractWorkflowHelper
     
     /**
      * Retrieve the available actions for a given entity object.
-     *
-     * @param EntityAccess $entity The given entity instance
-     *
-     * @return array List of available workflow actions
      */
-    public function getActionsForObject(EntityAccess $entity)
+    public function getActionsForObject(EntityAccess $entity): array
     {
         $workflow = $this->workflowRegistry->get($entity);
         $wfActions = $workflow->getEnabledTransitions($entity);
@@ -162,13 +155,8 @@ abstract class AbstractWorkflowHelper
     
     /**
      * Returns a translatable title for a certain action.
-     *
-     * @param string $currentState Current state of the entity
-     * @param string $actionId Id of the treated action
-     *
-     * @return string The action title
      */
-    protected function getTitleForAction($currentState, $actionId)
+    protected function getTitleForAction(string $currentState, string $actionId): string
     {
         $title = '';
         switch ($actionId) {
@@ -201,12 +189,8 @@ abstract class AbstractWorkflowHelper
     
     /**
      * Returns a button class for a certain action.
-     *
-     * @param string $actionId Id of the treated action
-     *
-     * @return string The button class
      */
-    protected function getButtonClassForAction($actionId)
+    protected function getButtonClassForAction(string $actionId): string
     {
         $buttonClass = '';
         switch ($actionId) {
@@ -237,14 +221,8 @@ abstract class AbstractWorkflowHelper
     
     /**
      * Executes a certain workflow action for a given entity object.
-     *
-     * @param EntityAccess $entity The given entity instance
-     * @param string $actionId  Name of action to be executed
-     * @param bool $recursive True if the function called itself
-     *
-     * @return bool Whether everything worked well or not
      */
-    public function executeAction(EntityAccess $entity, $actionId = '', $recursive = false)
+    public function executeAction(EntityAccess $entity, string $actionId = '', bool $recursive = false): bool
     {
         $workflow = $this->workflowRegistry->get($entity);
         if (!$workflow->can($entity, $actionId)) {

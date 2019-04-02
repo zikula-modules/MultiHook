@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -80,7 +83,7 @@ abstract class AbstractEntryType extends AbstractType
         $this->featureActivationHelper = $featureActivationHelper;
     }
 
-    public function setTranslator(TranslatorInterface $translator)
+    public function setTranslator(TranslatorInterface $translator): void
     {
         $this->translator = $translator;
     }
@@ -95,7 +98,7 @@ abstract class AbstractEntryType extends AbstractType
     /**
      * Adds basic entity fields.
      */
-    public function addEntityFields(FormBuilderInterface $builder, array $options = [])
+    public function addEntityFields(FormBuilderInterface $builder, array $options = []): void
     {
         
         $builder->add('longForm', TextType::class, [
@@ -143,7 +146,7 @@ abstract class AbstractEntryType extends AbstractType
                     $builder->add('translations' . $language, TranslationType::class, [
                         'fields' => $translatableFields,
                         'mandatory_fields' => $mandatoryFields[$language],
-                        'values' => isset($options['translations'][$language]) ? $options['translations'][$language] : []
+                        'values' => $options['translations'][$language] ?? []
                     ]);
                 }
             }
@@ -194,7 +197,7 @@ abstract class AbstractEntryType extends AbstractType
     /**
      * Adds submit buttons.
      */
-    public function addSubmitButtons(FormBuilderInterface $builder, array $options = [])
+    public function addSubmitButtons(FormBuilderInterface $builder, array $options = []): void
     {
         foreach ($options['actions'] as $action) {
             $builder->add($action['id'], SubmitType::class, [

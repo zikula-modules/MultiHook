@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -29,7 +32,7 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
         EntryTranslationEntity::class,
     ];
 
-    public function install()
+    public function install(): bool
     {
         $logger = $this->container->get('logger');
     
@@ -66,7 +69,7 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
         return true;
     }
     
-    public function upgrade($oldVersion)
+    public function upgrade(string $oldVersion): bool
     {
     /*
         $logger = $this->container->get('logger');
@@ -92,7 +95,7 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
         return true;
     }
     
-    public function uninstall()
+    public function uninstall(): bool
     {
         $logger = $this->container->get('logger');
     

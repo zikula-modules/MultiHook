@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -35,7 +38,7 @@ abstract class AbstractListEntryValidator extends ConstraintValidator
         $this->listEntriesHelper = $listEntriesHelper;
     }
 
-    public function setTranslator(TranslatorInterface $translator)
+    public function setTranslator(TranslatorInterface $translator): void
     {
         $this->translator = $translator;
     }

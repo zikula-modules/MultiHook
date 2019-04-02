@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -58,53 +61,32 @@ abstract class AbstractPermissionHelper
     
     /**
      * Checks if the given entity instance may be read.
-     *
-     * @param EntityAccess $entity
-     * @param int $userId
-     *
-     * @return bool
      */
-    public function mayRead(EntityAccess $entity, $userId = null)
+    public function mayRead(EntityAccess $entity, int $userId = null): bool
     {
         return $this->hasEntityPermission($entity, ACCESS_READ, $userId);
     }
     
     /**
      * Checks if the given entity instance may be edited.
-     *
-     * @param EntityAccess $entity
-     * @param int $userId
-     *
-     * @return bool
      */
-    public function mayEdit(EntityAccess $entity, $userId = null)
+    public function mayEdit(EntityAccess $entity, int $userId = null): bool
     {
         return $this->hasEntityPermission($entity, ACCESS_EDIT, $userId);
     }
     
     /**
      * Checks if the given entity instance may be deleted.
-     *
-     * @param EntityAccess $entity
-     * @param int $userId
-     *
-     * @return bool
      */
-    public function mayDelete(EntityAccess $entity, $userId = null)
+    public function mayDelete(EntityAccess $entity, int $userId = null): bool
     {
         return $this->hasEntityPermission($entity, ACCESS_DELETE, $userId);
     }
     
     /**
      * Checks if a certain permission level is granted for the given entity instance.
-     *
-     * @param EntityAccess $entity
-     * @param int $permissionLevel
-     * @param int $userId
-     *
-     * @return bool
      */
-    public function hasEntityPermission(EntityAccess $entity, $permissionLevel, $userId = null)
+    public function hasEntityPermission(EntityAccess $entity, int $permissionLevel, int $userId = null): bool
     {
         $objectType = $entity->get_objectType();
         $instance = $entity->getKey() . '::';
@@ -114,40 +96,24 @@ abstract class AbstractPermissionHelper
     
     /**
      * Checks if a certain permission level is granted for the given object type.
-     *
-     * @param string $objectType
-     * @param int $permissionLevel
-     * @param int $userId
-     *
-     * @return bool
      */
-    public function hasComponentPermission($objectType, $permissionLevel, $userId = null)
+    public function hasComponentPermission(string $objectType, int $permissionLevel, int $userId = null): bool
     {
         return $this->permissionApi->hasPermission('ZikulaMultiHookModule:' . ucfirst($objectType) . ':', '::', $permissionLevel, $userId);
     }
     
     /**
      * Checks if the quick navigation form for the given object type may be used or not.
-     *
-     * @param string $objectType
-     * @param int $userId
-     *
-     * @return bool
      */
-    public function mayUseQuickNav($objectType, $userId = null)
+    public function mayUseQuickNav(string $objectType, int $userId = null): bool
     {
         return $this->hasComponentPermission($objectType, ACCESS_READ, $userId);
     }
     
     /**
      * Checks if a certain permission level is granted for the application in general.
-     *
-     * @param int $permissionLevel
-     * @param int $userId
-     *
-     * @return bool
      */
-    public function hasPermission($permissionLevel, $userId = null)
+    public function hasPermission(int $permissionLevel, int $userId = null): bool
     {
         return $this->permissionApi->hasPermission('ZikulaMultiHookModule::', '::', $permissionLevel, $userId);
     }
@@ -157,7 +123,7 @@ abstract class AbstractPermissionHelper
      *
      * @return int[] List of group ids
      */
-    public function getUserGroupIds()
+    public function getUserGroupIds(): array
     {
         $isLoggedIn = $this->currentUserApi->isLoggedIn();
         if (!$isLoggedIn) {
@@ -176,20 +142,16 @@ abstract class AbstractPermissionHelper
     
     /**
      * Returns the the current user's id.
-     *
-     * @return int
      */
-    public function getUserId()
+    public function getUserId(): int
     {
         return (int)$this->currentUserApi->get('uid');
     }
     
     /**
      * Returns the the current user's entity.
-     *
-     * @return UserEntity
      */
-    public function getUser()
+    public function getUser(): UserEntity
     {
         return $this->userRepository->find($this->getUserId());
     }

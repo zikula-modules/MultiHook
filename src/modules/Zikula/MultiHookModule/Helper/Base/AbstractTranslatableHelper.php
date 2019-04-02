@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -67,12 +70,8 @@ abstract class AbstractTranslatableHelper
      * Return list of translatable fields per entity.
      * These are required to be determined to recognise
      * that they have to be selected from according translation tables.
-     *
-     * @param string $objectType The currently treated object type
-     *
-     * @return string[] List of translatable fields
      */
-    public function getTranslatableFields($objectType)
+    public function getTranslatableFields(string $objectType): array
     {
         $fields = [];
         switch ($objectType) {
@@ -86,10 +85,8 @@ abstract class AbstractTranslatableHelper
     
     /**
      * Return the current language code.
-     *
-     * @return string code of current language
      */
-    public function getCurrentLanguage()
+    public function getCurrentLanguage(): string
     {
         $request = $this->requestStack->getCurrentRequest();
     
@@ -98,12 +95,8 @@ abstract class AbstractTranslatableHelper
     
     /**
      * Return list of supported languages on the current system.
-     *
-     * @param string $objectType The currently treated object type
-     *
-     * @return string[] List of language codes
      */
-    public function getSupportedLanguages($objectType)
+    public function getSupportedLanguages(string $objectType): array
     {
         if ($this->variableApi->getSystemVar('multilingual')) {
             return $this->localeApi->getSupportedLocales();
@@ -115,12 +108,8 @@ abstract class AbstractTranslatableHelper
     
     /**
      * Returns a list of mandatory fields for each supported language.
-     *
-     * @param string $objectType The currently treated object type
-     *
-     * @return array List of mandatory fields for each language code
      */
-    public function getMandatoryFields($objectType)
+    public function getMandatoryFields(string $objectType): array
     {
         $mandatoryFields = [];
         foreach ($this->getSupportedLanguages($objectType) as $language) {
@@ -135,7 +124,7 @@ abstract class AbstractTranslatableHelper
      *
      * @return array Collected translations for each language code
      */
-    public function prepareEntityForEditing(EntityAccess $entity)
+    public function prepareEntityForEditing(EntityAccess $entity): array
     {
         $translations = [];
         $objectType = $entity->get_objectType();
@@ -169,7 +158,7 @@ abstract class AbstractTranslatableHelper
             }
             $translationData = [];
             foreach ($fields as $fieldName) {
-                $translationData[$fieldName] = isset($entityTranslations[$language][$fieldName]) ? $entityTranslations[$language][$fieldName] : '';
+                $translationData[$fieldName] = $entityTranslations[$language][$fieldName] ?? '';
             }
             // add data to collected translations
             $translations[$language] = $translationData;
@@ -180,11 +169,8 @@ abstract class AbstractTranslatableHelper
     
     /**
      * Post-editing method persisting translated fields.
-     *
-     * @param EntityAccess $entity The entity being edited
-     * @param FormInterface $form Form containing translations
      */
-    public function processEntityAfterEditing(EntityAccess $entity, FormInterface $form)
+    public function processEntityAfterEditing(EntityAccess $entity, FormInterface $form): void
     {
         $objectType = $entity->get_objectType();
         $entityManager = $this->entityFactory->getEntityManager();
@@ -207,13 +193,8 @@ abstract class AbstractTranslatableHelper
     
     /**
      * Collects translated fields from given form for a specific language.
-     *
-     * @param FormInterface $form Form containing translations
-     * @param string $language The desired language
-     *
-     * @return array
      */
-    public function readTranslationInput(FormInterface $form, $language = 'en')
+    public function readTranslationInput(FormInterface $form, string $language = 'en'): array
     {
         $data = [];
         $translationKey = 'translations' . $language;

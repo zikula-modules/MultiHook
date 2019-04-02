@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -25,6 +28,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Zikula\Core\Doctrine\EntityAccess;
+use Zikula\UsersModule\Api\CurrentUserApi;
 
 /**
  * Event subscriber base class for entity lifecycle events.
@@ -79,7 +83,7 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
      *
      * @see https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#preflush
      */
-    public function preFlush(PreFlushEventArgs $args)
+    public function preFlush(PreFlushEventArgs $args): void
     {
     }
 
@@ -89,7 +93,7 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
      *
      * @see https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#onflush
      */
-    public function onFlush(OnFlushEventArgs $args)
+    public function onFlush(OnFlushEventArgs $args): void
     {
     }
 
@@ -98,7 +102,7 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
      *
      * @see https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#postflush
      */
-    public function postFlush(PostFlushEventArgs $args)
+    public function postFlush(PostFlushEventArgs $args): void
     {
     }
 
@@ -108,7 +112,7 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
      *
      * @see https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#preremove
      */
-    public function preRemove(LifecycleEventArgs $args)
+    public function preRemove(LifecycleEventArgs $args): void
     {
         /** @var EntityAccess $entity */
         $entity = $args->getObject();
@@ -131,7 +135,7 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
      *
      * @see https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#postupdate-postremove-postpersist
      */
-    public function postRemove(LifecycleEventArgs $args)
+    public function postRemove(LifecycleEventArgs $args): void
     {
         /** @var EntityAccess $entity */
         $entity = $args->getObject();
@@ -141,7 +145,7 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
         
         $objectType = $entity->get_objectType();
         
-        $currentUserApi = $this->container->get('zikula_users_module.current_user');
+        $currentUserApi = $this->container->get(CurrentUserApi::class);
         $logArgs = ['app' => 'ZikulaMultiHookModule', 'user' => $currentUserApi->get('uname'), 'entity' => $objectType, 'id' => $entity->getKey()];
         $this->logger->debug('{app}: User {user} removed the {entity} with id {id}.', $logArgs);
         
@@ -160,7 +164,7 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
      *
      * @see https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#prepersist
      */
-    public function prePersist(LifecycleEventArgs $args)
+    public function prePersist(LifecycleEventArgs $args): void
     {
         /** @var EntityAccess $entity */
         $entity = $args->getObject();
@@ -180,7 +184,7 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
      *
      * @see https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#postupdate-postremove-postpersist
      */
-    public function postPersist(LifecycleEventArgs $args)
+    public function postPersist(LifecycleEventArgs $args): void
     {
         /** @var EntityAccess $entity */
         $entity = $args->getObject();
@@ -188,7 +192,7 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
             return;
         }
         
-        $currentUserApi = $this->container->get('zikula_users_module.current_user');
+        $currentUserApi = $this->container->get(CurrentUserApi::class);
         $logArgs = ['app' => 'ZikulaMultiHookModule', 'user' => $currentUserApi->get('uname'), 'entity' => $entity->get_objectType(), 'id' => $entity->getKey()];
         $this->logger->debug('{app}: User {user} created the {entity} with id {id}.', $logArgs);
         
@@ -203,7 +207,7 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
      *
      * @see https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#preupdate
      */
-    public function preUpdate(PreUpdateEventArgs $args)
+    public function preUpdate(PreUpdateEventArgs $args): void
     {
         /** @var EntityAccess $entity */
         $entity = $args->getObject();
@@ -222,7 +226,7 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
      *
      * @see https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#postupdate-postremove-postpersist
      */
-    public function postUpdate(LifecycleEventArgs $args)
+    public function postUpdate(LifecycleEventArgs $args): void
     {
         /** @var EntityAccess $entity */
         $entity = $args->getObject();
@@ -230,7 +234,7 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
             return;
         }
         
-        $currentUserApi = $this->container->get('zikula_users_module.current_user');
+        $currentUserApi = $this->container->get(CurrentUserApi::class);
         $logArgs = ['app' => 'ZikulaMultiHookModule', 'user' => $currentUserApi->get('uname'), 'entity' => $entity->get_objectType(), 'id' => $entity->getKey()];
         $this->logger->debug('{app}: User {user} updated the {entity} with id {id}.', $logArgs);
         
@@ -250,7 +254,7 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
      *
      * @see https://www.doctrine-project.org/projects/doctrine-orm/en/latest/reference/events.html#postload
      */
-    public function postLoad(LifecycleEventArgs $args)
+    public function postLoad(LifecycleEventArgs $args): void
     {
         /** @var EntityAccess $entity */
         $entity = $args->getObject();
@@ -267,10 +271,8 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
      * Checks whether this listener is responsible for the given entity or not.
      *
      * @param EntityAccess $entity The given entity
-     *
-     * @return bool True if entity is managed by this listener, false otherwise
      */
-    protected function isEntityManagedByThisBundle($entity)
+    protected function isEntityManagedByThisBundle($entity): bool
     {
         $entityClassParts = explode('\\', get_class($entity));
 
@@ -284,12 +286,8 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
 
     /**
      * Returns a filter event instance for the given entity.
-     *
-     * @param EntityAccess $entity The given entity
-     *
-     * @return Event The created event instance
      */
-    protected function createFilterEvent(EntityAccess $entity)
+    protected function createFilterEvent(EntityAccess $entity): Event
     {
         $filterEventClass = '\\Zikula\\MultiHookModule\\Event\\Filter' . ucfirst($entity->get_objectType()) . 'Event';
 

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -40,7 +43,7 @@ abstract class AbstractThemeListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function preRender(TwigPreRenderEvent $event)
+    public function preRender(TwigPreRenderEvent $event): void
     {
     }
     
@@ -57,7 +60,7 @@ abstract class AbstractThemeListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function postRender(TwigPostRenderEvent $event)
+    public function postRender(TwigPostRenderEvent $event): void
     {
     }
 }

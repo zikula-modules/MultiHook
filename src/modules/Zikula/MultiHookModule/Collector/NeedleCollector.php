@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -10,6 +13,8 @@
  */
 
 namespace Zikula\MultiHookModule\Collector;
+
+use Zikula\Common\MultiHook\NeedleInterface;
 
 /**
  * Needle collector implementation class.
@@ -23,50 +28,40 @@ class NeedleCollector
     private $needles;
 
     /**
-     * NeedleCollector constructor.
+     * @param NeedleInterface[] $needles
      */
-    public function __construct()
+    public function __construct(iterable $needles)
     {
         $this->needles = [];
+        foreach ($needles as $needle) {
+            $this->add($needle);
+        }
     }
 
     /**
      * Adds a needle to the collection.
-     *
-     * @param object $needle
      */
-    public function add($needle)
+    public function add(NeedleInterface $needle): void
     {
-        $id = '';
-        if (method_exists($needle, 'getBundleName')) {
-            $id .= $needle->getBundleName();
-        }
-        if (method_exists($needle, 'getName')) {
-            $id .= $needle->getName();
-        } elseif (method_exists($needle, 'getTitle')) {
-            $id .= $needle->getTitle();
-        }
+        $id = str_replace('\\', '_', get_class($needle));
 
         $this->needles[$id] = $needle;
     }
 
     /**
      * Returns a needle from the collection by service.id.
-     *
-     * @param $id
-     * @return object
      */
-    public function get($id)
+    public function get(string $id): ?NeedleInterface
     {
-        return isset($this->needles[$id]) ? $this->needles[$id] : null;
+        return $this->needles[$id] ?? null;
     }
 
     /**
      * Returns all needles in the collection.
      *
-     * @return object[]
+     * @return NeedleInterface[]
      */
-    public function getAll()
+    public function getAll(): iterable
     {
         $this->sortNeedles();
 
@@ -76,25 +71,21 @@ class NeedleCollector
     /**
      * Returns all active needles in the collection.
      *
-     * @return object[]
+     * @return NeedleInterface[]
      */
-    public function getActive()
+    public function getActive(): iterable
     {
-        return array_filter($this->getAll(), function($item) {
-            return method_exists($item, 'isActive') ? $item->isActive() : false;
+        return array_filter($this->getAll(), static function(NeedleInterface $item) {
+            return $item->isActive();
         });
     }
 
     /**
      * Sorts available needles by their title.
      */
-    private function sortNeedles() {
+    private function sortNeedles(): void {
         $needles = $this->needles;
-        usort($needles, function ($a, $b) {
-            if (!method_exists($a, 'getTitle') || !method_exists($b, 'getTitle')) {
-                return 0;
-            }
-
+        usort($needles, static function(NeedleInterface $a, NeedleInterface $b) {
             return strcmp($a->getTitle(), $b->getTitle());
         });
         $this->needles = $needles;

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -162,411 +165,207 @@ abstract class AbstractAppSettings
         $this->load();
     }
     
-    /**
-     * Returns the show edit link.
-     *
-     * @return bool
-     */
-    public function getShowEditLink()
+    public function getShowEditLink(): bool
     {
         return $this->showEditLink;
     }
     
-    /**
-     * Sets the show edit link.
-     *
-     * @param bool $showEditLink
-     *
-     * @return void
-     */
-    public function setShowEditLink($showEditLink)
+    public function setShowEditLink(bool $showEditLink): void
     {
-        if ((bool)$this->showEditLink !== (bool)$showEditLink) {
-            $this->showEditLink = (bool)$showEditLink;
+        if ((bool)$this->showEditLink !== $showEditLink) {
+            $this->showEditLink = $showEditLink;
         }
     }
     
-    /**
-     * Returns the replace only first instance of items.
-     *
-     * @return bool
-     */
-    public function getReplaceOnlyFirstInstanceOfItems()
+    public function getReplaceOnlyFirstInstanceOfItems(): bool
     {
         return $this->replaceOnlyFirstInstanceOfItems;
     }
     
-    /**
-     * Sets the replace only first instance of items.
-     *
-     * @param bool $replaceOnlyFirstInstanceOfItems
-     *
-     * @return void
-     */
-    public function setReplaceOnlyFirstInstanceOfItems($replaceOnlyFirstInstanceOfItems)
+    public function setReplaceOnlyFirstInstanceOfItems(bool $replaceOnlyFirstInstanceOfItems): void
     {
-        if ((bool)$this->replaceOnlyFirstInstanceOfItems !== (bool)$replaceOnlyFirstInstanceOfItems) {
-            $this->replaceOnlyFirstInstanceOfItems = (bool)$replaceOnlyFirstInstanceOfItems;
+        if ((bool)$this->replaceOnlyFirstInstanceOfItems !== $replaceOnlyFirstInstanceOfItems) {
+            $this->replaceOnlyFirstInstanceOfItems = $replaceOnlyFirstInstanceOfItems;
         }
     }
     
-    /**
-     * Returns the apply replacements to code tags.
-     *
-     * @return bool
-     */
-    public function getApplyReplacementsToCodeTags()
+    public function getApplyReplacementsToCodeTags(): bool
     {
         return $this->applyReplacementsToCodeTags;
     }
     
-    /**
-     * Sets the apply replacements to code tags.
-     *
-     * @param bool $applyReplacementsToCodeTags
-     *
-     * @return void
-     */
-    public function setApplyReplacementsToCodeTags($applyReplacementsToCodeTags)
+    public function setApplyReplacementsToCodeTags(bool $applyReplacementsToCodeTags): void
     {
-        if ((bool)$this->applyReplacementsToCodeTags !== (bool)$applyReplacementsToCodeTags) {
-            $this->applyReplacementsToCodeTags = (bool)$applyReplacementsToCodeTags;
+        if ((bool)$this->applyReplacementsToCodeTags !== $applyReplacementsToCodeTags) {
+            $this->applyReplacementsToCodeTags = $applyReplacementsToCodeTags;
         }
     }
     
-    /**
-     * Returns the replace abbreviations.
-     *
-     * @return bool
-     */
-    public function getReplaceAbbreviations()
+    public function getReplaceAbbreviations(): bool
     {
         return $this->replaceAbbreviations;
     }
     
-    /**
-     * Sets the replace abbreviations.
-     *
-     * @param bool $replaceAbbreviations
-     *
-     * @return void
-     */
-    public function setReplaceAbbreviations($replaceAbbreviations)
+    public function setReplaceAbbreviations(bool $replaceAbbreviations): void
     {
-        if ((bool)$this->replaceAbbreviations !== (bool)$replaceAbbreviations) {
-            $this->replaceAbbreviations = (bool)$replaceAbbreviations;
+        if ((bool)$this->replaceAbbreviations !== $replaceAbbreviations) {
+            $this->replaceAbbreviations = $replaceAbbreviations;
         }
     }
     
-    /**
-     * Returns the replace acronyms.
-     *
-     * @return bool
-     */
-    public function getReplaceAcronyms()
+    public function getReplaceAcronyms(): bool
     {
         return $this->replaceAcronyms;
     }
     
-    /**
-     * Sets the replace acronyms.
-     *
-     * @param bool $replaceAcronyms
-     *
-     * @return void
-     */
-    public function setReplaceAcronyms($replaceAcronyms)
+    public function setReplaceAcronyms(bool $replaceAcronyms): void
     {
-        if ((bool)$this->replaceAcronyms !== (bool)$replaceAcronyms) {
-            $this->replaceAcronyms = (bool)$replaceAcronyms;
+        if ((bool)$this->replaceAcronyms !== $replaceAcronyms) {
+            $this->replaceAcronyms = $replaceAcronyms;
         }
     }
     
-    /**
-     * Returns the replace abbreviations with long text.
-     *
-     * @return bool
-     */
-    public function getReplaceAbbreviationsWithLongText()
+    public function getReplaceAbbreviationsWithLongText(): bool
     {
         return $this->replaceAbbreviationsWithLongText;
     }
     
-    /**
-     * Sets the replace abbreviations with long text.
-     *
-     * @param bool $replaceAbbreviationsWithLongText
-     *
-     * @return void
-     */
-    public function setReplaceAbbreviationsWithLongText($replaceAbbreviationsWithLongText)
+    public function setReplaceAbbreviationsWithLongText(bool $replaceAbbreviationsWithLongText): void
     {
-        if ((bool)$this->replaceAbbreviationsWithLongText !== (bool)$replaceAbbreviationsWithLongText) {
-            $this->replaceAbbreviationsWithLongText = (bool)$replaceAbbreviationsWithLongText;
+        if ((bool)$this->replaceAbbreviationsWithLongText !== $replaceAbbreviationsWithLongText) {
+            $this->replaceAbbreviationsWithLongText = $replaceAbbreviationsWithLongText;
         }
     }
     
-    /**
-     * Returns the replace links.
-     *
-     * @return bool
-     */
-    public function getReplaceLinks()
+    public function getReplaceLinks(): bool
     {
         return $this->replaceLinks;
     }
     
-    /**
-     * Sets the replace links.
-     *
-     * @param bool $replaceLinks
-     *
-     * @return void
-     */
-    public function setReplaceLinks($replaceLinks)
+    public function setReplaceLinks(bool $replaceLinks): void
     {
-        if ((bool)$this->replaceLinks !== (bool)$replaceLinks) {
-            $this->replaceLinks = (bool)$replaceLinks;
+        if ((bool)$this->replaceLinks !== $replaceLinks) {
+            $this->replaceLinks = $replaceLinks;
         }
     }
     
-    /**
-     * Returns the replace links with title.
-     *
-     * @return bool
-     */
-    public function getReplaceLinksWithTitle()
+    public function getReplaceLinksWithTitle(): bool
     {
         return $this->replaceLinksWithTitle;
     }
     
-    /**
-     * Sets the replace links with title.
-     *
-     * @param bool $replaceLinksWithTitle
-     *
-     * @return void
-     */
-    public function setReplaceLinksWithTitle($replaceLinksWithTitle)
+    public function setReplaceLinksWithTitle(bool $replaceLinksWithTitle): void
     {
-        if ((bool)$this->replaceLinksWithTitle !== (bool)$replaceLinksWithTitle) {
-            $this->replaceLinksWithTitle = (bool)$replaceLinksWithTitle;
+        if ((bool)$this->replaceLinksWithTitle !== $replaceLinksWithTitle) {
+            $this->replaceLinksWithTitle = $replaceLinksWithTitle;
         }
     }
     
-    /**
-     * Returns the css class for external links.
-     *
-     * @return string
-     */
-    public function getCssClassForExternalLinks()
+    public function getCssClassForExternalLinks(): string
     {
         return $this->cssClassForExternalLinks;
     }
     
-    /**
-     * Sets the css class for external links.
-     *
-     * @param string $cssClassForExternalLinks
-     *
-     * @return void
-     */
-    public function setCssClassForExternalLinks($cssClassForExternalLinks)
+    public function setCssClassForExternalLinks(string $cssClassForExternalLinks): void
     {
         if ($this->cssClassForExternalLinks !== $cssClassForExternalLinks) {
-            $this->cssClassForExternalLinks = isset($cssClassForExternalLinks) ? $cssClassForExternalLinks : '';
+            $this->cssClassForExternalLinks = $cssClassForExternalLinks ?? '';
         }
     }
     
-    /**
-     * Returns the replace censored words.
-     *
-     * @return bool
-     */
-    public function getReplaceCensoredWords()
+    public function getReplaceCensoredWords(): bool
     {
         return $this->replaceCensoredWords;
     }
     
-    /**
-     * Sets the replace censored words.
-     *
-     * @param bool $replaceCensoredWords
-     *
-     * @return void
-     */
-    public function setReplaceCensoredWords($replaceCensoredWords)
+    public function setReplaceCensoredWords(bool $replaceCensoredWords): void
     {
-        if ((bool)$this->replaceCensoredWords !== (bool)$replaceCensoredWords) {
-            $this->replaceCensoredWords = (bool)$replaceCensoredWords;
+        if ((bool)$this->replaceCensoredWords !== $replaceCensoredWords) {
+            $this->replaceCensoredWords = $replaceCensoredWords;
         }
     }
     
-    /**
-     * Returns the replace censored words when they are part of other words.
-     *
-     * @return bool
-     */
-    public function getReplaceCensoredWordsWhenTheyArePartOfOtherWords()
+    public function getReplaceCensoredWordsWhenTheyArePartOfOtherWords(): bool
     {
         return $this->replaceCensoredWordsWhenTheyArePartOfOtherWords;
     }
     
-    /**
-     * Sets the replace censored words when they are part of other words.
-     *
-     * @param bool $replaceCensoredWordsWhenTheyArePartOfOtherWords
-     *
-     * @return void
-     */
-    public function setReplaceCensoredWordsWhenTheyArePartOfOtherWords($replaceCensoredWordsWhenTheyArePartOfOtherWords)
+    public function setReplaceCensoredWordsWhenTheyArePartOfOtherWords(bool $replaceCensoredWordsWhenTheyArePartOfOtherWords): void
     {
-        if ((bool)$this->replaceCensoredWordsWhenTheyArePartOfOtherWords !== (bool)$replaceCensoredWordsWhenTheyArePartOfOtherWords) {
-            $this->replaceCensoredWordsWhenTheyArePartOfOtherWords = (bool)$replaceCensoredWordsWhenTheyArePartOfOtherWords;
+        if ((bool)$this->replaceCensoredWordsWhenTheyArePartOfOtherWords !== $replaceCensoredWordsWhenTheyArePartOfOtherWords) {
+            $this->replaceCensoredWordsWhenTheyArePartOfOtherWords = $replaceCensoredWordsWhenTheyArePartOfOtherWords;
         }
     }
     
-    /**
-     * Returns the do not censor first and last letter in words with more than two chars.
-     *
-     * @return bool
-     */
-    public function getDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars()
+    public function getDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars(): bool
     {
         return $this->doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars;
     }
     
-    /**
-     * Sets the do not censor first and last letter in words with more than two chars.
-     *
-     * @param bool $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars
-     *
-     * @return void
-     */
-    public function setDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars($doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars)
+    public function setDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars(bool $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars): void
     {
-        if ((bool)$this->doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars !== (bool)$doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars) {
-            $this->doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars = (bool)$doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars;
+        if ((bool)$this->doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars !== $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars) {
+            $this->doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars = $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars;
         }
     }
     
-    /**
-     * Returns the replace needles.
-     *
-     * @return bool
-     */
-    public function getReplaceNeedles()
+    public function getReplaceNeedles(): bool
     {
         return $this->replaceNeedles;
     }
     
-    /**
-     * Sets the replace needles.
-     *
-     * @param bool $replaceNeedles
-     *
-     * @return void
-     */
-    public function setReplaceNeedles($replaceNeedles)
+    public function setReplaceNeedles(bool $replaceNeedles): void
     {
-        if ((bool)$this->replaceNeedles !== (bool)$replaceNeedles) {
-            $this->replaceNeedles = (bool)$replaceNeedles;
+        if ((bool)$this->replaceNeedles !== $replaceNeedles) {
+            $this->replaceNeedles = $replaceNeedles;
         }
     }
     
-    /**
-     * Returns the entry entries per page.
-     *
-     * @return int
-     */
-    public function getEntryEntriesPerPage()
+    public function getEntryEntriesPerPage(): int
     {
         return $this->entryEntriesPerPage;
     }
     
-    /**
-     * Sets the entry entries per page.
-     *
-     * @param int $entryEntriesPerPage
-     *
-     * @return void
-     */
-    public function setEntryEntriesPerPage($entryEntriesPerPage)
+    public function setEntryEntriesPerPage(int $entryEntriesPerPage): void
     {
-        if ((int)$this->entryEntriesPerPage !== (int)$entryEntriesPerPage) {
-            $this->entryEntriesPerPage = (int)$entryEntriesPerPage;
+        if ((int)$this->entryEntriesPerPage !== $entryEntriesPerPage) {
+            $this->entryEntriesPerPage = $entryEntriesPerPage;
         }
     }
     
-    /**
-     * Returns the show only own entries.
-     *
-     * @return bool
-     */
-    public function getShowOnlyOwnEntries()
+    public function getShowOnlyOwnEntries(): bool
     {
         return $this->showOnlyOwnEntries;
     }
     
-    /**
-     * Sets the show only own entries.
-     *
-     * @param bool $showOnlyOwnEntries
-     *
-     * @return void
-     */
-    public function setShowOnlyOwnEntries($showOnlyOwnEntries)
+    public function setShowOnlyOwnEntries(bool $showOnlyOwnEntries): void
     {
-        if ((bool)$this->showOnlyOwnEntries !== (bool)$showOnlyOwnEntries) {
-            $this->showOnlyOwnEntries = (bool)$showOnlyOwnEntries;
+        if ((bool)$this->showOnlyOwnEntries !== $showOnlyOwnEntries) {
+            $this->showOnlyOwnEntries = $showOnlyOwnEntries;
         }
     }
     
-    /**
-     * Returns the allow moderation specific creator for entry.
-     *
-     * @return bool
-     */
-    public function getAllowModerationSpecificCreatorForEntry()
+    public function getAllowModerationSpecificCreatorForEntry(): bool
     {
         return $this->allowModerationSpecificCreatorForEntry;
     }
     
-    /**
-     * Sets the allow moderation specific creator for entry.
-     *
-     * @param bool $allowModerationSpecificCreatorForEntry
-     *
-     * @return void
-     */
-    public function setAllowModerationSpecificCreatorForEntry($allowModerationSpecificCreatorForEntry)
+    public function setAllowModerationSpecificCreatorForEntry(bool $allowModerationSpecificCreatorForEntry): void
     {
-        if ((bool)$this->allowModerationSpecificCreatorForEntry !== (bool)$allowModerationSpecificCreatorForEntry) {
-            $this->allowModerationSpecificCreatorForEntry = (bool)$allowModerationSpecificCreatorForEntry;
+        if ((bool)$this->allowModerationSpecificCreatorForEntry !== $allowModerationSpecificCreatorForEntry) {
+            $this->allowModerationSpecificCreatorForEntry = $allowModerationSpecificCreatorForEntry;
         }
     }
     
-    /**
-     * Returns the allow moderation specific creation date for entry.
-     *
-     * @return bool
-     */
-    public function getAllowModerationSpecificCreationDateForEntry()
+    public function getAllowModerationSpecificCreationDateForEntry(): bool
     {
         return $this->allowModerationSpecificCreationDateForEntry;
     }
     
-    /**
-     * Sets the allow moderation specific creation date for entry.
-     *
-     * @param bool $allowModerationSpecificCreationDateForEntry
-     *
-     * @return void
-     */
-    public function setAllowModerationSpecificCreationDateForEntry($allowModerationSpecificCreationDateForEntry)
+    public function setAllowModerationSpecificCreationDateForEntry(bool $allowModerationSpecificCreationDateForEntry): void
     {
-        if ((bool)$this->allowModerationSpecificCreationDateForEntry !== (bool)$allowModerationSpecificCreationDateForEntry) {
-            $this->allowModerationSpecificCreationDateForEntry = (bool)$allowModerationSpecificCreationDateForEntry;
+        if ((bool)$this->allowModerationSpecificCreationDateForEntry !== $allowModerationSpecificCreationDateForEntry) {
+            $this->allowModerationSpecificCreationDateForEntry = $allowModerationSpecificCreationDateForEntry;
         }
     }
     
@@ -574,7 +373,7 @@ abstract class AbstractAppSettings
     /**
      * Loads module variables from the database.
      */
-    protected function load()
+    protected function load(): void
     {
         $moduleVars = $this->variableApi->getAll('ZikulaMultiHookModule');
     
@@ -634,7 +433,7 @@ abstract class AbstractAppSettings
     /**
      * Saves module variables into the database.
      */
-    public function save()
+    public function save(): void
     {
         $this->variableApi->set('ZikulaMultiHookModule', 'showEditLink', $this->getShowEditLink());
         $this->variableApi->set('ZikulaMultiHookModule', 'replaceOnlyFirstInstanceOfItems', $this->getReplaceOnlyFirstInstanceOfItems());

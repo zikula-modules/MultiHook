@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -11,11 +14,15 @@
 
 namespace Zikula\MultiHookModule\Controller;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Zikula\ThemeModule\Engine\Annotation\Theme;
+use Zikula\UsersModule\Api\ApiInterface\CurrentUserApiInterface;
+use Zikula\MultiHookModule\AppSettings;
 use Zikula\MultiHookModule\Controller\Base\AbstractConfigController;
+use Zikula\MultiHookModule\Helper\PermissionHelper;
 
 /**
  * Config controller implementation class.
@@ -31,9 +38,14 @@ class ConfigController extends AbstractConfigController
      * )
      * @Theme("admin")
      */
-    public function configAction(Request $request)
-    {
-        return parent::configAction($request);
+    public function configAction(
+        Request $request,
+        PermissionHelper $permissionHelper,
+        AppSettings $appSettings,
+        LoggerInterface $logger,
+        CurrentUserApiInterface $currentUserApi
+    ): Response {
+        return parent::configAction($request, $permissionHelper, $appSettings, $logger, $currentUserApi);
     }
 
     // feel free to add your own config controller methods here

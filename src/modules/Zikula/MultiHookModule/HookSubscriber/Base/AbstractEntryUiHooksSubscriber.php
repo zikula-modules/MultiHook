@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -30,22 +33,27 @@ abstract class AbstractEntryUiHooksSubscriber implements HookSubscriberInterface
         $this->translator = $translator;
     }
 
-    public function getOwner()
+    public function getOwner(): string
     {
         return 'ZikulaMultiHookModule';
     }
     
-    public function getCategory()
+    public function getCategory(): string
     {
         return UiHooksCategory::NAME;
     }
     
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->translator->__('Entry ui hooks subscriber');
     }
+    
+    public function getAreaName(): string
+    {
+        return 'subscriber.zikulamultihookmodule.ui_hooks.entries';
+    }
 
-    public function getEvents()
+    public function getEvents(): array
     {
         return [
             // Display hook for view/display templates.

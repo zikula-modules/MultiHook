@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -40,12 +43,8 @@ abstract class AbstractEntityInitialiser
 
     /**
      * Initialises a given entry instance.
-     *
-     * @param EntryEntity $entity The newly created entity instance
-     *
-     * @return EntryEntity The updated entity instance
      */
-    public function initEntry(EntryEntity $entity)
+    public function initEntry(EntryEntity $entity): EntryEntity
     {
         $listEntries = $this->listEntriesHelper->getEntries('entry', 'entryType');
         foreach ($listEntries as $listEntry) {
@@ -58,24 +57,12 @@ abstract class AbstractEntityInitialiser
         return $entity;
     }
 
-    /**
-     * Returns the list entries helper.
-     *
-     * @return ListEntriesHelper
-     */
-    public function getListEntriesHelper()
+    public function getListEntriesHelper(): ?ListEntriesHelper
     {
         return $this->listEntriesHelper;
     }
     
-    /**
-     * Sets the list entries helper.
-     *
-     * @param ListEntriesHelper $listEntriesHelper
-     *
-     * @return void
-     */
-    public function setListEntriesHelper(ListEntriesHelper $listEntriesHelper = null)
+    public function setListEntriesHelper(ListEntriesHelper $listEntriesHelper = null): void
     {
         if ($this->listEntriesHelper !== $listEntriesHelper) {
             $this->listEntriesHelper = $listEntriesHelper;

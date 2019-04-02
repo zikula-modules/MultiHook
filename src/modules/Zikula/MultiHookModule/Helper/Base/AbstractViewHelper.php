@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -14,7 +17,7 @@ namespace Zikula\MultiHookModule\Helper\Base;
 use Symfony\Bundle\TwigBundle\Loader\FilesystemLoader;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
-use Twig_Environment;
+use Twig\Environment;
 use Zikula\Core\Response\PlainResponse;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 use Zikula\ThemeModule\Engine\AssetFilter;
@@ -27,7 +30,7 @@ use Zikula\MultiHookModule\Helper\PermissionHelper;
 abstract class AbstractViewHelper
 {
     /**
-     * @var Twig_Environment
+     * @var Environment
      */
     protected $twig;
     
@@ -62,7 +65,7 @@ abstract class AbstractViewHelper
     protected $permissionHelper;
     
     public function __construct(
-        Twig_Environment $twig,
+        Environment $twig,
         FilesystemLoader $twigLoader,
         RequestStack $requestStack,
         VariableApiInterface $variableApi,
@@ -81,13 +84,8 @@ abstract class AbstractViewHelper
     
     /**
      * Determines the view template for a certain method with given parameters.
-     *
-     * @param string $type Current controller (name of currently treated entity)
-     * @param string $func Current function (index, view, ...)
-     *
-     * @return string name of template file
      */
-    public function getViewTemplate($type, $func)
+    public function getViewTemplate(string $type, string $func): string
     {
         // create the base template name
         $template = '@ZikulaMultiHookModule/' . ucfirst($type) . '/' . $func;
@@ -113,20 +111,13 @@ abstract class AbstractViewHelper
     
     /**
      * Helper method for managing view templates.
-     *
-     * @param string $type Current controller (name of currently treated entity)
-     * @param string $func Current function (index, view, ...)
-     * @param array $templateParameters Template data
-     * @param string $template Optional assignment of precalculated template file
-     *
-     * @return Response
      */
     public function processTemplate(
-        $type,
-        $func,
+        string $type,
+        string $func,
         array $templateParameters = [],
-        $template = ''
-    ) {
+        string $template = ''
+    ): Response {
         $templateExtension = $this->determineExtension($type, $func);
         if (empty($template)) {
             $template = $this->getViewTemplate($type, $func);
@@ -156,25 +147,16 @@ abstract class AbstractViewHelper
     
     /**
      * Adds assets to a raw page which is not processed by the Theme engine.
-     *
-     * @param string $output The output to be enhanced
-     *
-     * @return string Output including additional assets
      */
-    protected function injectAssetsIntoRawOutput($output = '')
+    protected function injectAssetsIntoRawOutput(string $output = ''): string
     {
         return $this->assetFilter->filter($output);
     }
     
     /**
      * Get extension of the currently treated template.
-     *
-     * @param string $type Current controller (name of currently treated entity)
-     * @param string $func Current function (index, view, ...)
-     *
-     * @return string Template extension
      */
-    protected function determineExtension($type, $func)
+    protected function determineExtension(string $type, string $func): string
     {
         $templateExtension = 'html.twig';
         if (!in_array($func, ['view', 'display'])) {
@@ -198,12 +180,9 @@ abstract class AbstractViewHelper
     /**
      * Get list of available template extensions.
      *
-     * @param string $type Current controller (name of currently treated entity)
-     * @param string $func Current function (index, view, ...)
-     *
      * @return string[] List of allowed template extensions
      */
-    protected function availableExtensions($type, $func)
+    protected function availableExtensions(string $type,  string$func): array
     {
         $extensions = [];
         $hasAdminAccess = $this->permissionHelper->hasComponentPermission($type, ACCESS_ADMIN);

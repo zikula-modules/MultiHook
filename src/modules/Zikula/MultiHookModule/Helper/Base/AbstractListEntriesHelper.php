@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -26,22 +29,15 @@ abstract class AbstractListEntriesHelper
         $this->setTranslator($translator);
     }
     
-    public function setTranslator(TranslatorInterface $translator)
+    public function setTranslator(TranslatorInterface $translator): void
     {
         $this->translator = $translator;
     }
     
     /**
      * Return the name or names for a given list item.
-     *
-     * @param string $value The dropdown value to process
-     * @param string $objectType The treated object type
-     * @param string $fieldName The list field's name
-     * @param string $delimiter String used as separator for multiple selections
-     *
-     * @return string List item name
      */
-    public function resolve($value, $objectType = '', $fieldName = '', $delimiter = ', ')
+    public function resolve(string $value, string $objectType = '', string $fieldName = '', string $delimiter = ', '): string
     {
         if ((empty($value) && '0' !== $value) || empty($objectType) || empty($fieldName)) {
             return $value;
@@ -79,12 +75,8 @@ abstract class AbstractListEntriesHelper
     
     /**
      * Extract concatenated multi selection.
-     *
-     * @param string $value The dropdown value to process
-     *
-     * @return string[] List of single values
      */
-    public function extractMultiList($value)
+    public function extractMultiList(string $value): array
     {
         $listValues = explode('###', $value);
         $amountOfValues = count($listValues);
@@ -103,13 +95,8 @@ abstract class AbstractListEntriesHelper
     
     /**
      * Determine whether a certain dropdown field has a multi selection or not.
-     *
-     * @param string $objectType The treated object type
-     * @param string $fieldName The list field's name
-     *
-     * @return bool True if this is a multi list false otherwise
      */
-    public function hasMultipleSelection($objectType, $fieldName)
+    public function hasMultipleSelection(string $objectType, string $fieldName): bool
     {
         if (empty($objectType) || empty($fieldName)) {
             return false;
@@ -135,13 +122,8 @@ abstract class AbstractListEntriesHelper
     
     /**
      * Get entries for a certain dropdown field.
-     *
-     * @param string $objectType The treated object type
-     * @param string $fieldName The list field's name
-     *
-     * @return array Array with desired list entries
      */
-    public function getEntries($objectType, $fieldName)
+    public function getEntries(string $objectType, string $fieldName): array
     {
         if (empty($objectType) || empty($fieldName)) {
             return [];
@@ -167,10 +149,8 @@ abstract class AbstractListEntriesHelper
     
     /**
      * Get 'workflow state' list entries.
-     *
-     * @return array Array with desired list entries
      */
-    public function getWorkflowStateEntriesForEntry()
+    public function getWorkflowStateEntriesForEntry(): array
     {
         $states = [];
         $states[] = [
@@ -207,10 +187,8 @@ abstract class AbstractListEntriesHelper
     
     /**
      * Get 'entry type' list entries.
-     *
-     * @return array Array with desired list entries
      */
-    public function getEntryTypeEntriesForEntry()
+    public function getEntryTypeEntriesForEntry(): array
     {
         $states = [];
         $states[] = [

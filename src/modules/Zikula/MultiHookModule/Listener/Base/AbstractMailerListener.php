@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -45,7 +48,7 @@ abstract class AbstractMailerListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function sendMessageStart(GenericEvent $event)
+    public function sendMessageStart(GenericEvent $event): void
     {
     }
     
@@ -64,7 +67,7 @@ abstract class AbstractMailerListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function sendMessagePerform(GenericEvent $event)
+    public function sendMessagePerform(GenericEvent $event): void
     {
     }
     
@@ -80,7 +83,7 @@ abstract class AbstractMailerListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function sendMessageSuccess(GenericEvent $event)
+    public function sendMessageSuccess(GenericEvent $event): void
     {
     }
     
@@ -96,7 +99,7 @@ abstract class AbstractMailerListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function sendMessageFailure(GenericEvent $event)
+    public function sendMessageFailure(GenericEvent $event): void
     {
     }
 }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -41,7 +44,7 @@ abstract class AbstractUserLogoutListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function succeeded(GenericEvent $event)
+    public function succeeded(GenericEvent $event): void
     {
     }
 }

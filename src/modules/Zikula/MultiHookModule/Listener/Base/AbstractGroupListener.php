@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -25,6 +28,7 @@ abstract class AbstractGroupListener implements EventSubscriberInterface
         return [
             GroupEvents::GROUP_CREATE                => ['create', 5],
             GroupEvents::GROUP_UPDATE                => ['update', 5],
+            GroupEvents::GROUP_PRE_DELETE            => ['preDelete', 5],
             GroupEvents::GROUP_DELETE                => ['delete', 5],
             GroupEvents::GROUP_ADD_USER              => ['addUser', 5],
             GroupEvents::GROUP_REMOVE_USER           => ['removeUser', 5],
@@ -45,7 +49,7 @@ abstract class AbstractGroupListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function create(GenericEvent $event)
+    public function create(GenericEvent $event): void
     {
     }
     
@@ -61,7 +65,23 @@ abstract class AbstractGroupListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function update(GenericEvent $event)
+    public function update(GenericEvent $event): void
+    {
+    }
+    
+    /**
+     * Listener for the `group.pre_delete` event.
+     *
+     * Occurs before a group is deleted from the system. All handlers are notified.
+     * The full group record to be deleted is available as the subject.
+     *
+     * You can access general data available in the event.
+     *
+     * The event name:
+     *     `echo 'Event: ' . $event->getName();`
+     *
+     */
+    public function preDelete(GenericEvent $event): void
     {
     }
     
@@ -77,7 +97,7 @@ abstract class AbstractGroupListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function delete(GenericEvent $event)
+    public function delete(GenericEvent $event): void
     {
     }
     
@@ -94,7 +114,7 @@ abstract class AbstractGroupListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function addUser(GenericEvent $event)
+    public function addUser(GenericEvent $event): void
     {
     }
     
@@ -110,7 +130,7 @@ abstract class AbstractGroupListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function removeUser(GenericEvent $event)
+    public function removeUser(GenericEvent $event): void
     {
     }
     
@@ -127,7 +147,7 @@ abstract class AbstractGroupListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function applicationProcessed(GenericEvent $event)
+    public function applicationProcessed(GenericEvent $event): void
     {
     }
     
@@ -143,7 +163,7 @@ abstract class AbstractGroupListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function newApplication(GenericEvent $event)
+    public function newApplication(GenericEvent $event): void
     {
     }
 }

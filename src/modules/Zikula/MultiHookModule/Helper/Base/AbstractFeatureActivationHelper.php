@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -19,17 +22,12 @@ abstract class AbstractFeatureActivationHelper
     /**
      * Translation feature
      */
-    const TRANSLATIONS = 'translations';
+    public const TRANSLATIONS = 'translations';
     
     /**
      * This method checks whether a certain feature is enabled for a given entity type or not.
-     *
-     * @param string $feature Name of requested feature
-     * @param string $objectType Currently treated entity type
-     *
-     * @return bool True if the feature is enabled, false otherwise
      */
-    public function isEnabled($feature = '', $objectType = '')
+    public function isEnabled(string $feature = '', string $objectType = ''): bool
     {
         if (self::TRANSLATIONS === $feature) {
             $method = 'hasTranslations';

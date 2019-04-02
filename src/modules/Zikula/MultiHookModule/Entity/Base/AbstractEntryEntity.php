@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -130,217 +133,109 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
     {
     }
     
-    /**
-     * Returns the _object type.
-     *
-     * @return string
-     */
-    public function get_objectType()
+    public function get_objectType(): string
     {
         return $this->_objectType;
     }
     
-    /**
-     * Sets the _object type.
-     *
-     * @param string $_objectType
-     *
-     * @return void
-     */
-    public function set_objectType($_objectType)
+    public function set_objectType(string $_objectType): void
     {
         if ($this->_objectType !== $_objectType) {
-            $this->_objectType = isset($_objectType) ? $_objectType : '';
+            $this->_objectType = $_objectType ?? '';
         }
     }
     
     
-    /**
-     * Returns the id.
-     *
-     * @return int
-     */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
     
-    /**
-     * Sets the id.
-     *
-     * @param int $id
-     *
-     * @return void
-     */
-    public function setId($id)
+    public function setId(int $id): void
     {
-        if ((int)$this->id !== (int)$id) {
-            $this->id = (int)$id;
+        if ((int)$this->id !== $id) {
+            $this->id = $id;
         }
     }
     
-    /**
-     * Returns the workflow state.
-     *
-     * @return string
-     */
-    public function getWorkflowState()
+    public function getWorkflowState(): string
     {
         return $this->workflowState;
     }
     
-    /**
-     * Sets the workflow state.
-     *
-     * @param string $workflowState
-     *
-     * @return void
-     */
-    public function setWorkflowState($workflowState)
+    public function setWorkflowState(string $workflowState): void
     {
         if ($this->workflowState !== $workflowState) {
-            $this->workflowState = isset($workflowState) ? $workflowState : '';
+            $this->workflowState = $workflowState ?? '';
         }
     }
     
-    /**
-     * Returns the short form.
-     *
-     * @return string
-     */
-    public function getShortForm()
+    public function getShortForm(): string
     {
         return $this->shortForm;
     }
     
-    /**
-     * Sets the short form.
-     *
-     * @param string $shortForm
-     *
-     * @return void
-     */
-    public function setShortForm($shortForm)
+    public function setShortForm(string $shortForm): void
     {
         if ($this->shortForm !== $shortForm) {
-            $this->shortForm = isset($shortForm) ? $shortForm : '';
+            $this->shortForm = $shortForm ?? '';
         }
     }
     
-    /**
-     * Returns the long form.
-     *
-     * @return string
-     */
-    public function getLongForm()
+    public function getLongForm(): string
     {
         return $this->longForm;
     }
     
-    /**
-     * Sets the long form.
-     *
-     * @param string $longForm
-     *
-     * @return void
-     */
-    public function setLongForm($longForm)
+    public function setLongForm(string $longForm): void
     {
         if ($this->longForm !== $longForm) {
-            $this->longForm = isset($longForm) ? $longForm : '';
+            $this->longForm = $longForm ?? '';
         }
     }
     
-    /**
-     * Returns the title.
-     *
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
     
-    /**
-     * Sets the title.
-     *
-     * @param string $title
-     *
-     * @return void
-     */
-    public function setTitle($title)
+    public function setTitle(string $title): void
     {
         if ($this->title !== $title) {
-            $this->title = isset($title) ? $title : '';
+            $this->title = $title ?? '';
         }
     }
     
-    /**
-     * Returns the entry type.
-     *
-     * @return string
-     */
-    public function getEntryType()
+    public function getEntryType(): string
     {
         return $this->entryType;
     }
     
-    /**
-     * Sets the entry type.
-     *
-     * @param string $entryType
-     *
-     * @return void
-     */
-    public function setEntryType($entryType)
+    public function setEntryType(string $entryType): void
     {
         if ($this->entryType !== $entryType) {
-            $this->entryType = isset($entryType) ? $entryType : '';
+            $this->entryType = $entryType ?? '';
         }
     }
     
-    /**
-     * Returns the active.
-     *
-     * @return bool
-     */
-    public function getActive()
+    public function getActive(): bool
     {
         return $this->active;
     }
     
-    /**
-     * Sets the active.
-     *
-     * @param bool $active
-     *
-     * @return void
-     */
-    public function setActive($active)
+    public function setActive(bool $active): void
     {
-        if ((bool)$this->active !== (bool)$active) {
-            $this->active = (bool)$active;
+        if ((bool)$this->active !== $active) {
+            $this->active = $active;
         }
     }
     
-    /**
-     * Returns the locale.
-     *
-     * @return string
-     */
     public function getLocale()
     {
         return $this->locale;
     }
     
-    /**
-     * Sets the locale.
-     *
-     * @param string $locale
-     *
-     * @return void
-     */
-    public function setLocale($locale = null)
+    public function setLocale($locale = null): void
     {
         if ($this->locale !== $locale) {
             $this->locale = $locale;
@@ -352,10 +247,8 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
     
     /**
      * Creates url arguments array for easy creation of display urls.
-     *
-     * @return array List of resulting arguments
      */
-    public function createUrlArgs()
+    public function createUrlArgs(): array
     {
         return [
             'id' => $this->getId()
@@ -364,42 +257,32 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
     
     /**
      * Returns the primary key.
-     *
-     * @return int The identifier
      */
-    public function getKey()
+    public function getKey(): int
     {
         return $this->getId();
     }
     
     /**
      * Determines whether this entity supports hook subscribers or not.
-     *
-     * @return bool
      */
-    public function supportsHookSubscribers()
+    public function supportsHookSubscribers(): bool
     {
         return true;
     }
     
     /**
      * Return lower case name of multiple items needed for hook areas.
-     *
-     * @return string
      */
-    public function getHookAreaPrefix()
+    public function getHookAreaPrefix(): string
     {
         return 'zikulamultihookmodule.ui_hooks.entries';
     }
     
     /**
      * Returns an array of all related objects that need to be persisted after clone.
-     * 
-     * @param array $objects Objects that are added to this array
-     * 
-     * @return array List of entity objects
      */
-    public function getRelatedObjectsToPersist(&$objects = [])
+    public function getRelatedObjectsToPersist(array &$objects = []): array
     {
         return [];
     }
@@ -407,10 +290,8 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
     /**
      * ToString interceptor implementation.
      * This method is useful for debugging purposes.
-     *
-     * @return string The output string for this entity
      */
-    public function __toString()
+    public function __toString(): string
     {
         return 'Entry ' . $this->getKey() . ': ' . $this->getShortForm();
     }

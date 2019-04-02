@@ -1,6 +1,0 @@
-services:
-    # Form field types
-    
-    zikula_multihook_module.form.type.field.translation:
-        class: Zikula\MultiHookModule\Form\Type\Field\TranslationType
-        tags: ['form.type']

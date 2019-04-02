@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -57,14 +60,8 @@ abstract class AbstractCollectionFilterHelper
     
     /**
      * Returns an array of additional template variables for view quick navigation forms.
-     *
-     * @param string $objectType Name of treated entity type
-     * @param string $context Usage context (allowed values: controllerAction, api, actionHandler, block, contentType)
-     * @param array $args Additional arguments
-     *
-     * @return array List of template variables to be assigned
      */
-    public function getViewQuickNavParameters($objectType = '', $context = '', array $args = [])
+    public function getViewQuickNavParameters(string $objectType = '', string $context = '', array $args = []): array
     {
         if (!in_array($context, ['controllerAction', 'api', 'actionHandler', 'block', 'contentType'], true)) {
             $context = 'controllerAction';
@@ -79,13 +76,8 @@ abstract class AbstractCollectionFilterHelper
     
     /**
      * Adds quick navigation related filter options as where clauses.
-     *
-     * @param string $objectType Name of treated entity type
-     * @param QueryBuilder $qb Query builder to be enhanced
-     *
-     * @return QueryBuilder Enriched query builder instance
      */
-    public function addCommonViewFilters($objectType, QueryBuilder $qb)
+    public function addCommonViewFilters(string $objectType, QueryBuilder $qb): QueryBuilder
     {
         if ('entry' === $objectType) {
             return $this->addCommonViewFiltersForEntry($qb);
@@ -96,14 +88,8 @@ abstract class AbstractCollectionFilterHelper
     
     /**
      * Adds default filters as where clauses.
-     *
-     * @param string $objectType Name of treated entity type
-     * @param QueryBuilder $qb Query builder to be enhanced
-     * @param array $parameters List of determined filter options
-     *
-     * @return QueryBuilder Enriched query builder instance
      */
-    public function applyDefaultFilters($objectType, QueryBuilder $qb, array $parameters = [])
+    public function applyDefaultFilters(string $objectType, QueryBuilder $qb, array $parameters = []): QueryBuilder
     {
         if ('entry' === $objectType) {
             return $this->applyDefaultFiltersForEntry($qb, $parameters);
@@ -114,13 +100,8 @@ abstract class AbstractCollectionFilterHelper
     
     /**
      * Returns an array of additional template variables for view quick navigation forms.
-     *
-     * @param string $context Usage context (allowed values: controllerAction, api, actionHandler, block, contentType)
-     * @param array $args Additional arguments
-     *
-     * @return array List of template variables to be assigned
      */
-    protected function getViewQuickNavParametersForEntry($context = '', array $args = [])
+    protected function getViewQuickNavParametersForEntry(string $context = '', array $args = []): array
     {
         $parameters = [];
         $request = $this->requestStack->getCurrentRequest();
@@ -138,12 +119,8 @@ abstract class AbstractCollectionFilterHelper
     
     /**
      * Adds quick navigation related filter options as where clauses.
-     *
-     * @param QueryBuilder $qb Query builder to be enhanced
-     *
-     * @return QueryBuilder Enriched query builder instance
      */
-    protected function addCommonViewFiltersForEntry(QueryBuilder $qb)
+    protected function addCommonViewFiltersForEntry(QueryBuilder $qb): QueryBuilder
     {
         $request = $this->requestStack->getCurrentRequest();
         if (null === $request) {
@@ -200,13 +177,8 @@ abstract class AbstractCollectionFilterHelper
     
     /**
      * Adds default filters as where clauses.
-     *
-     * @param QueryBuilder $qb Query builder to be enhanced
-     * @param array $parameters List of determined filter options
-     *
-     * @return QueryBuilder Enriched query builder instance
      */
-    protected function applyDefaultFiltersForEntry(QueryBuilder $qb, array $parameters = [])
+    protected function applyDefaultFiltersForEntry(QueryBuilder $qb, array $parameters = []): QueryBuilder
     {
         $request = $this->requestStack->getCurrentRequest();
         if (null === $request) {
@@ -236,14 +208,8 @@ abstract class AbstractCollectionFilterHelper
     
     /**
      * Adds a where clause for search query.
-     *
-     * @param string $objectType Name of treated entity type
-     * @param QueryBuilder $qb Query builder to be enhanced
-     * @param string $fragment The fragment to search for
-     *
-     * @return QueryBuilder Enriched query builder instance
      */
-    public function addSearchFilter($objectType, QueryBuilder $qb, $fragment = '')
+    public function addSearchFilter(string $objectType, QueryBuilder $qb, string $fragment = ''): QueryBuilder
     {
         if ('' === $fragment) {
             return $qb;
@@ -274,13 +240,8 @@ abstract class AbstractCollectionFilterHelper
     
     /**
      * Adds a filter for the createdBy field.
-     *
-     * @param QueryBuilder $qb Query builder to be enhanced
-     * @param int $userId The user identifier used for filtering
-     *
-     * @return QueryBuilder Enriched query builder instance
      */
-    public function addCreatorFilter(QueryBuilder $qb, $userId = null)
+    public function addCreatorFilter(QueryBuilder $qb, int $userId = null): QueryBuilder
     {
         if (null === $userId) {
             $userId = $this->currentUserApi->isLoggedIn() ? (int)$this->currentUserApi->get('uid') : UsersConstant::USER_ID_ANONYMOUS;

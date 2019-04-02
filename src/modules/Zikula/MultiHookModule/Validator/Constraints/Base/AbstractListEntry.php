@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -47,9 +50,4 @@ abstract class AbstractListEntry extends Constraint
      * @var integer
      */
     public $max;
-
-    public function validatedBy()
-    {
-        return 'zikula_multihook_module.validator.list_entry.validator';
-    }
 }

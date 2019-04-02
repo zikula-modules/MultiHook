@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -45,7 +48,7 @@ abstract class AbstractModuleDispatchListener implements EventSubscriberInterfac
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function serviceLinks(GenericEvent $event)
+    public function serviceLinks(GenericEvent $event): void
     {
     }
 }

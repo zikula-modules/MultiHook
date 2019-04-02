@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -36,7 +39,7 @@ abstract class AbstractConfigType extends AbstractType
         $this->setTranslator($translator);
     }
 
-    public function setTranslator(TranslatorInterface $translator)
+    public function setTranslator(TranslatorInterface $translator): void
     {
         $this->translator = $translator;
     }
@@ -57,7 +60,7 @@ abstract class AbstractConfigType extends AbstractType
     /**
      * Adds fields for general settings fields.
      */
-    public function addGeneralSettingsFields(FormBuilderInterface $builder, array $options = [])
+    public function addGeneralSettingsFields(FormBuilderInterface $builder, array $options = []): void
     {
         
         $builder->add('showEditLink', CheckboxType::class, [
@@ -91,7 +94,7 @@ abstract class AbstractConfigType extends AbstractType
     /**
      * Adds fields for abbreviations and acronyms fields.
      */
-    public function addAbbreviationsAndAcronymsFields(FormBuilderInterface $builder, array $options = [])
+    public function addAbbreviationsAndAcronymsFields(FormBuilderInterface $builder, array $options = []): void
     {
         
         $builder->add('replaceAbbreviations', CheckboxType::class, [
@@ -125,7 +128,7 @@ abstract class AbstractConfigType extends AbstractType
     /**
      * Adds fields for automatic links fields.
      */
-    public function addAutomaticLinksFields(FormBuilderInterface $builder, array $options = [])
+    public function addAutomaticLinksFields(FormBuilderInterface $builder, array $options = []): void
     {
         
         $builder->add('replaceLinks', CheckboxType::class, [
@@ -161,7 +164,7 @@ abstract class AbstractConfigType extends AbstractType
     /**
      * Adds fields for censor fields.
      */
-    public function addCensorFields(FormBuilderInterface $builder, array $options = [])
+    public function addCensorFields(FormBuilderInterface $builder, array $options = []): void
     {
         
         $builder->add('replaceCensoredWords', CheckboxType::class, [
@@ -195,7 +198,7 @@ abstract class AbstractConfigType extends AbstractType
     /**
      * Adds fields for needles fields.
      */
-    public function addNeedlesFields(FormBuilderInterface $builder, array $options = [])
+    public function addNeedlesFields(FormBuilderInterface $builder, array $options = []): void
     {
         
         $builder->add('replaceNeedles', CheckboxType::class, [
@@ -211,7 +214,7 @@ abstract class AbstractConfigType extends AbstractType
     /**
      * Adds fields for list views fields.
      */
-    public function addListViewsFields(FormBuilderInterface $builder, array $options = [])
+    public function addListViewsFields(FormBuilderInterface $builder, array $options = []): void
     {
         
         $builder->add('entryEntriesPerPage', IntegerType::class, [
@@ -249,7 +252,7 @@ abstract class AbstractConfigType extends AbstractType
     /**
      * Adds fields for moderation fields.
      */
-    public function addModerationFields(FormBuilderInterface $builder, array $options = [])
+    public function addModerationFields(FormBuilderInterface $builder, array $options = []): void
     {
         
         $builder->add('allowModerationSpecificCreatorForEntry', CheckboxType::class, [
@@ -284,7 +287,7 @@ abstract class AbstractConfigType extends AbstractType
     /**
      * Adds submit buttons.
      */
-    public function addSubmitButtons(FormBuilderInterface $builder, array $options = [])
+    public function addSubmitButtons(FormBuilderInterface $builder, array $options = []): void
     {
         $builder->add('save', SubmitType::class, [
             'label' => $this->__('Update configuration'),

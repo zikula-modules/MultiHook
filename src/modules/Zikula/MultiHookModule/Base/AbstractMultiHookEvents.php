@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -29,7 +32,7 @@ abstract class AbstractMultiHookEvents
      * @see MenuBuilder::createItemActionsMenu()
      * @var string
      */
-    const MENU_ITEMACTIONS_PRE_CONFIGURE = 'zikulamultihookmodule.itemactionsmenu_pre_configure';
+    public const MENU_ITEMACTIONS_PRE_CONFIGURE = 'zikulamultihookmodule.itemactionsmenu_pre_configure';
     
     /**
      * The zikulamultihookmodule.itemactionsmenu_post_configure event is thrown after the item actions
@@ -41,7 +44,7 @@ abstract class AbstractMultiHookEvents
      * @see MenuBuilder::createItemActionsMenu()
      * @var string
      */
-    const MENU_ITEMACTIONS_POST_CONFIGURE = 'zikulamultihookmodule.itemactionsmenu_post_configure';
+    public const MENU_ITEMACTIONS_POST_CONFIGURE = 'zikulamultihookmodule.itemactionsmenu_post_configure';
     /**
      * The zikulamultihookmodule.entry_post_load event is thrown when entries
      * are loaded from the database.
@@ -52,7 +55,7 @@ abstract class AbstractMultiHookEvents
      * @see EntityLifecycleListener::postLoad()
      * @var string
      */
-    const ENTRY_POST_LOAD = 'zikulamultihookmodule.entry_post_load';
+    public const ENTRY_POST_LOAD = 'zikulamultihookmodule.entry_post_load';
     
     /**
      * The zikulamultihookmodule.entry_pre_persist event is thrown before a new entry
@@ -64,7 +67,7 @@ abstract class AbstractMultiHookEvents
      * @see EntityLifecycleListener::prePersist()
      * @var string
      */
-    const ENTRY_PRE_PERSIST = 'zikulamultihookmodule.entry_pre_persist';
+    public const ENTRY_PRE_PERSIST = 'zikulamultihookmodule.entry_pre_persist';
     
     /**
      * The zikulamultihookmodule.entry_post_persist event is thrown after a new entry
@@ -76,7 +79,7 @@ abstract class AbstractMultiHookEvents
      * @see EntityLifecycleListener::postPersist()
      * @var string
      */
-    const ENTRY_POST_PERSIST = 'zikulamultihookmodule.entry_post_persist';
+    public const ENTRY_POST_PERSIST = 'zikulamultihookmodule.entry_post_persist';
     
     /**
      * The zikulamultihookmodule.entry_pre_remove event is thrown before an existing entry
@@ -88,7 +91,7 @@ abstract class AbstractMultiHookEvents
      * @see EntityLifecycleListener::preRemove()
      * @var string
      */
-    const ENTRY_PRE_REMOVE = 'zikulamultihookmodule.entry_pre_remove';
+    public const ENTRY_PRE_REMOVE = 'zikulamultihookmodule.entry_pre_remove';
     
     /**
      * The zikulamultihookmodule.entry_post_remove event is thrown after an existing entry
@@ -100,7 +103,7 @@ abstract class AbstractMultiHookEvents
      * @see EntityLifecycleListener::postRemove()
      * @var string
      */
-    const ENTRY_POST_REMOVE = 'zikulamultihookmodule.entry_post_remove';
+    public const ENTRY_POST_REMOVE = 'zikulamultihookmodule.entry_post_remove';
     
     /**
      * The zikulamultihookmodule.entry_pre_update event is thrown before an existing entry
@@ -112,7 +115,7 @@ abstract class AbstractMultiHookEvents
      * @see EntityLifecycleListener::preUpdate()
      * @var string
      */
-    const ENTRY_PRE_UPDATE = 'zikulamultihookmodule.entry_pre_update';
+    public const ENTRY_PRE_UPDATE = 'zikulamultihookmodule.entry_pre_update';
     
     /**
      * The zikulamultihookmodule.entry_post_update event is thrown after an existing new entry
@@ -124,6 +127,6 @@ abstract class AbstractMultiHookEvents
      * @see EntityLifecycleListener::postUpdate()
      * @var string
      */
-    const ENTRY_POST_UPDATE = 'zikulamultihookmodule.entry_post_update';
+    public const ENTRY_POST_UPDATE = 'zikulamultihookmodule.entry_post_update';
     
 }

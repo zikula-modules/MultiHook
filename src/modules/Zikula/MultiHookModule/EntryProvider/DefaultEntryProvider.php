@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -11,17 +14,17 @@
 
 namespace Zikula\MultiHookModule\EntryProvider;
 
+use Zikula\Common\MultiHook\EntryProviderInterface;
 use Zikula\Common\Translator\TranslatorInterface;
+use Zikula\MultiHookModule\Entity\EntryEntity;
 use Zikula\MultiHookModule\Entity\Factory\EntityFactory;
 
 /**
  * Default entry provider.
  */
-class DefaultEntryProvider
+class DefaultEntryProvider implements EntryProviderInterface
 {
     /**
-     * Translator instance
-     *
      * @var TranslatorInterface
      */
     private $translator;
@@ -45,12 +48,6 @@ class DefaultEntryProvider
      */
     private $name;
 
-    /**
-     * DefaultEntryProvider constructor.
-     *
-     * @param TranslatorInterface $translator
-     * @param EntityFactory $entityFactory
-     */
     public function __construct(
         TranslatorInterface $translator,
         EntityFactory $entityFactory
@@ -66,83 +63,37 @@ class DefaultEntryProvider
         $this->name = str_replace('Provider', '', array_pop($nsParts));
     }
 
-    /**
-     * Returns the bundle name.
-     *
-     * @return string
-     */
-    public function getBundleName()
-    {
-        return $this->bundleName;
-    }
-
-    /**
-     * Returns the name of this entry provider.
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
-    /**
-     * Returns the icon name (FontAwesome icon code suffix, e.g. "pencil").
-     *
-     * @return string
-     */
-    public function getIcon()
+    public function getIcon(): string
     {
         return 'cube';
     }
 
-    /**
-     * Returns the title of this entry provider.
-     *
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->translator->__('Default functionality', 'zikulamultihookmodule');
     }
 
-    /**
-     * Returns the description of this entry provider.
-     *
-     * @return string
-     */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->translator->__('Provides MultiHook\'s own entries.', 'zikulamultihookmodule');
     }
 
-    /**
-     * Returns an extended plugin information shown on settings page.
-     *
-     * @return string
-     */
-    public function getAdminInfo()
+    public function getAdminInfo(): string
     {
         return '';
     }
 
-    /**
-     * Returns whether this entry provider is active or not.
-     *
-     * @return boolean
-     */
-    public function isActive()
+    public function isActive(): bool
     {
         return true;
     }
 
-    /**
-     * Returns entries for given entry types.
-     *
-     * @param string[] $entryTypes
-     * @return array
-     */
-    public function getEntries(array $entryTypes = [])
+    public function getEntries(array $entryTypes = []): array
     {
         $result = [];
 
@@ -150,6 +101,7 @@ class DefaultEntryProvider
             $entities = $this->entityFactory->getRepository('entry')
                 ->selectWhere('tbl.active = 1 AND tbl.entryType IN (\'' . implode('\', \'', $entryTypes) . '\')');
 
+            /** @var EntryEntity $entity */
             foreach ($entities as $entity) {
                 $result[] = [
                     'id' => $entity->getId(),
@@ -163,5 +115,10 @@ class DefaultEntryProvider
         }
 
         return $result;
+    }
+
+    public function getBundleName(): string
+    {
+        return $this->bundleName;
     }
 }

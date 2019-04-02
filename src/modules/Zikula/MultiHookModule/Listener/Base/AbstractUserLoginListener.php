@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -53,7 +56,7 @@ abstract class AbstractUserLoginListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function started(GenericEvent $event)
+    public function started(GenericEvent $event): void
     {
     }
     
@@ -87,7 +90,7 @@ abstract class AbstractUserLoginListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function veto(GenericEvent $event)
+    public function veto(GenericEvent $event): void
     {
     }
     
@@ -118,7 +121,7 @@ abstract class AbstractUserLoginListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function succeeded(GenericEvent $event)
+    public function succeeded(GenericEvent $event): void
     {
     }
     
@@ -149,7 +152,7 @@ abstract class AbstractUserLoginListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function failed(GenericEvent $event)
+    public function failed(GenericEvent $event): void
     {
     }
 }

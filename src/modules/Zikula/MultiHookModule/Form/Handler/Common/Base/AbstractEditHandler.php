@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -15,6 +18,7 @@ use Psr\Log\LoggerInterface;
 use RuntimeException;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\RouterInterface;
@@ -255,7 +259,7 @@ abstract class AbstractEditHandler
         $this->featureActivationHelper = $featureActivationHelper;
     }
 
-    public function setTranslator(TranslatorInterface $translator)
+    public function setTranslator(TranslatorInterface $translator): void
     {
         $this->translator = $translator;
     }
@@ -264,8 +268,6 @@ abstract class AbstractEditHandler
      * Initialise form handler.
      *
      * This method takes care of all necessary initialisation of our data and form states.
-     *
-     * @param array $templateParameters List of preassigned template variables
      *
      * @return bool|RedirectResponse Redirect or false on errors
      *
@@ -410,7 +412,7 @@ abstract class AbstractEditHandler
     /**
      * Creates the form type.
      */
-    protected function createForm()
+    protected function createForm(): ?FormInterface
     {
         // to be customised in sub classes
         return null;
@@ -418,21 +420,14 @@ abstract class AbstractEditHandler
     
     /**
      * Returns the form options.
-     *
-     * @return array
      */
-    protected function getFormOptions()
+    protected function getFormOptions(): array
     {
         // to be customised in sub classes
         return [];
     }
     
-    /**
-     * Returns the template parameters.
-     *
-     * @return array
-     */
-    public function getTemplateParameters()
+    public function getTemplateParameters(): array
     {
         return $this->templateParameters;
     }
@@ -440,20 +435,16 @@ abstract class AbstractEditHandler
     
     /**
      * Initialise existing entity for editing.
-     *
-     * @return EntityAccess|null Desired entity instance or null
      */
-    protected function initEntityForEditing()
+    protected function initEntityForEditing(): ?EntityAccess
     {
         return $this->entityFactory->getRepository($this->objectType)->selectById($this->idValue);
     }
     
     /**
      * Initialise new entity for creation.
-     *
-     * @return EntityAccess|null Desired entity instance or null
      */
-    protected function initEntityForCreation()
+    protected function initEntityForCreation(): ?EntityAccess
     {
         $request = $this->requestStack->getCurrentRequest();
         $templateId = $request->query->getInt('astemplate');
@@ -479,7 +470,7 @@ abstract class AbstractEditHandler
     /**
      * Initialise translations.
      */
-    protected function initTranslationsForEditing()
+    protected function initTranslationsForEditing(): void
     {
         $translationsEnabled = $this->featureActivationHelper->isEnabled(FeatureActivationHelper::TRANSLATIONS, $this->objectType);
         $this->templateParameters['translationsEnabled'] = $translationsEnabled;
@@ -527,7 +518,7 @@ abstract class AbstractEditHandler
      *
      * @return string[] list of possible redirect codes
      */
-    protected function getRedirectCodes()
+    protected function getRedirectCodes(): array
     {
         $codes = [];
     
@@ -539,8 +530,6 @@ abstract class AbstractEditHandler
     /**
      * Command event handler.
      * This event handler is called when a command is issued by the user.
-     *
-     * @param array $args List of arguments
      *
      * @return bool|RedirectResponse Redirect or false on errors
      */
@@ -620,7 +609,7 @@ abstract class AbstractEditHandler
     /**
      * Prepare update of translations.
      */
-    protected function processTranslationsForUpdate()
+    protected function processTranslationsForUpdate(): void
     {
         if (!$this->templateParameters['translationsEnabled']) {
             return;
@@ -632,13 +621,8 @@ abstract class AbstractEditHandler
     
     /**
      * Get success or error message for default operations.
-     *
-     * @param array $args List of arguments from handleCommand method
-     * @param bool $success Becomes true if this is a success, false for default error
-     *
-     * @return string desired status or error message
      */
-    protected function getDefaultMessage(array $args = [], $success = false)
+    protected function getDefaultMessage(array $args = [], bool $success = false): string
     {
         $message = '';
         switch ($args['commandName']) {
@@ -671,12 +655,9 @@ abstract class AbstractEditHandler
     /**
      * Add success or error message to session.
      *
-     * @param array $args List of arguments from handleCommand method
-     * @param bool $success Becomes true if this is a success, false for default error
-     *
      * @throws RuntimeException Thrown if executing the workflow action fails
      */
-    protected function addDefaultMessage(array $args = [], $success = false)
+    protected function addDefaultMessage(array $args = [], bool $success = false): void
     {
         $message = $this->getDefaultMessage($args, $success);
         if (empty($message)) {
@@ -698,7 +679,7 @@ abstract class AbstractEditHandler
      *
      * @return array
      */
-    public function fetchInputData()
+    public function fetchInputData(): array
     {
         // fetch posted data input values as an associative array
         $formData = $this->form->getData();
@@ -718,12 +699,8 @@ abstract class AbstractEditHandler
 
     /**
      * Executes a certain workflow action.
-     *
-     * @param array $args List of arguments from handleCommand method
-     *
-     * @return bool Whether everything worked well or not
      */
-    public function applyAction(array $args = [])
+    public function applyAction(array $args = []): bool
     {
         // stub for subclasses
         return false;
@@ -731,10 +708,8 @@ abstract class AbstractEditHandler
 
     /**
      * Sets optional locking api reference.
-     *
-     * @param LockingApiInterface $lockingApi
      */
-    public function setLockingApi(LockingApiInterface $lockingApi)
+    public function setLockingApi(LockingApiInterface $lockingApi): void
     {
         $this->lockingApi = $lockingApi;
     }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -30,22 +33,27 @@ abstract class AbstractEntryFormAwareHookSubscriber implements HookSubscriberInt
         $this->translator = $translator;
     }
 
-    public function getOwner()
+    public function getOwner(): string
     {
         return 'ZikulaMultiHookModule';
     }
     
-    public function getCategory()
+    public function getCategory(): string
     {
         return FormAwareCategory::NAME;
     }
     
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->translator->__('Entry form aware subscriber');
     }
+    
+    public function getAreaName(): string
+    {
+        return 'subscriber.zikulamultihookmodule.form_aware_hook.entries';
+    }
 
-    public function getEvents()
+    public function getEvents(): array
     {
         return [
             // Display hook for create/edit forms.

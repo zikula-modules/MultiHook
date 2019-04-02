@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -41,7 +44,7 @@ abstract class AbstractUsersListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function configUpdated(GenericEvent $event)
+    public function configUpdated(GenericEvent $event): void
     {
     }
 }

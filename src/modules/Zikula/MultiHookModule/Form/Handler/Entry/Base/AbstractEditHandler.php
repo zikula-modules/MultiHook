@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -16,6 +19,7 @@ use Zikula\MultiHookModule\Form\Type\EntryType;
 
 use Exception;
 use RuntimeException;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Zikula\MultiHookModule\Entity\EntryEntity;
 
@@ -56,12 +60,12 @@ abstract class AbstractEditHandler extends EditHandler
         return $result;
     }
     
-    protected function createForm()
+    protected function createForm(): ?FormInterface
     {
         return $this->formFactory->create(EntryType::class, $this->entityRef, $this->getFormOptions());
     }
     
-    protected function getFormOptions()
+    protected function getFormOptions(): array
     {
         $options = [
             'mode' => $this->templateParameters['mode'],
@@ -74,13 +78,13 @@ abstract class AbstractEditHandler extends EditHandler
         $options['translations'] = [];
         foreach ($this->templateParameters['supportedLanguages'] as $language) {
             $translationKey = $this->objectTypeLower . $language;
-            $options['translations'][$language] = isset($this->templateParameters[$translationKey]) ? $this->templateParameters[$translationKey] : [];
+            $options['translations'][$language] = $this->templateParameters[$translationKey] ?? [];
         }
     
         return $options;
     }
 
-    protected function getRedirectCodes()
+    protected function getRedirectCodes(): array
     {
         $codes = parent::getRedirectCodes();
     
@@ -104,12 +108,8 @@ abstract class AbstractEditHandler extends EditHandler
     /**
      * Get the default redirect url. Required if no returnTo parameter has been supplied.
      * This method is called in handleCommand so we know which command has been performed.
-     *
-     * @param array $args List of arguments
-     *
-     * @return string The default redirect url
      */
-    protected function getDefaultReturnUrl(array $args = [])
+    protected function getDefaultReturnUrl(array $args = []): string
     {
         $objectIsPersisted = 'delete' !== $args['commandName'] && !('create' === $this->templateParameters['mode'] && 'cancel' === $args['commandName']);
         if (null !== $this->returnTo && $objectIsPersisted) {
@@ -147,7 +147,7 @@ abstract class AbstractEditHandler extends EditHandler
         return new RedirectResponse($this->getRedirectUrl($args), 302);
     }
     
-    protected function getDefaultMessage(array $args = [], $success = false)
+    protected function getDefaultMessage(array $args = [], bool $success = false): string
     {
         if (false === $success) {
             return parent::getDefaultMessage($args, $success);
@@ -176,7 +176,7 @@ abstract class AbstractEditHandler extends EditHandler
      * @inheritDoc
      * @throws RuntimeException Thrown if concurrent editing is recognised or another error occurs
      */
-    public function applyAction(array $args = [])
+    public function applyAction(array $args = []): bool
     {
         // get treated entity reference from persisted member var
         /** @var EntryEntity $entity */
@@ -207,12 +207,8 @@ abstract class AbstractEditHandler extends EditHandler
 
     /**
      * Get URL to redirect to.
-     *
-     * @param array $args List of arguments
-     *
-     * @return string The redirect url
      */
-    protected function getRedirectUrl(array $args = [])
+    protected function getRedirectUrl(array $args = []): string
     {
         if ($this->repeatCreateAction) {
             return $this->repeatReturnUrl;

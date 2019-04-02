@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -45,7 +48,7 @@ abstract class AbstractInstallerListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function moduleInstalled(ModuleStateEvent $event)
+    public function moduleInstalled(ModuleStateEvent $event): void
     {
     }
     
@@ -62,7 +65,7 @@ abstract class AbstractInstallerListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function modulePostInstalled(ModuleStateEvent $event)
+    public function modulePostInstalled(ModuleStateEvent $event): void
     {
     }
     
@@ -79,7 +82,7 @@ abstract class AbstractInstallerListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function moduleUpgraded(ModuleStateEvent $event)
+    public function moduleUpgraded(ModuleStateEvent $event): void
     {
     }
     
@@ -96,7 +99,7 @@ abstract class AbstractInstallerListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function moduleEnabled(ModuleStateEvent $event)
+    public function moduleEnabled(ModuleStateEvent $event): void
     {
     }
     
@@ -113,7 +116,7 @@ abstract class AbstractInstallerListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function moduleDisabled(ModuleStateEvent $event)
+    public function moduleDisabled(ModuleStateEvent $event): void
     {
     }
     
@@ -130,7 +133,7 @@ abstract class AbstractInstallerListener implements EventSubscriberInterface
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function moduleRemoved(ModuleStateEvent $event)
+    public function moduleRemoved(ModuleStateEvent $event): void
     {
     }
 }

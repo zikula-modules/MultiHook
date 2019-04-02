@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -14,7 +17,6 @@ namespace Zikula\MultiHookModule\HookProvider\Base;
 use Zikula\Bundle\HookBundle\Category\FilterHooksCategory;
 use Zikula\Bundle\HookBundle\Hook\FilterHook;
 use Zikula\Bundle\HookBundle\HookProviderInterface;
-use Zikula\Bundle\HookBundle\ServiceIdTrait;
 use Zikula\Common\Translator\TranslatorInterface;
 
 /**
@@ -32,22 +34,27 @@ abstract class AbstractFilterHooksProvider implements HookProviderInterface
         $this->translator = $translator;
     }
 
-    public function getOwner()
+    public function getOwner(): string
     {
         return 'ZikulaMultiHookModule';
     }
     
-    public function getCategory()
+    public function getCategory(): string
     {
         return FilterHooksCategory::NAME;
     }
     
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->translator->__('Multi hook filter hooks provider');
     }
+    
+    public function getAreaName(): string
+    {
+        return 'provider.zikulamultihookmodule.filter_hooks.multihook';
+    }
 
-    public function getProviderTypes()
+    public function getProviderTypes(): array
     {
         return [
             FilterHooksCategory::TYPE_FILTER => ['applyFilter']
@@ -57,7 +64,7 @@ abstract class AbstractFilterHooksProvider implements HookProviderInterface
     /**
      * Filters the given data.
      */
-    public function applyFilter(FilterHook $hook)
+    public function applyFilter(FilterHook $hook): void
     {
         $hook->setData($hook->getData() . '<p>' . $this->translator->__('This is a dummy addition by a generated filter provider.') . '</p>');
     }

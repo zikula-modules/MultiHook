@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -72,19 +75,15 @@ class AbstractMenuBuilder
         $this->currentUserApi = $currentUserApi;
     }
 
-    public function setTranslator(TranslatorInterface $translator)
+    public function setTranslator(TranslatorInterface $translator): void
     {
         $this->translator = $translator;
     }
 
     /**
      * Builds the item actions menu.
-     *
-     * @param array $options List of additional options
-     *
-     * @return ItemInterface The assembled menu
      */
-    public function createItemActionsMenu(array $options = [])
+    public function createItemActionsMenu(array $options = []): ItemInterface
     {
         $menu = $this->factory->createItem('itemActions');
         if (!isset($options['entity'], $options['area'], $options['context'])) {

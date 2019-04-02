@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -45,7 +48,7 @@ abstract class AbstractUserRegistrationListener implements EventSubscriberInterf
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function started(GenericEvent $event)
+    public function started(GenericEvent $event): void
     {
     }
     
@@ -76,7 +79,7 @@ abstract class AbstractUserRegistrationListener implements EventSubscriberInterf
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function createVeto(GenericEvent $event)
+    public function createVeto(GenericEvent $event): void
     {
     }
     
@@ -138,7 +141,7 @@ abstract class AbstractUserRegistrationListener implements EventSubscriberInterf
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function succeeded(GenericEvent $event)
+    public function succeeded(GenericEvent $event): void
     {
     }
     
@@ -168,7 +171,7 @@ abstract class AbstractUserRegistrationListener implements EventSubscriberInterf
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function failed(GenericEvent $event)
+    public function failed(GenericEvent $event): void
     {
     }
     
@@ -188,7 +191,7 @@ abstract class AbstractUserRegistrationListener implements EventSubscriberInterf
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function create(GenericEvent $event)
+    public function create(GenericEvent $event): void
     {
     }
     
@@ -206,7 +209,7 @@ abstract class AbstractUserRegistrationListener implements EventSubscriberInterf
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function update(GenericEvent $event)
+    public function update(GenericEvent $event): void
     {
     }
     
@@ -225,7 +228,7 @@ abstract class AbstractUserRegistrationListener implements EventSubscriberInterf
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function delete(GenericEvent $event)
+    public function delete(GenericEvent $event): void
     {
     }
     
@@ -240,7 +243,7 @@ abstract class AbstractUserRegistrationListener implements EventSubscriberInterf
      *     `echo 'Event: ' . $event->getName();`
      *
      */
-    public function forceApproval(GenericEvent $event)
+    public function forceApproval(GenericEvent $event): void
     {
     }
 }

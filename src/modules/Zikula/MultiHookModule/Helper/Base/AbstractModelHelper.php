@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -38,12 +41,8 @@ abstract class AbstractModelHelper
      *
      * Note that even creation of a certain object is possible, it may still be forbidden for the current user
      * if he does not have the required permission level.
-     *
-     * @param string $objectType Name of treated entity type
-     *
-     * @return bool Whether a new instance can be created or not
      */
-    public function canBeCreated($objectType = '')
+    public function canBeCreated(string $objectType = ''): bool
     {
         $result = false;
     
@@ -58,12 +57,8 @@ abstract class AbstractModelHelper
     
     /**
      * Determines whether there exists at least one instance of a certain object type in the database.
-     *
-     * @param string $objectType Name of treated entity type
-     *
-     * @return bool Whether at least one instance exists or not
      */
-    protected function hasExistingInstances($objectType = '')
+    protected function hasExistingInstances(string $objectType = ''): bool
     {
         $repository = $this->entityFactory->getRepository($objectType);
         if (null === $repository) {
@@ -75,13 +70,8 @@ abstract class AbstractModelHelper
     
     /**
      * Returns a desired sorting criteria for passing it to a repository method.
-     *
-     * @param string $objectType Name of treated entity type
-     * @param string $sorting The type of sorting (newest, random, default)
-     *
-     * @return string The order by clause
      */
-    public function resolveSortParameter($objectType = '', $sorting = 'default')
+    public function resolveSortParameter(string $objectType = '', string $sorting = 'default'): string
     {
         if ('random' === $sorting) {
             return 'RAND()';

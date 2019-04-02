@@ -1,9 +1,0 @@
-services:
-    # Custom validators
-    zikula_multihook_module.validator.list_entry.validator:
-        class: Zikula\MultiHookModule\Validator\Constraints\ListEntryValidator
-        arguments:
-            - "@translator.default"
-            - "@zikula_multihook_module.listentries_helper"
-        tags:
-            - { name: validator.constraint_validator, alias: zikula_multihook_module.validator.list_entry.validator }

@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -52,19 +55,12 @@ abstract class AbstractLinkContainer implements LinkContainerInterface
         $this->permissionHelper = $permissionHelper;
     }
 
-    public function setTranslator(TranslatorInterface $translator)
+    public function setTranslator(TranslatorInterface $translator): void
     {
         $this->translator = $translator;
     }
 
-    /**
-     * Returns available header links.
-     *
-     * @param string $type The type to collect links for
-     *
-     * @return array List of header links
-     */
-    public function getLinks($type = LinkContainerInterface::TYPE_ADMIN)
+    public function getLinks(string $type = LinkContainerInterface::TYPE_ADMIN): array
     {
         $contextArgs = ['api' => 'linkContainer', 'action' => 'getLinks'];
         $allowedObjectTypes = $this->controllerHelper->getObjectTypes('api', $contextArgs);
@@ -120,12 +116,7 @@ abstract class AbstractLinkContainer implements LinkContainerInterface
         return $links;
     }
 
-    /**
-     * Returns the name of the providing bundle.
-     *
-     * @return string The bundle name
-     */
-    public function getBundleName()
+    public function getBundleName(): string
     {
         return 'ZikulaMultiHookModule';
     }

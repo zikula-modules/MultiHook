@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -11,6 +14,9 @@
 
 namespace Zikula\MultiHookModule\DependencyInjection;
 
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Zikula\Common\MultiHook\EntryProviderInterface;
+use Zikula\Common\MultiHook\NeedleInterface;
 use Zikula\MultiHookModule\DependencyInjection\Base\AbstractZikulaMultiHookExtension;
 
 /**
@@ -18,5 +24,16 @@ use Zikula\MultiHookModule\DependencyInjection\Base\AbstractZikulaMultiHookExten
  */
 class ZikulaMultiHookExtension extends AbstractZikulaMultiHookExtension
 {
-    // custom enhancements can go here
+    public function load(array $configs, ContainerBuilder $container)
+    {
+        parent::load($configs, $container);
+
+        $container->registerForAutoconfiguration(EntryProviderInterface::class)
+            ->addTag('multihook_entry_provider')
+        ;
+
+        $container->registerForAutoconfiguration(NeedleInterface::class)
+            ->addTag('zikula.multihook_needle')
+        ;
+    }
 }

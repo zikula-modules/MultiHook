@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -34,32 +37,16 @@ class HookHelper extends AbstractHookHelper
     /**
      * @var VariableApiInterface
      */
-    private $variableApi;    
+    private $variableApi;
 
-    public function setTranslator(TranslatorInterface $translator)
+    public function createAbbr(array $abac, bool $showEditLink = false): string
     {
-        $this->translator = $translator;
-    }
-
-    public function setRouter(RouterInterface $router)
-    {
-        $this->router = $router;
-    }
-    
-    public function setVariableApi(VariableApiInterface $variableApi)
-    {
-        $this->variableApi = $variableApi;
-    }
-    
-    public function createAbbr($abac, $showEditLink=false)
-    {
-        $replaceAbbreviationsWithLongText = $this->variableApi->get('ZikulaMultiHookModule', 'replaceAbbreviationsWithLongText', false);
+        $replaceAbbreviationsWithLongText = (bool)$this->variableApi->get('ZikulaMultiHookModule', 'replaceAbbreviationsWithLongText');
 
         $long = $abac['longform'];
         $short = $abac['shortform'];
-        $id = isset($abac['id']) ? $abac['id'] : 0;
+        $id = $abac['id'] ?? 0;
 
-        $replace_temp = '';
         if (false === $replaceAbbreviationsWithLongText) {
             $xhtmllang = $this->getLanguageAttributes($abac['language']);
             $replace_temp = '<abbr' . $xhtmllang . ' title="' . str_replace('"', '', $long) . '"><span class="abbr" title="' . str_replace('"', '', $long) . '">' . $short . '</span></abbr>';
@@ -74,11 +61,11 @@ class HookHelper extends AbstractHookHelper
         return $replace_temp;
     }
     
-    public function createAcronym($abac, $showEditLink=false)
+    public function createAcronym(array $abac, bool $showEditLink = false): string
     {
         $long = $abac['longform'];
         $short = $abac['shortform'];
-        $id = isset($abac['id']) ? $abac['id'] : 0;
+        $id = $abac['id'] ?? 0;
 
         $xhtmllang = $this->getLanguageAttributes($abac['language']);
         $replace_temp = '<acronym' . $xhtmllang . ' title="' . str_replace('"', '', $long) . '">' . $short . '</acronym>';
@@ -90,14 +77,14 @@ class HookHelper extends AbstractHookHelper
         return $replace_temp;
     }
 
-    public function createLink($abac, $showEditLink=false)
+    public function createLink(array $abac, bool $showEditLink = false): string
     {
-        $replaceLinksWithTitle = $this->variableApi->get('ZikulaMultiHookModule', 'replaceLinksWithTitle', false);
-        $cssClassForExternalLinks = $this->variableApi->get('ZikulaMultiHookModule', 'cssClassForExternalLinks', '');
+        $replaceLinksWithTitle = (bool)$this->variableApi->get('ZikulaMultiHookModule', 'replaceLinksWithTitle');
+        $cssClassForExternalLinks = (string)$this->variableApi->get('ZikulaMultiHookModule', 'cssClassForExternalLinks');
 
         $extclass = '';
         $accessibilityHack = '';
-        if (preg_match("/(^http:\/\/)/", $abac['longform']) == 1) {
+        if (1 === preg_match("/(^http:\/\/)/", $abac['longform'])) {
             if (!empty($cssClassForExternalLinks)) {
                 $extclass = ' class="' . $cssClassForExternalLinks . '"';
             }
@@ -106,7 +93,7 @@ class HookHelper extends AbstractHookHelper
 
         $long  = $abac['longform'];
         $short = $abac['shortform'];
-        $id = isset($abac['id']) ? $abac['id'] : 0;
+        $id = $abac['id'] ?? 0;
         $title = $abac['title'];
 
         $linkText = (false === $replaceLinksWithTitle ? $short : $title) . $accessibilityHack;
@@ -119,19 +106,22 @@ class HookHelper extends AbstractHookHelper
         return $replace_temp;
     }
 
-    public function createCensor($abac, $showEditLink=false, $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars=false)
-    {
+    public function createCensor(
+        array $abac,
+        bool $showEditLink = false,
+        bool $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars = false
+    ): string {
         $short = $abac['shortform'];
 
         $len = strlen($short);
         $replace_temp = str_repeat('*', $len);
-        if (true === $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars && $len > 2) {
+        if (true === $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars && 2 < $len) {
             $replace_temp[0] = $short[0];
-            $id = strlen($replace_temp)-1;
-            $replace_temp[$id] = $short[$len-1];
+            $id = strlen($replace_temp) - 1;
+            $replace_temp[$id] = $short[$len - 1];
         }
 
-        $id = isset($abac['id']) ? $abac['id'] : 0;
+        $id = $abac['id'] ?? 0;
 
         if (true === $showEditLink && $id > 0) {
             $replace_temp = '<span>' . $replace_temp . ' ' . $this->getEditLink($short, $this->translator->__('Censor', 'zikulamultihookmodule'), $id) . '</span>';
@@ -140,34 +130,34 @@ class HookHelper extends AbstractHookHelper
         return $replace_temp;
     }
 
-    private function getLanguageAttributes($lang)
+    private function getLanguageAttributes(string $lang): string
     {
         return !empty($lang) ? ' lang="' . $lang . '" xml:lang="' . $lang . '"' : '';
     }
 
-    public function getEditLink($short, $entryLabel = '', $id = 0)
+    public function getEditLink(string $short, string $entryLabel = '', int $id = 0): string
     {
         $title = $this->translator->__('Edit', 'zikulamultihookmodule') . ': ' . $short . ' (' . str_replace('"', '', $entryLabel) . ') #' . $id;
 
         return '<a href="' . $this->router->generate('zikulamultihookmodule_entry_edit', ['id' => $id]) . '" class="mh-edit-link" title="' . str_replace('"', '', $title) . '" target="_blank"><i class="fa fa-pencil"></i></a>';
     }
 
-    public function createAbsoluteUrl($url='', $baseUrl='')
+    public function createAbsoluteUrl(string $url = '', string $baseUrl = ''): string
     {
         static $schemes = ['http', 'https', 'ftp', 'gopher', 'ed2k', 'news', 'mailto', 'telnet'];
 
-        if (strlen($url) == 0) {
+        if ('' === $url) {
             return $url;
         }
 
         // make sure that relative urls get converted to absolute urls (safehtml needs this)
         $exploded_url = explode(':', $url);
-        if (!in_array($exploded_url[0], $schemes)) {
+        if (!in_array($exploded_url[0], $schemes, true)) {
             // url does not start with one of the schemes defined above
             // we consider it being a relative path now
 
             // next check for leading / in  relative url
-            if ($url[0] == '/') {
+            if (0 === strpos($url, '/')) {
                 // and remove it
                 $url = substr($url, 1);
             }
@@ -175,5 +165,29 @@ class HookHelper extends AbstractHookHelper
         }
 
         return $url;
+    }
+
+    /**
+     * @required
+     */
+    public function setTranslator(TranslatorInterface $translator): void
+    {
+        $this->translator = $translator;
+    }
+
+    /**
+     * @required
+     */
+    public function setRouter(RouterInterface $router): void
+    {
+        $this->router = $router;
+    }
+
+    /**
+     * @required
+     */
+    public function setVariableApi(VariableApiInterface $variableApi): void
+    {
+        $this->variableApi = $variableApi;
     }
 }

@@ -1,13 +1,39 @@
-imports:
-  - { resource: 'appSettings.yml' }
-  - { resource: 'menu.yml' }
-  - { resource: 'entityFactory.yml' }
-  - { resource: 'eventSubscriber.yml' }
-  - { resource: 'validators.yml' }
-  - { resource: 'formFields.yml' }
-  - { resource: 'forms.yml' }
-  - { resource: 'helpers.yml' }
-  - { resource: 'hooks.yml' }
-  - { resource: 'twig.yml' }
-  - { resource: 'logger.yml' }
-  - { resource: 'customServices.yml' }
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+        bind:
+            $bundle: '@Zikula\MultiHookModule\ZikulaMultiHookModule'
+            $twigLoader: '@twig.loader'
+
+    Zikula\MultiHookModule\:
+        resource: '../../*'
+        exclude: '../../{bootstrap.php,Base/bootstrap.php,Tests,vendor}'
+
+    Zikula\MultiHookModule\Helper\:
+        resource: '../../Helper/*'
+        lazy: true
+
+    Zikula\MultiHookModule\Collector\EntryProviderCollector:
+        arguments:
+            $providers: !tagged zikula.multihook_entry_provider
+    Zikula\MultiHookModule\Collector\NeedleCollector:
+        arguments:
+            $needles: !tagged zikula.multihook_needle
+
+    # public because EntityLifecycleListener accesses this using container
+    Zikula\MultiHookModule\Entity\Factory\EntityFactory:
+        public: true
+
+    Zikula\MultiHookModule\Form\Handler\:
+        resource: '../../Form/Handler'
+        calls:
+            - [setLockingApi, ['@?Zikula\PageLockModule\Api\LockingApi']]
+    
+    Zikula\MultiHookModule\Listener\EntityLifecycleListener:
+        tags: ['doctrine.event_subscriber']
+    
+    Zikula\MultiHookModule\Menu\MenuBuilder:
+        tags:
+            - { name: knp_menu.menu_builder, method: createItemActionsMenu, alias: zikulaMultiHookMenuItemActions }

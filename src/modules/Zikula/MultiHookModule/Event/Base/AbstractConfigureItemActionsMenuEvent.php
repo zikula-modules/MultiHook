@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -48,7 +51,7 @@ class AbstractConfigureItemActionsMenuEvent extends Event
     /**
      * @return FactoryInterface
      */
-    public function getFactory()
+    public function getFactory(): FactoryInterface
     {
         return $this->factory;
     }
@@ -56,7 +59,7 @@ class AbstractConfigureItemActionsMenuEvent extends Event
     /**
      * @return ItemInterface
      */
-    public function getMenu()
+    public function getMenu(): ItemInterface
     {
         return $this->menu;
     }
@@ -64,7 +67,7 @@ class AbstractConfigureItemActionsMenuEvent extends Event
     /**
      * @return array
      */
-    public function getOptions()
+    public function getOptions(): array
     {
         return $this->options;
     }

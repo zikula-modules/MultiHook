@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -81,7 +84,7 @@ abstract class AbstractWorkflowEventsListener implements EventSubscriberInterfac
      *         $event->setBlocked(true);
      *     }`
      */
-    public function onGuard(GuardEvent $event)
+    public function onGuard(GuardEvent $event): void
     {
         /** @var EntityAccess $entity */
         $entity = $event->getSubject();
@@ -148,7 +151,7 @@ abstract class AbstractWorkflowEventsListener implements EventSubscriberInterfac
      * Access the transition: `$transition = $event->getTransition();`
      * Access the workflow name: `$workflowName = $event->getWorkflowName();`
      */
-    public function onLeave(Event $event)
+    public function onLeave(Event $event): void
     {
         /** @var EntityAccess $entity */
         $entity = $event->getSubject();
@@ -179,7 +182,7 @@ abstract class AbstractWorkflowEventsListener implements EventSubscriberInterfac
      * Access the transition: `$transition = $event->getTransition();`
      * Access the workflow name: `$workflowName = $event->getWorkflowName();`
      */
-    public function onEntered(Event $event)
+    public function onEntered(Event $event): void
     {
         /** @var EntityAccess $entity */
         $entity = $event->getSubject();
@@ -209,7 +212,7 @@ abstract class AbstractWorkflowEventsListener implements EventSubscriberInterfac
      * Access the transition: `$transition = $event->getTransition();`
      * Access the workflow name: `$workflowName = $event->getWorkflowName();`
      */
-    public function onTransition(Event $event)
+    public function onTransition(Event $event): void
     {
         /** @var EntityAccess $entity */
         $entity = $event->getSubject();
@@ -239,7 +242,7 @@ abstract class AbstractWorkflowEventsListener implements EventSubscriberInterfac
      * Access the transition: `$transition = $event->getTransition();`
      * Access the workflow name: `$workflowName = $event->getWorkflowName();`
      */
-    public function onEnter(Event $event)
+    public function onEnter(Event $event): void
     {
         /** @var EntityAccess $entity */
         $entity = $event->getSubject();
@@ -268,7 +271,7 @@ abstract class AbstractWorkflowEventsListener implements EventSubscriberInterfac
      * Access the transition: `$transition = $event->getTransition();`
      * Access the workflow name: `$workflowName = $event->getWorkflowName();`
      */
-    public function onCompleted(Event $event)
+    public function onCompleted(Event $event): void
     {
         /** @var EntityAccess $entity */
         $entity = $event->getSubject();
@@ -297,7 +300,7 @@ abstract class AbstractWorkflowEventsListener implements EventSubscriberInterfac
      * Access the transition: `$transition = $event->getTransition();`
      * Access the workflow name: `$workflowName = $event->getWorkflowName();`
      */
-    public function onAnnounce(Event $event)
+    public function onAnnounce(Event $event): void
     {
         /** @var EntityAccess $entity */
         $entity = $event->getSubject();
@@ -310,10 +313,8 @@ abstract class AbstractWorkflowEventsListener implements EventSubscriberInterfac
      * Checks whether this listener is responsible for the given entity or not.
      *
      * @param EntityAccess $entity The given entity
-     *
-     * @return bool True if entity is managed by this listener, false otherwise
      */
-    protected function isEntityManagedByThisBundle($entity)
+    protected function isEntityManagedByThisBundle($entity): bool
     {
         if (!($entity instanceof EntityAccess)) {
             return false;

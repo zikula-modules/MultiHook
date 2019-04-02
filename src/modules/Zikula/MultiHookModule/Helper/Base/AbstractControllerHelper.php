@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /**
  * MultiHook.
  *
@@ -94,7 +97,7 @@ abstract class AbstractControllerHelper
         $this->featureActivationHelper = $featureActivationHelper;
     }
     
-    public function setTranslator(TranslatorInterface $translator)
+    public function setTranslator(TranslatorInterface $translator): void
     {
         $this->translator = $translator;
     }
@@ -102,12 +105,9 @@ abstract class AbstractControllerHelper
     /**
      * Returns an array of all allowed object types in ZikulaMultiHookModule.
      *
-     * @param string $context Usage context (allowed values: controllerAction, api, helper, actionHandler, block, contentType, util)
-     * @param array $args Additional arguments
-     *
      * @return string[] List of allowed object types
      */
-    public function getObjectTypes($context = '', array $args = [])
+    public function getObjectTypes(string $context = '', array $args = []): array
     {
         if (!in_array($context, ['controllerAction', 'api', 'helper', 'actionHandler', 'block', 'contentType', 'util'], true)) {
             $context = 'controllerAction';
@@ -121,13 +121,8 @@ abstract class AbstractControllerHelper
     
     /**
      * Returns the default object type in ZikulaMultiHookModule.
-     *
-     * @param string $context Usage context (allowed values: controllerAction, api, helper, actionHandler, block, contentType, util)
-     * @param array $args Additional arguments
-     *
-     * @return string The name of the default object type
      */
-    public function getDefaultObjectType($context = '', array $args = [])
+    public function getDefaultObjectType(string $context = '', array $args = []): string
     {
         if (!in_array($context, ['controllerAction', 'api', 'helper', 'actionHandler', 'block', 'contentType', 'util'], true)) {
             $context = 'controllerAction';
@@ -139,20 +134,13 @@ abstract class AbstractControllerHelper
     /**
      * Processes the parameters for a view action.
      * This includes handling pagination, quick navigation forms and other aspects.
-     *
-     * @param string $objectType Name of treated entity type
-     * @param SortableColumns $sortableColumns Used SortableColumns instance
-     * @param array $templateParameters Template data
-     * @param bool $hasHookSubscriber Whether hook subscribers are supported or not
-     *
-     * @return array Enriched template parameters used for creating the response
      */
     public function processViewActionParameters(
-        $objectType,
+        string $objectType,
         SortableColumns $sortableColumns,
         array $templateParameters = [],
-        $hasHookSubscriber = false
-    ) {
+        bool $hasHookSubscriber = false
+    ): array {
         $contextArgs = ['controller' => $objectType, 'action' => 'view'];
         if (!in_array($objectType, $this->getObjectTypes('controllerAction', $contextArgs), true)) {
             throw new Exception($this->__('Error! Invalid object type received.'));
@@ -267,12 +255,8 @@ abstract class AbstractControllerHelper
     
     /**
      * Determines the default sorting criteria.
-     *
-     * @param string $objectType Name of treated entity type
-     *
-     * @return array with sort field and sort direction
      */
-    protected function determineDefaultViewSorting($objectType)
+    protected function determineDefaultViewSorting(string $objectType): array
     {
         $request = $this->requestStack->getCurrentRequest();
         if (null === $request) {
@@ -300,13 +284,8 @@ abstract class AbstractControllerHelper
     
     /**
      * Processes the parameters for an edit action.
-     *
-     * @param string $objectType Name of treated entity type
-     * @param array $templateParameters Template data
-     *
-     * @return array Enriched template parameters used for creating the response
      */
-    public function processEditActionParameters($objectType, array $templateParameters = [])
+    public function processEditActionParameters(string $objectType, array $templateParameters = []): array
     {
         $contextArgs = ['controller' => $objectType, 'action' => 'edit'];
         if (!in_array($objectType, $this->getObjectTypes('controllerAction', $contextArgs), true)) {
@@ -318,15 +297,8 @@ abstract class AbstractControllerHelper
     
     /**
      * Returns an array of additional template variables which are specific to the object type.
-     *
-     * @param string $objectType Name of treated entity type
-     * @param array $parameters Given parameters to enrich
-     * @param string $context Usage context (allowed values: controllerAction, api, actionHandler, block, contentType)
-     * @param array $args Additional arguments
-     *
-     * @return array List of template variables to be assigned
      */
-    public function addTemplateParameters($objectType = '', array $parameters = [], $context = '', array $args = [])
+    public function addTemplateParameters(string $objectType = '', array $parameters = [], string $context = '', array $args = []): array
     {
         if (!in_array($context, ['controllerAction', 'api', 'actionHandler', 'block', 'contentType', 'mailz'], true)) {
             $context = 'controllerAction';

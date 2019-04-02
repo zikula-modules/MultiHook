@@ -1,4 +1,4 @@
-application "MultiHook" {
+application "MultiHook" targets ZK30 {
     documentation "Handle autolinks, abbreviations, acronyms and censoring."
     vendor "Zikula"
     author "Zikula Team"
@@ -26,12 +26,12 @@ application "MultiHook" {
     generateIcsTemplates false
     filterHookProvider ENABLED
     skipFiles "
+        DependencyInjection/ZikulaMultiHookExtension.php,
         Helper/HookHelper.php,
-        HookProvider/FilterHooksProvider.php,
-        Resources/config/helpers.yml,
-        Resources/config/hooks.yml,
-        Resources/config/services.yml,
-        ZikulaMultiHookModule.php
+        HookProvider/FilterHooksProvider.php
+    "
+    markFiles "
+        Resources/config/services.yml
     "
     entities {
         entity "entry" leading {
