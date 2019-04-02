@@ -24,8 +24,6 @@ use Zikula\Common\Translator\TranslatorInterface;
  */
 abstract class AbstractFilterHooksProvider implements HookProviderInterface
 {
-    use ServiceIdTrait;
-
     /**
      * @var TranslatorInterface
      */

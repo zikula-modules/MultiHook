@@ -55,6 +55,7 @@
                 </div>
             {% endif %}
             {{ form_widget(quickNavForm.updateview) }}
+            <a href="{{ path('zikulamultihookmodule_entry_' ~ routeArea|default ~ 'view') }}" title="{{ __('Back to default view') }}" class="btn btn-default btn-sm">{{ __('Reset') }}</a>
         </fieldset>
     </div>
     {{ form_end(quickNavForm) }}

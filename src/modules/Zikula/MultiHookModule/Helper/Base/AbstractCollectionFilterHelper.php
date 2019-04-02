@@ -63,7 +63,7 @@ abstract class AbstractCollectionFilterHelper
      */
     public function getViewQuickNavParameters(string $objectType = '', string $context = '', array $args = []): array
     {
-        if (!in_array($context, ['controllerAction', 'api', 'actionHandler', 'block', 'contentType'])) {
+        if (!in_array($context, ['controllerAction', 'api', 'actionHandler', 'block', 'contentType'], true)) {
             $context = 'controllerAction';
         }
     
@@ -133,6 +133,9 @@ abstract class AbstractCollectionFilterHelper
     
         $parameters = $this->getViewQuickNavParametersForEntry();
         foreach ($parameters as $k => $v) {
+            if (null === $v) {
+                continue;
+            }
             if (in_array($k, ['q', 'searchterm'], true)) {
                 // quick search
                 if (!empty($v)) {
