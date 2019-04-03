@@ -18,8 +18,12 @@ function zikulaMultiHookInitQuickNavigation() {
     quickNavForm = jQuery('.zikulamultihookmodule-quicknav').first();
     objectType = quickNavForm.attr('id').replace('zikulaMultiHookModule', '').replace('QuickNavForm', '');
 
+    var quickNavFilterTimer;
     quickNavForm.find('select').change(function (event) {
-        quickNavForm.submit();
+        clearTimeout(quickNavFilterTimer);
+        quickNavFilterTimer = setTimeout(function() {
+            quickNavForm.submit();
+        }, 5000);
     });
 
     var fieldPrefix = 'zikulamultihookmodule_' + objectType.toLowerCase() + 'quicknav_';
