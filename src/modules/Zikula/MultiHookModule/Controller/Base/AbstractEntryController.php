@@ -117,14 +117,7 @@ abstract class AbstractEntryController extends AbstractController
         $templateParameters = $controllerHelper->processViewActionParameters($objectType, $sortableColumns, $templateParameters, true);
         
         // filter by permissions
-        $filteredEntities = [];
-        foreach ($templateParameters['items'] as $entry) {
-            if (!$permissionHelper->hasEntityPermission($entry, $permLevel)) {
-                continue;
-            }
-            $filteredEntities[] = $entry;
-        }
-        $templateParameters['items'] = $filteredEntities;
+        $templateParameters['items'] = $permissionHelper->filterCollection($objectType, $templateParameters['items'], $permLevel);
         
         // fetch and return the appropriate template
         return $viewHelper->processTemplate($objectType, 'view', $templateParameters);
