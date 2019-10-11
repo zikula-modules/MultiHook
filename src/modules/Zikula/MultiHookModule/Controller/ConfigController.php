@@ -32,7 +32,6 @@ use Zikula\MultiHookModule\Helper\PermissionHelper;
 class ConfigController extends AbstractConfigController
 {
     /**
-     * @inheritDoc
      * @Route("/config",
      *        methods = {"GET", "POST"}
      * )
