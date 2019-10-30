@@ -30,7 +30,6 @@ class AjaxController extends AbstractAjaxController
 {
     
     /**
-     * @inheritDoc
      * @Route("/toggleFlag", methods = {"POST"}, options={"expose"=true})
      */
     public function toggleFlagAction(

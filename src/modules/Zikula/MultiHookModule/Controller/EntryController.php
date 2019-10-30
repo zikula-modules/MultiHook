@@ -145,7 +145,6 @@ class EntryController extends AbstractEntryController
     /**
      * Process status changes for multiple items.
      *
-     * @inheritDoc
      * @Route("/admin/entries/handleSelectedEntries",
      *        methods = {"POST"}
      * )
@@ -164,7 +163,6 @@ class EntryController extends AbstractEntryController
     /**
      * Process status changes for multiple items.
      *
-     * @inheritDoc
      * @Route("/entries/handleSelectedEntries",
      *        methods = {"POST"}
      * )
