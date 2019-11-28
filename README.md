@@ -1,7 +1,7 @@
 # MultiHook module for the Zikula Application Framework
 
-![](https://github.com/zikula-modules/MultiHook/workflows/Generate%20module/badge.svg)
-![](https://github.com/zikula-modules/MultiHook/workflows/Test%20module/badge.svg)
+[![](https://github.com/zikula-modules/MultiHook/workflows/Generate%20module/badge.svg)](https://github.com/zikula-modules/MultiHook/actions?query=workflow%3A"Generate+module")
+[![](https://github.com/zikula-modules/MultiHook/workflows/Test%20module/badge.svg)](https://github.com/zikula-modules/MultiHook/actions?query=workflow%3A"Test+module")
 
 ## Documentation
 
