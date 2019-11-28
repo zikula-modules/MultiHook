@@ -30,7 +30,7 @@ MultiHook is a content helper module which can handle automatically replace abbr
 ## Requirements
 
 The `master` branch of this module is intended for being used with Zikula 3.0.
-For Zikula 2.0.12 look at [releases](https://github.com/zikula-modules/MultiHook/releases/).
+For Zikula 2.0.x look at [releases](https://github.com/zikula-modules/MultiHook/releases/).
 
 
 <a name="installation" />
