@@ -51,8 +51,8 @@ abstract class AbstractEntityFactory
         EntityManagerInterface $entityManager,
         EntityInitialiser $entityInitialiser,
         CollectionFilterHelper $collectionFilterHelper,
-        FeatureActivationHelper $featureActivationHelper)
-    {
+        FeatureActivationHelper $featureActivationHelper
+    ) {
         $this->entityManager = $entityManager;
         $this->entityInitialiser = $entityInitialiser;
         $this->collectionFilterHelper = $collectionFilterHelper;
@@ -71,7 +71,9 @@ abstract class AbstractEntityFactory
         $repository->setCollectionFilterHelper($this->collectionFilterHelper);
 
         if (in_array($objectType, ['entry'], true)) {
-            $repository->setTranslationsEnabled($this->featureActivationHelper->isEnabled(FeatureActivationHelper::TRANSLATIONS, $objectType));
+            $repository->setTranslationsEnabled(
+                $this->featureActivationHelper->isEnabled(FeatureActivationHelper::TRANSLATIONS, $objectType)
+            );
         }
 
         return $repository;

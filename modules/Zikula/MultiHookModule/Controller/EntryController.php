@@ -46,7 +46,11 @@ class EntryController extends AbstractEntryController
         Request $request,
         PermissionHelper $permissionHelper
     ): Response {
-        return $this->indexInternal($request, $permissionHelper, true);
+        return $this->indexInternal(
+            $request,
+            $permissionHelper,
+            true
+        );
     }
     
     /**
@@ -59,7 +63,11 @@ class EntryController extends AbstractEntryController
         Request $request,
         PermissionHelper $permissionHelper
     ): Response {
-        return $this->indexInternal($request, $permissionHelper, false);
+        return $this->indexInternal(
+            $request,
+            $permissionHelper,
+            false
+        );
     }
     
     /**
@@ -81,7 +89,17 @@ class EntryController extends AbstractEntryController
         int $pos,
         int $num
     ): Response {
-        return $this->viewInternal($request, $permissionHelper, $controllerHelper, $viewHelper, $sort, $sortdir, $pos, $num, true);
+        return $this->viewInternal(
+            $request,
+            $permissionHelper,
+            $controllerHelper,
+            $viewHelper,
+            $sort,
+            $sortdir,
+            $pos,
+            $num,
+            true
+        );
     }
     
     /**
@@ -102,7 +120,17 @@ class EntryController extends AbstractEntryController
         int $pos,
         int $num
     ): Response {
-        return $this->viewInternal($request, $permissionHelper, $controllerHelper, $viewHelper, $sort, $sortdir, $pos, $num, false);
+        return $this->viewInternal(
+            $request,
+            $permissionHelper,
+            $controllerHelper,
+            $viewHelper,
+            $sort,
+            $sortdir,
+            $pos,
+            $num,
+            false
+        );
     }
     
     /**
@@ -121,7 +149,14 @@ class EntryController extends AbstractEntryController
         ViewHelper $viewHelper,
         EditHandler $formHandler
     ): Response {
-        return $this->editInternal($request, $permissionHelper, $controllerHelper, $viewHelper, $formHandler, true);
+        return $this->editInternal(
+            $request,
+            $permissionHelper,
+            $controllerHelper,
+            $viewHelper,
+            $formHandler,
+            true
+        );
     }
     
     /**
@@ -139,7 +174,14 @@ class EntryController extends AbstractEntryController
         ViewHelper $viewHelper,
         EditHandler $formHandler
     ): Response {
-        return $this->editInternal($request, $permissionHelper, $controllerHelper, $viewHelper, $formHandler, false);
+        return $this->editInternal(
+            $request,
+            $permissionHelper,
+            $controllerHelper,
+            $viewHelper,
+            $formHandler,
+            false
+        );
     }
     
     /**
@@ -157,7 +199,14 @@ class EntryController extends AbstractEntryController
         HookHelper $hookHelper,
         CurrentUserApiInterface $currentUserApi
     ): RedirectResponse {
-        return $this->handleSelectedEntriesActionInternal($request, $entityFactory, $workflowHelper, $hookHelper, $currentUserApi, true);
+        return $this->handleSelectedEntriesActionInternal(
+            $request,
+            $entityFactory,
+            $workflowHelper,
+            $hookHelper,
+            $currentUserApi,
+            true
+        );
     }
     
     /**
@@ -174,7 +223,14 @@ class EntryController extends AbstractEntryController
         HookHelper $hookHelper,
         CurrentUserApiInterface $currentUserApi
     ): RedirectResponse {
-        return $this->handleSelectedEntriesActionInternal($request, $entityFactory, $workflowHelper, $hookHelper, $currentUserApi, false);
+        return $this->handleSelectedEntriesActionInternal(
+            $request,
+            $entityFactory,
+            $workflowHelper,
+            $hookHelper,
+            $currentUserApi,
+            false
+        );
     }
     
     // feel free to add your own controller methods here

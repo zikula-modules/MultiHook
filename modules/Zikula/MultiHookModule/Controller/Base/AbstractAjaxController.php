@@ -37,8 +37,7 @@ abstract class AbstractAjaxController extends AbstractController
         Request $request,
         EntityFactory $entityFactory,
         CurrentUserApiInterface $currentUserApi
-    ): JsonResponse
-     {
+    ): JsonResponse {
         if (!$request->isXmlHttpRequest()) {
             return $this->json($this->__('Only ajax access is allowed!'), Response::HTTP_BAD_REQUEST);
         }

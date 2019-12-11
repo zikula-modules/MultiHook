@@ -36,9 +36,12 @@ class AjaxController extends AbstractAjaxController
         Request $request,
         EntityFactory $entityFactory,
         CurrentUserApiInterface $currentUserApi
-    ): JsonResponse
-     {
-        return parent::toggleFlagAction($request, $entityFactory, $currentUserApi);
+    ): JsonResponse {
+        return parent::toggleFlagAction(
+            $request,
+            $entityFactory,
+            $currentUserApi
+        );
     }
 
     // feel free to add your own ajax controller methods here
