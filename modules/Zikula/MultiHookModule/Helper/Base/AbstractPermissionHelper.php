@@ -92,7 +92,12 @@ abstract class AbstractPermissionHelper
         $objectType = $entity->get_objectType();
         $instance = $entity->getKey() . '::';
     
-        return $this->permissionApi->hasPermission('ZikulaMultiHookModule:' . ucfirst($objectType) . ':', $instance, $permissionLevel, $userId);
+        return $this->permissionApi->hasPermission(
+            'ZikulaMultiHookModule:' . ucfirst($objectType) . ':',
+            $instance,
+            $permissionLevel,
+            $userId
+        );
     }
     
     /**
@@ -118,7 +123,12 @@ abstract class AbstractPermissionHelper
      */
     public function hasComponentPermission(string $objectType, int $permissionLevel, int $userId = null): bool
     {
-        return $this->permissionApi->hasPermission('ZikulaMultiHookModule:' . ucfirst($objectType) . ':', '::', $permissionLevel, $userId);
+        return $this->permissionApi->hasPermission(
+            'ZikulaMultiHookModule:' . ucfirst($objectType) . ':',
+            '::',
+            $permissionLevel,
+            $userId
+        );
     }
     
     /**
@@ -134,7 +144,12 @@ abstract class AbstractPermissionHelper
      */
     public function hasPermission(int $permissionLevel, int $userId = null): bool
     {
-        return $this->permissionApi->hasPermission('ZikulaMultiHookModule::', '::', $permissionLevel, $userId);
+        return $this->permissionApi->hasPermission(
+            'ZikulaMultiHookModule::',
+            '::',
+            $permissionLevel,
+            $userId
+        );
     }
     
     /**

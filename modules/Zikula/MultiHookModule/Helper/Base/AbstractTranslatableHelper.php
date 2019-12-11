@@ -141,7 +141,9 @@ abstract class AbstractTranslatableHelper
     
         // get translations
         $entityManager = $this->entityFactory->getEntityManager();
-        $repository = $entityManager->getRepository('Zikula\MultiHookModule\Entity\\' . ucfirst($objectType) . 'TranslationEntity');
+        $repository = $entityManager->getRepository(
+            'Zikula\MultiHookModule\Entity\\' . ucfirst($objectType) . 'TranslationEntity'
+        );
         $entityTranslations = $repository->findTranslations($entity);
     
         $supportedLanguages = $this->getSupportedLanguages($objectType);

@@ -96,8 +96,10 @@ abstract class AbstractLinkContainer implements LinkContainerInterface
             }
         }
         
-        if (in_array('entry', $allowedObjectTypes, true)
-            && $this->permissionHelper->hasComponentPermission('entry', $permLevel)) {
+        if (
+            in_array('entry', $allowedObjectTypes, true)
+            && $this->permissionHelper->hasComponentPermission('entry', $permLevel)
+        ) {
             $links[] = [
                 'url' => $this->router->generate('zikulamultihookmodule_entry_' . $routeArea . 'view'),
                 'text' => $this->__('Entries', 'zikulamultihookmodule'),

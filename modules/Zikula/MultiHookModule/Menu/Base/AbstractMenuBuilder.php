@@ -96,7 +96,10 @@ class AbstractMenuBuilder
         $context = $options['context'];
         $menu->setChildrenAttribute('class', 'list-inline item-actions');
 
-        $this->eventDispatcher->dispatch(new ConfigureItemActionsMenuEvent($this->factory, $menu, $options), MultiHookEvents::MENU_ITEMACTIONS_PRE_CONFIGURE);
+        $this->eventDispatcher->dispatch(
+            new ConfigureItemActionsMenuEvent($this->factory, $menu, $options),
+            MultiHookEvents::MENU_ITEMACTIONS_PRE_CONFIGURE
+        );
 
         if ($entity instanceof EntryEntity) {
             $routePrefix = 'zikulamultihookmodule_entry_';
@@ -107,19 +110,26 @@ class AbstractMenuBuilder
                     'route' => $routePrefix . $routeArea . 'edit',
                     'routeParameters' => $entity->createUrlArgs()
                 ]);
-                $menu[$title]->setLinkAttribute('title', $this->__('Edit this entry', 'zikulamultihookmodule'));
+                $menu[$title]->setLinkAttribute('title',
+                    $this->__('Edit this entry', 'zikulamultihookmodule')
+                );
                 $menu[$title]->setAttribute('icon', 'fa fa-pencil-square-o');
                 $title = $this->__('Reuse', 'zikulamultihookmodule');
                 $menu->addChild($title, [
                     'route' => $routePrefix . $routeArea . 'edit',
                     'routeParameters' => ['astemplate' => $entity->getKey()]
                 ]);
-                $menu[$title]->setLinkAttribute('title', $this->__('Reuse for new entry', 'zikulamultihookmodule'));
+                $menu[$title]->setLinkAttribute('title',
+                    $this->__('Reuse for new entry', 'zikulamultihookmodule')
+                );
                 $menu[$title]->setAttribute('icon', 'fa fa-files-o');
             }
         }
 
-        $this->eventDispatcher->dispatch(new ConfigureItemActionsMenuEvent($this->factory, $menu, $options), MultiHookEvents::MENU_ITEMACTIONS_POST_CONFIGURE);
+        $this->eventDispatcher->dispatch(
+            new ConfigureItemActionsMenuEvent($this->factory, $menu, $options),
+            MultiHookEvents::MENU_ITEMACTIONS_POST_CONFIGURE
+        );
 
         return $menu;
     }

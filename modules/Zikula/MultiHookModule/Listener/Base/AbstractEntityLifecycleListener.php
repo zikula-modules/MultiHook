@@ -122,8 +122,9 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
         }
         
         // create the filter event and dispatch it
+        $eventClass = '\\Zikula\\MultiHookModule\\MultiHookEvents';
         $event = $this->createFilterEvent($entity);
-        $this->eventDispatcher->dispatch($event, constant('\\Zikula\\MultiHookModule\\MultiHookEvents::' . strtoupper($entity->get_objectType()) . '_PRE_REMOVE'));
+        $this->eventDispatcher->dispatch($event, constant($eventClass . '::' . strtoupper($entity->get_objectType()) . '_PRE_REMOVE'));
     }
 
     /**
@@ -151,8 +152,9 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
         $this->logger->debug('{app}: User {user} removed the {entity} with id {id}.', $logArgs);
         
         // create the filter event and dispatch it
+        $eventClass = '\\Zikula\\MultiHookModule\\MultiHookEvents';
         $event = $this->createFilterEvent($entity);
-        $this->eventDispatcher->dispatch($event, constant('\\Zikula\\MultiHookModule\\MultiHookEvents::' . strtoupper($objectType) . '_POST_REMOVE'));
+        $this->eventDispatcher->dispatch($event, constant($eventClass . '::' . strtoupper($objectType) . '_POST_REMOVE'));
     }
 
     /**
@@ -174,8 +176,9 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
         }
         
         // create the filter event and dispatch it
+        $eventClass = '\\Zikula\\MultiHookModule\\MultiHookEvents';
         $event = $this->createFilterEvent($entity);
-        $this->eventDispatcher->dispatch($event, constant('\\Zikula\\MultiHookModule\\MultiHookEvents::' . strtoupper($entity->get_objectType()) . '_PRE_PERSIST'));
+        $this->eventDispatcher->dispatch($event, constant($eventClass . '::' . strtoupper($entity->get_objectType()) . '_PRE_PERSIST'));
     }
 
     /**
@@ -198,8 +201,9 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
         $this->logger->debug('{app}: User {user} created the {entity} with id {id}.', $logArgs);
         
         // create the filter event and dispatch it
+        $eventClass = '\\Zikula\\MultiHookModule\\MultiHookEvents';
         $event = $this->createFilterEvent($entity);
-        $this->eventDispatcher->dispatch($event, constant('\\Zikula\\MultiHookModule\\MultiHookEvents::' . strtoupper($entity->get_objectType()) . '_POST_PERSIST'));
+        $this->eventDispatcher->dispatch($event, constant($eventClass . '::' . strtoupper($entity->get_objectType()) . '_POST_PERSIST'));
     }
 
     /**
@@ -217,8 +221,9 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
         }
         
         // create the filter event and dispatch it
+        $eventClass = '\\Zikula\\MultiHookModule\\MultiHookEvents';
         $event = $this->createFilterEvent($entity);
-        $this->eventDispatcher->dispatch($event, constant('\\Zikula\\MultiHookModule\\MultiHookEvents::' . strtoupper($entity->get_objectType()) . '_PRE_UPDATE'));
+        $this->eventDispatcher->dispatch($event, constant($eventClass . '::' . strtoupper($entity->get_objectType()) . '_PRE_UPDATE'));
     }
 
     /**
@@ -240,8 +245,9 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
         $this->logger->debug('{app}: User {user} updated the {entity} with id {id}.', $logArgs);
         
         // create the filter event and dispatch it
+        $eventClass = '\\Zikula\\MultiHookModule\\MultiHookEvents';
         $event = $this->createFilterEvent($entity);
-        $this->eventDispatcher->dispatch($event, constant('\\Zikula\\MultiHookModule\\MultiHookEvents::' . strtoupper($entity->get_objectType()) . '_POST_UPDATE'));
+        $this->eventDispatcher->dispatch($event, constant($eventClass . '::' . strtoupper($entity->get_objectType()) . '_POST_UPDATE'));
     }
 
     /**
@@ -264,8 +270,9 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
         }
         
         // create the filter event and dispatch it
+        $eventClass = '\\Zikula\\MultiHookModule\\MultiHookEvents';
         $event = $this->createFilterEvent($entity);
-        $this->eventDispatcher->dispatch($event, constant('\\Zikula\\MultiHookModule\\MultiHookEvents::' . strtoupper($entity->get_objectType()) . '_POST_LOAD'));
+        $this->eventDispatcher->dispatch($event, constant($eventClass . '::' . strtoupper($entity->get_objectType()) . '_POST_LOAD'));
     }
 
     /**
