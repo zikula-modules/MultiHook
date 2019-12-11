@@ -110,7 +110,8 @@ class AbstractMenuBuilder
                     'route' => $routePrefix . $routeArea . 'edit',
                     'routeParameters' => $entity->createUrlArgs()
                 ]);
-                $menu[$title]->setLinkAttribute('title',
+                $menu[$title]->setLinkAttribute(
+                    'title',
                     $this->__('Edit this entry', 'zikulamultihookmodule')
                 );
                 $menu[$title]->setAttribute('icon', 'fa fa-pencil-square-o');
@@ -119,7 +120,8 @@ class AbstractMenuBuilder
                     'route' => $routePrefix . $routeArea . 'edit',
                     'routeParameters' => ['astemplate' => $entity->getKey()]
                 ]);
-                $menu[$title]->setLinkAttribute('title',
+                $menu[$title]->setLinkAttribute(
+                    'title',
                     $this->__('Reuse for new entry', 'zikulamultihookmodule')
                 );
                 $menu[$title]->setAttribute('icon', 'fa fa-files-o');

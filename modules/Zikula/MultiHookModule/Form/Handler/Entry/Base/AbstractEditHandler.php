@@ -16,7 +16,6 @@ namespace Zikula\MultiHookModule\Form\Handler\Entry\Base;
 
 use Zikula\MultiHookModule\Form\Handler\Common\EditHandler;
 use Zikula\MultiHookModule\Form\Type\EntryType;
-
 use Exception;
 use RuntimeException;
 use Symfony\Component\Form\FormInterface;
@@ -44,9 +43,19 @@ abstract class AbstractEditHandler extends EditHandler
         }
     
         if ('create' === $this->templateParameters['mode'] && !$this->modelHelper->canBeCreated($this->objectType)) {
-            $this->requestStack->getCurrentRequest()->getSession()->getFlashBag()->add('error', $this->__('Sorry, but you can not create the entry yet as other items are required which must be created before!'));
-            $logArgs = ['app' => 'ZikulaMultiHookModule', 'user' => $this->currentUserApi->get('uname'), 'entity' => $this->objectType];
-            $this->logger->notice('{app}: User {user} tried to create a new {entity}, but failed as it other items are required which must be created before.', $logArgs);
+            $this->requestStack->getCurrentRequest()->getSession()->getFlashBag()->add(
+                'error',
+                $this->__('Sorry, but you can not create the entry yet as other items are required which must be created before!')
+            );
+            $logArgs = [
+                'app' => 'ZikulaMultiHookModule',
+                'user' => $this->currentUserApi->get('uname'),
+                'entity' => $this->objectType
+            ];
+            $this->logger->notice(
+                '{app}: User {user} tried to create a new {entity}, but failed as it other items are required which must be created before.',
+                $logArgs
+            );
     
             return new RedirectResponse($this->getRedirectUrl(['commandName' => '']), 302);
         }
@@ -71,8 +80,16 @@ abstract class AbstractEditHandler extends EditHandler
             'mode' => $this->templateParameters['mode'],
             'actions' => $this->templateParameters['actions'],
             'has_moderate_permission' => $this->permissionHelper->hasEntityPermission($this->entityRef, ACCESS_ADMIN),
-            'allow_moderation_specific_creator' => (bool)$this->variableApi->get('ZikulaMultiHookModule', 'allowModerationSpecificCreatorFor' . $this->objectTypeCapital),
-            'allow_moderation_specific_creation_date' => (bool)$this->variableApi->get('ZikulaMultiHookModule', 'allowModerationSpecificCreationDateFor' . $this->objectTypeCapital),
+            'allow_moderation_specific_creator' => (bool)$this->variableApi->get(
+                'ZikulaMultiHookModule',
+                'allowModerationSpecificCreatorFor' . $this->objectTypeCapital,
+                false
+            ),
+            'allow_moderation_specific_creation_date' => (bool)$this->variableApi->get(
+                'ZikulaMultiHookModule',
+                'allowModerationSpecificCreationDateFor' . $this->objectTypeCapital,
+                false
+            ),
         ];
     
         $options['translations'] = [];
@@ -111,13 +128,18 @@ abstract class AbstractEditHandler extends EditHandler
      */
     protected function getDefaultReturnUrl(array $args = []): string
     {
-        $objectIsPersisted = 'delete' !== $args['commandName'] && !('create' === $this->templateParameters['mode'] && 'cancel' === $args['commandName']);
+        $objectIsPersisted = 'delete' !== $args['commandName']
+            && !('create' === $this->templateParameters['mode'] && 'cancel' === $args['commandName']
+        );
         if (null !== $this->returnTo && $objectIsPersisted) {
             // return to referer
             return $this->returnTo;
         }
     
-        $routeArea = array_key_exists('routeArea', $this->templateParameters) ? $this->templateParameters['routeArea'] : '';
+        $routeArea = array_key_exists('routeArea', $this->templateParameters)
+            ? $this->templateParameters['routeArea']
+            : ''
+        ;
         $routePrefix = 'zikulamultihookmodule_' . $this->objectTypeLower . '_' . $routeArea;
     
         // redirect to the list of entries
@@ -139,7 +161,11 @@ abstract class AbstractEditHandler extends EditHandler
                 $args['commandName'] = $action['id'];
             }
         }
-        if ('create' === $this->templateParameters['mode'] && $this->form->has('submitrepeat') && $this->form->get('submitrepeat')->isClicked()) {
+        if (
+            'create' === $this->templateParameters['mode']
+            && $this->form->has('submitrepeat')
+            && $this->form->get('submitrepeat')->isClicked()
+        ) {
             $args['commandName'] = 'submit';
             $this->repeatCreateAction = true;
         }
@@ -189,9 +215,24 @@ abstract class AbstractEditHandler extends EditHandler
             // execute the workflow action
             $success = $this->workflowHelper->executeAction($entity, $action);
         } catch (Exception $exception) {
-            $flashBag->add('error', $this->__f('Sorry, but an error occured during the %action% action. Please apply the changes again!', ['%action%' => $action]) . ' ' . $exception->getMessage());
-            $logArgs = ['app' => 'ZikulaMultiHookModule', 'user' => $this->currentUserApi->get('uname'), 'entity' => 'entry', 'id' => $entity->getKey(), 'errorMessage' => $exception->getMessage()];
-            $this->logger->error('{app}: User {user} tried to edit the {entity} with id {id}, but failed. Error details: {errorMessage}.', $logArgs);
+            $flashBag->add(
+                'error',
+                $this->__f(
+                    'Sorry, but an error occured during the %action% action. Please apply the changes again!',
+                    ['%action%' => $action]
+                ) . ' ' . $exception->getMessage()
+            );
+            $logArgs = [
+                'app' => 'ZikulaMultiHookModule',
+                'user' => $this->currentUserApi->get('uname'),
+                'entity' => 'entry',
+                'id' => $entity->getKey(),
+                'errorMessage' => $exception->getMessage()
+            ];
+            $this->logger->error(
+                '{app}: User {user} tried to edit the {entity} with id {id}, but failed. Error details: {errorMessage}.',
+                $logArgs
+            );
         }
     
         $this->addDefaultMessage($args, $success);

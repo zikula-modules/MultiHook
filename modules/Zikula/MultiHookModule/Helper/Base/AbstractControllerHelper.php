@@ -109,7 +109,8 @@ abstract class AbstractControllerHelper
      */
     public function getObjectTypes(string $context = '', array $args = []): array
     {
-        if (!in_array($context, ['controllerAction', 'api', 'helper', 'actionHandler', 'block', 'contentType', 'util'], true)) {
+        $allowedContexts = ['controllerAction', 'api', 'helper', 'actionHandler', 'block', 'contentType', 'mailz'];
+        if (!in_array($context, $allowedContexts, true)) {
             $context = 'controllerAction';
         }
     
@@ -124,7 +125,8 @@ abstract class AbstractControllerHelper
      */
     public function getDefaultObjectType(string $context = '', array $args = []): string
     {
-        if (!in_array($context, ['controllerAction', 'api', 'helper', 'actionHandler', 'block', 'contentType', 'util'], true)) {
+        $allowedContexts = ['controllerAction', 'api', 'helper', 'actionHandler', 'block', 'contentType', 'mailz'];
+        if (!in_array($context, $allowedContexts, true)) {
             $context = 'controllerAction';
         }
     
@@ -158,7 +160,8 @@ abstract class AbstractControllerHelper
         $templateParameters['sortdir'] = strtolower($sortdir);
     
         $templateParameters['all'] = 'csv' === $request->getRequestFormat() ? 1 : $request->query->getInt('all');
-        $templateParameters['own'] = (bool)$request->query->getInt('own', $this->variableApi->get('ZikulaMultiHookModule', 'showOnlyOwnEntries')) ? 1 : 0;
+        $showOnlyOwnEntriesSetting = (bool)$request->query->getInt('own', $this->variableApi->get('ZikulaMultiHookModule', 'showOnlyOwnEntries')) ? 1 : 0;
+        $templateParameters['own'] = $showOnlyOwnEntriesSetting;
     
         $resultsPerPage = 0;
         if (1 !== $templateParameters['all']) {
@@ -171,9 +174,15 @@ abstract class AbstractControllerHelper
         $templateParameters['num'] = $resultsPerPage;
         $templateParameters['tpl'] = $request->query->getAlnum('tpl');
     
-        $templateParameters = $this->addTemplateParameters($objectType, $templateParameters, 'controllerAction', $contextArgs);
+        $templateParameters = $this->addTemplateParameters(
+            $objectType,
+            $templateParameters,
+            'controllerAction',
+            $contextArgs
+        );
     
-        $quickNavForm = $this->formFactory->create('Zikula\MultiHookModule\Form\Type\QuickNavigation\\' . ucfirst($objectType) . 'QuickNavType', $templateParameters);
+        $quickNavFormType = 'Zikula\MultiHookModule\Form\Type\QuickNavigation\\' . ucfirst($objectType) . 'QuickNavType';
+        $quickNavForm = $this->formFactory->create($quickNavFormType, $templateParameters);
         $quickNavForm->handleRequest($request);
         if ($quickNavForm->isSubmitted()) {
             $quickNavData = $quickNavForm->getData();
@@ -187,7 +196,11 @@ abstract class AbstractControllerHelper
                     $sort = $fieldValue;
                 } elseif ('sortdir' === $fieldName && !empty($fieldValue)) {
                     $sortdir = $fieldValue;
-                } elseif (false === stripos($fieldName, 'thumbRuntimeOptions') && false === stripos($fieldName, 'featureActivationHelper') && false === stripos($fieldName, 'permissionHelper')) {
+                } elseif (
+                    false === stripos($fieldName, 'thumbRuntimeOptions')
+                    && false === stripos($fieldName, 'featureActivationHelper')
+                    && false === stripos($fieldName, 'permissionHelper')
+                ) {
                     // set filter as query argument, fetched inside repository
                     $request->query->set($fieldName, $fieldValue);
                 }
@@ -199,7 +212,8 @@ abstract class AbstractControllerHelper
     
         $urlParameters = $templateParameters;
         foreach ($urlParameters as $parameterName => $parameterValue) {
-            if (false === stripos($parameterName, 'thumbRuntimeOptions')
+            if (
+                false === stripos($parameterName, 'thumbRuntimeOptions')
                 && false === stripos($parameterName, 'featureActivationHelper')
             ) {
                 continue;
@@ -218,7 +232,13 @@ abstract class AbstractControllerHelper
             $currentPage = $request->query->getInt('pos', 1);
     
             // retrieve item list with pagination
-            list($entities, $objectCount) = $repository->selectWherePaginated($where, $sort . ' ' . $sortdir, $currentPage, $resultsPerPage, false);
+            list($entities, $objectCount) = $repository->selectWherePaginated(
+                $where,
+                $sort . ' ' . $sortdir,
+                $currentPage,
+                $resultsPerPage,
+                false
+            );
     
             $templateParameters['currentPage'] = $currentPage;
             $templateParameters['pager'] = [
@@ -234,7 +254,8 @@ abstract class AbstractControllerHelper
         if (true === $hasHookSubscriber) {
             // build RouteUrl instance for display hooks
             $urlParameters['_locale'] = $request->getLocale();
-            $templateParameters['currentUrlObject'] = new RouteUrl('zikulamultihookmodule_' . strtolower($objectType) . '_view', $urlParameters);
+            $routeName = 'zikulamultihookmodule_' . strtolower($objectType) . '_view';
+            $templateParameters['currentUrlObject'] = new RouteUrl($routeName, $urlParameters);
         }
     
         $templateParameters['sort'] = $sortableColumns->generateSortableColumns();
@@ -300,7 +321,8 @@ abstract class AbstractControllerHelper
      */
     public function addTemplateParameters(string $objectType = '', array $parameters = [], string $context = '', array $args = []): array
     {
-        if (!in_array($context, ['controllerAction', 'api', 'actionHandler', 'block', 'contentType', 'mailz'], true)) {
+        $allowedContexts = ['controllerAction', 'api', 'helper', 'actionHandler', 'block', 'contentType', 'mailz'];
+        if (!in_array($context, $allowedContexts, true)) {
             $context = 'controllerAction';
         }
     
@@ -311,7 +333,10 @@ abstract class AbstractControllerHelper
                 $args['action'] = end($routeNameParts);
             }
             if (in_array($args['action'], ['index', 'view'])) {
-                $parameters = array_merge($parameters, $this->collectionFilterHelper->getViewQuickNavParameters($objectType, $context, $args));
+                $parameters = array_merge(
+                    $parameters,
+                    $this->collectionFilterHelper->getViewQuickNavParameters($objectType, $context, $args)
+                );
             }
         }
         $parameters['permissionHelper'] = $this->permissionHelper;
