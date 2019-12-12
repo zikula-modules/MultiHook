@@ -321,6 +321,5 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
         $this->setCreatedDate(null);
         $this->setUpdatedBy(null);
         $this->setUpdatedDate(null);
-    
     }
 }
