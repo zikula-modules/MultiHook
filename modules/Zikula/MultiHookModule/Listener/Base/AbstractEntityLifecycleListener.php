@@ -155,7 +155,12 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
         $objectType = $entity->get_objectType();
         
         $currentUserApi = $this->container->get(CurrentUserApi::class);
-        $logArgs = ['app' => 'ZikulaMultiHookModule', 'user' => $currentUserApi->get('uname'), 'entity' => $objectType, 'id' => $entity->getKey()];
+        $logArgs = [
+            'app' => 'ZikulaMultiHookModule',
+            'user' => $currentUserApi->get('uname'),
+            'entity' => $objectType,
+            'id' => $entity->getKey()
+        ];
         $this->logger->debug('{app}: User {user} removed the {entity} with id {id}.', $logArgs);
         
         // create the filter event and dispatch it
