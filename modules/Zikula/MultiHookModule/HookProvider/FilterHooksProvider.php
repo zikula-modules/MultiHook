@@ -184,7 +184,8 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
             $text = substr_replace(
                 $text,
                 " MULTIHOOKRAWREPLACEMENT{$i} ",
-                strpos($text, $raws[0][$i]), strlen($raws[0][$i])
+                strpos($text, $raws[0][$i]),
+                strlen($raws[0][$i])
             );
         }
 
@@ -252,7 +253,14 @@ class FilterHooksProvider extends AbstractFilterHooksProvider
         }
 
         // Step 5 - move all urls starting with http:// etc. out of the way
-        $linkcount = preg_match_all("/(http|https|ftp|ftps|news)\:\/\/([a-zA-Z0-9\-\._]+[\.]{1}[a-zA-Z]{2,6})(\/[a-zA-Z0-9\-\.\?\,\'\/\\\+&%\$#_=~]+)?/siU", $text, $links);
+        $linkcount = preg_match_all(
+            "/(http|https|ftp|ftps|news)\:\/\/"
+                . "([a-zA-Z0-9\-\._]+[\.]{1}[a-zA-Z]{2,6})"
+                . "(\/[a-zA-Z0-9\-\.\?\,\'\/\\\+&%\$#_=~]+)"
+                . "?/siU",
+            $text,
+            $links
+        );
         for ($i = 0; $i < $linkcount; $i++) {
             $text = preg_replace(
                 '/(' . preg_quote($links[0][$i], '/') . ')/',
