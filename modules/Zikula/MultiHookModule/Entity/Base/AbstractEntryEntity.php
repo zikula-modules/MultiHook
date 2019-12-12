@@ -145,7 +145,6 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
         }
     }
     
-    
     public function getId(): ?int
     {
         return $this->id;
@@ -241,8 +240,6 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
             $this->locale = $locale;
         }
     }
-    
-    
     
     /**
      * Creates url arguments array for easy creation of display urls.

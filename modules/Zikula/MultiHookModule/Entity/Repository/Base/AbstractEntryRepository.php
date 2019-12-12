@@ -73,7 +73,6 @@ abstract class AbstractEntryRepository extends EntityRepository
             'updatedDate',
         ];
     }
-
     
     public function getDefaultSortingField(): ?string
     {
@@ -110,7 +109,7 @@ abstract class AbstractEntryRepository extends EntityRepository
             $this->translationsEnabled = $translationsEnabled;
         }
     }
-
+    
     /**
      * Updates the creator of all objects created by a certain user.
      *

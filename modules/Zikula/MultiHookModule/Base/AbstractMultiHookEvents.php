@@ -45,6 +45,7 @@ abstract class AbstractMultiHookEvents
      * @var string
      */
     public const MENU_ITEMACTIONS_POST_CONFIGURE = 'zikulamultihookmodule.itemactionsmenu_post_configure';
+    
     /**
      * The zikulamultihookmodule.entry_post_load event is thrown when entries
      * are loaded from the database.
