@@ -117,7 +117,10 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
     {
         /** @var EntityAccess $entity */
         $entity = $args->getObject();
-        if (!$this->isEntityManagedByThisBundle($entity) || !method_exists($entity, 'get_objectType')) {
+        if (
+            !$this->isEntityManagedByThisBundle($entity)
+            || !method_exists($entity, 'get_objectType')
+        ) {
             return;
         }
         
@@ -142,7 +145,10 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
     {
         /** @var EntityAccess $entity */
         $entity = $args->getObject();
-        if (!$this->isEntityManagedByThisBundle($entity) || !method_exists($entity, 'get_objectType')) {
+        if (
+            !$this->isEntityManagedByThisBundle($entity)
+            || !method_exists($entity, 'get_objectType')
+        ) {
             return;
         }
         
@@ -173,7 +179,10 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
     {
         /** @var EntityAccess $entity */
         $entity = $args->getObject();
-        if (!$this->isEntityManagedByThisBundle($entity) || !method_exists($entity, 'get_objectType')) {
+        if (
+            !$this->isEntityManagedByThisBundle($entity)
+            || !method_exists($entity, 'get_objectType')
+        ) {
             return;
         }
         
@@ -195,12 +204,20 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
     {
         /** @var EntityAccess $entity */
         $entity = $args->getObject();
-        if (!$this->isEntityManagedByThisBundle($entity) || !method_exists($entity, 'get_objectType')) {
+        if (
+            !$this->isEntityManagedByThisBundle($entity)
+            || !method_exists($entity, 'get_objectType')
+        ) {
             return;
         }
         
         $currentUserApi = $this->container->get(CurrentUserApi::class);
-        $logArgs = ['app' => 'ZikulaMultiHookModule', 'user' => $currentUserApi->get('uname'), 'entity' => $entity->get_objectType(), 'id' => $entity->getKey()];
+        $logArgs = [
+            'app' => 'ZikulaMultiHookModule',
+            'user' => $currentUserApi->get('uname'),
+            'entity' => $entity->get_objectType(),
+            'id' => $entity->getKey()
+        ];
         $this->logger->debug('{app}: User {user} created the {entity} with id {id}.', $logArgs);
         
         // create the filter event and dispatch it
@@ -220,7 +237,10 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
     {
         /** @var EntityAccess $entity */
         $entity = $args->getObject();
-        if (!$this->isEntityManagedByThisBundle($entity) || !method_exists($entity, 'get_objectType')) {
+        if (
+            !$this->isEntityManagedByThisBundle($entity)
+            || !method_exists($entity, 'get_objectType')
+        ) {
             return;
         }
         
@@ -241,12 +261,20 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
     {
         /** @var EntityAccess $entity */
         $entity = $args->getObject();
-        if (!$this->isEntityManagedByThisBundle($entity) || !method_exists($entity, 'get_objectType')) {
+        if (
+            !$this->isEntityManagedByThisBundle($entity)
+            || !method_exists($entity, 'get_objectType')
+        ) {
             return;
         }
         
         $currentUserApi = $this->container->get(CurrentUserApi::class);
-        $logArgs = ['app' => 'ZikulaMultiHookModule', 'user' => $currentUserApi->get('uname'), 'entity' => $entity->get_objectType(), 'id' => $entity->getKey()];
+        $logArgs = [
+            'app' => 'ZikulaMultiHookModule',
+            'user' => $currentUserApi->get('uname'),
+            'entity' => $entity->get_objectType(),
+            'id' => $entity->getKey()
+        ];
         $this->logger->debug('{app}: User {user} updated the {entity} with id {id}.', $logArgs);
         
         // create the filter event and dispatch it
@@ -271,7 +299,10 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
     {
         /** @var EntityAccess $entity */
         $entity = $args->getObject();
-        if (!$this->isEntityManagedByThisBundle($entity) || !method_exists($entity, 'get_objectType')) {
+        if (
+            !$this->isEntityManagedByThisBundle($entity)
+            || !method_exists($entity, 'get_objectType')
+        ) {
             return;
         }
         
@@ -296,7 +327,9 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
             array_shift($entityClassParts);
         }
 
-        return 'Zikula' === $entityClassParts[0] && 'MultiHookModule' === $entityClassParts[1];
+        return 'Zikula' === $entityClassParts[0]
+            && 'MultiHookModule' === $entityClassParts[1]
+        ;
     }
 
     /**

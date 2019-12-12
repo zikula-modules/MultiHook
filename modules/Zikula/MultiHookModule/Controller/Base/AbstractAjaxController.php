@@ -50,7 +50,8 @@ abstract class AbstractAjaxController extends AbstractController
         $field = $request->request->getAlnum('field');
         $id = $request->request->getInt('id');
         
-        if (0 === $id
+        if (
+            0 === $id
             || ('entry' !== $objectType)
         || ('entry' === $objectType && !in_array($field, ['active'], true))
         ) {
@@ -71,7 +72,13 @@ abstract class AbstractAjaxController extends AbstractController
         $entityFactory->getEntityManager()->flush();
         
         $logger = $this->get('logger');
-        $logArgs = ['app' => 'ZikulaMultiHookModule', 'user' => $currentUserApi->get('uname'), 'field' => $field, 'entity' => $objectType, 'id' => $id];
+        $logArgs = [
+            'app' => 'ZikulaMultiHookModule',
+            'user' => $currentUserApi->get('uname'),
+            'field' => $field,
+            'entity' => $objectType,
+            'id' => $id
+        ];
         $logger->notice('{app}: User {user} toggled the {field} flag the {entity} with id {id}.', $logArgs);
         
         // return response

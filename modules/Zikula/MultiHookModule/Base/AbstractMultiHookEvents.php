@@ -128,5 +128,4 @@ abstract class AbstractMultiHookEvents
      * @var string
      */
     public const ENTRY_POST_UPDATE = 'zikulamultihookmodule.entry_post_update';
-    
 }

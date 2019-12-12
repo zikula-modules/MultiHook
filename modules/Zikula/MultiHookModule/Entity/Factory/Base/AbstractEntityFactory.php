@@ -105,7 +105,7 @@ abstract class AbstractEntityFactory
     
         return $meta->getSingleIdentifierFieldName();
     }
-
+    
     public function getEntityManager(): ?EntityManagerInterface
     {
         return $this->entityManager;
@@ -129,5 +129,4 @@ abstract class AbstractEntityFactory
             $this->entityInitialiser = $entityInitialiser;
         }
     }
-    
 }

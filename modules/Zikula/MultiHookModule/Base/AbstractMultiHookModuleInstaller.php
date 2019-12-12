@@ -41,7 +41,10 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
             $this->schemaTool->create($this->entities);
         } catch (Exception $exception) {
             $this->addFlash('error', $this->__('Doctrine Exception') . ': ' . $exception->getMessage());
-            $logger->error('{app}: Could not create the database tables during installation. Error details: {errorMessage}.', ['app' => 'ZikulaMultiHookModule', 'errorMessage' => $exception->getMessage()]);
+            $logger->error(
+                '{app}: Could not create the database tables during installation. Error details: {errorMessage}.',
+                ['app' => 'ZikulaMultiHookModule', 'errorMessage' => $exception->getMessage()]
+            );
     
             return false;
         }
@@ -84,7 +87,10 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
                     $this->schemaTool->update($this->entities);
                 } catch (Exception $exception) {
                     $this->addFlash('error', $this->__('Doctrine Exception') . ': ' . $exception->getMessage());
-                    $logger->error('{app}: Could not update the database tables during the upgrade. Error details: {errorMessage}.', ['app' => 'ZikulaMultiHookModule', 'errorMessage' => $exception->getMessage()]);
+                    $logger->error(
+                        '{app}: Could not update the database tables during the upgrade. Error details: {errorMessage}.',
+                        ['app' => 'ZikulaMultiHookModule', 'errorMessage' => $exception->getMessage()]
+                    );
     
                     return false;
                 }
@@ -103,7 +109,10 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
             $this->schemaTool->drop($this->entities);
         } catch (Exception $exception) {
             $this->addFlash('error', $this->__('Doctrine Exception') . ': ' . $exception->getMessage());
-            $logger->error('{app}: Could not remove the database tables during uninstallation. Error details: {errorMessage}.', ['app' => 'ZikulaMultiHookModule', 'errorMessage' => $exception->getMessage()]);
+            $logger->error(
+                '{app}: Could not remove the database tables during uninstallation. Error details: {errorMessage}.',
+                ['app' => 'ZikulaMultiHookModule', 'errorMessage' => $exception->getMessage()]
+            );
     
             return false;
         }

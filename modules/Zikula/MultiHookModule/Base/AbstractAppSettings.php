@@ -165,6 +165,7 @@ abstract class AbstractAppSettings
         $this->load();
     }
     
+    
     public function getShowEditLink(): bool
     {
         return $this->showEditLink;
@@ -368,7 +369,6 @@ abstract class AbstractAppSettings
             $this->allowModerationSpecificCreationDateForEntry = $allowModerationSpecificCreationDateForEntry;
         }
     }
-    
     
     /**
      * Loads module variables from the database.
