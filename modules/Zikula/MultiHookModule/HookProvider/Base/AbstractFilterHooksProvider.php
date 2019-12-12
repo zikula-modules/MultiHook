@@ -66,6 +66,11 @@ abstract class AbstractFilterHooksProvider implements HookProviderInterface
      */
     public function applyFilter(FilterHook $hook): void
     {
-        $hook->setData($hook->getData() . '<p>' . $this->translator->__('This is a dummy addition by a generated filter provider.') . '</p>');
+        $hook->setData(
+            $hook->getData()
+            . '<p>'
+            . $this->translator->__('This is a dummy addition by a generated filter provider.')
+            . '</p>'
+        );
     }
 }

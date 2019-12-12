@@ -165,7 +165,6 @@ abstract class AbstractAppSettings
         $this->load();
     }
     
-    
     public function getShowEditLink(): bool
     {
         return $this->showEditLink;

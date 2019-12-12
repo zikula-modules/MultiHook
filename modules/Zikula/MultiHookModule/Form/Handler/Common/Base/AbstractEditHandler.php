@@ -448,7 +448,6 @@ abstract class AbstractEditHandler
         return [];
     }
     
-    
     public function getTemplateParameters(): array
     {
         return $this->templateParameters;
