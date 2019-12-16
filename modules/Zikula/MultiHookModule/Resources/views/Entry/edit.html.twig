@@ -8,7 +8,7 @@
     <div class="zikulamultihookmodule-entry zikulamultihookmodule-edit">
         {% form_theme form with [
             '@ZikulaMultiHookModule/Form/bootstrap_3.html.twig',
-            'ZikulaFormExtensionBundle:Form:form_div_layout.html.twig'
+            '@ZikulaFormExtension/Form/form_div_layout.html.twig'
         ] %}
         {{ form_start(form, {attr: {id: 'entryEditForm', class: 'zikulamultihook-edit-form'}}) }}
         {{ form_errors(form) }}
