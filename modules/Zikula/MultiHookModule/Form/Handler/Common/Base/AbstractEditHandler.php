@@ -278,20 +278,23 @@ abstract class AbstractEditHandler
     {
         $request = $this->requestStack->getCurrentRequest();
         $this->templateParameters = $templateParameters;
+        $session = $request->hasSession() ? $request->getSession() : null;
     
         // initialise redirect goal
         $this->returnTo = $request->query->get('returnTo');
-        // default to referer
-        $refererSessionVar = 'zikulamultihookmodule' . $this->objectTypeCapital . 'Referer';
-        if (null === $this->returnTo && $request->headers->has('referer')) {
-            $currentReferer = $request->headers->get('referer');
-            if ($currentReferer !== urldecode($request->getUri())) {
-                $this->returnTo = $currentReferer;
-                $request->getSession()->set($refererSessionVar, $this->returnTo);
+        if (null !== $session) {
+            // default to referer
+            $refererSessionVar = 'zikulamultihookmodule' . $this->objectTypeCapital . 'Referer';
+            if (null === $this->returnTo && $request->headers->has('referer')) {
+                $currentReferer = $request->headers->get('referer');
+                if ($currentReferer !== urldecode($request->getUri())) {
+                    $this->returnTo = $currentReferer;
+                    $session->set($refererSessionVar, $this->returnTo);
+                }
             }
-        }
-        if (null === $this->returnTo && $request->getSession()->has($refererSessionVar)) {
-            $this->returnTo = $request->getSession()->get($refererSessionVar);
+            if (null === $this->returnTo && $session->has($refererSessionVar)) {
+                $this->returnTo = $session->get($refererSessionVar);
+            }
         }
         // store current uri for repeated creations
         $this->repeatReturnUrl = $request->getUri();
@@ -352,7 +355,9 @@ abstract class AbstractEditHandler
         }
     
         if (null === $entity) {
-            $request->getSession()->getFlashBag()->add('error', $this->__('No such item found.'));
+            if (null !== $session) {
+                $session->getFlashBag()->add('error', $this->__('No such item found.'));
+            }
     
             return new RedirectResponse($this->getRedirectUrl(['commandName' => 'cancel']), 302);
         }
@@ -367,10 +372,12 @@ abstract class AbstractEditHandler
     
         $actions = $this->workflowHelper->getActionsForObject($entity);
         if (false === $actions || !is_array($actions)) {
-            $request->getSession()->getFlashBag()->add(
-                'error',
-                $this->__('Error! Could not determine workflow actions.')
-            );
+            if (null !== $session) {
+                $session->getFlashBag()->add(
+                    'error',
+                    $this->__('Error! Could not determine workflow actions.')
+                );
+            }
             $logArgs = [
                 'app' => 'ZikulaMultiHookModule',
                 'user' => $this->currentUserApi->get('uname'),
@@ -589,9 +596,11 @@ abstract class AbstractEditHandler
             ;
             $validationErrors = $this->hookHelper->callValidationHooks($entity, $hookType);
             if (0 < count($validationErrors)) {
-                $flashBag = $this->requestStack->getCurrentRequest()->getSession()->getFlashBag();
-                foreach ($validationErrors as $message) {
-                    $flashBag->add('error', $message);
+                $request = $this->requestStack->getCurrentRequest();
+                if ($request->hasSession() && ($session = $request->getSession())) {
+                    foreach ($validationErrors as $message) {
+                        $session->getFlashBag()->add('error', $message);
+                    }
                 }
     
                 return false;
@@ -713,7 +722,10 @@ abstract class AbstractEditHandler
         }
     
         $flashType = true === $success ? 'status' : 'error';
-        $this->requestStack->getCurrentRequest()->getSession()->getFlashBag()->add($flashType, $message);
+        $request = $this->requestStack->getCurrentRequest();
+        if ($request->hasSession() && ($session = $request->getSession())) {
+            $session->getFlashBag()->add($flashType, $message);
+        }
         $logArgs = [
             'app' => 'ZikulaMultiHookModule',
             'user' => $this->currentUserApi->get('uname'),

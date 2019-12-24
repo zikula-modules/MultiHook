@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Zikula\MultiHookModule\Base;
 
 use Exception;
+use Psr\Log\LoggerInterface;
 use Zikula\Core\AbstractExtensionInstaller;
 use Zikula\MultiHookModule\Entity\EntryEntity;
 use Zikula\MultiHookModule\Entity\EntryTranslationEntity;
@@ -25,6 +26,11 @@ use Zikula\MultiHookModule\Entity\EntryTranslationEntity;
 abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstaller
 {
     /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    /**
      * @var string[]
      */
     protected $entities = [
@@ -34,14 +40,12 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
 
     public function install(): bool
     {
-        $logger = $this->container->get('logger');
-    
         // create all tables from according entity definitions
         try {
             $this->schemaTool->create($this->entities);
         } catch (Exception $exception) {
             $this->addFlash('error', $this->__('Doctrine Exception') . ': ' . $exception->getMessage());
-            $logger->error(
+            $this->logger->error(
                 '{app}: Could not create the database tables during installation. Error details: {errorMessage}.',
                 ['app' => 'ZikulaMultiHookModule', 'errorMessage' => $exception->getMessage()]
             );
@@ -75,9 +79,7 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
     public function upgrade(string $oldVersion): bool
     {
     /*
-        $logger = $this->container->get('logger');
-    
-        // Upgrade dependent on old version number
+        // upgrade dependent on old version number
         switch ($oldVersion) {
             case '1.0.0':
                 // do something
@@ -87,7 +89,7 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
                     $this->schemaTool->update($this->entities);
                 } catch (Exception $exception) {
                     $this->addFlash('error', $this->__('Doctrine Exception') . ': ' . $exception->getMessage());
-                    $logger->error(
+                    $this->logger->error(
                         '{app}: Could not update the database tables during the upgrade.'
                             . ' Error details: {errorMessage}.',
                         ['app' => 'ZikulaMultiHookModule', 'errorMessage' => $exception->getMessage()]
@@ -104,13 +106,11 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
     
     public function uninstall(): bool
     {
-        $logger = $this->container->get('logger');
-    
         try {
             $this->schemaTool->drop($this->entities);
         } catch (Exception $exception) {
             $this->addFlash('error', $this->__('Doctrine Exception') . ': ' . $exception->getMessage());
-            $logger->error(
+            $this->logger->error(
                 '{app}: Could not remove the database tables during uninstallation. Error details: {errorMessage}.',
                 ['app' => 'ZikulaMultiHookModule', 'errorMessage' => $exception->getMessage()]
             );
@@ -123,5 +123,13 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
     
         // uninstallation successful
         return true;
+    }
+    
+    /**
+     * @required
+     */
+    public function setLogger(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
     }
 }

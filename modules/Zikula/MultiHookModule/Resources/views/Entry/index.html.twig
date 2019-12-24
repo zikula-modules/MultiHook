@@ -1,5 +1,5 @@
 {# purpose of this template: entries index view #}
-{% extends routeArea == 'admin' ? 'ZikulaMultiHookModule::adminBase.html.twig' : 'ZikulaMultiHookModule::base.html.twig' %}
+{% extends routeArea == 'admin' ? '@ZikulaMultiHookModule/adminBase.html.twig' : '@ZikulaMultiHookModule/base.html.twig' %}
 {% block title __('Entries') %}
 {% block admin_page_icon 'home' %}
 {% block content %}

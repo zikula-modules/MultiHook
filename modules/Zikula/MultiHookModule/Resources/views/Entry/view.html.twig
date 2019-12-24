@@ -1,5 +1,5 @@
 {# purpose of this template: entries list view #}
-{% extends routeArea == 'admin' ? 'ZikulaMultiHookModule::adminBase.html.twig' : 'ZikulaMultiHookModule::base.html.twig' %}
+{% extends routeArea == 'admin' ? '@ZikulaMultiHookModule/adminBase.html.twig' : '@ZikulaMultiHookModule/base.html.twig' %}
 {% block title own ? __('My entries') : __('Entries list') %}
 {% block admin_page_icon 'list-alt' %}
 {% block content %}
@@ -64,7 +64,7 @@
                     {% set itemActions = knp_menu_get('zikulaMultiHookMenuItemActions', [], {entity: entry, area: routeArea, context: 'view'}) %}
                     <div class="dropdown item-actions">
                         <a id="itemActions{{ entry.getKey() }}DropDownToggleStart" role="button" data-toggle="dropdown" href="javascript:void(0);" class="hidden dropdown-toggle"><i class="fa fa-tasks"></i> <span class="caret"></span></a>
-                        {{ knp_menu_render(itemActions, {template: 'ZikulaMenuModule:Override:bootstrap_fontawesome.html.twig'}) }}
+                        {{ knp_menu_render(itemActions, {template: '@ZikulaMenuModule/Override/bootstrap_fontawesome.html.twig'}) }}
                     </div>
                 </td>
                 <td headers="hShortForm" class="text-left">

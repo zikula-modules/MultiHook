@@ -1,14 +1,13 @@
 {# purpose of this template: build the form to edit an instance of entry #}
 {% set baseTemplate = app.request.query.getBoolean('raw', false) ? 'raw' : (routeArea == 'admin' ? 'adminBase' : 'base') %}
-{% extends 'ZikulaMultiHookModule::' ~ baseTemplate ~ '.html.twig' %}
-
+{% extends '@ZikulaMultiHookModule/' ~ baseTemplate ~ '.html.twig' %}
 {% block title mode == 'create' ? __('Create entry') : __('Edit entry') %}
 {% block admin_page_icon mode == 'create' ? 'plus' : 'pencil-square-o' %}
 {% block content %}
     <div class="zikulamultihookmodule-entry zikulamultihookmodule-edit">
         {% form_theme form with [
             '@ZikulaMultiHookModule/Form/bootstrap_3.html.twig',
-            'ZikulaFormExtensionBundle:Form:form_div_layout.html.twig'
+            '@ZikulaFormExtension/Form/form_div_layout.html.twig'
         ] %}
         {{ form_start(form, {attr: {id: 'entryEditForm', class: 'zikulamultihook-edit-form'}}) }}
         {{ form_errors(form) }}
