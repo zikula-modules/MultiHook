@@ -29,7 +29,7 @@ services:
     Zikula\MultiHookModule\Form\Handler\:
         resource: '../../Form/Handler'
         calls:
-            - [setLockingApi, ['@?Zikula\PageLockModule\Api\LockingApi']]
+            - setLockingApi: ['@?Zikula\PageLockModule\Api\LockingApi']
     
     Zikula\MultiHookModule\Listener\EntityLifecycleListener:
         tags: ['doctrine.event_subscriber']
