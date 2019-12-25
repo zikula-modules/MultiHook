@@ -3,9 +3,8 @@ framework:
         zikulamultihookmodule_none:
             type: state_machine
             marking_store:
-                type: single_state
-                arguments:
-                    - workflowState
+                type: method
+                property: workflowState
             supports:
                 - Zikula\MultiHookModule\Entity\EntryEntity
             places:
