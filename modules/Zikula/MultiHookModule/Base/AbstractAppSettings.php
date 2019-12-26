@@ -28,91 +28,91 @@ abstract class AbstractAppSettings
     protected $variableApi;
     
     /**
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\Type(type="bool")
      * @var bool $showEditLink
      */
     protected $showEditLink = true;
     
     /**
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\Type(type="bool")
      * @var bool $replaceOnlyFirstInstanceOfItems
      */
     protected $replaceOnlyFirstInstanceOfItems = false;
     
     /**
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\Type(type="bool")
      * @var bool $applyReplacementsToCodeTags
      */
     protected $applyReplacementsToCodeTags = false;
     
     /**
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\Type(type="bool")
      * @var bool $replaceAbbreviations
      */
     protected $replaceAbbreviations = true;
     
     /**
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\Type(type="bool")
      * @var bool $replaceAcronyms
      */
     protected $replaceAcronyms = true;
     
     /**
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\Type(type="bool")
      * @var bool $replaceAbbreviationsWithLongText
      */
     protected $replaceAbbreviationsWithLongText = false;
     
     /**
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\Type(type="bool")
      * @var bool $replaceLinks
      */
     protected $replaceLinks = true;
     
     /**
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\Type(type="bool")
      * @var bool $replaceLinksWithTitle
      */
     protected $replaceLinksWithTitle = false;
     
     /**
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\Length(min="0", max="255")
      * @var string $cssClassForExternalLinks
      */
     protected $cssClassForExternalLinks = '';
     
     /**
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\Type(type="bool")
      * @var bool $replaceCensoredWords
      */
     protected $replaceCensoredWords = true;
     
     /**
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\Type(type="bool")
      * @var bool $replaceCensoredWordsWhenTheyArePartOfOtherWords
      */
     protected $replaceCensoredWordsWhenTheyArePartOfOtherWords = false;
     
     /**
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\Type(type="bool")
      * @var bool $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars
      */
     protected $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars = false;
     
     /**
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\Type(type="bool")
      * @var bool $replaceNeedles
      */
@@ -122,7 +122,7 @@ abstract class AbstractAppSettings
      * The amount of entries shown per page
      *
      * @Assert\Type(type="integer")
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
      * @Assert\NotEqualTo(value=0)
      * @Assert\LessThan(value=100000000000)
      * @var int $entryEntriesPerPage
@@ -132,7 +132,7 @@ abstract class AbstractAppSettings
     /**
      * Whether only own entries should be shown on view pages by default or not
      *
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\Type(type="bool")
      * @var bool $showOnlyOwnEntries
      */
@@ -141,7 +141,7 @@ abstract class AbstractAppSettings
     /**
      * Whether to allow moderators choosing a user which will be set as creator.
      *
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\Type(type="bool")
      * @var bool $allowModerationSpecificCreatorForEntry
      */
@@ -150,7 +150,7 @@ abstract class AbstractAppSettings
     /**
      * Whether to allow moderators choosing a custom creation date.
      *
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\Type(type="bool")
      * @var bool $allowModerationSpecificCreationDateForEntry
      */

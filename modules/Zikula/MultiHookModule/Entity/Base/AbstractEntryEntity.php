@@ -48,7 +48,7 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer", unique=true)
      * @Assert\Type(type="integer")
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\LessThan(value=1000000000)
      * @var int $id
      */
@@ -58,7 +58,7 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
      * the current workflow state
      *
      * @ORM\Column(length=20)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
      * @MultiHookAssert\ListEntry(entityName="entry", propertyName="workflowState", multiple=false)
      * @var string $workflowState
      */
@@ -66,7 +66,7 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
     
     /**
      * @ORM\Column(length=100)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
      * @Assert\Length(min="0", max="100")
      * @var string $shortForm
      */
@@ -77,7 +77,7 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
      *
      * @Gedmo\Translatable
      * @ORM\Column(length=255)
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\Length(min="0", max="255")
      * @var string $longForm
      */
@@ -88,7 +88,7 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
      *
      * @Gedmo\Translatable
      * @ORM\Column(length=255)
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\Length(min="0", max="255")
      * @var string $title
      */
@@ -96,7 +96,7 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
     
     /**
      * @ORM\Column(length=10)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank
      * @MultiHookAssert\ListEntry(entityName="entry", propertyName="entryType", multiple=false)
      * @var string $entryType
      */
@@ -104,7 +104,7 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
     
     /**
      * @ORM\Column(type="boolean")
-     * @Assert\NotNull()
+     * @Assert\NotNull
      * @Assert\Type(type="bool")
      * @var bool $active
      */
