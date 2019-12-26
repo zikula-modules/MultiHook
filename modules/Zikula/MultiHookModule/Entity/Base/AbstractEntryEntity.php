@@ -67,7 +67,7 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
     /**
      * @ORM\Column(length=100)
      * @Assert\NotBlank
-     * @Assert\Length(min="0", max="100")
+     * @Assert\Length(min="0", max="100", allowEmptyString="false")
      * @var string $shortForm
      */
     protected $shortForm = '';
@@ -78,7 +78,7 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
      * @Gedmo\Translatable
      * @ORM\Column(length=255)
      * @Assert\NotNull
-     * @Assert\Length(min="0", max="255")
+     * @Assert\Length(min="0", max="255", allowEmptyString="true")
      * @var string $longForm
      */
     protected $longForm = '';
@@ -89,7 +89,7 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
      * @Gedmo\Translatable
      * @ORM\Column(length=255)
      * @Assert\NotNull
-     * @Assert\Length(min="0", max="255")
+     * @Assert\Length(min="0", max="255", allowEmptyString="true")
      * @var string $title
      */
     protected $title = '';

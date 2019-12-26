@@ -85,7 +85,7 @@ abstract class AbstractAppSettings
     
     /**
      * @Assert\NotNull
-     * @Assert\Length(min="0", max="255")
+     * @Assert\Length(min="0", max="255", allowEmptyString="true")
      * @var string $cssClassForExternalLinks
      */
     protected $cssClassForExternalLinks = '';
