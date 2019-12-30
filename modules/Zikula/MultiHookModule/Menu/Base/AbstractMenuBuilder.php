@@ -113,7 +113,7 @@ class AbstractMenuBuilder
                     'title',
                     $this->__('Edit this entry', 'zikulamultihookmodule')
                 );
-                $menu[$title]->setAttribute('icon', 'fa fa-pencil-square-o');
+                $menu[$title]->setAttribute('icon', 'fa fa-edit');
                 $title = $this->__('Reuse', 'zikulamultihookmodule');
                 $menu->addChild($title, [
                     'route' => $routePrefix . $routeArea . 'edit',
