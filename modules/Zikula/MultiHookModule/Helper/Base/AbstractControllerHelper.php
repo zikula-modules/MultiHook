@@ -162,7 +162,7 @@ abstract class AbstractControllerHelper
         $templateParameters['all'] = 'csv' === $request->getRequestFormat() ? 1 : $request->query->getInt('all');
         $showOnlyOwnEntriesSetting = (bool)$request->query->getInt(
             'own',
-            $this->variableApi->get('ZikulaMultiHookModule', 'showOnlyOwnEntries')
+            (int) $this->variableApi->get('ZikulaMultiHookModule', 'showOnlyOwnEntries')
         );
         $showOnlyOwnEntriesSetting = $showOnlyOwnEntriesSetting ? 1 : 0;
         $templateParameters['own'] = $showOnlyOwnEntriesSetting;
