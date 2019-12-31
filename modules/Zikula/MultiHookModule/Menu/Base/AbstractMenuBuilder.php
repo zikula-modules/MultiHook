@@ -26,6 +26,7 @@ use Zikula\UsersModule\Constant as UsersConstant;
 use Zikula\MultiHookModule\Entity\EntryEntity;
 use Zikula\MultiHookModule\MultiHookEvents;
 use Zikula\MultiHookModule\Event\ConfigureItemActionsMenuEvent;
+use Zikula\MultiHookModule\Event\ConfigureViewActionsMenuEvent;
 use Zikula\MultiHookModule\Helper\ModelHelper;
 use Zikula\MultiHookModule\Helper\PermissionHelper;
 
@@ -150,6 +151,7 @@ class AbstractMenuBuilder
     
         return $menu;
     }
+    
     /**
      * Builds the view actions menu.
      */
@@ -204,7 +206,7 @@ class AbstractMenuBuilder
                 ]);
                 $menu[$title]->setLinkAttribute('title', $title);
                 $menu[$title]->setAttribute('icon', 'fa fa-table');
-                if ($this->permissionHelper.hasComponentPermission($objectType, ACCESS_EDIT)) {
+                if ($this->permissionHelper->hasComponentPermission($objectType, ACCESS_EDIT)) {
                     $routeParameters = $query->all();
                     if (1 === $query->getInt('own')) {
                         unset($routeParameters['own']);

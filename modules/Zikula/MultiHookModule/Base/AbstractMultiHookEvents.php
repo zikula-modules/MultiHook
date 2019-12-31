@@ -45,6 +45,7 @@ abstract class AbstractMultiHookEvents
      * @var string
      */
     public const MENU_ITEMACTIONS_POST_CONFIGURE = 'zikulamultihookmodule.itemactionsmenu_post_configure';
+    
     /**
      * The zikulamultihookmodule.viewactionsmenu_pre_configure event is thrown before the view actions
      * menu is built in the menu builder.
