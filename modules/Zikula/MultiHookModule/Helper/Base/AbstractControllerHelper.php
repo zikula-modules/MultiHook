@@ -25,7 +25,6 @@ use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 use Zikula\MultiHookModule\Entity\Factory\EntityFactory;
 use Zikula\MultiHookModule\Helper\CollectionFilterHelper;
 use Zikula\MultiHookModule\Helper\FeatureActivationHelper;
-use Zikula\MultiHookModule\Helper\ModelHelper;
 use Zikula\MultiHookModule\Helper\PermissionHelper;
 
 /**
@@ -66,11 +65,6 @@ abstract class AbstractControllerHelper
     protected $permissionHelper;
     
     /**
-     * @var ModelHelper
-     */
-    protected $modelHelper;
-    
-    /**
      * @var FeatureActivationHelper
      */
     protected $featureActivationHelper;
@@ -83,7 +77,6 @@ abstract class AbstractControllerHelper
         EntityFactory $entityFactory,
         CollectionFilterHelper $collectionFilterHelper,
         PermissionHelper $permissionHelper,
-        ModelHelper $modelHelper,
         FeatureActivationHelper $featureActivationHelper
     ) {
         $this->setTranslator($translator);
@@ -93,7 +86,6 @@ abstract class AbstractControllerHelper
         $this->entityFactory = $entityFactory;
         $this->collectionFilterHelper = $collectionFilterHelper;
         $this->permissionHelper = $permissionHelper;
-        $this->modelHelper = $modelHelper;
         $this->featureActivationHelper = $featureActivationHelper;
     }
     
@@ -266,8 +258,6 @@ abstract class AbstractControllerHelper
     
         $templateParameters['sort'] = $sortableColumns->generateSortableColumns();
         $templateParameters['quickNavForm'] = $quickNavForm->createView();
-    
-        $templateParameters['canBeCreated'] = $this->modelHelper->canBeCreated($objectType);
     
         $request->query->set('sort', $sort);
         $request->query->set('sortdir', $sortdir);
