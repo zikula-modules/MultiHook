@@ -17,6 +17,7 @@ namespace Zikula\MultiHookModule\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Psr\Log\LoggerInterface;
 use Zikula\UsersModule\Api\ApiInterface\CurrentUserApiInterface;
 use Zikula\MultiHookModule\Controller\Base\AbstractAjaxController;
 use Zikula\MultiHookModule\Entity\Factory\EntityFactory;
@@ -34,11 +35,13 @@ class AjaxController extends AbstractAjaxController
      */
     public function toggleFlagAction(
         Request $request,
+        LoggerInterface $logger,
         EntityFactory $entityFactory,
         CurrentUserApiInterface $currentUserApi
     ): JsonResponse {
         return parent::toggleFlagAction(
             $request,
+            $logger,
             $entityFactory,
             $currentUserApi
         );

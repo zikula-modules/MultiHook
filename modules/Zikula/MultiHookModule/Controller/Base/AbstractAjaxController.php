@@ -19,6 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Zikula\Core\Controller\AbstractController;
+use Psr\Log\LoggerInterface;
 use Zikula\UsersModule\Api\ApiInterface\CurrentUserApiInterface;
 use Zikula\MultiHookModule\Entity\Factory\EntityFactory;
 
@@ -35,6 +36,7 @@ abstract class AbstractAjaxController extends AbstractController
      */
     public function toggleFlagAction(
         Request $request,
+        LoggerInterface $logger,
         EntityFactory $entityFactory,
         CurrentUserApiInterface $currentUserApi
     ): JsonResponse {
@@ -71,7 +73,6 @@ abstract class AbstractAjaxController extends AbstractController
         // save entity back to database
         $entityFactory->getEntityManager()->flush();
         
-        $logger = $this->get('logger');
         $logArgs = [
             'app' => 'ZikulaMultiHookModule',
             'user' => $currentUserApi->get('uname'),

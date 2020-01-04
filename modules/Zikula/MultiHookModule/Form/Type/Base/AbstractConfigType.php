@@ -65,6 +65,9 @@ abstract class AbstractConfigType extends AbstractType
         
         $builder->add('showEditLink', CheckboxType::class, [
             'label' => $this->__('Show edit link') . ':',
+            'label_attr' => [
+                'class' => 'switch-custom'
+            ],
             'attr' => [
                 'class' => '',
                 'title' => $this->__('The show edit link option')
@@ -74,6 +77,9 @@ abstract class AbstractConfigType extends AbstractType
         
         $builder->add('replaceOnlyFirstInstanceOfItems', CheckboxType::class, [
             'label' => $this->__('Replace only first instance of items') . ':',
+            'label_attr' => [
+                'class' => 'switch-custom'
+            ],
             'attr' => [
                 'class' => '',
                 'title' => $this->__('The replace only first instance of items option')
@@ -83,6 +89,9 @@ abstract class AbstractConfigType extends AbstractType
         
         $builder->add('applyReplacementsToCodeTags', CheckboxType::class, [
             'label' => $this->__('Apply replacements to code tags') . ':',
+            'label_attr' => [
+                'class' => 'switch-custom'
+            ],
             'attr' => [
                 'class' => '',
                 'title' => $this->__('The apply replacements to code tags option')
@@ -99,6 +108,9 @@ abstract class AbstractConfigType extends AbstractType
         
         $builder->add('replaceAbbreviations', CheckboxType::class, [
             'label' => $this->__('Replace abbreviations') . ':',
+            'label_attr' => [
+                'class' => 'switch-custom'
+            ],
             'attr' => [
                 'class' => '',
                 'title' => $this->__('The replace abbreviations option')
@@ -108,6 +120,9 @@ abstract class AbstractConfigType extends AbstractType
         
         $builder->add('replaceAcronyms', CheckboxType::class, [
             'label' => $this->__('Replace acronyms') . ':',
+            'label_attr' => [
+                'class' => 'switch-custom'
+            ],
             'attr' => [
                 'class' => '',
                 'title' => $this->__('The replace acronyms option')
@@ -117,6 +132,9 @@ abstract class AbstractConfigType extends AbstractType
         
         $builder->add('replaceAbbreviationsWithLongText', CheckboxType::class, [
             'label' => $this->__('Replace abbreviations with long text') . ':',
+            'label_attr' => [
+                'class' => 'switch-custom'
+            ],
             'attr' => [
                 'class' => '',
                 'title' => $this->__('The replace abbreviations with long text option')
@@ -133,6 +151,9 @@ abstract class AbstractConfigType extends AbstractType
         
         $builder->add('replaceLinks', CheckboxType::class, [
             'label' => $this->__('Replace links') . ':',
+            'label_attr' => [
+                'class' => 'switch-custom'
+            ],
             'attr' => [
                 'class' => '',
                 'title' => $this->__('The replace links option')
@@ -142,6 +163,9 @@ abstract class AbstractConfigType extends AbstractType
         
         $builder->add('replaceLinksWithTitle', CheckboxType::class, [
             'label' => $this->__('Replace links with title') . ':',
+            'label_attr' => [
+                'class' => 'switch-custom'
+            ],
             'attr' => [
                 'class' => '',
                 'title' => $this->__('The replace links with title option')
@@ -169,6 +193,9 @@ abstract class AbstractConfigType extends AbstractType
         
         $builder->add('replaceCensoredWords', CheckboxType::class, [
             'label' => $this->__('Replace censored words') . ':',
+            'label_attr' => [
+                'class' => 'switch-custom'
+            ],
             'attr' => [
                 'class' => '',
                 'title' => $this->__('The replace censored words option')
@@ -178,6 +205,9 @@ abstract class AbstractConfigType extends AbstractType
         
         $builder->add('replaceCensoredWordsWhenTheyArePartOfOtherWords', CheckboxType::class, [
             'label' => $this->__('Replace censored words when they are part of other words') . ':',
+            'label_attr' => [
+                'class' => 'switch-custom'
+            ],
             'attr' => [
                 'class' => '',
                 'title' => $this->__('The replace censored words when they are part of other words option')
@@ -187,6 +217,9 @@ abstract class AbstractConfigType extends AbstractType
         
         $builder->add('doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars', CheckboxType::class, [
             'label' => $this->__('Do not censor first and last letter in words with more than two chars') . ':',
+            'label_attr' => [
+                'class' => 'switch-custom'
+            ],
             'attr' => [
                 'class' => '',
                 'title' => $this->__('The do not censor first and last letter in words with more than two chars option')
@@ -203,6 +236,9 @@ abstract class AbstractConfigType extends AbstractType
         
         $builder->add('replaceNeedles', CheckboxType::class, [
             'label' => $this->__('Replace needles') . ':',
+            'label_attr' => [
+                'class' => 'switch-custom'
+            ],
             'attr' => [
                 'class' => '',
                 'title' => $this->__('The replace needles option')
@@ -236,7 +272,7 @@ abstract class AbstractConfigType extends AbstractType
         $builder->add('showOnlyOwnEntries', CheckboxType::class, [
             'label' => $this->__('Show only own entries') . ':',
             'label_attr' => [
-                'class' => 'tooltips',
+                'class' => 'tooltips switch-custom',
                 'title' => $this->__('Whether only own entries should be shown on view pages by default or not')
             ],
             'help' => $this->__('Whether only own entries should be shown on view pages by default or not'),
@@ -257,7 +293,7 @@ abstract class AbstractConfigType extends AbstractType
         $builder->add('allowModerationSpecificCreatorForEntry', CheckboxType::class, [
             'label' => $this->__('Allow moderation specific creator for entry') . ':',
             'label_attr' => [
-                'class' => 'tooltips',
+                'class' => 'tooltips switch-custom',
                 'title' => $this->__('Whether to allow moderators choosing a user which will be set as creator.')
             ],
             'help' => $this->__('Whether to allow moderators choosing a user which will be set as creator.'),
@@ -271,7 +307,7 @@ abstract class AbstractConfigType extends AbstractType
         $builder->add('allowModerationSpecificCreationDateForEntry', CheckboxType::class, [
             'label' => $this->__('Allow moderation specific creation date for entry') . ':',
             'label_attr' => [
-                'class' => 'tooltips',
+                'class' => 'tooltips switch-custom',
                 'title' => $this->__('Whether to allow moderators choosing a custom creation date.')
             ],
             'help' => $this->__('Whether to allow moderators choosing a custom creation date.'),
