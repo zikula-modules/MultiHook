@@ -31,18 +31,17 @@ div.zikulamultihookmodule-view form.zikulamultihookmodule-quicknav {
     border: 1px solid #ccc;
 }
 
-div.zikulamultihookmodule-view form.zikulamultihookmodule-quicknav fieldset {
-    padding: 3px 10px;
-    margin-bottom: 0;
-}
-
-div.zikulamultihookmodule-view form.zikulamultihookmodule-quicknav fieldset h3 {
-    margin-top: 0;
+div.zikulamultihookmodule-view form.zikulamultihookmodule-quicknav h3 {
     display: none;
 }
 
-div.zikulamultihookmodule-view form.zikulamultihookmodule-quicknav fieldset label {
-    margin-right: 5px;
+div.zikulamultihookmodule-view form.zikulamultihookmodule-quicknav .form-group {
+    display: inline-block;
+}
+
+div.zikulamultihookmodule-view form.zikulamultihookmodule-quicknav label {
+    margin: 0 5px;
+    display: inline;
 }
 
 div.zikulamultihookmodule-view .avatar img {
