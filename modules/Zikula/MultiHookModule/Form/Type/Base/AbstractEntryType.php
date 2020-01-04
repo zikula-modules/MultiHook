@@ -186,6 +186,9 @@ abstract class AbstractEntryType extends AbstractType
         
         $builder->add('active', CheckboxType::class, [
             'label' => $this->__('Active') . ':',
+            'label_attr' => [
+                'class' => 'switch-custom'
+            ],
             'attr' => [
                 'class' => '',
                 'title' => $this->__('active ?')

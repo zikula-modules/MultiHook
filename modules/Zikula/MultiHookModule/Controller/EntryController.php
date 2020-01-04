@@ -15,10 +15,12 @@ declare(strict_types=1);
 namespace Zikula\MultiHookModule\Controller;
 
 use Zikula\MultiHookModule\Controller\Base\AbstractEntryController;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 use Zikula\ThemeModule\Engine\Annotation\Theme;
 use Zikula\UsersModule\Api\ApiInterface\CurrentUserApiInterface;
 use Zikula\MultiHookModule\Entity\EntryEntity;
@@ -81,6 +83,7 @@ class EntryController extends AbstractEntryController
      */
     public function adminViewAction(
         Request $request,
+        RouterInterface $router,
         PermissionHelper $permissionHelper,
         ControllerHelper $controllerHelper,
         ViewHelper $viewHelper,
@@ -91,6 +94,7 @@ class EntryController extends AbstractEntryController
     ): Response {
         return $this->viewInternal(
             $request,
+            $router,
             $permissionHelper,
             $controllerHelper,
             $viewHelper,
@@ -112,6 +116,7 @@ class EntryController extends AbstractEntryController
      */
     public function viewAction(
         Request $request,
+        RouterInterface $router,
         PermissionHelper $permissionHelper,
         ControllerHelper $controllerHelper,
         ViewHelper $viewHelper,
@@ -122,6 +127,7 @@ class EntryController extends AbstractEntryController
     ): Response {
         return $this->viewInternal(
             $request,
+            $router,
             $permissionHelper,
             $controllerHelper,
             $viewHelper,
@@ -194,6 +200,7 @@ class EntryController extends AbstractEntryController
      */
     public function adminHandleSelectedEntriesAction(
         Request $request,
+        LoggerInterface $logger,
         EntityFactory $entityFactory,
         WorkflowHelper $workflowHelper,
         HookHelper $hookHelper,
@@ -201,6 +208,7 @@ class EntryController extends AbstractEntryController
     ): RedirectResponse {
         return $this->handleSelectedEntriesActionInternal(
             $request,
+            $logger,
             $entityFactory,
             $workflowHelper,
             $hookHelper,
@@ -218,6 +226,7 @@ class EntryController extends AbstractEntryController
      */
     public function handleSelectedEntriesAction(
         Request $request,
+        LoggerInterface $logger,
         EntityFactory $entityFactory,
         WorkflowHelper $workflowHelper,
         HookHelper $hookHelper,
@@ -225,6 +234,7 @@ class EntryController extends AbstractEntryController
     ): RedirectResponse {
         return $this->handleSelectedEntriesActionInternal(
             $request,
+            $logger,
             $entityFactory,
             $workflowHelper,
             $hookHelper,

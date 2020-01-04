@@ -1,9 +1,9 @@
 {# purpose of this template: entries view filter form #}
 {% if permissionHelper.mayUseQuickNav('entry') %}
     {% form_theme quickNavForm with [
-        'bootstrap_3_layout.html.twig'
+        'bootstrap_4_layout.html.twig'
     ] %}
-    {{ form_start(quickNavForm, {attr: {id: 'zikulaMultiHookModuleEntryQuickNavForm', class: 'zikulamultihookmodule-quicknav navbar-form', role: 'navigation'}}) }}
+    {{ form_start(quickNavForm, {attr: {id: 'zikulaMultiHookModuleEntryQuickNavForm', class: 'zikulamultihookmodule-quicknav form-inline', role: 'navigation'}}) }}
     {{ form_errors(quickNavForm) }}
     <a href="#collapseEntryQuickNav" role="button" data-toggle="collapse" class="btn btn-default" aria-expanded="false" aria-controls="collapseEntryQuickNav">
         <i class="fa fa-filter" aria-hidden="true"></i> {{ __('Filter') }}
@@ -12,28 +12,28 @@
         <fieldset>
             <h3>{{ __('Quick navigation') }}</h3>
             {% if workflowStateFilter is defined and workflowStateFilter != true %}
-                <div class="hidden">
+                <div class="d-none">
             {% endif %}
                 {{ form_row(quickNavForm.workflowState) }}
             {% if workflowStateFilter is defined and workflowStateFilter != true %}
                 </div>
             {% endif %}
             {% if entryTypeFilter is defined and entryTypeFilter != true %}
-                <div class="hidden">
+                <div class="d-none">
             {% endif %}
                 {{ form_row(quickNavForm.entryType) }}
             {% if entryTypeFilter is defined and entryTypeFilter != true %}
                 </div>
             {% endif %}
             {% if searchFilter is defined and searchFilter != true %}
-                <div class="hidden">
+                <div class="d-none">
             {% endif %}
                 {{ form_row(quickNavForm.q) }}
             {% if searchFilter is defined and searchFilter != true %}
                 </div>
             {% endif %}
             {% if sorting is defined and sorting != true %}
-                <div class="hidden">
+                <div class="d-none">
             {% endif %}
                 {{ form_row(quickNavForm.sort) }}
                 {{ form_row(quickNavForm.sortdir) }}
@@ -41,14 +41,14 @@
                 </div>
             {% endif %}
             {% if pageSizeSelector is defined and pageSizeSelector != true %}
-                <div class="hidden">
+                <div class="d-none">
             {% endif %}
                 {{ form_row(quickNavForm.num) }}
             {% if pageSizeSelector is defined and pageSizeSelector != true %}
                 </div>
             {% endif %}
             {% if activeFilter is defined and activeFilter != true %}
-                <div class="hidden">
+                <div class="d-none">
             {% endif %}
                 {{ form_row(quickNavForm.active) }}
             {% if activeFilter is defined and activeFilter != true %}
