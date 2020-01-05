@@ -110,7 +110,7 @@ class AbstractMenuBuilder
         $entity = $options['entity'];
         $routeArea = $options['area'];
         $context = $options['context'];
-        $menu->setChildrenAttribute('class', 'list-inline item-actions');
+        $menu->setChildrenAttribute('class', 'nav item-actions');
     
         $this->eventDispatcher->dispatch(
             new ConfigureItemActionsMenuEvent($this->factory, $menu, $options),
@@ -164,7 +164,7 @@ class AbstractMenuBuilder
     
         $objectType = $options['objectType'];
         $routeArea = $options['area'];
-        $menu->setChildrenAttribute('class', 'list-inline view-actions');
+        $menu->setChildrenAttribute('class', 'nav view-actions');
     
         $this->eventDispatcher->dispatch(
             new ConfigureViewActionsMenuEvent($this->factory, $menu, $options),
