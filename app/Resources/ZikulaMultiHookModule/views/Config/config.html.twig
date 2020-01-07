@@ -1,66 +1,66 @@
 {# purpose of this template: module configuration page #}
-{% extends 'ZikulaMultiHookModule::adminBase.html.twig' %}
-{% block title __('Settings') %}
+{% extends '@ZikulaMultiHookModule/adminBase.html.twig' %}
+{% trans_default_domain 'zikulamultihookmodule' %}
+{% block title 'Settings'|trans %}
 {% block admin_page_icon 'wrench' %}
 {% block content %}
     <div class="zikulamultihookmodule-config">
         {% form_theme form with [
-            '@ZikulaMultiHookModule/Form/bootstrap_3.html.twig',
-            'ZikulaFormExtensionBundle:Form:form_div_layout.html.twig'
+            '@ZikulaMultiHookModule/Form/bootstrap_4.html.twig',
+            '@ZikulaFormExtension/Form/form_div_layout.html.twig'
         ] %}
         {{ form_start(form) }}
         <div class="zikula-bootstrap-tab-container">
-            <ul class="nav nav-tabs">
-                {% set tabTitle = __('General settings') %}
-                <li role="presentation" class="active">
-                    <a id="vars1Tab" href="#tab1" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab">{{ tabTitle }}</a>
+            <ul class="nav nav-tabs" role="tablist">
+                {% set tabTitle = 'General settings'|trans %}
+                <li class="nav-item" role="presentation">
+                    <a id="vars1Tab" href="#tab1" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab" class="nav-link active">{{ tabTitle }}</a>
                 </li>
-                {% set tabTitle = __('Abbreviations and acronyms') %}
-                <li role="presentation">
-                    <a id="vars2Tab" href="#tab2" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab">{{ tabTitle }}</a>
+                {% set tabTitle = 'Abbreviations and acronyms'|trans %}
+                <li class="nav-item" role="presentation">
+                    <a id="vars2Tab" href="#tab2" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab" class="nav-link">{{ tabTitle }}</a>
                 </li>
-                {% set tabTitle = __('Automatic links') %}
-                <li role="presentation">
-                    <a id="vars3Tab" href="#tab3" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab">{{ tabTitle }}</a>
+                {% set tabTitle = 'Automatic links'|trans %}
+                <li class="nav-item" role="presentation">
+                    <a id="vars3Tab" href="#tab3" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab" class="nav-link">{{ tabTitle }}</a>
                 </li>
-                {% set tabTitle = __('Censor') %}
-                <li role="presentation">
-                    <a id="vars4Tab" href="#tab4" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab">{{ tabTitle }}</a>
+                {% set tabTitle = 'Censor'|trans %}
+                <li class="nav-item" role="presentation">
+                    <a id="vars4Tab" href="#tab4" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab" class="nav-link">{{ tabTitle }}</a>
                 </li>
-                {% set tabTitle = __('Needles') %}
-                <li role="presentation">
-                    <a id="vars5Tab" href="#tab5" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab">{{ tabTitle }}</a>
+                {% set tabTitle = 'Needles'|trans %}
+                <li class="nav-item" role="presentation">
+                    <a id="vars5Tab" href="#tab5" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab" class="nav-link">{{ tabTitle }}</a>
                 </li>
-                {% set tabTitle = __('List views') %}
-                <li role="presentation">
-                    <a id="vars6Tab" href="#tab6" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab">{{ tabTitle }}</a>
+                {% set tabTitle = 'List views'|trans %}
+                <li class="nav-item" role="presentation">
+                    <a id="vars6Tab" href="#tab6" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab" class="nav-link">{{ tabTitle }}</a>
                 </li>
-                {% set tabTitle = __('Moderation') %}
-                <li role="presentation">
-                    <a id="vars7Tab" href="#tab7" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab">{{ tabTitle }}</a>
+                {% set tabTitle = 'Moderation'|trans %}
+                <li class="nav-item" role="presentation">
+                    <a id="vars7Tab" href="#tab7" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab" class="nav-link">{{ tabTitle }}</a>
                 </li>
-                {#% set tabTitle = __('Workflows') %}
-                <li role="presentation">
-                    <a id="workflowsTab" href="#tabWorkflows" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab">{{ tabTitle }}</a>
+                {#% set tabTitle = 'Workflows'|trans %}
+                <li class="nav-item" role="presentation">
+                    <a id="workflowsTab" href="#tabWorkflows" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab" class="nav-link">{{ tabTitle }}</a>
                 </li>#}
-                {% set tabTitle = __('Available entry providers') %}
-                <li role="presentation">
-                    <a id="entryProvidersTab" href="#tabEntryProviders" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab">{{ tabTitle }}</a>
+                {% set tabTitle = 'Available entry providers'|trans %}
+                <li class="nav-item" role="presentation">
+                    <a id="entryProvidersTab" href="#tabEntryProviders" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab" class="nav-link">{{ tabTitle }}</a>
                 </li>
-                {% set tabTitle = __('Available needles') %}
-                <li role="presentation">
-                    <a id="needlesTab" href="#tabNeedles" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab">{{ tabTitle }}</a>
+                {% set tabTitle = 'Available needles'|trans %}
+                <li class="nav-item" role="presentation">
+                    <a id="needlesTab" href="#tabNeedles" title="{{ tabTitle|e('html_attr') }}" role="tab" data-toggle="tab" class="nav-link">{{ tabTitle }}</a>
                 </li>
             </ul>
 
             {{ form_errors(form) }}
             <div class="tab-content">
-                <div role="tabpanel" class="tab-pane fade in active" id="tab1" aria-labelledby="vars1Tab">
-                    {% set tabTitle = __('General settings') %}
+                <div role="tabpanel" class="tab-pane fade show active" id="tab1" aria-labelledby="vars1Tab">
+                    {% set tabTitle = 'General settings'|trans %}
                     <fieldset>
                         <legend>{{ tabTitle }}</legend>
-                    
-                        <p class="alert alert-info">{{ __('Here you can manage all basic settings for this application.') }}</p>
+                        <p class="alert alert-info">{% trans %}Here you can manage all basic settings for this application.{% endtrans %}</p>
                     
                         {{ form_row(form.showEditLink) }}
                         {{ form_row(form.replaceOnlyFirstInstanceOfItems) }}
@@ -68,88 +68,78 @@
                     </fieldset>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="tab2" aria-labelledby="vars2Tab">
-                    {% set tabTitle = __('Abbreviations and acronyms') %}
+                    {% set tabTitle = 'Abbreviations and acronyms'|trans %}
                     <fieldset>
                         <legend>{{ tabTitle }}</legend>
-                    
-                    
                         {{ form_row(form.replaceAbbreviations) }}
                         {{ form_row(form.replaceAcronyms) }}
                         {{ form_row(form.replaceAbbreviationsWithLongText) }}
                     </fieldset>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="tab3" aria-labelledby="vars3Tab">
-                    {% set tabTitle = __('Automatic links') %}
+                    {% set tabTitle = 'Automatic links'|trans %}
                     <fieldset>
                         <legend>{{ tabTitle }}</legend>
-                    
-                    
                         {{ form_row(form.replaceLinks) }}
                         {{ form_row(form.replaceLinksWithTitle) }}
                         {{ form_row(form.cssClassForExternalLinks) }}
                     </fieldset>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="tab4" aria-labelledby="vars4Tab">
-                    {% set tabTitle = __('Censor') %}
+                    {% set tabTitle = 'Censor'|trans %}
                     <fieldset>
                         <legend>{{ tabTitle }}</legend>
-                    
-                    
                         {{ form_row(form.replaceCensoredWords) }}
                         {{ form_row(form.replaceCensoredWordsWhenTheyArePartOfOtherWords) }}
                         {{ form_row(form.doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars) }}
                     </fieldset>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="tab5" aria-labelledby="vars5Tab">
-                    {% set tabTitle = __('Needles') %}
+                    {% set tabTitle = 'Needles'|trans %}
                     <fieldset>
                         <legend>{{ tabTitle }}</legend>
-                    
-                    
                         {{ form_row(form.replaceNeedles) }}
                     </fieldset>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="tab6" aria-labelledby="vars6Tab">
-                    {% set tabTitle = __('List views') %}
+                    {% set tabTitle = 'List views'|trans %}
                     <fieldset>
                         <legend>{{ tabTitle }}</legend>
-                    
-                        <p class="alert alert-info">{{ __('Here you can configure parameters for list views.')|nl2br }}</p>
-                    
+                        <p class="alert alert-info">{% trans %}Here you can configure parameters for list views.{% endtrans %}</p>
+                        
                         {{ form_row(form.entryEntriesPerPage) }}
                         {{ form_row(form.showOnlyOwnEntries) }}
                     </fieldset>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="tab7" aria-labelledby="vars7Tab">
-                    {% set tabTitle = __('Moderation') %}
+                    {% set tabTitle = 'Moderation'|trans %}
                     <fieldset>
                         <legend>{{ tabTitle }}</legend>
-                    
-                        <p class="alert alert-info">{{ __('Here you can define moderation-related settings.')|nl2br }}</p>
-                    
+                        <p class="alert alert-info">{% trans %}Here you can define moderation-related settings.{% endtrans %}</p>
+                        
                         {{ form_row(form.allowModerationSpecificCreatorForEntry) }}
                         {{ form_row(form.allowModerationSpecificCreationDateForEntry) }}
                     </fieldset>
                 </div>
                 {#<div role="tabpanel" class="tab-pane fade" id="tabWorkflows" aria-labelledby="workflowsTab">
-                    {% set tabTitle = __('Workflows') %}
+                    {% set tabTitle = 'Workflows'|trans %}
                     <fieldset>
                         <legend>{{ tabTitle }}</legend>
                 
-                        <p class="alert alert-info">{{ __('Here you can inspect and amend the existing workflows.') }}</p>
+                        <p class="alert alert-info">{% trans %}Here you can inspect and amend the existing workflows.{% endtrans %}</p>
                 
-                        <h4>{{ __('Entries') }}</h4>
-                        <p><a href="{{ path('zikula_workflow_editor_index', {workflow: 'zikulamultihookmodule_none'}) }}" title="{{ __('Edit workflow for entries') }}" target="_blank"><i class="fa fa-cubes"></i> {{ __('Edit entries workflow') }}</a>
+                        <h4>{% trans %}Entries{% endtrans %}</h4>
+                        <p><a href="{{ path('zikula_workflow_editor_index', {workflow: 'zikulamultihookmodule_none'}) }}" title="{{ 'Edit workflow for entries'|trans|e('html_attr') }}" target="_blank"><i class="fa fa-cubes"></i> {% trans %}Edit entries workflow{% endtrans %}</a>
                     </fieldset>
                 </div>#}
                 <div role="tabpanel" class="tab-pane fade" id="tabEntryProviders" aria-labelledby="entryProvidersTab">
-                    {% set tabTitle = __('Available entry providers') %}
+                    {% set tabTitle = 'Available entry providers'|trans %}
                     <fieldset>
                         <legend>{{ tabTitle }}</legend>
-                        <p class="alert alert-info">{{ __('MultiHook allows other bundles/modules to provide additional entries. The following list shows which entry providers are available at your installation.') }}</p>
+                        <p class="alert alert-info">{% trans %}MultiHook allows other bundles/modules to provide additional entries. The following list shows which entry providers are available at your installation.{% endtrans %}</p>
                         {% set allEntryProviders = zikulamultihookmodule_getEntryProviders(true) %}
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover table-condensed">
+                            <table class="table table-striped table-bordered table-hover table-sm">
                                 <colgroup>
                                     <col id="cBundle" />
                                     <col id="cTitle" />
@@ -158,10 +148,10 @@
                                 </colgroup>
                                 <thead>
                                     <tr>
-                                        <th id="hBundle" scope="col">{{ __('Bundle') }}</th>
-                                        <th id="hTitle" scope="col">{{ __('Title') }}</th>
-                                        <th id="hActive" scope="col">{{ __('Active') }}</th>
-                                        <th id="hDescription" scope="col">{{ __('Description') }}</th>
+                                        <th id="hBundle" scope="col">{% trans %}Bundle{% endtrans %}</th>
+                                        <th id="hTitle" scope="col">{% trans %}Title{% endtrans %}</th>
+                                        <th id="hActive" scope="col">{% trans %}Active{% endtrans %}</th>
+                                        <th id="hDescription" scope="col">{% trans %}Description{% endtrans %}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -174,14 +164,14 @@
                                         </th>
                                         <td headers="h{{ providerName }} hActive" class="text-center text-{% if provider.active|default(false) %}success{% else %}danger{% endif %}">
                                             {% if provider.active|default(false) %}
-                                                <i class="fa fa-check" title="{{ __('Yes') }}"></i>
+                                                <i class="fa fa-check" title="{{ 'Yes'|trans|e('html_attr') }}"></i>
                                             {% else %}
-                                                <i class="fa fa-times" title="{{ __('No') }}"></i>
+                                                <i class="fa fa-times" title="{{ 'No'|trans|e('html_attr') }}"></i>
                                             {% endif %}
                                         </td>
                                         <td headers="h{{ providerName }} hDescription">
                                             {{ provider.description|default('-') }}
-                                            {% if provider.adminInfo|default %}<br /><span class="label label-default">{{ provider.adminInfo }}</span>{% endif %}
+                                            {% if provider.adminInfo|default %}<br /><span class="badge badge-default">{{ provider.adminInfo }}</span>{% endif %}
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -191,14 +181,14 @@
                     </fieldset>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="tabNeedles" aria-labelledby="needlesTab">
-                    {% set tabTitle = __('Available needles') %}
+                    {% set tabTitle = 'Available needles'|trans %}
                     <fieldset>
                         <legend>{{ tabTitle }}</legend>
-                        <p class="alert alert-info">{{ __('A needle is a quick way to insert a link from one piece of your content to another piece of your content. MultiHook already includes some common needles but also allows other bundles/modules to provide additional needles. The following list shows which needles are available at your installation.') }}</p>
-                        <p class="alert alert-info">{{ __('The curly brackets indicate the beginning and the end of the parameters and don\'t have to be used in the needle, the pipe symbol | indicates different options you can use.') }}</p>
+                        <p class="alert alert-info">{% trans %}A needle is a quick way to insert a link from one piece of your content to another piece of your content. MultiHook already includes some common needles but also allows other bundles/modules to provide additional needles. The following list shows which needles are available at your installation.{% endtrans %}</p>
+                        <p class="alert alert-info">{% trans %}The curly brackets indicate the beginning and the end of the parameters and don't have to be used in the needle, the pipe symbol | indicates different options you can use.{% endtrans %}</p>
                         {% set allNeedles = zikulamultihookmodule_getNeedles(true) %}
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered table-hover table-condensed">
+                            <table class="table table-striped table-bordered table-hover table-sm">
                                 <colgroup>
                                     <col id="cBundle" />
                                     <col id="cTitle" />
@@ -209,12 +199,12 @@
                                 </colgroup>
                                 <thead>
                                     <tr>
-                                        <th id="hBundle" scope="col">{{ __('Bundle') }}</th>
-                                        <th id="hTitle" scope="col">{{ __('Title') }}</th>
-                                        <th id="hActive" scope="col">{{ __('Active') }}</th>
-                                        <th id="hDescription" scope="col">{{ __('Description') }}</th>
-                                        <th id="hUsage" scope="col">{{ __('Usage') }}</th>
-                                        <th id="hCaseSensitive" scope="col">{{ __('Case sensitive') }}</th>
+                                        <th id="hBundle" scope="col">{% trans %}Bundle{% endtrans %}</th>
+                                        <th id="hTitle" scope="col">{% trans %}Title{% endtrans %}</th>
+                                        <th id="hActive" scope="col">{% trans %}Active{% endtrans %}</th>
+                                        <th id="hDescription" scope="col">{% trans %}Description{% endtrans %}</th>
+                                        <th id="hUsage" scope="col">{% trans %}Usage{% endtrans %}</th>
+                                        <th id="hCaseSensitive" scope="col">{% trans %}Case sensitive{% endtrans %}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -227,9 +217,9 @@
                                         </th>
                                         <td headers="h{{ needleName }} hActive" class="text-center text-{% if needle.active|default(false) %}success{% else %}danger{% endif %}">
                                             {% if needle.active|default(false) %}
-                                                <i class="fa fa-check" title="{{ __('Yes') }}"></i>
+                                                <i class="fa fa-check" title="{{ 'Yes'|trans|e('html_attr') }}"></i>
                                             {% else %}
-                                                <i class="fa fa-times" title="{{ __('No') }}"></i>
+                                                <i class="fa fa-times" title="{{ 'No'|trans|e('html_attr') }}"></i>
                                             {% endif %}
                                         </td>
                                         <td headers="h{{ needleName }} hDescription">
@@ -240,9 +230,9 @@
                                         </td>
                                         <td headers="h{{ needleName }} hCaseSensitive" class="text-center text-{% if needle.caseSensitive|default(true) %}success{% else %}danger{% endif %}">
                                             {% if needle.caseSensitive|default(true) %}
-                                                <i class="fa fa-check" title="{{ __('Yes') }}"></i>
+                                                <i class="fa fa-check" title="{{ 'Yes'|trans|e('html_attr') }}"></i>
                                             {% else %}
-                                                <i class="fa fa-times" title="{{ __('No') }}"></i>
+                                                <i class="fa fa-times" title="{{ 'No'|trans|e('html_attr') }}"></i>
                                             {% endif %}
                                         </td>
                                     </tr>
@@ -255,8 +245,8 @@
             </div>
         </div>
 
-        <div class="form-group form-buttons">
-            <div class="col-sm-offset-3 col-sm-9">
+        <div class="form-group form-buttons row">
+            <div class="col-md-9 offset-md-3">
                 {{ form_widget(form.save) }}
                 {{ form_widget(form.reset) }}
                 {{ form_widget(form.cancel) }}
