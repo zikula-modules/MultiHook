@@ -1,6 +1,7 @@
 {# purpose of this template: entries list view #}
 {% extends routeArea == 'admin' ? '@ZikulaMultiHookModule/adminBase.html.twig' : '@ZikulaMultiHookModule/base.html.twig' %}
-{% block title own ? __('My entries') : __('Entries list') %}
+{% trans_default_domain 'zikulamultihookmodule' %}
+{% block title own ? 'My entries'|trans : 'Entries list'|trans %}
 {% block admin_page_icon 'list-alt' %}
 {% block content %}
     <div class="zikulamultihookmodule-entry zikulamultihookmodule-view">
@@ -33,21 +34,21 @@
                             <input type="checkbox" class="zikulamultihook-mass-toggle" />
                         </th>
                     {% endif %}
-                    <th id="hItemActionsStart" scope="col" class="">{{ __('Actions') }}</th>
+                    <th id="hItemActionsStart" scope="col" class="">{% trans %}Actions{% endtrans %}</th>
                     <th id="hShortForm" scope="col" class="text-left">
-                        <a href="{{ sort.shortForm.url }}" title="{{ __f('Sort by %s', {'%s': 'short form'}) }}" class="{{ sort.shortForm.class }}">{{ __('Short form') }}</a>
+                        <a href="{{ sort.shortForm.url }}" title="'Sort by %s'|trans({'%s': 'short form'})|e('html_attr') }}" class="{{ sort.shortForm.class }}">{% trans %}Short form{% endtrans %}</a>
                     </th>
                     <th id="hLongForm" scope="col" class="text-left">
-                        <a href="{{ sort.longForm.url }}" title="{{ __f('Sort by %s', {'%s': 'long form'}) }}" class="{{ sort.longForm.class }}">{{ __('Long form') }}</a>
+                        <a href="{{ sort.longForm.url }}" title="'Sort by %s'|trans({'%s': 'long form'})|e('html_attr') }}" class="{{ sort.longForm.class }}">{% trans %}Long form{% endtrans %}</a>
                     </th>
                     <th id="hTitle" scope="col" class="text-left">
-                        <a href="{{ sort.title.url }}" title="{{ __f('Sort by %s', {'%s': 'title'}) }}" class="{{ sort.title.class }}">{{ __('Title') }}</a>
+                        <a href="{{ sort.title.url }}" title="'Sort by %s'|trans({'%s': 'title'})|e('html_attr') }}" class="{{ sort.title.class }}">{% trans %}Title{% endtrans %}</a>
                     </th>
                     <th id="hEntryType" scope="col" class="text-left">
-                        <a href="{{ sort.entryType.url }}" title="{{ __f('Sort by %s', {'%s': 'entry type'}) }}" class="{{ sort.entryType.class }}">{{ __('Entry type') }}</a>
+                        <a href="{{ sort.entryType.url }}" title="'Sort by %s'|trans({'%s': 'entry type'})|e('html_attr') }}" class="{{ sort.entryType.class }}">{% trans %}Entry type{% endtrans %}</a>
                     </th>
                     <th id="hActive" scope="col" class="text-center">
-                        <a href="{{ sort.active.url }}" title="{{ __f('Sort by %s', {'%s': 'active'}) }}" class="{{ sort.active.class }}">{{ __('Active') }}</a>
+                        <a href="{{ sort.active.url }}" title="'Sort by %s'|trans({'%s': 'active'})|e('html_attr') }}" class="{{ sort.active.class }}">{% trans %}Active{% endtrans %}</a>
                     </th>
                 </tr>
                 </thead>
@@ -60,10 +61,10 @@
                             <input type="checkbox" name="items[]" value="{{ entry.getKey() }}" class="zikulamultihook-toggle-checkbox" />
                         </td>
                     {% endif %}
-                    <td id="itemActions{{ entry.getKey() }}Start" headers="hItemActionsStart" class="actions nowrap">
+                    <td id="itemActions{{ entry.getKey() }}Start" headers="hItemActionsStart" class="actions">
                         {% set itemActions = knp_menu_get('zikulaMultiHookMenuItemActions', [], {entity: entry, area: routeArea, context: 'view'}) %}
                         <div class="dropdown item-actions">
-                            <a id="itemActions{{ entry.getKey() }}DropDownToggleStart" role="button" data-toggle="dropdown" href="javascript:void(0);" class="d-none dropdown-toggle"><i class="fa fa-tasks"></i> <span class="caret"></span></a>
+                            <a id="itemActions{{ entry.getKey() }}DropDownToggleStart" role="button" data-toggle="dropdown" href="javascript:void(0);" class="d-none dropdown-toggle"><i class="fa fa-tasks"></i></a>
                             {{ knp_menu_render(itemActions, {template: '@ZikulaMenuModule/Override/bootstrap_fontawesome.html.twig'}) }}
                         </div>
                     </td>
@@ -81,15 +82,15 @@
                     </td>
                     <td headers="hActive" class="text-center">
                         {% set itemId = entry.getKey() %}
-                        <a id="toggleActive{{ itemId }}" href="javascript:void(0);" class="zikulamultihook-ajax-toggle d-none" data-object-type="entry" data-field-name="active" data-item-id="{{ itemId }}">
-                            <i class="fa fa-check text-success{% if not entry.active %} d-none{% endif %}" id="yesActive{{ itemId }}" title="{{ __('This setting is enabled. Click here to disable it.') }}"></i>
-                            <i class="fa fa-times text-danger{% if entry.active %} d-none{% endif %}" id="noActive{{ itemId }}" title="{{ __('This setting is disabled. Click here to enable it.') }}"></i>
+                        <a id="toggleActive{{ itemId|e('html_attr') }}" href="javascript:void(0);" class="zikulamultihook-ajax-toggle d-none" data-object-type="entry" data-field-name="active" data-item-id="{{ itemId|e('html_attr') }}">
+                            <i class="fa fa-check text-success{% if not entry.active %} d-none{% endif %}" id="yesActive{{ itemId }}" title="{{ 'This setting is enabled. Click here to disable it.'|trans|e('html_attr') }}"></i>
+                            <i class="fa fa-times text-danger{% if entry.active %} d-none{% endif %}" id="noActive{{ itemId }}" title="{{ 'This setting is disabled. Click here to enable it.'|trans|e('html_attr') }}"></i>
                         </a>
-                        <noscript><div id="noscriptActive{{ itemId }}">
+                        <noscript><div id="noscriptActive{{ itemId|e('html_attr') }}">
                             {% if entry.active %}
-                                <i class="fa fa-check text-success" title="{{ __('Yes') }}"></i>
+                                <i class="fa fa-check text-success" title="{{ 'Yes'|trans|e('html_attr') }}"></i>
                             {% else %}
-                                <i class="fa fa-times text-danger" title="{{ __('No') }}"></i>
+                                <i class="fa fa-times text-danger" title="{{ 'No'|trans|e('html_attr') }}"></i>
                             {% endif %}
                         </div></noscript>
                     </td>
@@ -97,7 +98,7 @@
             {% else %}
                 <tr class="table-info">
                     <td colspan="{% if routeArea == 'admin' %}7{% else %}6{% endif %}" class="text-center">
-                {{ __('No entries found.') }}
+                {% trans %}No entries found.{% endtrans %}
                   </td>
                 </tr>
             {% endfor %}
@@ -112,15 +113,15 @@
         {% if routeArea == 'admin' %}
                 <fieldset class="my-3 pt-3">
                     <div class="row">
-                        <label for="zikulaMultiHookModuleAction" class="col-md-3 col-form-label">{{ __('With selected entries') }}</label>
+                        <label for="zikulaMultiHookModuleAction" class="col-md-3 col-form-label">{% trans %}With selected entries{% endtrans %}</label>
                         <div class="col-md-6">
                             <select id="zikulaMultiHookModuleAction" name="action" class="form-control form-control-sm">
-                                <option value="">{{ __('Choose action') }}</option>
-                                <option value="delete" title="{{ __('Delete content permanently.') }}">{{ __('Delete') }}</option>
+                                <option value="">{% trans %}Choose action{% endtrans %}</option>
+                                <option value="delete" title="{{ 'Delete content permanently.'|trans|e('html_attr') }}">{% trans %}Delete{% endtrans %}</option>
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <input type="submit" value="{{ __('Submit') }}" class="btn btn-primary btn-sm" />
+                            <input type="submit" value="{{ 'Submit'|trans|e('html_attr') }}" class="btn btn-primary btn-sm" />
                         </div>
                     </div>
                 </fieldset>
