@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Zikula\MultiHookModule\Helper\Base;
 
-use Zikula\Common\Translator\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Zikula\Core\Doctrine\EntityAccess;
 use Zikula\MultiHookModule\Entity\EntryEntity;
 use Zikula\MultiHookModule\Helper\ListEntriesHelper;
@@ -59,7 +59,7 @@ abstract class AbstractEntityDisplayHelper
      */
     protected function formatEntry(EntryEntity $entity): string
     {
-        return $this->translator->__f('%shortForm%', [
+        return $this->translator->trans('%shortForm%', [
             '%shortForm%' => $entity->getShortForm()
         ]);
     }

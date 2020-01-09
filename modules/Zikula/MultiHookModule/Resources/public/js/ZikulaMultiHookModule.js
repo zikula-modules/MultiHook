@@ -53,7 +53,7 @@ function zikulaMultiHookToggleFlag(objectType, fieldName, itemId) {
         toggleLink = jQuery('#toggle' + idSuffix);
 
         /*if (data.message) {
-            zikulaMultiHookSimpleAlert(toggleLink, Translator.__('Success'), data.message, 'toggle' + idSuffix + 'DoneAlert', 'success');
+            zikulaMultiHookSimpleAlert(toggleLink, Translator.trans('Success'), data.message, 'toggle' + idSuffix + 'DoneAlert', 'success');
         }*/
 
         toggleLink.find('.fa-check').toggleClass('d-none', true !== data.state);

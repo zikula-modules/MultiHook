@@ -23,7 +23,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Zikula\Common\Translator\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Zikula\Common\Translator\TranslatorTrait;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 use Zikula\MultiHookModule\Entity\Factory\EntityFactory;
@@ -102,33 +102,33 @@ abstract class AbstractEntryType extends AbstractType
     {
         
         $builder->add('longForm', TextType::class, [
-            'label' => $this->__('Long form') . ':',
+            'label' => $this->trans('Long form') . ':',
             'label_attr' => [
                 'class' => 'tooltips',
-                'title' => $this->__('The URL, in the case of a link; ignored for censored words.')
+                'title' => $this->trans('The URL, in the case of a link; ignored for censored words.')
             ],
-            'help' => $this->__('The URL, in the case of a link; ignored for censored words.'),
+            'help' => $this->trans('The URL, in the case of a link; ignored for censored words.'),
             'empty_data' => '',
             'attr' => [
                 'maxlength' => 255,
                 'class' => '',
-                'title' => $this->__('Enter the long form of the entry.')
+                'title' => $this->trans('Enter the long form of the entry.')
             ],
             'required' => false,
         ]);
         
         $builder->add('title', TextType::class, [
-            'label' => $this->__('Title') . ':',
+            'label' => $this->trans('Title') . ':',
             'label_attr' => [
                 'class' => 'tooltips',
-                'title' => $this->__('Only necessary for a link; ignored for censored words.')
+                'title' => $this->trans('Only necessary for a link; ignored for censored words.')
             ],
-            'help' => $this->__('Only necessary for a link; ignored for censored words.'),
+            'help' => $this->trans('Only necessary for a link; ignored for censored words.'),
             'empty_data' => '',
             'attr' => [
                 'maxlength' => 255,
                 'class' => '',
-                'title' => $this->__('Enter the title of the entry.')
+                'title' => $this->trans('Enter the title of the entry.')
             ],
             'required' => false,
         ]);
@@ -153,12 +153,12 @@ abstract class AbstractEntryType extends AbstractType
         }
         
         $builder->add('shortForm', TextType::class, [
-            'label' => $this->__('Short form') . ':',
+            'label' => $this->trans('Short form') . ':',
             'empty_data' => '',
             'attr' => [
                 'maxlength' => 100,
                 'class' => '',
-                'title' => $this->__('Enter the short form of the entry.')
+                'title' => $this->trans('Enter the short form of the entry.')
             ],
             'required' => true,
         ]);
@@ -171,11 +171,11 @@ abstract class AbstractEntryType extends AbstractType
             $choiceAttributes[$entry['text']] = ['title' => $entry['title']];
         }
         $builder->add('entryType', ChoiceType::class, [
-            'label' => $this->__('Entry type') . ':',
+            'label' => $this->trans('Entry type') . ':',
             'empty_data' => '',
             'attr' => [
                 'class' => '',
-                'title' => $this->__('Choose the entry type.')
+                'title' => $this->trans('Choose the entry type.')
             ],
             'required' => true,
             'choices' => $choices,
@@ -185,13 +185,13 @@ abstract class AbstractEntryType extends AbstractType
         ]);
         
         $builder->add('active', CheckboxType::class, [
-            'label' => $this->__('Active') . ':',
+            'label' => $this->trans('Active') . ':',
             'label_attr' => [
                 'class' => 'switch-custom'
             ],
             'attr' => [
                 'class' => '',
-                'title' => $this->__('active ?')
+                'title' => $this->trans('active ?')
             ],
             'required' => false,
         ]);
@@ -213,7 +213,7 @@ abstract class AbstractEntryType extends AbstractType
             if ('create' === $options['mode'] && 'submit' === $action['id']) {
                 // add additional button to submit item and return to create form
                 $builder->add('submitrepeat', SubmitType::class, [
-                    'label' => $this->__('Submit and repeat'),
+                    'label' => $this->trans('Submit and repeat'),
                     'icon' => 'fa-repeat',
                     'attr' => [
                         'class' => $action['buttonClass']
@@ -222,7 +222,7 @@ abstract class AbstractEntryType extends AbstractType
             }
         }
         $builder->add('reset', ResetType::class, [
-            'label' => $this->__('Reset'),
+            'label' => $this->trans('Reset'),
             'icon' => 'fa-sync',
             'attr' => [
                 'class' => 'btn btn-default',
@@ -230,7 +230,7 @@ abstract class AbstractEntryType extends AbstractType
             ]
         ]);
         $builder->add('cancel', SubmitType::class, [
-            'label' => $this->__('Cancel'),
+            'label' => $this->trans('Cancel'),
             'validate' => false,
             'icon' => 'fa-times',
             'attr' => [

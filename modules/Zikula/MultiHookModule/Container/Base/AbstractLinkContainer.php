@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Zikula\MultiHookModule\Container\Base;
 
 use Symfony\Component\Routing\RouterInterface;
-use Zikula\Common\Translator\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Zikula\Common\Translator\TranslatorTrait;
 use Zikula\Core\LinkContainer\LinkContainerInterface;
 use Zikula\MultiHookModule\Helper\ControllerHelper;
@@ -79,8 +79,8 @@ abstract class AbstractLinkContainer implements LinkContainerInterface
             if ($this->permissionHelper->hasPermission(ACCESS_READ)) {
                 $links[] = [
                     'url' => $this->router->generate('zikulamultihookmodule_entry_index'),
-                    'text' => $this->__('Frontend', 'zikulamultihookmodule'),
-                    'title' => $this->__('Switch to user area.', 'zikulamultihookmodule'),
+                    'text' => $this->trans('Frontend', 'zikulamultihookmodule'),
+                    'title' => $this->trans('Switch to user area.', 'zikulamultihookmodule'),
                     'icon' => 'home'
                 ];
             }
@@ -88,8 +88,8 @@ abstract class AbstractLinkContainer implements LinkContainerInterface
             if ($this->permissionHelper->hasPermission(ACCESS_ADMIN)) {
                 $links[] = [
                     'url' => $this->router->generate('zikulamultihookmodule_entry_adminindex'),
-                    'text' => $this->__('Backend', 'zikulamultihookmodule'),
-                    'title' => $this->__('Switch to administration area.', 'zikulamultihookmodule'),
+                    'text' => $this->trans('Backend', 'zikulamultihookmodule'),
+                    'title' => $this->trans('Switch to administration area.', 'zikulamultihookmodule'),
                     'icon' => 'wrench'
                 ];
             }
@@ -101,15 +101,15 @@ abstract class AbstractLinkContainer implements LinkContainerInterface
         ) {
             $links[] = [
                 'url' => $this->router->generate('zikulamultihookmodule_entry_' . $routeArea . 'view'),
-                'text' => $this->__('Entries', 'zikulamultihookmodule'),
-                'title' => $this->__('Entries list', 'zikulamultihookmodule')
+                'text' => $this->trans('Entries', 'zikulamultihookmodule'),
+                'title' => $this->trans('Entries list', 'zikulamultihookmodule')
             ];
         }
         if ('admin' === $routeArea && $this->permissionHelper->hasPermission(ACCESS_ADMIN)) {
             $links[] = [
                 'url' => $this->router->generate('zikulamultihookmodule_config_config'),
-                'text' => $this->__('Settings', 'zikulamultihookmodule'),
-                'title' => $this->__('Manage settings for this application', 'zikulamultihookmodule'),
+                'text' => $this->trans('Settings', 'zikulamultihookmodule'),
+                'title' => $this->trans('Manage settings for this application', 'zikulamultihookmodule'),
                 'icon' => 'wrench'
             ];
         }

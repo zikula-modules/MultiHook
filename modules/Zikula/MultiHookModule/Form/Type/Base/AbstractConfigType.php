@@ -22,7 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Zikula\Common\Translator\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Zikula\Common\Translator\TranslatorTrait;
 use Zikula\MultiHookModule\AppSettings;
 
@@ -64,37 +64,37 @@ abstract class AbstractConfigType extends AbstractType
     {
         
         $builder->add('showEditLink', CheckboxType::class, [
-            'label' => $this->__('Show edit link') . ':',
+            'label' => $this->trans('Show edit link') . ':',
             'label_attr' => [
                 'class' => 'switch-custom'
             ],
             'attr' => [
                 'class' => '',
-                'title' => $this->__('The show edit link option')
+                'title' => $this->trans('The show edit link option')
             ],
             'required' => false,
         ]);
         
         $builder->add('replaceOnlyFirstInstanceOfItems', CheckboxType::class, [
-            'label' => $this->__('Replace only first instance of items') . ':',
+            'label' => $this->trans('Replace only first instance of items') . ':',
             'label_attr' => [
                 'class' => 'switch-custom'
             ],
             'attr' => [
                 'class' => '',
-                'title' => $this->__('The replace only first instance of items option')
+                'title' => $this->trans('The replace only first instance of items option')
             ],
             'required' => false,
         ]);
         
         $builder->add('applyReplacementsToCodeTags', CheckboxType::class, [
-            'label' => $this->__('Apply replacements to code tags') . ':',
+            'label' => $this->trans('Apply replacements to code tags') . ':',
             'label_attr' => [
                 'class' => 'switch-custom'
             ],
             'attr' => [
                 'class' => '',
-                'title' => $this->__('The apply replacements to code tags option')
+                'title' => $this->trans('The apply replacements to code tags option')
             ],
             'required' => false,
         ]);
@@ -107,37 +107,37 @@ abstract class AbstractConfigType extends AbstractType
     {
         
         $builder->add('replaceAbbreviations', CheckboxType::class, [
-            'label' => $this->__('Replace abbreviations') . ':',
+            'label' => $this->trans('Replace abbreviations') . ':',
             'label_attr' => [
                 'class' => 'switch-custom'
             ],
             'attr' => [
                 'class' => '',
-                'title' => $this->__('The replace abbreviations option')
+                'title' => $this->trans('The replace abbreviations option')
             ],
             'required' => false,
         ]);
         
         $builder->add('replaceAcronyms', CheckboxType::class, [
-            'label' => $this->__('Replace acronyms') . ':',
+            'label' => $this->trans('Replace acronyms') . ':',
             'label_attr' => [
                 'class' => 'switch-custom'
             ],
             'attr' => [
                 'class' => '',
-                'title' => $this->__('The replace acronyms option')
+                'title' => $this->trans('The replace acronyms option')
             ],
             'required' => false,
         ]);
         
         $builder->add('replaceAbbreviationsWithLongText', CheckboxType::class, [
-            'label' => $this->__('Replace abbreviations with long text') . ':',
+            'label' => $this->trans('Replace abbreviations with long text') . ':',
             'label_attr' => [
                 'class' => 'switch-custom'
             ],
             'attr' => [
                 'class' => '',
-                'title' => $this->__('The replace abbreviations with long text option')
+                'title' => $this->trans('The replace abbreviations with long text option')
             ],
             'required' => false,
         ]);
@@ -150,36 +150,36 @@ abstract class AbstractConfigType extends AbstractType
     {
         
         $builder->add('replaceLinks', CheckboxType::class, [
-            'label' => $this->__('Replace links') . ':',
+            'label' => $this->trans('Replace links') . ':',
             'label_attr' => [
                 'class' => 'switch-custom'
             ],
             'attr' => [
                 'class' => '',
-                'title' => $this->__('The replace links option')
+                'title' => $this->trans('The replace links option')
             ],
             'required' => false,
         ]);
         
         $builder->add('replaceLinksWithTitle', CheckboxType::class, [
-            'label' => $this->__('Replace links with title') . ':',
+            'label' => $this->trans('Replace links with title') . ':',
             'label_attr' => [
                 'class' => 'switch-custom'
             ],
             'attr' => [
                 'class' => '',
-                'title' => $this->__('The replace links with title option')
+                'title' => $this->trans('The replace links with title option')
             ],
             'required' => false,
         ]);
         
         $builder->add('cssClassForExternalLinks', TextType::class, [
-            'label' => $this->__('Css class for external links') . ':',
+            'label' => $this->trans('Css class for external links') . ':',
             'empty_data' => '',
             'attr' => [
                 'maxlength' => 255,
                 'class' => '',
-                'title' => $this->__('Enter the css class for external links.')
+                'title' => $this->trans('Enter the css class for external links.')
             ],
             'required' => false,
         ]);
@@ -192,37 +192,37 @@ abstract class AbstractConfigType extends AbstractType
     {
         
         $builder->add('replaceCensoredWords', CheckboxType::class, [
-            'label' => $this->__('Replace censored words') . ':',
+            'label' => $this->trans('Replace censored words') . ':',
             'label_attr' => [
                 'class' => 'switch-custom'
             ],
             'attr' => [
                 'class' => '',
-                'title' => $this->__('The replace censored words option')
+                'title' => $this->trans('The replace censored words option')
             ],
             'required' => false,
         ]);
         
         $builder->add('replaceCensoredWordsWhenTheyArePartOfOtherWords', CheckboxType::class, [
-            'label' => $this->__('Replace censored words when they are part of other words') . ':',
+            'label' => $this->trans('Replace censored words when they are part of other words') . ':',
             'label_attr' => [
                 'class' => 'switch-custom'
             ],
             'attr' => [
                 'class' => '',
-                'title' => $this->__('The replace censored words when they are part of other words option')
+                'title' => $this->trans('The replace censored words when they are part of other words option')
             ],
             'required' => false,
         ]);
         
         $builder->add('doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars', CheckboxType::class, [
-            'label' => $this->__('Do not censor first and last letter in words with more than two chars') . ':',
+            'label' => $this->trans('Do not censor first and last letter in words with more than two chars') . ':',
             'label_attr' => [
                 'class' => 'switch-custom'
             ],
             'attr' => [
                 'class' => '',
-                'title' => $this->__('The do not censor first and last letter in words with more than two chars option')
+                'title' => $this->trans('The do not censor first and last letter in words with more than two chars option')
             ],
             'required' => false,
         ]);
@@ -235,13 +235,13 @@ abstract class AbstractConfigType extends AbstractType
     {
         
         $builder->add('replaceNeedles', CheckboxType::class, [
-            'label' => $this->__('Replace needles') . ':',
+            'label' => $this->trans('Replace needles') . ':',
             'label_attr' => [
                 'class' => 'switch-custom'
             ],
             'attr' => [
                 'class' => '',
-                'title' => $this->__('The replace needles option')
+                'title' => $this->trans('The replace needles option')
             ],
             'required' => false,
         ]);
@@ -254,31 +254,31 @@ abstract class AbstractConfigType extends AbstractType
     {
         
         $builder->add('entryEntriesPerPage', IntegerType::class, [
-            'label' => $this->__('Entry entries per page') . ':',
+            'label' => $this->trans('Entry entries per page') . ':',
             'label_attr' => [
                 'class' => 'tooltips',
-                'title' => $this->__('The amount of entries shown per page')
+                'title' => $this->trans('The amount of entries shown per page')
             ],
-            'help' => $this->__('The amount of entries shown per page'),
+            'help' => $this->trans('The amount of entries shown per page'),
             'empty_data' => 10,
             'attr' => [
                 'maxlength' => 11,
                 'class' => '',
-                'title' => $this->__('Enter the entry entries per page.') . ' ' . $this->__('Only digits are allowed.')
+                'title' => $this->trans('Enter the entry entries per page.') . ' ' . $this->trans('Only digits are allowed.')
             ],
             'required' => true,
         ]);
         
         $builder->add('showOnlyOwnEntries', CheckboxType::class, [
-            'label' => $this->__('Show only own entries') . ':',
+            'label' => $this->trans('Show only own entries') . ':',
             'label_attr' => [
                 'class' => 'tooltips switch-custom',
-                'title' => $this->__('Whether only own entries should be shown on view pages by default or not')
+                'title' => $this->trans('Whether only own entries should be shown on view pages by default or not')
             ],
-            'help' => $this->__('Whether only own entries should be shown on view pages by default or not'),
+            'help' => $this->trans('Whether only own entries should be shown on view pages by default or not'),
             'attr' => [
                 'class' => '',
-                'title' => $this->__('The show only own entries option')
+                'title' => $this->trans('The show only own entries option')
             ],
             'required' => false,
         ]);
@@ -291,29 +291,29 @@ abstract class AbstractConfigType extends AbstractType
     {
         
         $builder->add('allowModerationSpecificCreatorForEntry', CheckboxType::class, [
-            'label' => $this->__('Allow moderation specific creator for entry') . ':',
+            'label' => $this->trans('Allow moderation specific creator for entry') . ':',
             'label_attr' => [
                 'class' => 'tooltips switch-custom',
-                'title' => $this->__('Whether to allow moderators choosing a user which will be set as creator.')
+                'title' => $this->trans('Whether to allow moderators choosing a user which will be set as creator.')
             ],
-            'help' => $this->__('Whether to allow moderators choosing a user which will be set as creator.'),
+            'help' => $this->trans('Whether to allow moderators choosing a user which will be set as creator.'),
             'attr' => [
                 'class' => '',
-                'title' => $this->__('The allow moderation specific creator for entry option')
+                'title' => $this->trans('The allow moderation specific creator for entry option')
             ],
             'required' => false,
         ]);
         
         $builder->add('allowModerationSpecificCreationDateForEntry', CheckboxType::class, [
-            'label' => $this->__('Allow moderation specific creation date for entry') . ':',
+            'label' => $this->trans('Allow moderation specific creation date for entry') . ':',
             'label_attr' => [
                 'class' => 'tooltips switch-custom',
-                'title' => $this->__('Whether to allow moderators choosing a custom creation date.')
+                'title' => $this->trans('Whether to allow moderators choosing a custom creation date.')
             ],
-            'help' => $this->__('Whether to allow moderators choosing a custom creation date.'),
+            'help' => $this->trans('Whether to allow moderators choosing a custom creation date.'),
             'attr' => [
                 'class' => '',
-                'title' => $this->__('The allow moderation specific creation date for entry option')
+                'title' => $this->trans('The allow moderation specific creation date for entry option')
             ],
             'required' => false,
         ]);
@@ -325,14 +325,14 @@ abstract class AbstractConfigType extends AbstractType
     public function addSubmitButtons(FormBuilderInterface $builder, array $options = []): void
     {
         $builder->add('save', SubmitType::class, [
-            'label' => $this->__('Update configuration'),
+            'label' => $this->trans('Update configuration'),
             'icon' => 'fa-check',
             'attr' => [
                 'class' => 'btn btn-success'
             ]
         ]);
         $builder->add('reset', ResetType::class, [
-            'label' => $this->__('Reset'),
+            'label' => $this->trans('Reset'),
             'icon' => 'fa-sync',
             'attr' => [
                 'class' => 'btn btn-default',
@@ -340,7 +340,7 @@ abstract class AbstractConfigType extends AbstractType
             ]
         ]);
         $builder->add('cancel', SubmitType::class, [
-            'label' => $this->__('Cancel'),
+            'label' => $this->trans('Cancel'),
             'validate' => false,
             'icon' => 'fa-times',
             'attr' => [
