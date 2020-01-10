@@ -21,8 +21,6 @@ use Symfony\Component\Form\Extension\Core\Type\SearchType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Contracts\Translation\TranslatorInterface;
-use Zikula\Common\Translator\TranslatorTrait;
 use Zikula\MultiHookModule\Helper\FeatureActivationHelper;
 use Zikula\MultiHookModule\Helper\ListEntriesHelper;
 
@@ -31,8 +29,6 @@ use Zikula\MultiHookModule\Helper\ListEntriesHelper;
  */
 abstract class AbstractEntryQuickNavType extends AbstractType
 {
-    use TranslatorTrait;
-
     /**
      * @var ListEntriesHelper
      */
@@ -44,11 +40,9 @@ abstract class AbstractEntryQuickNavType extends AbstractType
     protected $featureActivationHelper;
 
     public function __construct(
-        TranslatorInterface $translator,
         ListEntriesHelper $listHelper,
         FeatureActivationHelper $featureActivationHelper
     ) {
-        $this->setTranslator($translator);
         $this->listHelper = $listHelper;
         $this->featureActivationHelper = $featureActivationHelper;
     }
@@ -68,7 +62,7 @@ abstract class AbstractEntryQuickNavType extends AbstractType
         $this->addAmountField($builder, $options);
         $this->addBooleanFields($builder, $options);
         $builder->add('updateview', SubmitType::class, [
-            'label' => $this->trans('OK'),
+            'label' => 'OK',
             'attr' => [
                 'class' => 'btn btn-default btn-sm'
             ]
@@ -88,12 +82,12 @@ abstract class AbstractEntryQuickNavType extends AbstractType
             $choiceAttributes[$entry['text']] = ['title' => $entry['title']];
         }
         $builder->add('workflowState', ChoiceType::class, [
-            'label' => $this->trans('State'),
+            'label' => 'State',
             'attr' => [
                 'class' => 'form-control-sm'
             ],
             'required' => false,
-            'placeholder' => $this->trans('All'),
+            'placeholder' => 'All',
             'choices' => $choices,
             'choice_attr' => $choiceAttributes,
             'multiple' => false,
@@ -107,12 +101,12 @@ abstract class AbstractEntryQuickNavType extends AbstractType
             $choiceAttributes[$entry['text']] = ['title' => $entry['title']];
         }
         $builder->add('entryType', ChoiceType::class, [
-            'label' => $this->trans('Entry type'),
+            'label' => 'Entry type',
             'attr' => [
                 'class' => 'form-control-sm'
             ],
             'required' => false,
-            'placeholder' => $this->trans('All'),
+            'placeholder' => 'All',
             'choices' => $choices,
             'choice_attr' => $choiceAttributes,
             'multiple' => false,
@@ -126,7 +120,7 @@ abstract class AbstractEntryQuickNavType extends AbstractType
     public function addSearchField(FormBuilderInterface $builder, array $options = []): void
     {
         $builder->add('q', SearchType::class, [
-            'label' => $this->trans('Search'),
+            'label' => 'Search',
             'attr' => [
                 'maxlength' => 255,
                 'class' => 'form-control-sm'
@@ -143,33 +137,33 @@ abstract class AbstractEntryQuickNavType extends AbstractType
     {
         $builder
             ->add('sort', ChoiceType::class, [
-                'label' => $this->trans('Sort by'),
+                'label' => 'Sort by',
                 'attr' => [
                     'class' => 'form-control-sm'
                 ],
                 'choices' =>             [
-                    $this->trans('Short form') => 'shortForm',
-                    $this->trans('Long form') => 'longForm',
-                    $this->trans('Title') => 'title',
-                    $this->trans('Entry type') => 'entryType',
-                    $this->trans('Active') => 'active',
-                    $this->trans('Creation date') => 'createdDate',
-                    $this->trans('Creator') => 'createdBy',
-                    $this->trans('Update date') => 'updatedDate',
-                    $this->trans('Updater') => 'updatedBy'
+                    'Short form' => 'shortForm',
+                    'Long form' => 'longForm',
+                    'Title' => 'title',
+                    'Entry type' => 'entryType',
+                    'Active' => 'active',
+                    'Creation date' => 'createdDate',
+                    'Creator' => 'createdBy',
+                    'Update date' => 'updatedDate',
+                    'Updater' => 'updatedBy'
                 ],
                 'required' => true,
                 'expanded' => false
             ])
             ->add('sortdir', ChoiceType::class, [
-                'label' => $this->trans('Sort direction'),
+                'label' => 'Sort direction',
                 'empty_data' => 'asc',
                 'attr' => [
                     'class' => 'form-control-sm'
                 ],
                 'choices' => [
-                    $this->trans('Ascending') => 'asc',
-                    $this->trans('Descending') => 'desc'
+                    'Ascending' => 'asc',
+                    'Descending' => 'desc'
                 ],
                 'required' => true,
                 'expanded' => false
@@ -183,7 +177,7 @@ abstract class AbstractEntryQuickNavType extends AbstractType
     public function addAmountField(FormBuilderInterface $builder, array $options = []): void
     {
         $builder->add('num', ChoiceType::class, [
-            'label' => $this->trans('Page size'),
+            'label' => 'Page size',
             'empty_data' => 20,
             'attr' => [
                 'class' => 'form-control-sm text-right'
@@ -208,15 +202,15 @@ abstract class AbstractEntryQuickNavType extends AbstractType
     public function addBooleanFields(FormBuilderInterface $builder, array $options = []): void
     {
         $builder->add('active', ChoiceType::class, [
-            'label' => $this->trans('Active'),
+            'label' => 'Active',
             'attr' => [
                 'class' => 'form-control-sm'
             ],
             'required' => false,
-            'placeholder' => $this->trans('All'),
+            'placeholder' => 'All',
             'choices' => [
-                $this->trans('No') => 'no',
-                $this->trans('Yes') => 'yes'
+                'No' => 'no',
+                'Yes' => 'yes'
             ]
         ]);
     }
