@@ -216,14 +216,6 @@ class HookHelper extends AbstractHookHelper
     /**
      * @required
      */
-    public function setTranslator(TranslatorInterface $translator): void
-    {
-        $this->translator = $translator;
-    }
-
-    /**
-     * @required
-     */
     public function setRouter(RouterInterface $router): void
     {
         $this->router = $router;
