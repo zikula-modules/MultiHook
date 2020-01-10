@@ -36,19 +36,19 @@
                     {% endif %}
                     <th id="hItemActionsStart" scope="col" class="">{% trans %}Actions{% endtrans %}</th>
                     <th id="hShortForm" scope="col" class="text-left">
-                        <a href="{{ sort.shortForm.url }}" title="{{ 'Sort by %s'|trans({'%s': 'short form'})|e('html_attr') }}" class="{{ sort.shortForm.class }}">{% trans %}Short form{% endtrans %}</a>
+                        <a href="{{ sort.shortForm.url }}" title="{{ 'Sort by %fieldName%'|trans({'%fieldName%': 'short form'})|e('html_attr') }}" class="{{ sort.shortForm.class }}">{% trans %}Short form{% endtrans %}</a>
                     </th>
                     <th id="hLongForm" scope="col" class="text-left">
-                        <a href="{{ sort.longForm.url }}" title="{{ 'Sort by %s'|trans({'%s': 'long form'})|e('html_attr') }}" class="{{ sort.longForm.class }}">{% trans %}Long form{% endtrans %}</a>
+                        <a href="{{ sort.longForm.url }}" title="{{ 'Sort by %fieldName%'|trans({'%fieldName%': 'long form'})|e('html_attr') }}" class="{{ sort.longForm.class }}">{% trans %}Long form{% endtrans %}</a>
                     </th>
                     <th id="hTitle" scope="col" class="text-left">
-                        <a href="{{ sort.title.url }}" title="{{ 'Sort by %s'|trans({'%s': 'title'})|e('html_attr') }}" class="{{ sort.title.class }}">{% trans %}Title{% endtrans %}</a>
+                        <a href="{{ sort.title.url }}" title="{{ 'Sort by %fieldName%'|trans({'%fieldName%': 'title'})|e('html_attr') }}" class="{{ sort.title.class }}">{% trans %}Title{% endtrans %}</a>
                     </th>
                     <th id="hEntryType" scope="col" class="text-left">
-                        <a href="{{ sort.entryType.url }}" title="{{ 'Sort by %s'|trans({'%s': 'entry type'})|e('html_attr') }}" class="{{ sort.entryType.class }}">{% trans %}Entry type{% endtrans %}</a>
+                        <a href="{{ sort.entryType.url }}" title="{{ 'Sort by %fieldName%'|trans({'%fieldName%': 'entry type'})|e('html_attr') }}" class="{{ sort.entryType.class }}">{% trans %}Entry type{% endtrans %}</a>
                     </th>
                     <th id="hActive" scope="col" class="text-center">
-                        <a href="{{ sort.active.url }}" title="{{ 'Sort by %s'|trans({'%s': 'active'})|e('html_attr') }}" class="{{ sort.active.class }}">{% trans %}Active{% endtrans %}</a>
+                        <a href="{{ sort.active.url }}" title="{{ 'Sort by %fieldName%'|trans({'%fieldName%': 'active'})|e('html_attr') }}" class="{{ sort.active.class }}">{% trans %}Active{% endtrans %}</a>
                     </th>
                 </tr>
                 </thead>
