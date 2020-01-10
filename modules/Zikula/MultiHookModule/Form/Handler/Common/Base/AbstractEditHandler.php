@@ -259,11 +259,6 @@ abstract class AbstractEditHandler
         $this->featureActivationHelper = $featureActivationHelper;
     }
 
-    public function setTranslator(TranslatorInterface $translator): void
-    {
-        $this->translator = $translator;
-    }
-
     /**
      * Initialise form handler.
      *

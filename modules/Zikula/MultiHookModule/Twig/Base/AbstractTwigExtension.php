@@ -66,11 +66,6 @@ abstract class AbstractTwigExtension extends AbstractExtension
         $this->listHelper = $listHelper;
     }
     
-    public function setTranslator(TranslatorInterface $translator): void
-    {
-        $this->translator = $translator;
-    }
-    
     public function getFunctions()
     {
         return [

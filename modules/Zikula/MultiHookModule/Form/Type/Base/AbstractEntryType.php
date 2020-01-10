@@ -83,11 +83,6 @@ abstract class AbstractEntryType extends AbstractType
         $this->featureActivationHelper = $featureActivationHelper;
     }
 
-    public function setTranslator(TranslatorInterface $translator): void
-    {
-        $this->translator = $translator;
-    }
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $this->addEntityFields($builder, $options);
