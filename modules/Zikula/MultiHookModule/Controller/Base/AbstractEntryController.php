@@ -244,7 +244,7 @@ abstract class AbstractEntryController extends AbstractController
             } catch (Exception $exception) {
                 $this->addFlash(
                     'error',
-                    $this->__f(
+                    $this->trans(
                         'Sorry, but an error occured during the %action% action.',
                         ['%action%' => $action]
                     ) . '  ' . $exception->getMessage()
@@ -268,7 +268,7 @@ abstract class AbstractEntryController extends AbstractController
             }
         
             if ('delete' === $action) {
-                $this->addFlash('status', $this->__('Done! Item deleted.'));
+                $this->addFlash('status', $this->trans('Done! Item deleted.'));
                 $logger->notice(
                     '{app}: User {user} deleted the {entity} with id {id}.',
                     [
@@ -279,7 +279,7 @@ abstract class AbstractEntryController extends AbstractController
                     ]
                 );
             } else {
-                $this->addFlash('status', $this->__('Done! Item updated.'));
+                $this->addFlash('status', $this->trans('Done! Item updated.'));
                 $logger->notice(
                     '{app}: User {user} executed the {action} workflow action for the {entity} with id {id}.',
                     [

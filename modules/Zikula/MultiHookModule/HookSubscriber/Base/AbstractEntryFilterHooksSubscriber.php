@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace Zikula\MultiHookModule\HookSubscriber\Base;
 
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Zikula\Bundle\HookBundle\Category\FilterHooksCategory;
 use Zikula\Bundle\HookBundle\HookSubscriberInterface;
-use Zikula\Common\Translator\TranslatorInterface;
 
 /**
  * Base class for filter hooks subscriber.
@@ -45,7 +45,7 @@ abstract class AbstractEntryFilterHooksSubscriber implements HookSubscriberInter
     
     public function getTitle(): string
     {
-        return $this->translator->__('Entry filter hooks subscriber');
+        return $this->translator->trans('Entry filter hooks subscriber');
     }
     
     public function getAreaName(): string

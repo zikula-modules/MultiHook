@@ -14,10 +14,10 @@ declare(strict_types=1);
 
 namespace Zikula\MultiHookModule\HookProvider\Base;
 
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Zikula\Bundle\HookBundle\Category\FilterHooksCategory;
 use Zikula\Bundle\HookBundle\Hook\FilterHook;
 use Zikula\Bundle\HookBundle\HookProviderInterface;
-use Zikula\Common\Translator\TranslatorInterface;
 
 /**
  * Base class for filter hooks provider.
@@ -46,7 +46,7 @@ abstract class AbstractFilterHooksProvider implements HookProviderInterface
     
     public function getTitle(): string
     {
-        return $this->translator->__('Multi hook filter hooks provider');
+        return $this->translator->trans('Multi hook filter hooks provider');
     }
     
     public function getAreaName(): string
@@ -69,7 +69,7 @@ abstract class AbstractFilterHooksProvider implements HookProviderInterface
         $hook->setData(
             $hook->getData()
             . '<p>'
-            . $this->translator->__('This is a dummy addition by a generated filter provider.')
+            . $this->translator->trans('This is a dummy addition by a generated filter provider.')
             . '</p>'
         );
     }

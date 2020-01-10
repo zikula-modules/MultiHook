@@ -18,7 +18,7 @@ use Knp\Menu\FactoryInterface;
 use Knp\Menu\ItemInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Zikula\Common\Translator\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Zikula\Common\Translator\TranslatorTrait;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 use Zikula\UsersModule\Api\ApiInterface\CurrentUserApiInterface;
@@ -92,11 +92,6 @@ class AbstractMenuBuilder
         $this->modelHelper = $modelHelper;
     }
     
-    public function setTranslator(TranslatorInterface $translator): void
-    {
-        $this->translator = $translator;
-    }
-    
     /**
      * Builds the item actions menu.
      */
@@ -121,24 +116,24 @@ class AbstractMenuBuilder
             $routePrefix = 'zikulamultihookmodule_entry_';
             
             if ($this->permissionHelper->mayEdit($entity)) {
-                $title = $this->__('Edit', 'zikulamultihookmodule');
+                $title = $this->trans('Edit', 'zikulamultihookmodule');
                 $menu->addChild($title, [
                     'route' => $routePrefix . $routeArea . 'edit',
                     'routeParameters' => $entity->createUrlArgs()
                 ]);
                 $menu[$title]->setLinkAttribute(
                     'title',
-                    $this->__('Edit this entry', 'zikulamultihookmodule')
+                    $this->trans('Edit this entry', 'zikulamultihookmodule')
                 );
                 $menu[$title]->setAttribute('icon', 'fa fa-edit');
-                $title = $this->__('Reuse', 'zikulamultihookmodule');
+                $title = $this->trans('Reuse', 'zikulamultihookmodule');
                 $menu->addChild($title, [
                     'route' => $routePrefix . $routeArea . 'edit',
                     'routeParameters' => ['astemplate' => $entity->getKey()]
                 ]);
                 $menu[$title]->setLinkAttribute(
                     'title',
-                    $this->__('Reuse for new entry', 'zikulamultihookmodule')
+                    $this->trans('Reuse for new entry', 'zikulamultihookmodule')
                 );
                 $menu[$title]->setAttribute('icon', 'fa fa-files-o');
             }
@@ -179,7 +174,7 @@ class AbstractMenuBuilder
                 $canBeCreated = $this->modelHelper->canBeCreated($objectType);
                 if ($canBeCreated) {
                     if ($this->permissionHelper->hasComponentPermission($objectType, ACCESS_EDIT)) {
-                        $title = $this->__('Create entry', 'zikulamultihookmodule');
+                        $title = $this->trans('Create entry', 'zikulamultihookmodule');
                         $menu->addChild($title, [
                             'route' => $routePrefix . $routeArea . 'edit'
                         ]);
@@ -195,10 +190,10 @@ class AbstractMenuBuilder
                 }
                 if (1 === $query->getInt('all')) {
                     unset($routeParameters['all']);
-                    $title = $this->__('Back to paginated view', 'zikulamultihookmodule');
+                    $title = $this->trans('Back to paginated view', 'zikulamultihookmodule');
                 } else {
                     $routeParameters['all'] = 1;
-                    $title = $this->__('Show all entries', 'zikulamultihookmodule');
+                    $title = $this->trans('Show all entries', 'zikulamultihookmodule');
                 }
                 $menu->addChild($title, [
                     'route' => $routePrefix . $routeArea . 'view',
@@ -210,11 +205,11 @@ class AbstractMenuBuilder
                     $routeParameters = $query->all();
                     if (1 === $query->getInt('own')) {
                         unset($routeParameters['own']);
-                        $title = $this->__('Show also entries from other users', 'zikulamultihookmodule');
+                        $title = $this->trans('Show also entries from other users', 'zikulamultihookmodule');
                         $icon = 'users';
                     } else {
                         $routeParameters['own'] = 1;
-                        $title = $this->__('Show only own entries', 'zikulamultihookmodule');
+                        $title = $this->trans('Show only own entries', 'zikulamultihookmodule');
                         $icon = 'user';
                     }
                     $menu->addChild($title, [

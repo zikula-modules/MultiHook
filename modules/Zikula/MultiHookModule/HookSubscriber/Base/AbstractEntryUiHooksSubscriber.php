@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace Zikula\MultiHookModule\HookSubscriber\Base;
 
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Zikula\Bundle\HookBundle\Category\UiHooksCategory;
 use Zikula\Bundle\HookBundle\HookSubscriberInterface;
-use Zikula\Common\Translator\TranslatorInterface;
 
 /**
  * Base class for ui hooks subscriber.
@@ -45,7 +45,7 @@ abstract class AbstractEntryUiHooksSubscriber implements HookSubscriberInterface
     
     public function getTitle(): string
     {
-        return $this->translator->__('Entry ui hooks subscriber');
+        return $this->translator->trans('Entry ui hooks subscriber');
     }
     
     public function getAreaName(): string

@@ -41,7 +41,7 @@ abstract class AbstractAjaxController extends AbstractController
         CurrentUserApiInterface $currentUserApi
     ): JsonResponse {
         if (!$request->isXmlHttpRequest()) {
-            return $this->json($this->__('Only ajax access is allowed!'), Response::HTTP_BAD_REQUEST);
+            return $this->json($this->trans('Only ajax access is allowed!'), Response::HTTP_BAD_REQUEST);
         }
         
         if (!$this->hasPermission('ZikulaMultiHookModule::Ajax', '::', ACCESS_EDIT)) {
@@ -57,14 +57,14 @@ abstract class AbstractAjaxController extends AbstractController
             || ('entry' !== $objectType)
             || ('entry' === $objectType && !in_array($field, ['active'], true))
         ) {
-            return $this->json($this->__('Error: invalid input.'), JsonResponse::HTTP_BAD_REQUEST);
+            return $this->json($this->trans('Error: invalid input.'), JsonResponse::HTTP_BAD_REQUEST);
         }
         
         // select data from data source
         $repository = $entityFactory->getRepository($objectType);
         $entity = $repository->selectById($id, false);
         if (null === $entity) {
-            return $this->json($this->__('No such item.'), JsonResponse::HTTP_NOT_FOUND);
+            return $this->json($this->trans('No such item.'), JsonResponse::HTTP_NOT_FOUND);
         }
         
         // toggle the flag
@@ -86,7 +86,7 @@ abstract class AbstractAjaxController extends AbstractController
         return $this->json([
             'id' => $id,
             'state' => $entity[$field],
-            'message' => $this->__('The setting has been successfully changed.')
+            'message' => $this->trans('The setting has been successfully changed.')
         ]);
     }
 }

@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Zikula\MultiHookModule\Helper\Base;
 
-use Zikula\Common\Translator\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Zikula\Common\Translator\TranslatorTrait;
 
 /**
@@ -27,11 +27,6 @@ abstract class AbstractListEntriesHelper
     public function __construct(TranslatorInterface $translator)
     {
         $this->setTranslator($translator);
-    }
-    
-    public function setTranslator(TranslatorInterface $translator): void
-    {
-        $this->translator = $translator;
     }
     
     /**
@@ -159,29 +154,29 @@ abstract class AbstractListEntriesHelper
         $states = [];
         $states[] = [
             'value'   => 'approved',
-            'text'    => $this->__('Approved'),
-            'title'   => $this->__('Content has been approved and is available online.'),
+            'text'    => $this->trans('Approved'),
+            'title'   => $this->trans('Content has been approved and is available online.'),
             'image'   => '',
             'default' => false
         ];
         $states[] = [
             'value'   => 'trashed',
-            'text'    => $this->__('Trashed'),
-            'title'   => $this->__('Content has been marked as deleted, but is still persisted in the database.'),
+            'text'    => $this->trans('Trashed'),
+            'title'   => $this->trans('Content has been marked as deleted, but is still persisted in the database.'),
             'image'   => '',
             'default' => false
         ];
         $states[] = [
             'value'   => '!approved',
-            'text'    => $this->__('All except approved'),
-            'title'   => $this->__('Shows all items except these which are approved'),
+            'text'    => $this->trans('All except approved'),
+            'title'   => $this->trans('Shows all items except these which are approved'),
             'image'   => '',
             'default' => false
         ];
         $states[] = [
             'value'   => '!trashed',
-            'text'    => $this->__('All except trashed'),
-            'title'   => $this->__('Shows all items except these which are trashed'),
+            'text'    => $this->trans('All except trashed'),
+            'title'   => $this->trans('Shows all items except these which are trashed'),
             'image'   => '',
             'default' => false
         ];
@@ -197,28 +192,28 @@ abstract class AbstractListEntriesHelper
         $states = [];
         $states[] = [
             'value'   => 'abbr',
-            'text'    => $this->__('Abbreviation'),
+            'text'    => $this->trans('Abbreviation'),
             'title'   => '',
             'image'   => '',
             'default' => false
         ];
         $states[] = [
             'value'   => 'acronym',
-            'text'    => $this->__('Acronym'),
+            'text'    => $this->trans('Acronym'),
             'title'   => '',
             'image'   => '',
             'default' => false
         ];
         $states[] = [
             'value'   => 'link',
-            'text'    => $this->__('Link'),
+            'text'    => $this->trans('Link'),
             'title'   => '',
             'image'   => '',
             'default' => false
         ];
         $states[] = [
             'value'   => 'censor',
-            'text'    => $this->__('Censored word'),
+            'text'    => $this->trans('Censored word'),
             'title'   => '',
             'image'   => '',
             'default' => false
