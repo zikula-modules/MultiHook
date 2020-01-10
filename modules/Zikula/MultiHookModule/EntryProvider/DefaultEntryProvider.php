@@ -75,12 +75,12 @@ class DefaultEntryProvider implements EntryProviderInterface
 
     public function getTitle(): string
     {
-        return $this->translator->__('Default functionality', 'zikulamultihookmodule');
+        return $this->translator->trans('Default functionality', [], 'zikulamultihookmodule');
     }
 
     public function getDescription(): string
     {
-        return $this->translator->__('Provides MultiHook\'s own entries.', 'zikulamultihookmodule');
+        return $this->translator->trans('Provides MultiHook\'s own entries.', [], 'zikulamultihookmodule');
     }
 
     public function getAdminInfo(): string

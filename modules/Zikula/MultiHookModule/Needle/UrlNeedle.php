@@ -82,20 +82,21 @@ class UrlNeedle implements NeedleInterface
 
     public function getTitle(): string
     {
-        return $this->translator->__('URLs', 'zikulamultihookmodule');
+        return $this->translator->trans('URLs', [], 'zikulamultihookmodule');
     }
 
     public function getDescription(): string
     {
-        return $this->translator->__(
+        return $this->translator->trans(
             'Makes URLs clickable, works with http, https, ftp and mailto URLs.',
+            [],
             'zikulamultihookmodule'
         );
     }
 
     public function getUsageInfo(): string
     {
-        return $this->translator->__('https://www.example.com', 'zikulamultihookmodule');
+        return $this->translator->trans('https://www.example.com', [], 'zikulamultihookmodule');
     }
 
     public function isActive(): bool
