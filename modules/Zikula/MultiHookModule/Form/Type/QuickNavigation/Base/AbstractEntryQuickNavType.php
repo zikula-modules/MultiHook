@@ -40,7 +40,6 @@ abstract class AbstractEntryQuickNavType extends AbstractType
     protected $featureActivationHelper;
 
     public function __construct(
-,
         ListEntriesHelper $listHelper,
         FeatureActivationHelper $featureActivationHelper
     ) {
