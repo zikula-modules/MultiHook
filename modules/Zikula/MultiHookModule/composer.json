@@ -27,8 +27,13 @@
             "displayname": "Multi hook",
             "url": "multihook",
             "capabilities": {
-                "user": {"route": "zikulamultihookmodule_entry_index"},
-                "admin": {"route": "zikulamultihookmodule_entry_adminindex"}
+                "user": {
+                    "route": "zikulamultihookmodule_entry_index"
+                },
+                "admin": {
+                     "route": "zikulamultihookmodule_entry_adminindex",
+                     "icon": "fas fa-database"
+                }
             },
             "securityschema": {
                 "ZikulaMultiHookModule::": "::",
