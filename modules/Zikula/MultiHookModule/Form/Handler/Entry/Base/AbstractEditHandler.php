@@ -47,7 +47,7 @@ abstract class AbstractEditHandler extends EditHandler
             if ($request->hasSession() && ($session = $request->getSession())) {
                 $session->getFlashBag()->add(
                     'error',
-                    $this->trans('Sorry, but you can not create the entry yet as other items are required which must be created before!')
+                    'Sorry, but you can not create the entry yet as other items are required which must be created before!'
                 );
             }
             $logArgs = [
