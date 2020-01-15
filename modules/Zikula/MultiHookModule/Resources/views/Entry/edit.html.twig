@@ -1,7 +1,6 @@
 {# purpose of this template: build the form to edit an instance of entry #}
 {% set baseTemplate = app.request.query.getBoolean('raw', false) ? 'raw' : (routeArea == 'admin' ? 'adminBase' : 'base') %}
 {% extends '@ZikulaMultiHookModule/' ~ baseTemplate ~ '.html.twig' %}
-{% trans_default_domain 'zikulamultihookmodule' %}
 {% block title mode == 'create' ? 'Create entry'|trans : 'Edit entry'|trans %}
 {% block admin_page_icon mode == 'create' ? 'plus' : 'edit' %}
 {% block content %}
