@@ -1,6 +1,5 @@
 {# purpose of this template: entries list view #}
 {% extends routeArea == 'admin' ? '@ZikulaMultiHookModule/adminBase.html.twig' : '@ZikulaMultiHookModule/base.html.twig' %}
-{% trans_default_domain 'zikulamultihookmodule' %}
 {% block title own ? 'My entries'|trans : 'Entries list'|trans %}
 {% block admin_page_icon 'list-alt' %}
 {% block content %}
