@@ -184,7 +184,7 @@ class HookHelper extends AbstractHookHelper
 
         return '<a href="' . $editUrl . '" class="mh-edit-link"'
             . ' title="' . str_replace('"', '', $title) . '"'
-            . ' target="_blank"><i class="fa fa-pencil"></i></a>'
+            . ' target="_blank"><i class="fas fa-pencil-alt"></i></a>'
         ;
     }
 
