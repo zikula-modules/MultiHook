@@ -110,26 +110,26 @@ class AbstractMenuBuilder
             $routePrefix = 'zikulamultihookmodule_entry_';
             
             if ($this->permissionHelper->mayEdit($entity)) {
-                $title = 'Edit';
-                $menu->addChild($title, [
+                $menu->addChild('Edit', [
                     'route' => $routePrefix . $routeArea . 'edit',
                     'routeParameters' => $entity->createUrlArgs()
-                ]);
-                $menu[$title]->setLinkAttribute(
-                    'title',
-                    'Edit this entry'
-                );
-                $menu[$title]->setAttribute('icon', 'fas fa-edit');
-                $title = 'Reuse';
-                $menu->addChild($title, [
+                ])
+                    ->setLinkAttribute(
+                        'title',
+                        'Edit this entry'
+                    )
+                    ->setAttribute('icon', 'fas fa-edit')
+                ;
+                $menu->addChild('Reuse', [
                     'route' => $routePrefix . $routeArea . 'edit',
                     'routeParameters' => ['astemplate' => $entity->getKey()]
-                ]);
-                $menu[$title]->setLinkAttribute(
-                    'title',
-                    'Reuse for new entry'
-                );
-                $menu[$title]->setAttribute('icon', 'fas fa-files-o');
+                ])
+                    ->setLinkAttribute(
+                        'title',
+                        'Reuse for new entry'
+                    )
+                    ->setAttribute('icon', 'fas fa-files-o')
+                ;
             }
         }
     
@@ -168,12 +168,11 @@ class AbstractMenuBuilder
                 $canBeCreated = $this->modelHelper->canBeCreated($objectType);
                 if ($canBeCreated) {
                     if ($this->permissionHelper->hasComponentPermission($objectType, ACCESS_EDIT)) {
-                        $title = 'Create entry';
-                        $menu->addChild($title, [
+                        $menu->addChild('Create entry', [
                             'route' => $routePrefix . $routeArea . 'edit'
-                        ]);
-                        $menu[$title]->setLinkAttribute('title', $title);
-                        $menu[$title]->setAttribute('icon', 'fas fa-plus');
+                        ])
+                            ->setAttribute('icon', 'fas fa-plus')
+                        ;
                     }
                 }
                 $routeParameters = $query->all();
@@ -184,34 +183,40 @@ class AbstractMenuBuilder
                 }
                 if (1 === $query->getInt('all')) {
                     unset($routeParameters['all']);
-                    $title = 'Back to paginated view';
+                    $menu->addChild('Back to paginated view', [
+                        'route' => $routePrefix . $routeArea . 'view',
+                        'routeParameters' => $routeParameters
+                    ])
+                        ->setAttribute('icon', 'fas fa-table')
+                    ;
                 } else {
                     $routeParameters['all'] = 1;
-                    $title = 'Show all entries';
+                    $menu->addChild('Show all entries', [
+                        'route' => $routePrefix . $routeArea . 'view',
+                        'routeParameters' => $routeParameters
+                    ])
+                        ->setAttribute('icon', 'fas fa-table')
+                    ;
                 }
-                $menu->addChild($title, [
-                    'route' => $routePrefix . $routeArea . 'view',
-                    'routeParameters' => $routeParameters
-                ]);
-                $menu[$title]->setLinkAttribute('title', $title);
-                $menu[$title]->setAttribute('icon', 'fas fa-table');
                 if ($this->permissionHelper->hasComponentPermission($objectType, ACCESS_EDIT)) {
                     $routeParameters = $query->all();
                     if (1 === $query->getInt('own')) {
                         unset($routeParameters['own']);
-                        $title = 'Show also entries from other users';
-                        $icon = 'users';
+                        $menu->addChild('Show also entries from other users', [
+                            'route' => $routePrefix . $routeArea . 'view',
+                            'routeParameters' => $routeParameters
+                        ])
+                            ->setAttribute('icon', 'fas fa-users')
+                        ;
                     } else {
                         $routeParameters['own'] = 1;
-                        $title = 'Show only own entries';
-                        $icon = 'user';
+                        $menu->addChild('Show only own entries', [
+                            'route' => $routePrefix . $routeArea . 'view',
+                            'routeParameters' => $routeParameters
+                        ])
+                            ->setAttribute('icon', 'fas fa-user')
+                        ;
                     }
-                    $menu->addChild($title, [
-                        'route' => $routePrefix . $routeArea . 'view',
-                        'routeParameters' => $routeParameters
-                    ]);
-                    $menu[$title]->setLinkAttribute('title', $title);
-                    $menu[$title]->setAttribute('icon', 'fas fa-' . $icon);
                 }
             }
         }
