@@ -1,6 +1,6 @@
 {# purpose of this template: module configuration page #}
 {% extends '@ZikulaMultiHookModule/adminBase.html.twig' %}
-{% trans_default_domain 'zikulamultihookmodule' %}
+{% trans_default_domain 'config' %}
 {% block title 'Settings'|trans %}
 {% block admin_page_icon 'wrench' %}
 {% block content %}
@@ -199,12 +199,12 @@
                                 </colgroup>
                                 <thead>
                                     <tr>
-                                        <th id="hBundle" scope="col">{% trans %}Bundle{% endtrans %}</th>
-                                        <th id="hTitle" scope="col">{% trans %}Title{% endtrans %}</th>
-                                        <th id="hActive" scope="col">{% trans %}Active{% endtrans %}</th>
-                                        <th id="hDescription" scope="col">{% trans %}Description{% endtrans %}</th>
-                                        <th id="hUsage" scope="col">{% trans %}Usage{% endtrans %}</th>
-                                        <th id="hCaseSensitive" scope="col">{% trans %}Case sensitive{% endtrans %}</th>
+                                        <th id="hBundle" scope="col">{% trans from 'messages' %}Bundle{% endtrans %}</th>
+                                        <th id="hTitle" scope="col">{% trans from 'messages' %}Title{% endtrans %}</th>
+                                        <th id="hActive" scope="col">{% trans from 'messages' %}Active{% endtrans %}</th>
+                                        <th id="hDescription" scope="col">{% trans from 'messages' %}Description{% endtrans %}</th>
+                                        <th id="hUsage" scope="col">{% trans from 'messages' %}Usage{% endtrans %}</th>
+                                        <th id="hCaseSensitive" scope="col">{% trans from 'messages' %}Case sensitive{% endtrans %}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -217,9 +217,9 @@
                                         </th>
                                         <td headers="h{{ needleName }} hActive" class="text-center text-{% if needle.active|default(false) %}success{% else %}danger{% endif %}">
                                             {% if needle.active|default(false) %}
-                                                <i class="fas fa-check" title="{{ 'Yes'|trans|e('html_attr') }}"></i>
+                                                <i class="fas fa-check" title="{{ 'Yes'|trans({}, 'messages')|trans|e('html_attr') }}"></i>
                                             {% else %}
-                                                <i class="fas fa-times" title="{{ 'No'|trans|e('html_attr') }}"></i>
+                                                <i class="fas fa-times" title="{{ 'No'|trans({}, 'messages')|trans|e('html_attr') }}"></i>
                                             {% endif %}
                                         </td>
                                         <td headers="h{{ needleName }} hDescription">
@@ -230,9 +230,9 @@
                                         </td>
                                         <td headers="h{{ needleName }} hCaseSensitive" class="text-center text-{% if needle.caseSensitive|default(true) %}success{% else %}danger{% endif %}">
                                             {% if needle.caseSensitive|default(true) %}
-                                                <i class="fas fa-check" title="{{ 'Yes'|trans|e('html_attr') }}"></i>
+                                                <i class="fas fa-check" title="{{ 'Yes'|trans({}, 'messages')|e('html_attr') }}"></i>
                                             {% else %}
-                                                <i class="fas fa-times" title="{{ 'No'|trans|e('html_attr') }}"></i>
+                                                <i class="fas fa-times" title="{{ 'No'|trans({}, 'messages')|trans|e('html_attr') }}"></i>
                                             {% endif %}
                                         </td>
                                     </tr>

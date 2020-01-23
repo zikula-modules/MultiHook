@@ -63,7 +63,7 @@ class HookHelper extends AbstractHookHelper
 
         if (true === $showEditLink && $id > 0) {
             $replace_temp = '<span>' . $replace_temp . ' '
-                . $this->getEditLink($short, $this->translator->trans('Abbreviation', [], 'zikulamultihookmodule'), $id)
+                . $this->getEditLink($short, $this->translator->trans('Abbreviation'), $id)
                 . '</span>'
             ;
         }
@@ -84,7 +84,7 @@ class HookHelper extends AbstractHookHelper
 
         if (true === $showEditLink && $id > 0) {
             $replace_temp = '<span>' . $replace_temp . ' '
-                . $this->getEditLink($short, $this->translator->trans('Acronym', [], 'zikulamultihookmodule'), $id)
+                . $this->getEditLink($short, $this->translator->trans('Acronym'), $id)
                 . '</span>'
             ;
         }
@@ -114,7 +114,7 @@ class HookHelper extends AbstractHookHelper
             $accessibilityHack = '';
             /* not working yet:
             $accessibilityHack = <span class="mhacconly"> '
-                . str_replace('"', '', $this->translator->trans('(external link)', [], 'zikulamultihookmodule'))
+                . str_replace('"', '', $this->translator->trans('(external link)'))
                 . '</span>'
             ;*/
         }
@@ -133,7 +133,7 @@ class HookHelper extends AbstractHookHelper
 
         if (true === $showEditLink && $id > 0) {
             $replace_temp = '<span>' . $replace_temp . ' '
-                . $this->getEditLink($short, $this->translator->trans('Link', [], 'zikulamultihookmodule'), $id)
+                . $this->getEditLink($short, $this->translator->trans('Link'), $id)
                 . '</span>'
             ;
         }
@@ -160,7 +160,7 @@ class HookHelper extends AbstractHookHelper
 
         if (true === $showEditLink && $id > 0) {
             $replace_temp = '<span>' . $replace_temp . ' '
-                . $this->getEditLink($short, $this->translator->trans('Censor', [], 'zikulamultihookmodule'), $id)
+                . $this->getEditLink($short, $this->translator->trans('Censor'), $id)
                 . '</span>'
             ;
         }
@@ -175,7 +175,7 @@ class HookHelper extends AbstractHookHelper
 
     public function getEditLink(string $short, string $entryLabel = '', int $id = 0): string
     {
-        $title = $this->translator->trans('Edit', [], 'zikulamultihookmodule')
+        $title = $this->translator->trans('Edit')
             . ': ' . $short . ' (' . str_replace('"', '', $entryLabel) . ')'
             . ' #' . $id
         ;
