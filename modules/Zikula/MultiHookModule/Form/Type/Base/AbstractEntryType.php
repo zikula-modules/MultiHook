@@ -239,6 +239,7 @@ abstract class AbstractEntryType extends AbstractType
             ->setDefaults([
                 // define class for underlying data (required for embedding forms)
                 'data_class' => EntryEntity::class,
+                'translation_domain' => 'entry',
                 'empty_data' => function (FormInterface $form) {
                     return $this->entityFactory->createEntry();
                 },

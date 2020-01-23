@@ -47,7 +47,11 @@ abstract class AbstractEditHandler extends EditHandler
             if ($request->hasSession() && ($session = $request->getSession())) {
                 $session->getFlashBag()->add(
                     'error',
-                    'Sorry, but you can not create the entry yet as other items are required which must be created before!'
+                    $this->trans(
+                        'Sorry, but you can not create the entry yet as other items are required which must be created before!',
+                        [],
+                        'entry'
+                    )
                 );
             }
             $logArgs = [
@@ -184,16 +188,16 @@ abstract class AbstractEditHandler extends EditHandler
         switch ($args['commandName']) {
             case 'submit':
                 if ('create' === $this->templateParameters['mode']) {
-                    $message = $this->trans('Done! Entry created.');
+                    $message = $this->trans('Done! Entry created.', [], 'entry');
                 } else {
-                    $message = $this->trans('Done! Entry updated.');
+                    $message = $this->trans('Done! Entry updated.', [], 'entry');
                 }
                 break;
             case 'delete':
-                $message = $this->trans('Done! Entry deleted.');
+                $message = $this->trans('Done! Entry deleted.', [], 'entry');
                 break;
             default:
-                $message = $this->trans('Done! Entry updated.');
+                $message = $this->trans('Done! Entry updated.', [], 'entry');
                 break;
         }
     

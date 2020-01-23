@@ -45,7 +45,7 @@ abstract class AbstractEntryFormAwareHookSubscriber implements HookSubscriberInt
     
     public function getTitle(): string
     {
-        return $this->translator->trans('Entry form aware subscriber');
+        return $this->translator->trans('Entry form aware subscriber', [], 'hooks');
     }
     
     public function getAreaName(): string

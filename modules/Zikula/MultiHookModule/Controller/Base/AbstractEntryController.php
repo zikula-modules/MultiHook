@@ -25,7 +25,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Zikula\Bundle\HookBundle\Category\UiHooksCategory;
 use Zikula\Component\SortableColumns\Column;
 use Zikula\Component\SortableColumns\SortableColumns;
-use Zikula\Core\Controller\AbstractController;
+use Zikula\Bundle\CoreBundle\Controller\AbstractController;
 use Zikula\UsersModule\Api\ApiInterface\CurrentUserApiInterface;
 use Zikula\MultiHookModule\Entity\EntryEntity;
 use Zikula\MultiHookModule\Entity\Factory\EntityFactory;
@@ -268,7 +268,14 @@ abstract class AbstractEntryController extends AbstractController
             }
         
             if ('delete' === $action) {
-                $this->addFlash('status', 'Done! Item deleted.');
+                $this->addFlash(
+                    'status',
+                    $this->trans(
+                        'Done! Entry deleted.',
+                        [],
+                        'entry'
+                    )
+                );
                 $logger->notice(
                     '{app}: User {user} deleted the {entity} with id {id}.',
                     [
@@ -279,7 +286,14 @@ abstract class AbstractEntryController extends AbstractController
                     ]
                 );
             } else {
-                $this->addFlash('status', 'Done! Item updated.');
+                $this->addFlash(
+                    'status',
+                    $this->trans(
+                        'Done! Entry updated.',
+                        [],
+                        'entry'
+                    )
+                );
                 $logger->notice(
                     '{app}: User {user} executed the {action} workflow action for the {entity} with id {id}.',
                     [

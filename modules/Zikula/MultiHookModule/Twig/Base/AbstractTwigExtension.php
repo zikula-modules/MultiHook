@@ -18,8 +18,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
-use Zikula\Common\Translator\TranslatorTrait;
-use Zikula\Core\Doctrine\EntityAccess;
+use Zikula\Bundle\CoreBundle\Doctrine\EntityAccess;
+use Zikula\Bundle\CoreBundle\Translation\TranslatorTrait;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 use Zikula\MultiHookModule\Helper\EntityDisplayHelper;
 use Zikula\MultiHookModule\Helper\ListEntriesHelper;
@@ -117,8 +117,6 @@ abstract class AbstractTwigExtension extends AbstractExtension
         if ((empty($value) && '0' !== $value) || empty($objectType) || empty($fieldName)) {
             return $value;
         }
-    
-        $this->translator->setDomain('zikulamultihookmodule');
     
         return $this->listHelper->resolve($value, $objectType, $fieldName, $delimiter);
     }
