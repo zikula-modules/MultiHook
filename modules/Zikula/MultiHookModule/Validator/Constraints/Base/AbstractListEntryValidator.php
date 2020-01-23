@@ -17,7 +17,7 @@ namespace Zikula\MultiHookModule\Validator\Constraints\Base;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Zikula\Common\Translator\TranslatorTrait;
+use Zikula\Bundle\CoreBundle\Translation\TranslatorTrait;
 use Zikula\MultiHookModule\Helper\ListEntriesHelper;
 
 /**

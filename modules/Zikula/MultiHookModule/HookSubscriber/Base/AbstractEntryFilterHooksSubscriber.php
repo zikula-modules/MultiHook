@@ -45,7 +45,7 @@ abstract class AbstractEntryFilterHooksSubscriber implements HookSubscriberInter
     
     public function getTitle(): string
     {
-        return $this->translator->trans('Entry filter hooks subscriber');
+        return $this->translator->trans('Entry filter hooks subscriber', [], 'hooks');
     }
     
     public function getAreaName(): string

@@ -45,7 +45,7 @@ abstract class AbstractEntryUiHooksSubscriber implements HookSubscriberInterface
     
     public function getTitle(): string
     {
-        return $this->translator->trans('Entry ui hooks subscriber');
+        return $this->translator->trans('Entry ui hooks subscriber', [], 'hooks');
     }
     
     public function getAreaName(): string

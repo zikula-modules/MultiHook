@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Zikula\MultiHookModule\Base;
 
 use Exception;
-use Zikula\Core\AbstractExtensionInstaller;
+use Zikula\ExtensionsModule\Installer\AbstractExtensionInstaller;
 use Zikula\MultiHookModule\Entity\EntryEntity;
 use Zikula\MultiHookModule\Entity\EntryTranslationEntity;
 

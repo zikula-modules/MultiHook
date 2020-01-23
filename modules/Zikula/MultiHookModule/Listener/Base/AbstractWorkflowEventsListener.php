@@ -17,7 +17,7 @@ namespace Zikula\MultiHookModule\Listener\Base;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Workflow\Event\Event;
 use Symfony\Component\Workflow\Event\GuardEvent;
-use Zikula\Core\Doctrine\EntityAccess;
+use Zikula\Bundle\CoreBundle\Doctrine\EntityAccess;
 use Zikula\MultiHookModule\Entity\Factory\EntityFactory;
 use Zikula\MultiHookModule\Helper\PermissionHelper;
 

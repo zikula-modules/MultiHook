@@ -347,6 +347,7 @@ abstract class AbstractConfigType extends AbstractType
         $resolver->setDefaults([
             // define class for underlying data
             'data_class' => AppSettings::class,
+            'translation_domain' => 'config'
         ]);
     }
 }

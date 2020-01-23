@@ -92,6 +92,7 @@ abstract class AbstractExtensionMenu implements ExtensionMenuInterface
                 'route' => 'zikulamultihookmodule_entry_' . $routeArea . 'view'
             ])
                 ->setLinkAttribute('title', 'Entries list')
+                ->setExtra('translation_domain', 'entry')
             ;
         }
         if ('admin' === $routeArea && $this->permissionHelper->hasPermission(ACCESS_ADMIN)) {
@@ -100,6 +101,7 @@ abstract class AbstractExtensionMenu implements ExtensionMenuInterface
             ])
                 ->setAttribute('icon', 'fas fa-wrench')
                 ->setLinkAttribute('title', 'Manage settings for this application')
+                ->setExtra('translation_domain', 'config')
             ;
         }
 

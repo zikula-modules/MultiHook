@@ -46,7 +46,7 @@ abstract class AbstractFilterHooksProvider implements HookProviderInterface
     
     public function getTitle(): string
     {
-        return $this->translator->trans('Multi hook filter hooks provider');
+        return $this->translator->trans('Multi hook filter hooks provider', [], 'hooks');
     }
     
     public function getAreaName(): string
@@ -69,7 +69,7 @@ abstract class AbstractFilterHooksProvider implements HookProviderInterface
         $hook->setData(
             $hook->getData()
             . '<p>'
-            . $this->translator->trans('This is a dummy addition by a generated filter provider.')
+            . $this->translator->trans('This is a dummy addition by a generated filter provider.', [], 'hooks')
             . '</p>'
         );
     }

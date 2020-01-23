@@ -1,5 +1,6 @@
 {# purpose of this template: module configuration page #}
 {% extends '@ZikulaMultiHookModule/adminBase.html.twig' %}
+{% trans_default_domain 'config' %}
 {% block title 'Settings'|trans %}
 {% block admin_page_icon 'wrench' %}
 {% block content %}
@@ -96,7 +97,7 @@
                     {% set tabTitle = 'List views'|trans %}
                     <fieldset>
                         <legend>{{ tabTitle }}</legend>
-                        <p class="alert alert-info">{% trans %}Here you can configure parameters for list views.{% endtrans %}</p>
+                        <p class="alert alert-info">{% trans from 'config' %}Here you can configure parameters for list views.{% endtrans %}</p>
                         
                         {{ form_row(form.entryEntriesPerPage) }}
                         {{ form_row(form.showOnlyOwnEntries) }}
@@ -106,7 +107,7 @@
                     {% set tabTitle = 'Moderation'|trans %}
                     <fieldset>
                         <legend>{{ tabTitle }}</legend>
-                        <p class="alert alert-info">{% trans %}Here you can define moderation-related settings.{% endtrans %}</p>
+                        <p class="alert alert-info">{% trans from 'config' %}Here you can define moderation-related settings.{% endtrans %}</p>
                         
                         {{ form_row(form.allowModerationSpecificCreatorForEntry) }}
                         {{ form_row(form.allowModerationSpecificCreationDateForEntry) }}

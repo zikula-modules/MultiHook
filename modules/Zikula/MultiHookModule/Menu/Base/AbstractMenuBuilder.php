@@ -119,6 +119,7 @@ class AbstractMenuBuilder
                         'Edit this entry'
                     )
                     ->setAttribute('icon', 'fas fa-edit')
+                    ->setExtra('translation_domain', 'entry')
                 ;
                 $menu->addChild('Reuse', [
                     'route' => $routePrefix . $routeArea . 'edit',
@@ -128,7 +129,8 @@ class AbstractMenuBuilder
                         'title',
                         'Reuse for new entry'
                     )
-                    ->setAttribute('icon', 'fas fa-files-o')
+                    ->setAttribute('icon', 'fas fa-copy')
+                    ->setExtra('translation_domain', 'entry')
                 ;
             }
         }
@@ -172,6 +174,7 @@ class AbstractMenuBuilder
                             'route' => $routePrefix . $routeArea . 'edit'
                         ])
                             ->setAttribute('icon', 'fas fa-plus')
+                            ->setExtra('translation_domain', 'entry')
                         ;
                     }
                 }

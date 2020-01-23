@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Zikula\MultiHookModule\Helper\Base;
 
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Zikula\Common\Translator\TranslatorTrait;
+use Zikula\Bundle\CoreBundle\Translation\TranslatorTrait;
 
 /**
  * Helper base class for list field entries related methods.
@@ -192,28 +192,28 @@ abstract class AbstractListEntriesHelper
         $states = [];
         $states[] = [
             'value'   => 'abbr',
-            'text'    => $this->trans('Abbreviation'),
+            'text'    => $this->trans('Abbreviation', [], 'entry'),
             'title'   => '',
             'image'   => '',
             'default' => false
         ];
         $states[] = [
             'value'   => 'acronym',
-            'text'    => $this->trans('Acronym'),
+            'text'    => $this->trans('Acronym', [], 'entry'),
             'title'   => '',
             'image'   => '',
             'default' => false
         ];
         $states[] = [
             'value'   => 'link',
-            'text'    => $this->trans('Link'),
+            'text'    => $this->trans('Link', [], 'entry'),
             'title'   => '',
             'image'   => '',
             'default' => false
         ];
         $states[] = [
             'value'   => 'censor',
-            'text'    => $this->trans('Censored word'),
+            'text'    => $this->trans('Censored word', [], 'entry'),
             'title'   => '',
             'image'   => '',
             'default' => false
