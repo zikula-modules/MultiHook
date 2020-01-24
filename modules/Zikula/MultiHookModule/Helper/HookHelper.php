@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Zikula\MultiHookModule\Helper;
 
 use Symfony\Component\Routing\RouterInterface;
-use Zikula\Common\Translator\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Zikula\MultiHookModule\Helper\Base\AbstractHookHelper;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 
