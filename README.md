@@ -65,8 +65,8 @@ In the SecurityCenter administration you need to allow these tags incl. paramete
 MultiHook can not only manage abbreviations, acronyms, autolinks and censored words itself. Also other modules can contribute additional entries by implementing an *entry provider*. For example a product database could let MultiHook create autolinks for all product numbers automatically.
 
 - An entity provider class name should be suffixed by `Provider` and located in the `ModuleRoot/EntryProvider/` directory. This is not mandatory but a recommended convention.
-- Entity provider classes need to implement `\Zikula\Common\MultiHook\EntryProviderInterface`.
-- As an example the Content module offers a [PageEntryProvider](https://github.com/zikula-modules/Content/blob/master/src/modules/Zikula/ContentModule/EntryProvider/PageEntryProvider.php) to create auto links for all site titles.
+- Entity provider classes need to implement `\Zikula\ExtensionsModule\ModuleInterface\MultiHook\EntryProviderInterface`.
+- As an example the Content module offers a [PageEntryProvider](https://github.com/zikula-modules/Content/blob/master/modules/Zikula/ContentModule/EntryProvider/PageEntryProvider.php) to create auto links for all site titles.
 
 
 <a name="needles" />
@@ -82,9 +82,9 @@ You can simply add any kind of link by writing `NEEDLENAME{params}` if there is 
 Hints for implementing your own needles:
 
 - A needle class name should be suffixed by `Needle` and located in the `ModuleRoot/Needle/` directory. This is not mandatory but a recommended convention.
-- Needle classes need to implement `\Zikula\Common\MultiHook\NeedleInterface`.
+- Needle classes need to implement `\Zikula\ExtensionsModule\ModuleInterface\MultiHook\NeedleInterface`.
 - Ideally use some caching mechanism in order to avoid consecutive database queries. Have a look at existing needles to learn more about the idea.
-- As an example the Content module includes the [PageNeedle](https://github.com/zikula-modules/Content/tree/master/src/modules/Zikula/ContentModule/Needle).
+- As an example the Content module includes the [PageNeedle](https://github.com/zikula-modules/Content/tree/master/modules/Zikula/ContentModule/Needle).
 
 
 <a name="changelog" />
