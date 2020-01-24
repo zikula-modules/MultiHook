@@ -1,0 +1,5 @@
+zikulamultihookmodule:
+    # define routing support for these controllers
+    resource: "@ZikulaMultiHookModule/Controller"
+    # enable support for defining routes by annotations
+    type: annotation

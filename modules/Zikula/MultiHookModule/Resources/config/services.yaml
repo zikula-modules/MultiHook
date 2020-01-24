@@ -1,0 +1,33 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+        bind:
+            $bundle: '@Zikula\MultiHookModule\ZikulaMultiHookModule'
+            $twigLoader: '@twig.loader'
+
+    Zikula\MultiHookModule\:
+        resource: '../../*'
+        exclude: '../../{bootstrap.php,Base/bootstrap.php,Tests,vendor}'
+
+    Zikula\MultiHookModule\Helper\:
+        resource: '../../Helper/*'
+        lazy: true
+
+    # public because EntityLifecycleListener accesses this using container
+    Zikula\MultiHookModule\Entity\Factory\EntityFactory:
+        public: true
+    
+    Zikula\MultiHookModule\Form\Handler\:
+        resource: '../../Form/Handler'
+        calls:
+            - setLockingApi: ['@?Zikula\PageLockModule\Api\LockingApi']
+    
+    Zikula\MultiHookModule\Listener\EntityLifecycleListener:
+        tags: ['doctrine.event_subscriber']
+    
+    Zikula\MultiHookModule\Menu\MenuBuilder:
+        tags:
+            - { name: knp_menu.menu_builder, method: createItemActionsMenu, alias: zikulaMultiHookMenuItemActions }
+            - { name: knp_menu.menu_builder, method: createViewActionsMenu, alias: zikulaMultiHookMenuViewActions }
