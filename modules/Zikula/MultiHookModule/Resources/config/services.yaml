@@ -15,6 +15,13 @@ services:
         resource: '../../Helper/*'
         lazy: true
 
+    Zikula\MultiHookModule\Collector\EntryProviderCollector:
+        arguments:
+            $providers: !tagged_iterator zikula.multihook_entry_provider
+    Zikula\MultiHookModule\Collector\NeedleCollector:
+        arguments:
+            $needles: !tagged_iterator zikula.multihook_needle
+
     # public because EntityLifecycleListener accesses this using container
     Zikula\MultiHookModule\Entity\Factory\EntityFactory:
         public: true

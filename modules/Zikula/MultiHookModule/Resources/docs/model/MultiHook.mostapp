@@ -31,7 +31,7 @@ application "MultiHook" targets ZK30 {
         HookProvider/FilterHooksProvider.php
     "
     markFiles "
-        Resources/config/services.yml
+        Resources/config/services.yaml
     "
     entities {
         entity "entry" leading {
