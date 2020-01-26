@@ -5,13 +5,13 @@
 
 ## Documentation
 
-  1. [Introduction](#introduction)
-  2. [Requirements](#requirements)
-  3. [Installation](#installation)
-  4. [Implementing custom entry providers](#implementing-custom-entry-providers)
-  5. [Using and implementing needles](#using-and-implementing-needles)
-  6. [Changelog](#changelog)
-  7. [Questions, bugs and contributing](#questions-bugs-and-contributing)
+1. [Introduction](#introduction)
+2. [Requirements](#requirements)
+3. [Installation](#installation)
+4. [Implementing custom entry providers](#implementing-custom-entry-providers)
+5. [Using and implementing needles](#using-and-implementing-needles)
+6. [Changelog](#changelog)
+7. [Questions, bugs and contributing](#questions-bugs-and-contributing)
 
 ## Introduction
 
