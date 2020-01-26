@@ -8,32 +8,24 @@
   1. [Introduction](#introduction)
   2. [Requirements](#requirements)
   3. [Installation](#installation)
-  4. [Implementing custom entry providers](#entryproviders)
-  5. [Using and implementing needles](#needles)
+  4. [Implementing custom entry providers](#implementing-custom-entry-providers)
+  5. [Using and implementing needles](#using-and-implementing-needles)
   6. [Changelog](#changelog)
-  7. [Questions, bugs and contributing](#contributing)
-
-
-<a name="introduction" />
+  7. [Questions, bugs and contributing](#questions-bugs-and-contributing)
 
 ## Introduction
 
 MultiHook is a content helper module which can handle automatically replace abbreviations, acronyms, autolinks and censored words. As a filter hook, MultiHook scans text for certain keywords and performs actions depending on what has been defined for them. You can easily create
+
 - autolinks, eg. the word MultiHook can always link to the project site at GitHub
 - abbr + acronym tags, eg. EC gets converted to <abbr title="European Community">EC</abbr>
 - censors, eg. bad words get converted to *****
 - needles (see below for more information about this feature)
 
-
-<a name="requirements" />
-
 ## Requirements
 
 The `master` branch of this module is intended for being used with Zikula 3.0.
 For Zikula 2.0.x look at [releases](https://github.com/zikula-modules/MultiHook/releases/).
-
-
-<a name="installation" />
 
 ## Installation
 
@@ -43,7 +35,6 @@ The MultiHook module is installed like this:
 2. Copy the content of `modules/` into the `modules/` directory of your Zikula installation. Afterwards you should a folder named `modules/Zikula/MultiHookModule/`.
 3. Initialize and activate ZikulaMultiHookModule in the extensions administration.
 
-
 After installation has been completed activate MultiHook for any modules you want to use it with, like Content or News. You can manage the hook enablements from either the subscriber modules administration area or from the provider side, that is the MultiHook administration area.
 
 You can now add links, acronyms, abbreviations and censors in the admin panel or by selecting text while pressing the CTRL-button on every page inside your Zikula installation (*Note:* the latter option is not available [yet](https://github.com/zikula-modules/MultiHook/issues/5)).
@@ -51,14 +42,12 @@ You can now add links, acronyms, abbreviations and censors in the admin panel or
 ### Configuring HTML tags needed for MultiHook
 
 In the SecurityCenter administration you need to allow these tags incl. parameters for the MultiHook:
-* a
-* abbr
-* acronym
-* em
-* span
 
-
-<a name="entryproviders" />
+- a
+- abbr
+- acronym
+- em
+- span
 
 ## Implementing custom entry providers
 
@@ -67,9 +56,6 @@ MultiHook can not only manage abbreviations, acronyms, autolinks and censored wo
 - An entity provider class name should be suffixed by `Provider` and located in the `ModuleRoot/EntryProvider/` directory. This is not mandatory but a recommended convention.
 - Entity provider classes need to implement `\Zikula\ExtensionsModule\ModuleInterface\MultiHook\EntryProviderInterface`.
 - As an example the Content module offers a [PageEntryProvider](https://github.com/zikula-modules/Content/blob/master/modules/Zikula/ContentModule/EntryProvider/PageEntryProvider.php) to create auto links for all site titles.
-
-
-<a name="needles" />
 
 ## Using and implementing needles
 
@@ -86,28 +72,30 @@ Hints for implementing your own needles:
 - Ideally use some caching mechanism in order to avoid consecutive database queries. Have a look at existing needles to learn more about the idea.
 - As an example the Content module includes the [PageNeedle](https://github.com/zikula-modules/Content/tree/master/modules/Zikula/ContentModule/Needle).
 
-
-<a name="changelog" />
-
 ## Changelog
 
 ### Version 6.1.0
 
 Structural changes:
+
 - Upgrades for Zikula 3.0.x.
 
 New features:
+
 - None yet
 
 Bugfixes:
+
 - Cache selected entries to save performance for multiple filter calls on same page
 
 ### Version 6.0.0
 
 Structural changes:
+
 - Entirely rewritten for Zikula 2.0.x using ModuleStudio.
 
 New features:
+
 - Translatable functionality for multilingual entries.
 - Entry providers for letting other modules contribute additional entries automatically (#7).
 - New settings for configuring which replacements should be enabled/disabled (#1).
@@ -116,9 +104,6 @@ New features:
 ### Older versions
 
 See [old changelog](https://github.com/zikula-modules/MultiHook/blob/5.x-old/docs/changelog.txt).
-
-
-<a name="contributing" />
 
 ## Questions, bugs and contributing
 
