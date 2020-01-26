@@ -108,4 +108,4 @@ See [old changelog](https://github.com/zikula-modules/MultiHook/blob/5.x-old/doc
 ## Questions, bugs and contributing
 
 If you want to report something or help out with further development of the Content module please refer
-to the corresponding GitHub project at https://github.com/zikula-modules/Content
+to the corresponding GitHub project at <https://github.com/zikula-modules/Content>.
