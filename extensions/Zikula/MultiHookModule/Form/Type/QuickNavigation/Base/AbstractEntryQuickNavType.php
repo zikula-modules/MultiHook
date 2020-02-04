@@ -142,7 +142,7 @@ abstract class AbstractEntryQuickNavType extends AbstractType
                 'attr' => [
                     'class' => 'form-control-sm'
                 ],
-                'choices' =>             [
+                'choices' => [
                     'Short form' => 'shortForm',
                     'Long form' => 'longForm',
                     'Title' => 'title',
