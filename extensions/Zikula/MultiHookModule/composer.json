@@ -31,8 +31,8 @@
                     "route": "zikulamultihookmodule_entry_index"
                 },
                 "admin": {
-                     "route": "zikulamultihookmodule_entry_adminindex",
-                     "icon": "fas fa-database"
+                    "route": "zikulamultihookmodule_entry_adminindex",
+                    "icon": "fas fa-database"
                 }
             },
             "securityschema": {
