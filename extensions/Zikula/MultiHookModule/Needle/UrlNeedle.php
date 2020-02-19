@@ -15,9 +15,9 @@ declare(strict_types=1);
 namespace Zikula\MultiHookModule\Needle;
 
 use Symfony\Component\HttpFoundation\RequestStack;
-use Zikula\Common\MultiHook\NeedleInterface;
-use Zikula\Common\Translator\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
+use Zikula\ExtensionsModule\ModuleInterface\MultiHook\NeedleInterface;
 
 /**
  * URL needle
