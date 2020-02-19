@@ -18,7 +18,7 @@
 MultiHook is a content helper module which can handle automatically replace abbreviations, acronyms, autolinks and censored words. As a filter hook, MultiHook scans text for certain keywords and performs actions depending on what has been defined for them. You can easily create
 
 - autolinks, eg. the word MultiHook can always link to the project site at GitHub
-- abbr + acronym tags, eg. EC gets converted to <abbr title="European Community">EC</abbr>
+- abbr + acronym tags, eg. `EC` gets converted to `<abbr title="European Community">EC</abbr>`
 - censors, eg. bad words get converted to *****
 - needles (see below for more information about this feature)
 
