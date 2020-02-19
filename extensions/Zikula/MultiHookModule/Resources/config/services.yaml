@@ -4,7 +4,7 @@ services:
         autoconfigure: true
         public: false
         bind:
-            $bundle: '@Zikula\MultiHookModule\ZikulaMultiHookModule'
+            $extension: '@Zikula\MultiHookModule\ZikulaMultiHookModule'
             $twigLoader: '@twig.loader'
 
     Zikula\MultiHookModule\:
