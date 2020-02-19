@@ -1,5 +1,16 @@
 {# purpose of this template: entries view filter form #}
 {% trans_default_domain 'entry' %}
+{% macro renderQuickNavEntry(quickNavForm, fieldName, isVisible) %}
+    {% if attribute(quickNavForm, fieldName) is defined and attribute(quickNavForm, fieldName) is not null %}
+        {% if not isVisible %}
+            <div class="d-none">
+        {% endif %}
+            {{ form_row(attribute(quickNavForm, fieldName)) }}
+        {% if not isVisible %}
+            </div>
+        {% endif %}
+    {% endif %}
+{% endmacro %}
 {% if permissionHelper.mayUseQuickNav('entry') %}
     {% form_theme quickNavForm with [
         'bootstrap_4_layout.html.twig'
@@ -11,49 +22,23 @@
     </a>
     <div id="collapseEntryQuickNav" class="collapse">
         <h3>{% trans %}Quick navigation{% endtrans %}</h3>
-        {% if workflowStateFilter is defined and workflowStateFilter != true %}
-            <div class="d-none">
+        {{ _self.renderQuickNavEntry(quickNavForm, 'workflowState', workflowStateFilter is not defined or workflowStateFilter == true) }}
+        {{ _self.renderQuickNavEntry(quickNavForm, 'entryType', entryTypeFilter is not defined or entryTypeFilter == true) }}
+        {{ _self.renderQuickNavEntry(quickNavForm, 'q', searchFilter is not defined or searchFilter == true) }}
+        {% if quickNavForm.sort is defined and quickNavForm.sort is not null %}
+            {% if sorting is defined and sorting != true %}
+                <div class="d-none">
+            {% endif %}
+                {{ form_row(quickNavForm.sort) }}
+                {% if quickNavForm.sortdir is defined and quickNavForm.sortdir is not null %}
+                    {{ form_row(quickNavForm.sortdir) }}
+                {% endif %}
+            {% if sorting is defined and sorting != true %}
+                </div>
+            {% endif %}
         {% endif %}
-            {{ form_row(quickNavForm.workflowState) }}
-        {% if workflowStateFilter is defined and workflowStateFilter != true %}
-            </div>
-        {% endif %}
-        {% if entryTypeFilter is defined and entryTypeFilter != true %}
-            <div class="d-none">
-        {% endif %}
-            {{ form_row(quickNavForm.entryType) }}
-        {% if entryTypeFilter is defined and entryTypeFilter != true %}
-            </div>
-        {% endif %}
-        {% if searchFilter is defined and searchFilter != true %}
-            <div class="d-none">
-        {% endif %}
-            {{ form_row(quickNavForm.q) }}
-        {% if searchFilter is defined and searchFilter != true %}
-            </div>
-        {% endif %}
-        {% if sorting is defined and sorting != true %}
-            <div class="d-none">
-        {% endif %}
-            {{ form_row(quickNavForm.sort) }}
-            {{ form_row(quickNavForm.sortdir) }}
-        {% if sorting is defined and sorting != true %}
-            </div>
-        {% endif %}
-        {% if pageSizeSelector is defined and pageSizeSelector != true %}
-            <div class="d-none">
-        {% endif %}
-            {{ form_row(quickNavForm.num) }}
-        {% if pageSizeSelector is defined and pageSizeSelector != true %}
-            </div>
-        {% endif %}
-        {% if activeFilter is defined and activeFilter != true %}
-            <div class="d-none">
-        {% endif %}
-            {{ form_row(quickNavForm.active) }}
-        {% if activeFilter is defined and activeFilter != true %}
-            </div>
-        {% endif %}
+        {{ _self.renderQuickNavEntry(quickNavForm, 'num', pageSizeSelector is not defined or pageSizeSelector == true) }}
+        {{ _self.renderQuickNavEntry(quickNavForm, 'active', activeFilter is not defined or activeFilter == true) }}
         {{ form_widget(quickNavForm.updateview) }}
         <a href="{{ path('zikulamultihookmodule_entry_' ~ routeArea|default ~ 'view', {tpl: app.request.query.get('tpl', ''), all: app.request.query.get('all', '')}) }}" title="{% trans %}Back to default view{% endtrans %}" class="btn btn-secondary btn-sm">{% trans %}Reset{% endtrans %}</a>
     </div>
