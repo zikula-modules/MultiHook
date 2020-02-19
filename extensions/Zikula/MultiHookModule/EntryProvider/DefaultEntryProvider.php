@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Zikula\MultiHookModule\EntryProvider;
 
-use Zikula\Common\MultiHook\EntryProviderInterface;
-use Zikula\Common\Translator\TranslatorInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
+use Zikula\ExtensionsModule\ModuleInterface\MultiHook\EntryProviderInterface;
 use Zikula\MultiHookModule\Entity\EntryEntity;
 use Zikula\MultiHookModule\Entity\Factory\EntityFactory;
 
@@ -75,12 +75,12 @@ class DefaultEntryProvider implements EntryProviderInterface
 
     public function getTitle(): string
     {
-        return $this->translator->trans('Default functionality', [], 'zikulamultihookmodule');
+        return $this->translator->trans('Default functionality');
     }
 
     public function getDescription(): string
     {
-        return $this->translator->trans('Provides MultiHook\'s own entries.', [], 'zikulamultihookmodule');
+        return $this->translator->trans('Provides MultiHook\'s own entries.');
     }
 
     public function getAdminInfo(): string
