@@ -9,7 +9,7 @@
         {% form_theme form with [
             '@ZikulaMultiHookModule/Form/bootstrap_4.html.twig',
             '@ZikulaFormExtension/Form/form_div_layout.html.twig'
-        ] %}
+        ] only %}
         {{ form_start(form, {attr: {id: 'entryEditForm', class: 'zikulamultihook-edit-form'}}) }}
         {{ form_errors(form) }}
         {% if translationsEnabled == true %}
