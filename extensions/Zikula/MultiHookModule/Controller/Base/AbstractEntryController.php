@@ -81,7 +81,7 @@ abstract class AbstractEntryController extends AbstractController
         ViewHelper $viewHelper,
         string $sort,
         string $sortdir,
-        int $pos,
+        int $page,
         int $num,
         bool $isAdmin = false
     ): Response {
@@ -98,7 +98,7 @@ abstract class AbstractEntryController extends AbstractController
         
         $request->query->set('sort', $sort);
         $request->query->set('sortdir', $sortdir);
-        $request->query->set('pos', $pos);
+        $request->query->set('page', $page);
         
         $routeName = 'zikulamultihookmodule_entry_' . ($isAdmin ? 'admin' : '') . 'view';
         $sortableColumns = new SortableColumns($router, $routeName, 'sort', 'sortdir');

@@ -74,9 +74,9 @@ class EntryController extends AbstractEntryController
     
     /**
      *
-     * @Route("/admin/entries/view/{sort}/{sortdir}/{pos}/{num}.{_format}",
-     *        requirements = {"sortdir" = "asc|desc|ASC|DESC", "pos" = "\d+", "num" = "\d+", "_format" = "html"},
-     *        defaults = {"sort" = "", "sortdir" = "asc", "pos" = 1, "num" = 10, "_format" = "html"},
+     * @Route("/admin/entries/view/{sort}/{sortdir}/{page}/{num}.{_format}",
+     *        requirements = {"sortdir" = "asc|desc|ASC|DESC", "page" = "\d+", "num" = "\d+", "_format" = "html"},
+     *        defaults = {"sort" = "", "sortdir" = "asc", "page" = 1, "num" = 10, "_format" = "html"},
      *        methods = {"GET"}
      * )
      * @Theme("admin")
@@ -89,7 +89,7 @@ class EntryController extends AbstractEntryController
         ViewHelper $viewHelper,
         string $sort,
         string $sortdir,
-        int $pos,
+        int $page,
         int $num
     ): Response {
         return $this->viewInternal(
@@ -100,7 +100,7 @@ class EntryController extends AbstractEntryController
             $viewHelper,
             $sort,
             $sortdir,
-            $pos,
+            $page,
             $num,
             true
         );
@@ -108,9 +108,9 @@ class EntryController extends AbstractEntryController
     
     /**
      *
-     * @Route("/entries/view/{sort}/{sortdir}/{pos}/{num}.{_format}",
-     *        requirements = {"sortdir" = "asc|desc|ASC|DESC", "pos" = "\d+", "num" = "\d+", "_format" = "html"},
-     *        defaults = {"sort" = "", "sortdir" = "asc", "pos" = 1, "num" = 10, "_format" = "html"},
+     * @Route("/entries/view/{sort}/{sortdir}/{page}/{num}.{_format}",
+     *        requirements = {"sortdir" = "asc|desc|ASC|DESC", "page" = "\d+", "num" = "\d+", "_format" = "html"},
+     *        defaults = {"sort" = "", "sortdir" = "asc", "page" = 1, "num" = 10, "_format" = "html"},
      *        methods = {"GET"}
      * )
      */
@@ -122,7 +122,7 @@ class EntryController extends AbstractEntryController
         ViewHelper $viewHelper,
         string $sort,
         string $sortdir,
-        int $pos,
+        int $page,
         int $num
     ): Response {
         return $this->viewInternal(
@@ -133,7 +133,7 @@ class EntryController extends AbstractEntryController
             $viewHelper,
             $sort,
             $sortdir,
-            $pos,
+            $page,
             $num,
             false
         );
