@@ -81,3 +81,19 @@ function zikulaMultiHookInitEditForm(mode, entityId) {
     }
 }
 
+jQuery(document).ready(function () {
+    if (jQuery('.field-editing-definition').length > 0) {
+        jQuery('.field-editing-definition').each(function (index) {
+            if ('user' === jQuery(this).data('field-type')) {
+                initUserLiveSearch(jQuery(this).data('field-name'));
+            } else if ('date' === jQuery(this).data('field-type')) {
+                zikulaMultiHookInitDateField(jQuery(this).data('field-name'));
+            } else if ('upload' === jQuery(this).data('field-type')) {
+                zikulaMultiHookInitUploadField(jQuery(this).data('field-name'));
+            }
+        });
+    }
+    if (jQuery('#formEditingDefinition').length > 0) {
+        zikulaMultiHookInitEditForm(jQuery('#formEditingDefinition').data('mode'), jQuery('#formEditingDefinition').data('entityid'));
+    }
+});

@@ -14,13 +14,12 @@ declare(strict_types=1);
 
 namespace Zikula\MultiHookModule\Event\Base;
 
-use Symfony\Contracts\EventDispatcher\Event;
 use Zikula\MultiHookModule\Entity\EntryEntity;
 
 /**
  * Event base class for filtering entry processing.
  */
-class AbstractFilterEntryEvent extends Event
+class AbstractFilterEntryEvent
 {
     /**
      * @var EntryEntity Reference to treated entity instance.
