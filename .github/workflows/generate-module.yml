@@ -23,9 +23,7 @@ jobs:
     - name: Call standalone generator
       uses: docker://guite/generator-action:latest
       with:
-        model_name: 'MultiHook.mostapp'
-        module_name: 'Zikula/MultiHookModule'
-        verbose: true
+        args: MultiHook.mostapp Zikula/MultiHookModule "" true
 
     - name: Set output variables
       run: |
