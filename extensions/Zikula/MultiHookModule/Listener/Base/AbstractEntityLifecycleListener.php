@@ -339,7 +339,7 @@ abstract class AbstractEntityLifecycleListener implements EventSubscriber, Conta
     /**
      * Returns a filter event instance for the given entity.
      */
-    protected function createFilterEvent(EntityAccess $entity): Event
+    protected function createFilterEvent(EntityAccess $entity)
     {
         $filterEventClass = '\\Zikula\\MultiHookModule\\Event\\Filter' . ucfirst($entity->get_objectType()) . 'Event';
 
