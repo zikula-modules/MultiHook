@@ -68,7 +68,7 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
                 ['app' => 'ZikulaMultiHookModule', 'errorMessage' => $exception->getMessage()]
             );
     
-            return false;
+            throw $exception;
         }
     
         // set up all our vars with initial values
@@ -113,7 +113,7 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
                         ['app' => 'ZikulaMultiHookModule', 'errorMessage' => $exception->getMessage()]
                     );
     
-                    return false;
+                    throw $exception;
                 }
         }
     */
@@ -133,7 +133,7 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
                 ['app' => 'ZikulaMultiHookModule', 'errorMessage' => $exception->getMessage()]
             );
     
-            return false;
+            throw $exception;
         }
     
         // remove all module vars
