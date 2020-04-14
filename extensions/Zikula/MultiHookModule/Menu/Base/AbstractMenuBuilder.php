@@ -23,8 +23,10 @@ use Zikula\UsersModule\Api\ApiInterface\CurrentUserApiInterface;
 use Zikula\UsersModule\Constant as UsersConstant;
 use Zikula\MultiHookModule\Entity\EntryEntity;
 use Zikula\MultiHookModule\MultiHookEvents;
-use Zikula\MultiHookModule\Event\ConfigureItemActionsMenuEvent;
-use Zikula\MultiHookModule\Event\ConfigureViewActionsMenuEvent;
+use Zikula\MultiHookModule\Event\ItemActionsMenuPostConfigurationEvent;
+use Zikula\MultiHookModule\Event\ItemActionsMenuPreConfigurationEvent;
+use Zikula\MultiHookModule\Event\ViewActionsMenuPostConfigurationEvent;
+use Zikula\MultiHookModule\Event\ViewActionsMenuPreConfigurationEvent;
 use Zikula\MultiHookModule\Helper\ModelHelper;
 use Zikula\MultiHookModule\Helper\PermissionHelper;
 
@@ -102,8 +104,7 @@ class AbstractMenuBuilder
         $menu->setChildrenAttribute('class', 'nav item-actions');
     
         $this->eventDispatcher->dispatch(
-            new ConfigureItemActionsMenuEvent($this->factory, $menu, $options),
-            MultiHookEvents::MENU_ITEMACTIONS_PRE_CONFIGURE
+            new ItemActionsMenuPreConfigurationEvent($this->factory, $menu, $options)
         );
     
         if ($entity instanceof EntryEntity) {
@@ -136,8 +137,7 @@ class AbstractMenuBuilder
         }
     
         $this->eventDispatcher->dispatch(
-            new ConfigureItemActionsMenuEvent($this->factory, $menu, $options),
-            MultiHookEvents::MENU_ITEMACTIONS_POST_CONFIGURE
+            new ItemActionsMenuPostConfigurationEvent($this->factory, $menu, $options)
         );
     
         return $menu;
@@ -158,8 +158,7 @@ class AbstractMenuBuilder
         $menu->setChildrenAttribute('class', 'nav view-actions');
     
         $this->eventDispatcher->dispatch(
-            new ConfigureViewActionsMenuEvent($this->factory, $menu, $options),
-            MultiHookEvents::MENU_VIEWACTIONS_PRE_CONFIGURE
+            new ViewActionsMenuPreConfigurationEvent($this->factory, $menu, $options)
         );
     
         $query = $this->requestStack->getMasterRequest()->query;
@@ -225,8 +224,7 @@ class AbstractMenuBuilder
         }
     
         $this->eventDispatcher->dispatch(
-            new ConfigureViewActionsMenuEvent($this->factory, $menu, $options),
-            MultiHookEvents::MENU_VIEWACTIONS_POST_CONFIGURE
+            new ViewActionsMenuPostConfigurationEvent($this->factory, $menu, $options)
         );
     
         return $menu;
