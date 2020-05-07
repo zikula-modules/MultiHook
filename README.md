@@ -32,7 +32,7 @@ For Zikula 2.0.x look at [releases](https://github.com/zikula-modules/MultiHook/
 The MultiHook module is installed like this:
 
 1. Download the [latest release](https://github.com/zikula-modules/MultiHook/releases/latest).
-2. Copy the content of `modules/` into the `modules/` directory of your Zikula installation. Afterwards you should a folder named `modules/Zikula/MultiHookModule/`.
+2. Copy the content of `extensions/` into the `extensions/` directory of your Zikula installation. Afterwards you should a folder named `extensions/Zikula/MultiHookModule/`.
 3. Initialize and activate ZikulaMultiHookModule in the extensions administration.
 
 After installation has been completed activate MultiHook for any modules you want to use it with, like Content or News. You can manage the hook enablements from either the subscriber modules administration area or from the provider side, that is the MultiHook administration area.
