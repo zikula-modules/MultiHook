@@ -19,7 +19,7 @@ use Zikula\MultiHookModule\Entity\EntryEntity;
 /**
  * Event base class for filtering entry processing.
  */
-class AbstractEntryPreUpdateEvent
+abstract class AbstractEntryPreUpdateEvent
 {
     /**
      * @var EntryEntity Reference to treated entity instance.
