@@ -4,7 +4,7 @@ application "MultiHook" targets ZK30 {
     author "Zikula Team"
     email "info@ziku.la"
     url "https://ziku.la"
-    version "6.2.0"
+    version "6.1.0"
     prefix "multih"
     generateAccountApi false
     generateSearchApi false
