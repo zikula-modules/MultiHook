@@ -1,4 +1,4 @@
-# ZikulaMultiHookModule 6.1.0
+# ZikulaMultiHookModule 6.2.0
 
 Handle autolinks, abbreviations, acronyms and censoring.
 
