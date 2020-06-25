@@ -22,7 +22,7 @@ jobs:
     - name: Build and test
       uses: docker://guite/zikula-action:latest
       with:
-        args: Zikula MultiHook 6.1.0 ZK30 "src/" true
+        args: Zikula MultiHook 6.2.0 ZK30 "src/" true
 
     # see https://github.com/actions/upload-artifact
     - name: Upload release folder as artifact
