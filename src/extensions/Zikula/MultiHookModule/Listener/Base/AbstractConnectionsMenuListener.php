@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Zikula\MultiHookModule\Listener\Base;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Zikula\ExtensionsModule\Event\ConnectionsMenuEvent;
 use Zikula\PermissionsModule\Api\ApiInterface\PermissionApiInterface;
 
@@ -23,6 +24,24 @@ use Zikula\PermissionsModule\Api\ApiInterface\PermissionApiInterface;
  */
 abstract class AbstractConnectionsMenuListener implements EventSubscriberInterface
 {
+    /**
+     * @var TranslatorInterface
+     */
+    protected $translator;
+    
+    /**
+     * @var PermissionApiInterface
+     */
+    protected $permissionApi;
+    
+    public function __construct(
+        TranslatorInterface $translator,
+        PermissionApiInterface $permissionApi
+    ) {
+        $this->translator = $translator;
+        $this->permissionApi = $permissionApi;
+    }
+    
     public static function getSubscribedEvents()
     {
         return [
