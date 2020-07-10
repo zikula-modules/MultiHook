@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Zikula\MultiHookModule\Listener;
 
-use Zikula\MultiHookModule\Listener\Base\AbstractModuleDispatchListener;
+use Zikula\MultiHookModule\Listener\Base\AbstractConnectionsMenuListener;
 
 /**
  * Event handler implementation class for adding connections to extension menus.
