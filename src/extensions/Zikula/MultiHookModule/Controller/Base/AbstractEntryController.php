@@ -160,7 +160,6 @@ abstract class AbstractEntryController extends AbstractController
             'routeArea' => $isAdmin ? 'admin' : ''
         ];
         
-        
         // delegate form processing to the form handler
         $result = $formHandler->processForm($templateParameters);
         if ($result instanceof RedirectResponse) {
