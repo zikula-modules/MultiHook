@@ -160,7 +160,6 @@ abstract class AbstractEntryController extends AbstractController
             'routeArea' => $isAdmin ? 'admin' : ''
         ];
         
-        $templateParameters = $controllerHelper->processEditActionParameters($objectType, $templateParameters);
         
         // delegate form processing to the form handler
         $result = $formHandler->processForm($templateParameters);
@@ -169,6 +168,12 @@ abstract class AbstractEntryController extends AbstractController
         }
         
         $templateParameters = $formHandler->getTemplateParameters();
+        
+        $templateParameters = $controllerHelper->processEditActionParameters(
+            $objectType,
+            $templateParameters,
+            $templateParameters['entry']->supportsHookSubscribers()
+        );
         
         // fetch and return the appropriate template
         return $viewHelper->processTemplate($objectType, 'edit', $templateParameters);
