@@ -33,7 +33,6 @@ use Zikula\MultiHookModule\AppSettings;
  */
 abstract class AbstractConfigType extends AbstractType
 {
-
     public function __construct(
     ) {
     }
