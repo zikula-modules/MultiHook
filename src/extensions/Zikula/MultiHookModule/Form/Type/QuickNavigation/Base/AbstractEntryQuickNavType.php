@@ -132,7 +132,6 @@ abstract class AbstractEntryQuickNavType extends AbstractType
         ]);
     }
 
-
     /**
      * Adds sorting fields.
      */
