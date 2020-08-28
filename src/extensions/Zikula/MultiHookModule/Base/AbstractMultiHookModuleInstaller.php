@@ -53,7 +53,8 @@ abstract class AbstractMultiHookModuleInstaller extends AbstractExtensionInstall
         RequestStack $requestStack,
         TranslatorInterface $translator,
         VariableApiInterface $variableApi,
-        LoggerInterface $logger) {
+        LoggerInterface $logger
+    ) {
         parent::__construct($extension, $managerRegistry, $schemaTool, $requestStack, $translator, $variableApi);
         $this->logger = $logger;
     }
