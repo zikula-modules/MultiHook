@@ -130,7 +130,6 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
      */
     protected $locale;
     
-    
     /**
      * EntryEntity constructor.
      *
