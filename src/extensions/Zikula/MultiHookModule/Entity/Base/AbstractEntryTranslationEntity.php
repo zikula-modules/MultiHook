@@ -26,7 +26,6 @@ use Gedmo\Translatable\Entity\MappedSuperclass\AbstractTranslation;
  */
 abstract class AbstractEntryTranslationEntity extends AbstractTranslation
 {
-    
     /**
      * Use a length of 140 instead of 255 to avoid too long keys for the indexes.
      *
