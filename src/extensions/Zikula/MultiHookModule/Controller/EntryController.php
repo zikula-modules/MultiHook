@@ -39,6 +39,7 @@ use Zikula\MultiHookModule\Helper\WorkflowHelper;
  */
 class EntryController extends AbstractEntryController
 {
+    
     /**
      * @Route("/entries",
      *        methods = {"GET"}
@@ -54,6 +55,7 @@ class EntryController extends AbstractEntryController
             false
         );
     }
+
     /**
      * @Route("/entries/view/{sort}/{sortdir}/{page}/{num}.{_format}",
      *        requirements = {"sortdir" = "asc|desc|ASC|DESC", "page" = "\d+", "num" = "\d+", "_format" = "html"},
@@ -85,6 +87,7 @@ class EntryController extends AbstractEntryController
             false
         );
     }
+
     /**
      * @Route("/entry/edit/{id}.{_format}",
      *        requirements = {"id" = "\d+", "_format" = "html"},
@@ -108,6 +111,8 @@ class EntryController extends AbstractEntryController
             false
         );
     }
+
+    
     /**
      * Process status changes for multiple items.
      *
@@ -160,6 +165,6 @@ class EntryController extends AbstractEntryController
             false
         );
     }
-    
+
     // feel free to add your own controller methods here
 }

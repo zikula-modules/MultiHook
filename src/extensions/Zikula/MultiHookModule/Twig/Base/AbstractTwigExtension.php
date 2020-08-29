@@ -103,7 +103,6 @@ abstract class AbstractTwigExtension extends AbstractExtension
         return $result;
     }
     
-    
     /**
      * The zikulamultihookmodule_listEntry filter displays the name
      * or names for a given list item.
@@ -122,7 +121,6 @@ abstract class AbstractTwigExtension extends AbstractExtension
     
         return $this->listHelper->resolve($value, $objectType, $fieldName, $delimiter);
     }
-    
     
     
     
