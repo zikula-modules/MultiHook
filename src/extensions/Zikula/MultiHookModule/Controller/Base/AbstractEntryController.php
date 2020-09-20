@@ -43,7 +43,6 @@ use Zikula\MultiHookModule\Helper\WorkflowHelper;
  */
 abstract class AbstractEntryController extends AbstractController
 {
-    
     /**
      * This is the default action handling the index area called without defining arguments.
      *
@@ -68,7 +67,6 @@ abstract class AbstractEntryController extends AbstractController
         return $this->redirectToRoute('zikulamultihookmodule_entry_' . $templateParameters['routeArea'] . 'view');
     }
 
-    
     /**
      * This action provides an item list overview.
      *
@@ -135,7 +133,6 @@ abstract class AbstractEntryController extends AbstractController
         return $viewHelper->processTemplate($objectType, 'view', $templateParameters);
     }
 
-    
     /**
      * This action provides a handling of edit requests.
      *
