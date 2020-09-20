@@ -26,6 +26,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Translation\Extractor\Annotation\Ignore;
 use Translation\Extractor\Annotation\Translate;
+use Zikula\Bundle\FormExtensionBundle\Form\DataTransformer\NullToEmptyTransformer;
 use Zikula\MultiHookModule\AppSettings;
 
 /**
@@ -55,7 +56,7 @@ abstract class AbstractConfigType extends AbstractType
      */
     public function addGeneralSettingsFields(FormBuilderInterface $builder, array $options = []): void
     {
-        $builder->add('showEditLink', CheckboxType::class, [
+        $builder->add($builder->create('showEditLink', CheckboxType::class, [
             'label' => 'Show edit link:',
             'label_attr' => [
                 'class' => 'switch-custom',
@@ -65,8 +66,8 @@ abstract class AbstractConfigType extends AbstractType
                 'title' => 'The show edit link option',
             ],
             'required' => false,
-        ]);
-        $builder->add('replaceOnlyFirstInstanceOfItems', CheckboxType::class, [
+        ])->addModelTransformer(new NullToEmptyTransformer()));
+        $builder->add($builder->create('replaceOnlyFirstInstanceOfItems', CheckboxType::class, [
             'label' => 'Replace only first instance of items:',
             'label_attr' => [
                 'class' => 'switch-custom',
@@ -76,8 +77,8 @@ abstract class AbstractConfigType extends AbstractType
                 'title' => 'The replace only first instance of items option',
             ],
             'required' => false,
-        ]);
-        $builder->add('applyReplacementsToCodeTags', CheckboxType::class, [
+        ])->addModelTransformer(new NullToEmptyTransformer()));
+        $builder->add($builder->create('applyReplacementsToCodeTags', CheckboxType::class, [
             'label' => 'Apply replacements to code tags:',
             'label_attr' => [
                 'class' => 'switch-custom',
@@ -87,7 +88,7 @@ abstract class AbstractConfigType extends AbstractType
                 'title' => 'The apply replacements to code tags option',
             ],
             'required' => false,
-        ]);
+        ])->addModelTransformer(new NullToEmptyTransformer()));
     }
 
     /**
@@ -95,7 +96,7 @@ abstract class AbstractConfigType extends AbstractType
      */
     public function addAbbreviationsAndAcronymsFields(FormBuilderInterface $builder, array $options = []): void
     {
-        $builder->add('replaceAbbreviations', CheckboxType::class, [
+        $builder->add($builder->create('replaceAbbreviations', CheckboxType::class, [
             'label' => 'Replace abbreviations:',
             'label_attr' => [
                 'class' => 'switch-custom',
@@ -105,8 +106,8 @@ abstract class AbstractConfigType extends AbstractType
                 'title' => 'The replace abbreviations option',
             ],
             'required' => false,
-        ]);
-        $builder->add('replaceAcronyms', CheckboxType::class, [
+        ])->addModelTransformer(new NullToEmptyTransformer()));
+        $builder->add($builder->create('replaceAcronyms', CheckboxType::class, [
             'label' => 'Replace acronyms:',
             'label_attr' => [
                 'class' => 'switch-custom',
@@ -116,8 +117,8 @@ abstract class AbstractConfigType extends AbstractType
                 'title' => 'The replace acronyms option',
             ],
             'required' => false,
-        ]);
-        $builder->add('replaceAbbreviationsWithLongText', CheckboxType::class, [
+        ])->addModelTransformer(new NullToEmptyTransformer()));
+        $builder->add($builder->create('replaceAbbreviationsWithLongText', CheckboxType::class, [
             'label' => 'Replace abbreviations with long text:',
             'label_attr' => [
                 'class' => 'switch-custom',
@@ -127,7 +128,7 @@ abstract class AbstractConfigType extends AbstractType
                 'title' => 'The replace abbreviations with long text option',
             ],
             'required' => false,
-        ]);
+        ])->addModelTransformer(new NullToEmptyTransformer()));
     }
 
     /**
@@ -135,7 +136,7 @@ abstract class AbstractConfigType extends AbstractType
      */
     public function addAutomaticLinksFields(FormBuilderInterface $builder, array $options = []): void
     {
-        $builder->add('replaceLinks', CheckboxType::class, [
+        $builder->add($builder->create('replaceLinks', CheckboxType::class, [
             'label' => 'Replace links:',
             'label_attr' => [
                 'class' => 'switch-custom',
@@ -145,8 +146,8 @@ abstract class AbstractConfigType extends AbstractType
                 'title' => 'The replace links option',
             ],
             'required' => false,
-        ]);
-        $builder->add('replaceLinksWithTitle', CheckboxType::class, [
+        ])->addModelTransformer(new NullToEmptyTransformer()));
+        $builder->add($builder->create('replaceLinksWithTitle', CheckboxType::class, [
             'label' => 'Replace links with title:',
             'label_attr' => [
                 'class' => 'switch-custom',
@@ -156,8 +157,8 @@ abstract class AbstractConfigType extends AbstractType
                 'title' => 'The replace links with title option',
             ],
             'required' => false,
-        ]);
-        $builder->add('cssClassForExternalLinks', TextType::class, [
+        ])->addModelTransformer(new NullToEmptyTransformer()));
+        $builder->add($builder->create('cssClassForExternalLinks', TextType::class, [
             'label' => 'Css class for external links:',
             'empty_data' => '',
             'attr' => [
@@ -166,7 +167,7 @@ abstract class AbstractConfigType extends AbstractType
                 'title' => 'Enter the css class for external links.',
             ],
             'required' => false,
-        ]);
+        ])->addModelTransformer(new NullToEmptyTransformer()));
     }
 
     /**
@@ -174,7 +175,7 @@ abstract class AbstractConfigType extends AbstractType
      */
     public function addCensorFields(FormBuilderInterface $builder, array $options = []): void
     {
-        $builder->add('replaceCensoredWords', CheckboxType::class, [
+        $builder->add($builder->create('replaceCensoredWords', CheckboxType::class, [
             'label' => 'Replace censored words:',
             'label_attr' => [
                 'class' => 'switch-custom',
@@ -184,8 +185,8 @@ abstract class AbstractConfigType extends AbstractType
                 'title' => 'The replace censored words option',
             ],
             'required' => false,
-        ]);
-        $builder->add('replaceCensoredWordsWhenTheyArePartOfOtherWords', CheckboxType::class, [
+        ])->addModelTransformer(new NullToEmptyTransformer()));
+        $builder->add($builder->create('replaceCensoredWordsWhenTheyArePartOfOtherWords', CheckboxType::class, [
             'label' => 'Replace censored words when they are part of other words:',
             'label_attr' => [
                 'class' => 'switch-custom',
@@ -195,8 +196,8 @@ abstract class AbstractConfigType extends AbstractType
                 'title' => 'The replace censored words when they are part of other words option',
             ],
             'required' => false,
-        ]);
-        $builder->add('doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars', CheckboxType::class, [
+        ])->addModelTransformer(new NullToEmptyTransformer()));
+        $builder->add($builder->create('doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars', CheckboxType::class, [
             'label' => 'Do not censor first and last letter in words with more than two chars:',
             'label_attr' => [
                 'class' => 'switch-custom',
@@ -206,7 +207,7 @@ abstract class AbstractConfigType extends AbstractType
                 'title' => 'The do not censor first and last letter in words with more than two chars option',
             ],
             'required' => false,
-        ]);
+        ])->addModelTransformer(new NullToEmptyTransformer()));
     }
 
     /**
@@ -214,7 +215,7 @@ abstract class AbstractConfigType extends AbstractType
      */
     public function addNeedlesFields(FormBuilderInterface $builder, array $options = []): void
     {
-        $builder->add('replaceNeedles', CheckboxType::class, [
+        $builder->add($builder->create('replaceNeedles', CheckboxType::class, [
             'label' => 'Replace needles:',
             'label_attr' => [
                 'class' => 'switch-custom',
@@ -224,7 +225,7 @@ abstract class AbstractConfigType extends AbstractType
                 'title' => 'The replace needles option',
             ],
             'required' => false,
-        ]);
+        ])->addModelTransformer(new NullToEmptyTransformer()));
     }
 
     /**
@@ -247,7 +248,7 @@ abstract class AbstractConfigType extends AbstractType
             ],
             'required' => true,
         ]);
-        $builder->add('showOnlyOwnEntries', CheckboxType::class, [
+        $builder->add($builder->create('showOnlyOwnEntries', CheckboxType::class, [
             'label' => 'Show only own entries:',
             'label_attr' => [
                 'class' => 'tooltips switch-custom',
@@ -259,7 +260,7 @@ abstract class AbstractConfigType extends AbstractType
                 'title' => 'The show only own entries option',
             ],
             'required' => false,
-        ]);
+        ])->addModelTransformer(new NullToEmptyTransformer()));
     }
 
     /**
@@ -267,7 +268,7 @@ abstract class AbstractConfigType extends AbstractType
      */
     public function addModerationFields(FormBuilderInterface $builder, array $options = []): void
     {
-        $builder->add('allowModerationSpecificCreatorForEntry', CheckboxType::class, [
+        $builder->add($builder->create('allowModerationSpecificCreatorForEntry', CheckboxType::class, [
             'label' => 'Allow moderation specific creator for entry:',
             'label_attr' => [
                 'class' => 'tooltips switch-custom',
@@ -279,8 +280,8 @@ abstract class AbstractConfigType extends AbstractType
                 'title' => 'The allow moderation specific creator for entry option',
             ],
             'required' => false,
-        ]);
-        $builder->add('allowModerationSpecificCreationDateForEntry', CheckboxType::class, [
+        ])->addModelTransformer(new NullToEmptyTransformer()));
+        $builder->add($builder->create('allowModerationSpecificCreationDateForEntry', CheckboxType::class, [
             'label' => 'Allow moderation specific creation date for entry:',
             'label_attr' => [
                 'class' => 'tooltips switch-custom',
@@ -292,7 +293,7 @@ abstract class AbstractConfigType extends AbstractType
                 'title' => 'The allow moderation specific creation date for entry option',
             ],
             'required' => false,
-        ]);
+        ])->addModelTransformer(new NullToEmptyTransformer()));
     }
 
     /**
