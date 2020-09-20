@@ -27,6 +27,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Translation\Extractor\Annotation\Ignore;
 use Translation\Extractor\Annotation\Translate;
+use Zikula\Bundle\FormExtensionBundle\Form\DataTransformer\NullToEmptyTransformer;
 use Zikula\ExtensionsModule\Api\ApiInterface\VariableApiInterface;
 use Zikula\MultiHookModule\Entity\Factory\EntityFactory;
 use Zikula\MultiHookModule\Form\Type\Field\TranslationType;
@@ -94,7 +95,7 @@ abstract class AbstractEntryType extends AbstractType
      */
     public function addEntityFields(FormBuilderInterface $builder, array $options = []): void
     {
-        $builder->add('longForm', TextType::class, [
+        $builder->add($builder->create('longForm', TextType::class, [
             'label' => 'Long form:',
             'label_attr' => [
                 'class' => 'tooltips',
@@ -108,8 +109,8 @@ abstract class AbstractEntryType extends AbstractType
                 'title' => 'Enter the long form of the entry.',
             ],
             'required' => false,
-        ]);
-        $builder->add('title', TextType::class, [
+        ])->addModelTransformer(new NullToEmptyTransformer()));
+        $builder->add($builder->create('title', TextType::class, [
             'label' => 'Title:',
             'label_attr' => [
                 'class' => 'tooltips',
@@ -123,7 +124,7 @@ abstract class AbstractEntryType extends AbstractType
                 'title' => 'Enter the title of the entry.',
             ],
             'required' => false,
-        ]);
+        ])->addModelTransformer(new NullToEmptyTransformer()));
         
         if ($this->variableApi->getSystemVar('multilingual') && $this->featureActivationHelper->isEnabled(FeatureActivationHelper::TRANSLATIONS, 'entry')) {
             $supportedLanguages = $this->translatableHelper->getSupportedLanguages('entry');
@@ -173,7 +174,7 @@ abstract class AbstractEntryType extends AbstractType
             'multiple' => false,
             'expanded' => false,
         ]);
-        $builder->add('active', CheckboxType::class, [
+        $builder->add($builder->create('active', CheckboxType::class, [
             'label' => 'Active:',
             'label_attr' => [
                 'class' => 'switch-custom',
@@ -183,7 +184,7 @@ abstract class AbstractEntryType extends AbstractType
                 'title' => 'active ?',
             ],
             'required' => false,
-        ]);
+        ])->addModelTransformer(new NullToEmptyTransformer()));
     }
 
     /**
