@@ -41,6 +41,23 @@ class EntryController extends AbstractEntryController
 {
     
     /**
+     * @Route("/admin/entries",
+     *        methods = {"GET"}
+     * )
+     * @Theme("admin")
+     */
+    public function adminIndexAction(
+        Request $request,
+        PermissionHelper $permissionHelper
+    ): Response {
+        return $this->indexInternal(
+            $request,
+            $permissionHelper,
+            true
+        );
+    }
+    
+    /**
      * @Route("/entries",
      *        methods = {"GET"}
      * )
@@ -56,6 +73,39 @@ class EntryController extends AbstractEntryController
         );
     }
 
+    /**
+     * @Route("/admin/entries/view/{sort}/{sortdir}/{page}/{num}.{_format}",
+     *        requirements = {"sortdir" = "asc|desc|ASC|DESC", "page" = "\d+", "num" = "\d+", "_format" = "html"},
+     *        defaults = {"sort" = "", "sortdir" = "asc", "page" = 1, "num" = 10, "_format" = "html"},
+     *        methods = {"GET"}
+     * )
+     * @Theme("admin")
+     */
+    public function adminViewAction(
+        Request $request,
+        RouterInterface $router,
+        PermissionHelper $permissionHelper,
+        ControllerHelper $controllerHelper,
+        ViewHelper $viewHelper,
+        string $sort,
+        string $sortdir,
+        int $page,
+        int $num
+    ): Response {
+        return $this->viewInternal(
+            $request,
+            $router,
+            $permissionHelper,
+            $controllerHelper,
+            $viewHelper,
+            $sort,
+            $sortdir,
+            $page,
+            $num,
+            true
+        );
+    }
+    
     /**
      * @Route("/entries/view/{sort}/{sortdir}/{page}/{num}.{_format}",
      *        requirements = {"sortdir" = "asc|desc|ASC|DESC", "page" = "\d+", "num" = "\d+", "_format" = "html"},
@@ -88,6 +138,31 @@ class EntryController extends AbstractEntryController
         );
     }
 
+    /**
+     * @Route("/admin/entry/edit/{id}.{_format}",
+     *        requirements = {"id" = "\d+", "_format" = "html"},
+     *        defaults = {"id" = "0", "_format" = "html"},
+     *        methods = {"GET", "POST"}
+     * )
+     * @Theme("admin")
+     */
+    public function adminEditAction(
+        Request $request,
+        PermissionHelper $permissionHelper,
+        ControllerHelper $controllerHelper,
+        ViewHelper $viewHelper,
+        EditHandler $formHandler
+    ): Response {
+        return $this->editInternal(
+            $request,
+            $permissionHelper,
+            $controllerHelper,
+            $viewHelper,
+            $formHandler,
+            true
+        );
+    }
+    
     /**
      * @Route("/entry/edit/{id}.{_format}",
      *        requirements = {"id" = "\d+", "_format" = "html"},
