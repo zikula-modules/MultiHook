@@ -35,13 +35,13 @@ class AjaxController extends AbstractAjaxController
     /**
      * @Route("/toggleFlag", methods = {"POST"}, options={"expose"=true})
      */
-    public function toggleFlagAction(
+    public function toggleFlag(
         Request $request,
         LoggerInterface $logger,
         EntityFactory $entityFactory,
         CurrentUserApiInterface $currentUserApi
     ): JsonResponse {
-        return parent::toggleFlagAction(
+        return parent::toggleFlag(
             $request,
             $logger,
             $entityFactory,
