@@ -46,7 +46,7 @@ class EntryController extends AbstractEntryController
      * )
      * @Theme("admin")
      */
-    public function adminIndexAction(
+    public function adminIndex(
         Request $request,
         PermissionHelper $permissionHelper
     ): Response {
@@ -62,7 +62,7 @@ class EntryController extends AbstractEntryController
      *        methods = {"GET"}
      * )
      */
-    public function indexAction(
+    public function index(
         Request $request,
         PermissionHelper $permissionHelper
     ): Response {
@@ -81,7 +81,7 @@ class EntryController extends AbstractEntryController
      * )
      * @Theme("admin")
      */
-    public function adminViewAction(
+    public function adminView(
         Request $request,
         RouterInterface $router,
         PermissionHelper $permissionHelper,
@@ -113,7 +113,7 @@ class EntryController extends AbstractEntryController
      *        methods = {"GET"}
      * )
      */
-    public function viewAction(
+    public function view(
         Request $request,
         RouterInterface $router,
         PermissionHelper $permissionHelper,
@@ -146,7 +146,7 @@ class EntryController extends AbstractEntryController
      * )
      * @Theme("admin")
      */
-    public function adminEditAction(
+    public function adminEdit(
         Request $request,
         PermissionHelper $permissionHelper,
         ControllerHelper $controllerHelper,
@@ -170,7 +170,7 @@ class EntryController extends AbstractEntryController
      *        methods = {"GET", "POST"}
      * )
      */
-    public function editAction(
+    public function edit(
         Request $request,
         PermissionHelper $permissionHelper,
         ControllerHelper $controllerHelper,
@@ -196,7 +196,7 @@ class EntryController extends AbstractEntryController
      * )
      * @Theme("admin")
      */
-    public function adminHandleSelectedEntriesAction(
+    public function adminHandleSelectedEntries(
         Request $request,
         LoggerInterface $logger,
         EntityFactory $entityFactory,
@@ -204,7 +204,7 @@ class EntryController extends AbstractEntryController
         HookHelper $hookHelper,
         CurrentUserApiInterface $currentUserApi
     ): RedirectResponse {
-        return $this->handleSelectedEntriesActionInternal(
+        return $this->handleSelectedEntriesInternal(
             $request,
             $logger,
             $entityFactory,
@@ -222,7 +222,7 @@ class EntryController extends AbstractEntryController
      *        methods = {"POST"}
      * )
      */
-    public function handleSelectedEntriesAction(
+    public function handleSelectedEntries(
         Request $request,
         LoggerInterface $logger,
         EntityFactory $entityFactory,
@@ -230,7 +230,7 @@ class EntryController extends AbstractEntryController
         HookHelper $hookHelper,
         CurrentUserApiInterface $currentUserApi
     ): RedirectResponse {
-        return $this->handleSelectedEntriesActionInternal(
+        return $this->handleSelectedEntriesInternal(
             $request,
             $logger,
             $entityFactory,
