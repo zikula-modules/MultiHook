@@ -24,7 +24,7 @@ MultiHook is a content helper module which can handle automatically replace abbr
 
 ## Requirements
 
-The `master` branch of this module is intended for being used with Zikula 3.0.
+The `main` branch of this module is intended for being used with Zikula 3.0.
 For Zikula 2.0.x look at [releases](https://github.com/zikula-modules/MultiHook/releases/).
 
 ## Installation
@@ -55,7 +55,7 @@ MultiHook can not only manage abbreviations, acronyms, autolinks and censored wo
 
 - An entity provider class name should be suffixed by `Provider` and located in the `ModuleRoot/EntryProvider/` directory. This is not mandatory but a recommended convention.
 - Entity provider classes need to implement `\Zikula\ExtensionsModule\ModuleInterface\MultiHook\EntryProviderInterface`.
-- As an example the Content module offers a [PageEntryProvider](https://github.com/zikula-modules/Content/blob/master/modules/Zikula/ContentModule/EntryProvider/PageEntryProvider.php) to create auto links for all site titles.
+- As an example the Content module offers a [PageEntryProvider](https://github.com/zikula-modules/Content/blob/main/src/extensions/Zikula/ContentModule/EntryProvider/PageEntryProvider.php) to create auto links for all site titles.
 
 ## Using and implementing needles
 
@@ -70,7 +70,7 @@ Hints for implementing your own needles:
 - A needle class name should be suffixed by `Needle` and located in the `ModuleRoot/Needle/` directory. This is not mandatory but a recommended convention.
 - Needle classes need to implement `\Zikula\ExtensionsModule\ModuleInterface\MultiHook\NeedleInterface`.
 - Ideally use some caching mechanism in order to avoid consecutive database queries. Have a look at existing needles to learn more about the idea.
-- As an example the Content module includes the [PageNeedle](https://github.com/zikula-modules/Content/tree/master/modules/Zikula/ContentModule/Needle).
+- As an example the Content module includes the [PageNeedle](https://github.com/zikula-modules/Content/tree/main/src/extensions/Zikula/ContentModule/Needle).
 
 ## Changelog
 
