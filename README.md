@@ -74,7 +74,13 @@ Hints for implementing your own needles:
 
 ## Changelog
 
+<details>
+<summary>
+
 ### Version 6.1.0
+
+</summary>
+<div>
 
 Structural changes:
 
@@ -88,7 +94,15 @@ Bugfixes:
 
 - Cache selected entries to save performance for multiple filter calls on same page
 
+</div>
+</details>
+<details>
+<summary>
+
 ### Version 6.0.0
+
+</summary>
+<div>
 
 Structural changes:
 
@@ -100,6 +114,9 @@ New features:
 - Entry providers for letting other modules contribute additional entries automatically (#7).
 - New settings for configuring which replacements should be enabled/disabled (#1).
 - Checkbox column for mass deletion (#2).
+
+</div>
+</details>
 
 ### Older versions
 
