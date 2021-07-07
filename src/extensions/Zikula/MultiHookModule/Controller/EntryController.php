@@ -46,7 +46,7 @@ class EntryController extends AbstractEntryController
      * )
      * @Theme("admin")
      */
-    public function adminIndex(
+    public function adminIndexAction(
         Request $request,
         PermissionHelper $permissionHelper
     ): Response {
@@ -62,7 +62,7 @@ class EntryController extends AbstractEntryController
      *        methods = {"GET"}
      * )
      */
-    public function index(
+    public function indexAction(
         Request $request,
         PermissionHelper $permissionHelper
     ): Response {
@@ -81,7 +81,7 @@ class EntryController extends AbstractEntryController
      * )
      * @Theme("admin")
      */
-    public function adminView(
+    public function adminViewAction(
         Request $request,
         RouterInterface $router,
         PermissionHelper $permissionHelper,
@@ -113,7 +113,7 @@ class EntryController extends AbstractEntryController
      *        methods = {"GET"}
      * )
      */
-    public function view(
+    public function viewAction(
         Request $request,
         RouterInterface $router,
         PermissionHelper $permissionHelper,
@@ -146,7 +146,7 @@ class EntryController extends AbstractEntryController
      * )
      * @Theme("admin")
      */
-    public function adminEdit(
+    public function adminEditAction(
         Request $request,
         PermissionHelper $permissionHelper,
         ControllerHelper $controllerHelper,
@@ -170,7 +170,7 @@ class EntryController extends AbstractEntryController
      *        methods = {"GET", "POST"}
      * )
      */
-    public function edit(
+    public function editAction(
         Request $request,
         PermissionHelper $permissionHelper,
         ControllerHelper $controllerHelper,
@@ -196,7 +196,7 @@ class EntryController extends AbstractEntryController
      * )
      * @Theme("admin")
      */
-    public function adminHandleSelectedEntries(
+    public function adminHandleSelectedEntriesAction(
         Request $request,
         LoggerInterface $logger,
         EntityFactory $entityFactory,
@@ -222,7 +222,7 @@ class EntryController extends AbstractEntryController
      *        methods = {"POST"}
      * )
      */
-    public function handleSelectedEntries(
+    public function handleSelectedEntriesAction(
         Request $request,
         LoggerInterface $logger,
         EntityFactory $entityFactory,

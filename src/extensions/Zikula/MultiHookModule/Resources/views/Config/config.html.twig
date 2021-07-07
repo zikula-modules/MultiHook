@@ -54,43 +54,69 @@
                         <legend>{{ tabTitle }}</legend>
                         <p class="alert alert-info">{% trans %}Here you can manage all basic settings for this application.{% endtrans %}</p>
                     
-                        {{ form_row(form.showEditLink) }}
-                        {{ form_row(form.replaceOnlyFirstInstanceOfItems) }}
-                        {{ form_row(form.applyReplacementsToCodeTags) }}
+                        {% if form.showEditLink is defined %}
+                            {{ form_row(form.showEditLink) }}
+                        {% endif %}
+                        {% if form.replaceOnlyFirstInstanceOfItems is defined %}
+                            {{ form_row(form.replaceOnlyFirstInstanceOfItems) }}
+                        {% endif %}
+                        {% if form.applyReplacementsToCodeTags is defined %}
+                            {{ form_row(form.applyReplacementsToCodeTags) }}
+                        {% endif %}
                     </fieldset>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="tab2" aria-labelledby="vars2Tab">
                     {% set tabTitle = 'Abbreviations and acronyms'|trans %}
                     <fieldset>
                         <legend>{{ tabTitle }}</legend>
-                        {{ form_row(form.replaceAbbreviations) }}
-                        {{ form_row(form.replaceAcronyms) }}
-                        {{ form_row(form.replaceAbbreviationsWithLongText) }}
+                        {% if form.replaceAbbreviations is defined %}
+                            {{ form_row(form.replaceAbbreviations) }}
+                        {% endif %}
+                        {% if form.replaceAcronyms is defined %}
+                            {{ form_row(form.replaceAcronyms) }}
+                        {% endif %}
+                        {% if form.replaceAbbreviationsWithLongText is defined %}
+                            {{ form_row(form.replaceAbbreviationsWithLongText) }}
+                        {% endif %}
                     </fieldset>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="tab3" aria-labelledby="vars3Tab">
                     {% set tabTitle = 'Automatic links'|trans %}
                     <fieldset>
                         <legend>{{ tabTitle }}</legend>
-                        {{ form_row(form.replaceLinks) }}
-                        {{ form_row(form.replaceLinksWithTitle) }}
-                        {{ form_row(form.cssClassForExternalLinks) }}
+                        {% if form.replaceLinks is defined %}
+                            {{ form_row(form.replaceLinks) }}
+                        {% endif %}
+                        {% if form.replaceLinksWithTitle is defined %}
+                            {{ form_row(form.replaceLinksWithTitle) }}
+                        {% endif %}
+                        {% if form.cssClassForExternalLinks is defined %}
+                            {{ form_row(form.cssClassForExternalLinks) }}
+                        {% endif %}
                     </fieldset>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="tab4" aria-labelledby="vars4Tab">
                     {% set tabTitle = 'Censor'|trans %}
                     <fieldset>
                         <legend>{{ tabTitle }}</legend>
-                        {{ form_row(form.replaceCensoredWords) }}
-                        {{ form_row(form.replaceCensoredWordsWhenTheyArePartOfOtherWords) }}
-                        {{ form_row(form.doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars) }}
+                        {% if form.replaceCensoredWords is defined %}
+                            {{ form_row(form.replaceCensoredWords) }}
+                        {% endif %}
+                        {% if form.replaceCensoredWordsWhenTheyArePartOfOtherWords is defined %}
+                            {{ form_row(form.replaceCensoredWordsWhenTheyArePartOfOtherWords) }}
+                        {% endif %}
+                        {% if form.doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars is defined %}
+                            {{ form_row(form.doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars) }}
+                        {% endif %}
                     </fieldset>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="tab5" aria-labelledby="vars5Tab">
                     {% set tabTitle = 'Needles'|trans %}
                     <fieldset>
                         <legend>{{ tabTitle }}</legend>
-                        {{ form_row(form.replaceNeedles) }}
+                        {% if form.replaceNeedles is defined %}
+                            {{ form_row(form.replaceNeedles) }}
+                        {% endif %}
                     </fieldset>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="tab6" aria-labelledby="vars6Tab">
@@ -99,8 +125,12 @@
                         <legend>{{ tabTitle }}</legend>
                         <p class="alert alert-info">{% trans from 'config' %}Here you can configure parameters for list views.{% endtrans %}</p>
                         
-                        {{ form_row(form.entryEntriesPerPage) }}
-                        {{ form_row(form.showOnlyOwnEntries) }}
+                        {% if form.entryEntriesPerPage is defined %}
+                            {{ form_row(form.entryEntriesPerPage) }}
+                        {% endif %}
+                        {% if form.showOnlyOwnEntries is defined %}
+                            {{ form_row(form.showOnlyOwnEntries) }}
+                        {% endif %}
                     </fieldset>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="tab7" aria-labelledby="vars7Tab">
@@ -109,8 +139,12 @@
                         <legend>{{ tabTitle }}</legend>
                         <p class="alert alert-info">{% trans from 'config' %}Here you can define moderation-related settings.{% endtrans %}</p>
                         
-                        {{ form_row(form.allowModerationSpecificCreatorForEntry) }}
-                        {{ form_row(form.allowModerationSpecificCreationDateForEntry) }}
+                        {% if form.allowModerationSpecificCreatorForEntry is defined %}
+                            {{ form_row(form.allowModerationSpecificCreatorForEntry) }}
+                        {% endif %}
+                        {% if form.allowModerationSpecificCreationDateForEntry is defined %}
+                            {{ form_row(form.allowModerationSpecificCreationDateForEntry) }}
+                        {% endif %}
                     </fieldset>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="tabWorkflows" aria-labelledby="workflowsTab">
