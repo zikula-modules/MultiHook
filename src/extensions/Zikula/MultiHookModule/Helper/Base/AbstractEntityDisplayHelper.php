@@ -57,7 +57,19 @@ abstract class AbstractEntityDisplayHelper
     }
     
     /**
-     * Returns the formatted title for a given entity.
+     * Returns an additional description for a given entity.
+     */
+    public function getDescription(EntityAccess $entity): string
+    {
+        if ($entity instanceof EntryEntity) {
+            return $this->getEntryDescription($entity);
+        }
+    
+        return '';
+    }
+    
+    /**
+     * Returns the formatted title for a given entry.
      */
     protected function formatEntry(EntryEntity $entity): string
     {
@@ -68,6 +80,19 @@ abstract class AbstractEntityDisplayHelper
             ],
             'entry'
         );
+    }
+    
+    /**
+     * Returns an additional description for a given entry.
+     */
+    protected function getEntryDescription(EntryEntity $entity): string
+    {
+        $descriptionFieldName = $this->getDescriptionFieldName($entity->get_objectType());
+    
+        return isset($entity[$descriptionFieldName]) && !empty($entity[$descriptionFieldName])
+            ? $entity[$descriptionFieldName]
+            : ''
+        ;
     }
     
     /**

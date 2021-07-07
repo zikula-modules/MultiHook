@@ -33,8 +33,12 @@
                             <fieldset>
                                 <legend>{{ language|language_name }}</legend>
                                 {% if language == app.request.locale %}
-                                    {{ form_row(form.longForm) }}
-                                    {{ form_row(form.title) }}
+                                    {% if form.longForm is defined %}
+                                        {{ form_row(form.longForm) }}
+                                    {% endif %}
+                                    {% if form.title is defined %}
+                                        {{ form_row(form.title) }}
+                                    {% endif %}
                                 {% else %}
                                     {{ form_row(attribute(form, 'translations' ~ language)) }}
                                 {% endif %}
@@ -47,15 +51,25 @@
             {% set language = app.request.locale %}
             <fieldset>
                 <legend>{{ language|language_name }}</legend>
-                {{ form_row(form.longForm) }}
-                {{ form_row(form.title) }}
+                {% if form.longForm is defined %}
+                    {{ form_row(form.longForm) }}
+                {% endif %}
+                {% if form.title is defined %}
+                    {{ form_row(form.title) }}
+                {% endif %}
             </fieldset>
         {% endif %}
         <fieldset>
             <legend>{% trans from 'messages' %}Further properties{% endtrans %}</legend>
-            {{ form_row(form.shortForm) }}
-            {{ form_row(form.entryType) }}
-            {{ form_row(form.active) }}
+            {% if form.shortForm is defined %}
+                {{ form_row(form.shortForm) }}
+            {% endif %}
+            {% if form.entryType is defined %}
+                {{ form_row(form.entryType) }}
+            {% endif %}
+            {% if form.active is defined %}
+                {{ form_row(form.active) }}
+            {% endif %}
         </fieldset>
         
         {% if mode != 'create' %}

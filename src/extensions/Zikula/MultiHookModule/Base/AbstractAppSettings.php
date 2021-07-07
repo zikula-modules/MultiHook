@@ -188,11 +188,13 @@ abstract class AbstractAppSettings
         return $this->showEditLink;
     }
     
-    public function setShowEditLink(bool $showEditLink): void
+    public function setShowEditLink(bool $showEditLink): self
     {
         if ((bool) $this->showEditLink !== $showEditLink) {
             $this->showEditLink = $showEditLink;
         }
+    
+        return $this;
     }
     
     public function getReplaceOnlyFirstInstanceOfItems(): bool
@@ -200,11 +202,13 @@ abstract class AbstractAppSettings
         return $this->replaceOnlyFirstInstanceOfItems;
     }
     
-    public function setReplaceOnlyFirstInstanceOfItems(bool $replaceOnlyFirstInstanceOfItems): void
+    public function setReplaceOnlyFirstInstanceOfItems(bool $replaceOnlyFirstInstanceOfItems): self
     {
         if ((bool) $this->replaceOnlyFirstInstanceOfItems !== $replaceOnlyFirstInstanceOfItems) {
             $this->replaceOnlyFirstInstanceOfItems = $replaceOnlyFirstInstanceOfItems;
         }
+    
+        return $this;
     }
     
     public function getApplyReplacementsToCodeTags(): bool
@@ -212,11 +216,13 @@ abstract class AbstractAppSettings
         return $this->applyReplacementsToCodeTags;
     }
     
-    public function setApplyReplacementsToCodeTags(bool $applyReplacementsToCodeTags): void
+    public function setApplyReplacementsToCodeTags(bool $applyReplacementsToCodeTags): self
     {
         if ((bool) $this->applyReplacementsToCodeTags !== $applyReplacementsToCodeTags) {
             $this->applyReplacementsToCodeTags = $applyReplacementsToCodeTags;
         }
+    
+        return $this;
     }
     
     public function getReplaceAbbreviations(): bool
@@ -224,11 +230,13 @@ abstract class AbstractAppSettings
         return $this->replaceAbbreviations;
     }
     
-    public function setReplaceAbbreviations(bool $replaceAbbreviations): void
+    public function setReplaceAbbreviations(bool $replaceAbbreviations): self
     {
         if ((bool) $this->replaceAbbreviations !== $replaceAbbreviations) {
             $this->replaceAbbreviations = $replaceAbbreviations;
         }
+    
+        return $this;
     }
     
     public function getReplaceAcronyms(): bool
@@ -236,11 +244,13 @@ abstract class AbstractAppSettings
         return $this->replaceAcronyms;
     }
     
-    public function setReplaceAcronyms(bool $replaceAcronyms): void
+    public function setReplaceAcronyms(bool $replaceAcronyms): self
     {
         if ((bool) $this->replaceAcronyms !== $replaceAcronyms) {
             $this->replaceAcronyms = $replaceAcronyms;
         }
+    
+        return $this;
     }
     
     public function getReplaceAbbreviationsWithLongText(): bool
@@ -248,11 +258,13 @@ abstract class AbstractAppSettings
         return $this->replaceAbbreviationsWithLongText;
     }
     
-    public function setReplaceAbbreviationsWithLongText(bool $replaceAbbreviationsWithLongText): void
+    public function setReplaceAbbreviationsWithLongText(bool $replaceAbbreviationsWithLongText): self
     {
         if ((bool) $this->replaceAbbreviationsWithLongText !== $replaceAbbreviationsWithLongText) {
             $this->replaceAbbreviationsWithLongText = $replaceAbbreviationsWithLongText;
         }
+    
+        return $this;
     }
     
     public function getReplaceLinks(): bool
@@ -260,11 +272,13 @@ abstract class AbstractAppSettings
         return $this->replaceLinks;
     }
     
-    public function setReplaceLinks(bool $replaceLinks): void
+    public function setReplaceLinks(bool $replaceLinks): self
     {
         if ((bool) $this->replaceLinks !== $replaceLinks) {
             $this->replaceLinks = $replaceLinks;
         }
+    
+        return $this;
     }
     
     public function getReplaceLinksWithTitle(): bool
@@ -272,11 +286,13 @@ abstract class AbstractAppSettings
         return $this->replaceLinksWithTitle;
     }
     
-    public function setReplaceLinksWithTitle(bool $replaceLinksWithTitle): void
+    public function setReplaceLinksWithTitle(bool $replaceLinksWithTitle): self
     {
         if ((bool) $this->replaceLinksWithTitle !== $replaceLinksWithTitle) {
             $this->replaceLinksWithTitle = $replaceLinksWithTitle;
         }
+    
+        return $this;
     }
     
     public function getCssClassForExternalLinks(): string
@@ -284,11 +300,13 @@ abstract class AbstractAppSettings
         return $this->cssClassForExternalLinks;
     }
     
-    public function setCssClassForExternalLinks(string $cssClassForExternalLinks): void
+    public function setCssClassForExternalLinks(string $cssClassForExternalLinks): self
     {
         if ($this->cssClassForExternalLinks !== $cssClassForExternalLinks) {
             $this->cssClassForExternalLinks = $cssClassForExternalLinks ?? '';
         }
+    
+        return $this;
     }
     
     public function getReplaceCensoredWords(): bool
@@ -296,11 +314,13 @@ abstract class AbstractAppSettings
         return $this->replaceCensoredWords;
     }
     
-    public function setReplaceCensoredWords(bool $replaceCensoredWords): void
+    public function setReplaceCensoredWords(bool $replaceCensoredWords): self
     {
         if ((bool) $this->replaceCensoredWords !== $replaceCensoredWords) {
             $this->replaceCensoredWords = $replaceCensoredWords;
         }
+    
+        return $this;
     }
     
     public function getReplaceCensoredWordsWhenTheyArePartOfOtherWords(): bool
@@ -308,11 +328,13 @@ abstract class AbstractAppSettings
         return $this->replaceCensoredWordsWhenTheyArePartOfOtherWords;
     }
     
-    public function setReplaceCensoredWordsWhenTheyArePartOfOtherWords(bool $replaceCensoredWordsWhenTheyArePartOfOtherWords): void
+    public function setReplaceCensoredWordsWhenTheyArePartOfOtherWords(bool $replaceCensoredWordsWhenTheyArePartOfOtherWords): self
     {
         if ((bool) $this->replaceCensoredWordsWhenTheyArePartOfOtherWords !== $replaceCensoredWordsWhenTheyArePartOfOtherWords) {
             $this->replaceCensoredWordsWhenTheyArePartOfOtherWords = $replaceCensoredWordsWhenTheyArePartOfOtherWords;
         }
+    
+        return $this;
     }
     
     public function getDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars(): bool
@@ -320,11 +342,13 @@ abstract class AbstractAppSettings
         return $this->doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars;
     }
     
-    public function setDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars(bool $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars): void
+    public function setDoNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars(bool $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars): self
     {
         if ((bool) $this->doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars !== $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars) {
             $this->doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars = $doNotCensorFirstAndLastLetterInWordsWithMoreThanTwoChars;
         }
+    
+        return $this;
     }
     
     public function getReplaceNeedles(): bool
@@ -332,11 +356,13 @@ abstract class AbstractAppSettings
         return $this->replaceNeedles;
     }
     
-    public function setReplaceNeedles(bool $replaceNeedles): void
+    public function setReplaceNeedles(bool $replaceNeedles): self
     {
         if ((bool) $this->replaceNeedles !== $replaceNeedles) {
             $this->replaceNeedles = $replaceNeedles;
         }
+    
+        return $this;
     }
     
     public function getEntryEntriesPerPage(): int
@@ -344,11 +370,13 @@ abstract class AbstractAppSettings
         return $this->entryEntriesPerPage;
     }
     
-    public function setEntryEntriesPerPage(int $entryEntriesPerPage): void
+    public function setEntryEntriesPerPage(int $entryEntriesPerPage): self
     {
         if ((int) $this->entryEntriesPerPage !== $entryEntriesPerPage) {
             $this->entryEntriesPerPage = $entryEntriesPerPage;
         }
+    
+        return $this;
     }
     
     public function getShowOnlyOwnEntries(): bool
@@ -356,11 +384,13 @@ abstract class AbstractAppSettings
         return $this->showOnlyOwnEntries;
     }
     
-    public function setShowOnlyOwnEntries(bool $showOnlyOwnEntries): void
+    public function setShowOnlyOwnEntries(bool $showOnlyOwnEntries): self
     {
         if ((bool) $this->showOnlyOwnEntries !== $showOnlyOwnEntries) {
             $this->showOnlyOwnEntries = $showOnlyOwnEntries;
         }
+    
+        return $this;
     }
     
     public function getAllowModerationSpecificCreatorForEntry(): bool
@@ -368,11 +398,13 @@ abstract class AbstractAppSettings
         return $this->allowModerationSpecificCreatorForEntry;
     }
     
-    public function setAllowModerationSpecificCreatorForEntry(bool $allowModerationSpecificCreatorForEntry): void
+    public function setAllowModerationSpecificCreatorForEntry(bool $allowModerationSpecificCreatorForEntry): self
     {
         if ((bool) $this->allowModerationSpecificCreatorForEntry !== $allowModerationSpecificCreatorForEntry) {
             $this->allowModerationSpecificCreatorForEntry = $allowModerationSpecificCreatorForEntry;
         }
+    
+        return $this;
     }
     
     public function getAllowModerationSpecificCreationDateForEntry(): bool
@@ -380,11 +412,13 @@ abstract class AbstractAppSettings
         return $this->allowModerationSpecificCreationDateForEntry;
     }
     
-    public function setAllowModerationSpecificCreationDateForEntry(bool $allowModerationSpecificCreationDateForEntry): void
+    public function setAllowModerationSpecificCreationDateForEntry(bool $allowModerationSpecificCreationDateForEntry): self
     {
         if ((bool) $this->allowModerationSpecificCreationDateForEntry !== $allowModerationSpecificCreationDateForEntry) {
             $this->allowModerationSpecificCreationDateForEntry = $allowModerationSpecificCreationDateForEntry;
         }
+    
+        return $this;
     }
     
     /**

@@ -146,11 +146,13 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
         return $this->_objectType;
     }
     
-    public function set_objectType(string $_objectType): void
+    public function set_objectType(string $_objectType): self
     {
         if ($this->_objectType !== $_objectType) {
             $this->_objectType = $_objectType ?? '';
         }
+    
+        return $this;
     }
     
     public function getId(): ?int
@@ -158,11 +160,13 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
         return $this->id;
     }
     
-    public function setId(?int $id = null): void
+    public function setId(?int $id = null): self
     {
         if ((int) $this->id !== $id) {
             $this->id = $id;
         }
+    
+        return $this;
     }
     
     public function getWorkflowState(): string
@@ -170,11 +174,13 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
         return $this->workflowState;
     }
     
-    public function setWorkflowState(string $workflowState): void
+    public function setWorkflowState(string $workflowState): self
     {
         if ($this->workflowState !== $workflowState) {
             $this->workflowState = $workflowState ?? '';
         }
+    
+        return $this;
     }
     
     public function getShortForm(): string
@@ -182,11 +188,13 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
         return $this->shortForm;
     }
     
-    public function setShortForm(string $shortForm): void
+    public function setShortForm(string $shortForm): self
     {
         if ($this->shortForm !== $shortForm) {
             $this->shortForm = $shortForm ?? '';
         }
+    
+        return $this;
     }
     
     public function getLongForm(): string
@@ -194,11 +202,13 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
         return $this->longForm;
     }
     
-    public function setLongForm(string $longForm): void
+    public function setLongForm(string $longForm): self
     {
         if ($this->longForm !== $longForm) {
             $this->longForm = $longForm ?? '';
         }
+    
+        return $this;
     }
     
     public function getTitle(): string
@@ -206,11 +216,13 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
         return $this->title;
     }
     
-    public function setTitle(string $title): void
+    public function setTitle(string $title): self
     {
         if ($this->title !== $title) {
             $this->title = $title ?? '';
         }
+    
+        return $this;
     }
     
     public function getEntryType(): string
@@ -218,11 +230,13 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
         return $this->entryType;
     }
     
-    public function setEntryType(string $entryType): void
+    public function setEntryType(string $entryType): self
     {
         if ($this->entryType !== $entryType) {
             $this->entryType = $entryType ?? '';
         }
+    
+        return $this;
     }
     
     public function getActive(): bool
@@ -230,11 +244,13 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
         return $this->active;
     }
     
-    public function setActive(bool $active): void
+    public function setActive(bool $active): self
     {
         if ((bool) $this->active !== $active) {
             $this->active = $active;
         }
+    
+        return $this;
     }
     
     public function getLocale()
@@ -242,11 +258,13 @@ abstract class AbstractEntryEntity extends EntityAccess implements Translatable
         return $this->locale;
     }
     
-    public function setLocale($locale = null): void
+    public function setLocale($locale = null): self
     {
         if ($this->locale !== $locale) {
             $this->locale = $locale;
         }
+    
+        return $this;
     }
     
     /**
